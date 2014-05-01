@@ -1,0 +1,18 @@
+.sidebar-nav {
+  //    &:extend(.nav-list);
+  li {
+    border-color: #e5e5e5;
+    border-style: solid;
+    border-width: 0 0 1px;
+    &.active {
+      > a {
+        	 & , &:hover, &:focus, &:active {
+//		 background-color:blue;
+		 color:#e5e5e5;
+		 font-weight:bold;
+		 font-size:13px;
+	 }
+      }
+    }
+  }
+}

@@ -24,8 +24,8 @@
           <li ui-sref-active="active">
             <a ui-sref="app.home">Home</a>
           </li>
-          <li ui-sref-active="active">
-            <a ui-sref="app.classes">Classes</a>
+          <li ng-class="{active: $state.includes('app.classes.**')}">
+            <a ui-sref="app.classes.list">Classes</a>
           </li>
           <li ui-sref-active="active">
             <a href="#contact">Contact</a>
@@ -59,7 +59,7 @@
               </li>
               <li class="divider"></li>
               <li>
-                <a href="#" ng-click="logout()"><i class="fa fa-power-off fa-fw"></i> Logout</a>
+                <button class="btn btn-link" ng-click="logout()"><i class="fa fa-power-off fa-fw"></i> Logout</button>
               </li>
             </ul>
           </li>

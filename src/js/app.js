@@ -22,11 +22,8 @@ GoGrade.config(['$stateProvider', '$urlRouterProvider',
       .state('app.home', {
         url: '',
         templateUrl: 'partials/home/index.html'
-      })
-      .state('app.classes', {
-        url: '/classes',
-        templateUrl: 'modules/classes/partials/container.html'
       });
+
     $stateProvider
       .state('auth', {
         abstract: true,
@@ -45,3 +42,7 @@ GoGrade.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'partials/auth/login.html'
       });
   }]);
+
+GoGrade.run(['$rootScope', '$state', function($rootScope, $state) {
+  $rootScope.$state = $state;
+}]);
