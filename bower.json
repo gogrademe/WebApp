@@ -1,0 +1,24 @@
+{
+  "name": "GoGradeWeb",
+  "version": "0.0.0",
+  "authors": [
+    "Matt Aitchison <Matt@lanciv.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.10.0",
+    "angular-ui-router": "~0.2.10",
+    "angular": "~1.2.16",
+    "bootstrap": "~3.1.1",
+    "fontawesome": "~4.0.3"
+  }
+}

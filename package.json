@@ -1,0 +1,26 @@
+{
+  "name": "GoGradeWeb",
+  "version": "0.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:lanciv/gogradeweb.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp-rename": "^1.2.0",
+    "gulp-concat": "^2.2.0",
+    "gulp-uglify": "^0.2.1",
+    "gulp-clean": "^0.2.4",
+    "gulp": "^3.6.1",
+    "gulp-jshint": "^1.5.3",
+    "gulp-less": "^1.2.3",
+    "gulp-livereload": "^1.3.1",
+    "connect": "^2.14.5"
+  }
+}
