@@ -39,7 +39,6 @@ GoGrade.service('UserService', ['$state', '$rootScope', '$q', '$http', '$window'
         $rootScope.loggedInUser = null;
         $rootScope.loggedIn = false;
         $state.go('auth.login');
-      },
-      isLoggedIn()
+      }
     }
 }]);

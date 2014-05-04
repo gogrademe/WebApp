@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -20,31 +20,37 @@
     <![endif]-->
 
   <body>
-    <div ui-view="header"></div>
-
-    <div id="main" class="container" ui-view="content"></div>
+      <div id="app" class="container">
+    <p>If you can see this, something is broken (or JS is not enabled)..</p>
+  </div>
 
     <!-- JS Files-->
-    <script src="bower/jquery/dist/jquery.min.js"></script>
+<!--     <script src="bower/jquery/dist/jquery.min.js"></script>
     <script src="bower/angular/angular.min.js"></script>
     <script src="bower/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="bower/angular-data/dist/angular-data.js"></script>
-    <script src="bower/angular-local-storage/angular-local-storage.js"></script>
+    <script src="bower/angular-local-storage/angular-local-storage.js"></script> -->
+
+ <!--    <script src="bower/react/JSXTransformer.js"></script> -->
 
 
     <!--    App Files-->
-    <script src="js/app.js"></script>
+    <script type="text/javascript" src="bundle.js"></script>
+  <!--   <script src="js/app-ang.js"></script>
     <script src="modules/auth/authService.js"></script>
     <script src="modules/auth/loginCtrl.js"></script>
-    
+
     <script src="modules/teachers/states.js"></script>
     <script src="modules/teachers/list.js"></script>
-    
-    <script src="modules/classes/states.js"></script>
-    
-    <script src="modules/navbar/controller.js"></script>
 
-    
+    <script src="modules/classes/states.js"></script>
+
+    <script src="modules/navbar/controller.js"></script>
+    <script type="text/jsx" src="js/components/header/headerBar.js"></script>
+    <script type="text/jsx" src="js/components/login/login.js"></script>
+    <script type="text/jsx" src="js/app.js"></script> -->
+
+
   </body>
 </html>
