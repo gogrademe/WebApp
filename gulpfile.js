@@ -4,6 +4,7 @@ var path = require('path');
 
 var less = require('gulp-less');
 var clean = require('gulp-clean');
+var plumber = require('gulp-plumber');
 var browserSync = require('browser-sync');
 
 var dist = './dist';
@@ -12,6 +13,7 @@ var src = './src';
 
 gulp.task('less', function () {
   gulp.src('./src/less/styles.less')
+    .pipe(plumber())
     .pipe(less({
       paths: [path.join(__dirname, 'less', 'includes')]
     }))
@@ -21,9 +23,8 @@ gulp.task('less', function () {
     }));
 });
 
-
 gulp.task('browser-sync', function () {
-  browserSync.init([src + '/index.html', src + '/js/**', src + '/modules/**'], {
+  browserSync.init([src + '/index.html', src + '/js/**', src + '/modules/**/*.*'], {
     notify: true,
     ghostMode: false,
     server: {

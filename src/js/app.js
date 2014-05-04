@@ -1,8 +1,11 @@
-var GoGrade = angular.module('app', ['ui.router', 'ui.bootstrap']);
+var GoGrade = angular.module('app', ['ui.router', 'ui.bootstrap', 'angular-data.DS','LocalStorageModule']);
 
-GoGrade.config(['$stateProvider', '$urlRouterProvider',
- function ($stateProvider, $urlRouterProvider) {
+GoGrade.config(['$stateProvider', '$urlRouterProvider', 'DSProvider', 'localStorageServiceProvider',
+ function ($stateProvider, $urlRouterProvider, DSProvider, localStorageServiceProvider) {
 
+    DSProvider.defaults.baseUrl = 'http://localhost:3000';
+    localStorageServiceProvider.setPrefix('goGradeWeb');
+   
     $urlRouterProvider.otherwise('/app');
     //
     // Now set up the states
@@ -41,8 +44,13 @@ GoGrade.config(['$stateProvider', '$urlRouterProvider',
         controller: 'LoginController',
         templateUrl: 'partials/auth/login.html'
       });
+   
+   var resolveLoggedInUser = ['$rootScope', 'UserService', function($rootScope, UserService) {
+     
+   }]
   }]);
 
-GoGrade.run(['$rootScope', '$state', function($rootScope, $state) {
-  $rootScope.$state = $state;
+GoGrade.run(['$rootScope', '$state',
+  function ($rootScope, $state) {
+    $rootScope.$state = $state;
 }]);

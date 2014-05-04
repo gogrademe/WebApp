@@ -5,18 +5,22 @@
 //@navbar-default-link-color: @body-bg;
 @navbar-default-link-color: #fff;
 @navbar-default-link-active-color: darken(@navbar-default-bg, 10%);
-@navbar-default-link-hover-color: darken(@navbar-default-bg, 45%);
+@navbar-default-link-hover-color: darken(@navbar-default-bg, 25%);
 @navbar-default-brand-hover-color: @navbar-default-link-hover-color;
 
 @navbar-default-border: none;
 //@navbar-default-link-active-bg: @body-bg;
 @navbar-default-link-active-bg: @panel-default-heading-bg;
 
-.navbar-brand > img {
-  height: 28px;
-  padding-right: 5px;
-  width: auto;
+.navbar-brand {
+  padding: 5px 10px;
+  > img {
+    height: 28px;
+    padding-right: 5px;
+    width: auto;
+  }
 }
+
 .navbar-collapse {
   padding-left: 0;
 }
@@ -28,8 +32,7 @@
 //  padding-left: 30px;
 //}
 .navbar-nav > li {
-  &.open > a,
-  &:hover > a{
+  &.open > a{
     border-bottom: 1px solid #ddd;
   }
   > .dropdown-menu {
@@ -109,4 +112,5 @@
   z-index: 5;
   position: fixed;
   width: 100%;
+  border-bottom: 1px solid #ddd;
 }

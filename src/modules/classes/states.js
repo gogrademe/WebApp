@@ -34,7 +34,7 @@ GoGrade.config(function ($stateProvider) {
     })
     .state('app.classes.list', {
       url: '',
-      templateUrl: 'partials/classes/list.html'
+      templateUrl: 'modules/classes/partials/list.html'
     })
     .state('app.classes.detail', {
       url: '/:id',
