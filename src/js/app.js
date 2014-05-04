@@ -46,7 +46,7 @@ GoGrade.config(['$stateProvider', '$urlRouterProvider', 'DSProvider', 'localStor
       });
    
    var resolveLoggedInUser = ['$rootScope', 'UserService', function($rootScope, UserService) {
-     
+     vat token = 
    }]
   }]);
 
