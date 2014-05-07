@@ -1,13 +1,22 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var AuthConstants = require('../constants/AuthConstants');
+var request = require('superagent');
 var merge = require('react/lib/merge');
 
 var CHANGE_EVENT = 'change';
 
-var _auth = {};
 
-
+var _currentUser = {};
+var _isLoggedIn = false;
+// var _isLoggedIn = function() {
+//   console.log(_currentUser);
+//   if(_currentUser){
+//     return true;
+//   } else {
+//     return false;
+//   }
+// };
 function login(username, password) {
     request
     .post('http://localhost:3000/authenticate')
@@ -15,13 +24,22 @@ function login(username, password) {
     .send({username: username, password:password})
     .end(function(error, res){
       console.log(res);
-      if (res.Error) {
+      if (res.status != 200) {
+        _isLoggedIn = false;
         console.log("Authentication failed");
+      } else {
+        _isLoggedIn = true;
       }
     });
 }
 var AuthStore = merge(EventEmitter.prototype, {
-
+  getCurrentUser: function() {
+    //{userName: 'Someone', role: 'Admin'}
+    return _currentUser;
+  },
+  isLoggedIn: function() {
+    return _isLoggedIn;
+  },
 
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -43,14 +61,17 @@ var AuthStore = merge(EventEmitter.prototype, {
 });
 // Register to handle all updates
 AppDispatcher.register(function(payload) {
+  console.log(payload);
   var action = payload.action;
-  var text;
+  var username;
+  var password;
 
   switch(action.actionType) {
     case AuthConstants.AUTH_LOGIN:
-      text = action.text.trim();
-      if (text !== '') {
-        create(text);
+      username = action.username.trim();
+      password = action.password.trim();
+      if (username !== '' && password !== '') {
+        login(username, password);
       }
       break;
 

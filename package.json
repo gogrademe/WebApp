@@ -4,8 +4,8 @@
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "webpack --watch --debug src/js/app.js build/js/app.js",
-    "devSrv": "webpack-dev-server --port 9073 --progress --colors --debug src/js/app.js"
+    "start": "webpack --watch --debug src/js/app.js build/bundle.js",
+    "devSrv": "node devSrv.js"
   },
   "repository": {
     "type": "git",
@@ -14,6 +14,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "backbone": "^1.1.2",
     "browser-sync": "^0.8.2",
     "browserify": "^3.46.0",
     "connect": "^2.14.5",
@@ -28,12 +29,15 @@
     "gulp-plumber": "^0.6.1",
     "gulp-rename": "^1.2.0",
     "gulp-uglify": "^0.2.1",
+    "less": "^1.7.0",
+    "mout": "^0.9.1",
     "react": "^0.10.0",
-    "react-async": "^0.9.1",
-    "react-router-component": "^0.18.2",
     "reactify": "^0.13.1",
     "superagent": "^0.18.0",
     "vinyl-source-stream": "^0.1.1",
-    "watchify": "^0.8.3"
+    "watchify": "^0.8.3",
+    "gulp-util": "^2.2.14",
+    "jquery": "^2.1.1",
+    "director": "^1.2.3"
   }
 }

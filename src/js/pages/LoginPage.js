@@ -1,22 +1,20 @@
 /** @jsx React.DOM */
 var React = require('react');
 var request = require('superagent');
-var Panel = require('../panel');
-var AuthActions = require('../../actions/AuthActions')
-var LoginForm = React.createClass({
+var Panel = require('../components/panel');
+var AuthActions = require('../actions/AuthActions');
+var LoginPage = React.createClass({
   handleSubmit: function() {
     var username = this.refs.username.getDOMNode().value.trim();
     var password = this.refs.password.getDOMNode().value.trim();
 
     AuthActions.login(username, password);
 
-    console.log(username, password);
-
     return false;
   },
   render: function() {
   return (
-    <Panel className="form-login">
+    <Panel className="form-login" title="Login">
       <form className="form-horizontal" onSubmit={this.handleSubmit} >
         <div className="input-group field">
           <span className="input-group-addon"><i className="fa fa-user fa-fw"></i></span>
@@ -37,4 +35,4 @@ var LoginForm = React.createClass({
 }
 });
 
-module.exports = LoginForm;
+module.exports = LoginPage;

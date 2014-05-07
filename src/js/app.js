@@ -1,13 +1,12 @@
 /** @jsx React.DOM */
-
 var React = require('react');
-
 
 window.React = React;
 
-var GoGradeApp = require('./components/GoGradeApp');
+// var GoGradeApp = require('./components/GoGradeApp');
+require('./page');
 
-React.renderComponent(
-    <GoGradeApp />,
-    document.getElementById('app')
-);
+// React.renderComponent(
+//     <Page />,
+//     document.getElementById('app')
+// );
