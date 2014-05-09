@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
-var HeaderBar = require('./headerBar');
-var HeaderNav = require('./headerNav');
+var HeaderBar = require('./headerBar.jsx');
+var HeaderNav = require('./headerNav.jsx');
 var Header = React.createClass({
   getDefaultProps: function() {
     return {

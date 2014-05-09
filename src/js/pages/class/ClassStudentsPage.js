@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react');
-var Panel = require('../../components/panel');
+var Panel = require('../../components/base/Panel.jsx');
 var Grid = require('../../components/Grid/Grid');
 
 var data = [{

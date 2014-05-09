@@ -1,6 +1,11 @@
 /** @jsx React.DOM */
 var React = require('react');
 
+var Router = require('react-router-component');
+var Link = Router.Link;
+
+var HighlightedLink = require('../HighlightedLink.jsx');
+
 var HeaderNav = React.createClass({
   render: function() {
   return (
@@ -9,7 +14,7 @@ var HeaderNav = React.createClass({
             <div className="container">
               <div className="navbar-header">
                 <a className="navbar-brand" href="#">
-                  <img src="img/lanciv-logo-final.png" />Cunae Gradebook
+                  <img src="assets/img/lanciv-logo-final.png" />Cunae Gradebook
                 </a>
               </div>
               <div className="collapse navbar-collapse" id="navbar-collapse1">
@@ -28,12 +33,8 @@ var HeaderNav = React.createClass({
               </div>
               <div className="navbar-collapse collapse">
                 <ul className="nav navbar-nav">
-                  <li>
-                    <a>Home</a>
-                  </li>
-                  <li>
-                    <a >Classes</a>
-                  </li>
+                    <HighlightedLink activeClassName="active" href="/">Home</HighlightedLink>
+                    <HighlightedLink activeClassName="active" href="/classes/" matchPattern="/classes/*">Classes</HighlightedLink>
                   <li >
                     <a href="#contact">Contact</a>
                   </li>
@@ -75,7 +76,7 @@ var HeaderNav = React.createClass({
             </div>
           </div>
         </div>
-  )
+  );
 }
 });
 
