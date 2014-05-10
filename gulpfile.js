@@ -10,6 +10,7 @@ var clean = require('gulp-clean');
 var plumber = require('gulp-plumber');
 var browserSync = require('browser-sync');
 var webpack = require("webpack");
+var modRewrite = require('connect-modrewrite');
 
 
 var webpackConfig = require("./webpack.config.js");
@@ -43,8 +44,11 @@ gulp.task('browser-sync', function () {
     ghostMode: false,
     open: false,
     server: {
-      baseDir: dist
-
+      baseDir: dist,
+      middleware: [
+        modRewrite(['!\.html|\.woff|\.js|\.ttf|\.svg|\.css|\.png$ /index.html [L]'])
+      ]
+      // middleware: [modRewrite ['!\.html|\.js|\.css|\.png$ /index.html [L]']]
     }
   });
 });

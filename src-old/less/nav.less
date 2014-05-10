@@ -1,0 +1,117 @@
+@navbar-height: 40px;
+@navbar-default-bg: @tealDark2;
+
+@navbar-border-radius: 0;
+//@navbar-default-link-color: @body-bg;
+@navbar-default-link-color: #fff;
+@navbar-default-link-active-color: darken(@navbar-default-bg, 10%);
+@navbar-default-link-hover-color: darken(@navbar-default-bg, 25%);
+@navbar-default-brand-hover-color: @navbar-default-link-hover-color;
+
+@navbar-default-border: none;
+//@navbar-default-link-active-bg: @body-bg;
+@navbar-default-link-active-bg: @panel-default-heading-bg;
+
+.navbar-brand {
+  padding: 5px 10px;
+  > img {
+    height: 28px;
+    padding-right: 5px;
+    width: auto;
+  }
+}
+
+.navbar-collapse {
+  padding-left: 0;
+}
+//.navbar-default .dropdown-menu {
+//  border-top: 0;
+//  background-color: #fff;
+//}
+//.navbar-default .dropdown-menu li > a {
+//  padding-left: 30px;
+//}
+.navbar-nav > li {
+  &.open > a{
+    border-bottom: 1px solid #ddd;
+  }
+  > .dropdown-menu {
+    .border-top-radius(4px);
+
+    margin-top: 5px;
+    right: 0;
+    left: auto;
+  }
+}
+.nav > .open > a, .nav .open > a:hover {
+  color: darken(@tealDark2, 15%);
+  border-color: darken(#ddd, 15%);
+}
+//.header {
+//  border-width: 0;
+////  background-color: @navbar-default-bg;
+//
+//}
+//.header .navbar-collapse {
+//  background-color: #ffffff;
+//}
+
+/* end theme */
+
+/* template layout*/
+
+.header-tall {
+  height: calc(@navbar-height * 2);
+}
+.header-tall .navbar-brand {
+  font-size: 20px;
+}
+.nav-justified .navbar-brand {
+  left: 50%;
+  margin-left: -140px;
+  top: 0;
+  right: 0;
+  position: absolute;
+  //  float: none;
+
+}
+.header-tall .navbar-brand img {
+  height: 60px;
+  padding-right: 10px;
+}
+@media (max-width: 768px) {
+  #subnav {
+    padding-top: 6px;
+  }
+}
+/* New Styling */
+
+// Navbar bottom border
+//.navbar-nav > .active > a {
+//  border: 0 solid #ddd;
+//  border-bottom-width: 1px;
+//}
+.navbar-nav {
+  &.pull-right {
+    margin-right: -15px;
+  }
+  > .active > a {
+    //    border: 0 solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+}
+.header .container:after {
+  background: transparent url("../img/horizontal-divide.png") left top repeat-x;
+  height: 1px;
+  width: 100%;
+}
+.subnav {
+  margin-top: -60px;
+  // margin-top: @navbar-height;
+
+  border-width: 0;
+  z-index: 5;
+  position: fixed;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
