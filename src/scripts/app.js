@@ -4,13 +4,24 @@ require('../less/styles.less');
 
 React = require('react');
 
-var Routed = require('Reactful-Router');
-var Link = Routed.Link;
-var Router = Routed.Router;
+// var Routed = require('Reactful-Router');
+// var Link = Routed.Link;
+// var Router = Routed.Router;
+
+var Router = require('react-router-component');
+var Locations = Router.Locations;
+var Location = Router.Location;
+var NotFound = Router.NotFound;
+
 
 var Header = require('./components/Header.jsx');
 var LoginPage = require('./pages/LoginPage.jsx');
 var DashboardPage = require('./pages/Dashboard.jsx');
+var ClassesPage = require('./pages/ClassesPage.jsx');
+
+var NotFountPage = require('./pages/NotFoundPage.jsx');
+
+
 
 var AuthStore = require('./core/stores/AuthStore');
 
@@ -32,11 +43,9 @@ var App = React.createClass({
   },
   render: function() {
     return (
-      <Root isLoggedIn={this.state.isLoggedIn}>
-        <DashboardPage path="/"/>
-        <LoginPage path="/login"/>
-        <DashboardPage path="/dashboard"/>
-      </Root>
+      <Locations>
+        <Location path="/*" handler={Root} isLoggedIn={this.state.isLoggedIn}/>
+      </Locations>
     );
   },
   _onChange: function() {
@@ -45,13 +54,12 @@ var App = React.createClass({
 });
 
 var Root = React.createClass({
-  mixins: [Router],
-  componentWillReceiveProps: function(nextProps) {
-    console.log('componentWillReceiveProps');
-    if(this.props.isLoggedIn == false && nextProps.isLoggedIn == true) {
-      this.navigate('/dashboard');
-    }
-  },
+  // componentWillReceiveProps: function(nextProps) {
+  //   console.log('componentWillReceiveProps');
+  //   if(this.props.isLoggedIn == false && nextProps.isLoggedIn == true) {
+  //     this.navigate('/dashboard');
+  //   }
+  // },
   // componentWillMount: function() {
   //   console.log('componentWillMount');
   //   if (this.props.isLoggedIn != true) {
@@ -61,28 +69,43 @@ var Root = React.createClass({
   //   }
   // },
 
-  onBeforeNavigate: function(path) {
-    console.log('onBeforeNavigate');
-    if (this.props.isLoggedIn != true && path != "/login") {
-      this.navigate('/login');
-      return false;
-    } else if (this.props.isLoggedIn === true && path === '/login') {
-      this.navigate('/dashboard');
-      return false;
-    }
+  // onBeforeNavigate: function(path) {
+  //   console.log('onBeforeNavigate');
+  //   if (this.props.isLoggedIn != true && path != "/login") {
+  //     this.navigate('/login');
+  //     return false;
+  //   } else if (this.props.isLoggedIn === true && path === '/login') {
+  //     this.navigate('/dashboard');
+  //     return false;
+  //   }
 
-    return true;
-  },
+  //   // console.log(History.checkUrl());
+
+  //   return true;
+  // },
   render: function() {
     return (
       <div>
         <Header isLoggedIn={this.props.isLoggedIn}/>
         <div className="container">
-          {this.outlet()}
+        <Locations contextual>
+          <Location path="/" handler={LoginPage} />
+          <Location path="/dashboard" handler={DashboardPage} />
+          <Location path="/classes/*" handler={ClassesPage} />
+          <NotFound handler={NotFountPage} />
+        </Locations>
         </div>
       </div>
     );
   }
 });
+     /**   <Locations contextual>
+        <Location path="/test" handler={DashboardPage}/>
+
+        </Locations> */
+
+        // <Location path="/login"/>
+        // <Location path="/dashboard"/>
+        // <Location path="/classes" />
 
 React.renderComponent(<App/>, document.getElementById('app'));

@@ -1,12 +1,11 @@
 var Panel = require('../components/Panel.jsx');
 
-var Routed = require('Reactful-Router');
-var Link = Routed.Link;
-var Router = Routed.Router;
+// var Routed = require('Reactful-Router');
+// var Link = Routed.Link;
+// var Router = Routed.Router;
 
 var AuthActions = require('../core/actions/AuthActions');
 var LoginPage = React.createClass({
-  mixins: [Router],
   handleSubmit: function() {
     var username = this.refs.username.getDOMNode().value.trim();
     var password = this.refs.password.getDOMNode().value.trim();

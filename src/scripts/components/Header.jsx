@@ -1,8 +1,10 @@
 /** @jsx React.DOM */
 
-var Routed = require('Reactful-Router');
-var Link = Routed.NavLink;
-var Router = Routed.Router;
+var Router = require('react-router-component');
+var Link = require('./HighlightedLink.jsx');
+
+var DropdownMenu = require('react-bootstrap').DropdownMenu;
+var MenuItem = require('react-bootstrap').MenuItem;
 
 var HeaderBar = React.createClass({
     render: function () {
@@ -46,27 +48,8 @@ var HeaderNav = React.createClass({
               </div>
               <div className="navbar-collapse collapse">
                 <ul className="nav navbar-nav">
-                    <Link activeClassName="active" to="/dashboard">Dashboard</Link>
-                    <Link activeClassName="active" to="/classes/">Classes</Link>
-                  <li >
-                    <a href="#contact">Contact</a>
-                  </li>
-                  <li className="dropdown">
-                    <a href="#" className="dropdown-toggle" data-toggle="dropdown">Setup
-                        <b className="caret"></b>
-                      </a>
-                    <ul className="dropdown-menu">
-                      <li>
-                        <a>Teachers</a>
-                      </li>
-                      <li>
-                        <a href="#">Students</a>
-                      </li>
-                      <li>
-                        <a href="#">Subjects</a>
-                      </li>
-                    </ul>
-                  </li>
+                    <Link activeClassName="active" href="/dashboard" matchPattern="/dashboard">Dashboard</Link>
+                    <Link activeClassName="active" href="/classes/" matchPattern="/classes/*">Classes</Link>
                 </ul>
                 <ul className="nav navbar-nav pull-right">
                   <li className="dropdown">
@@ -74,17 +57,14 @@ var HeaderNav = React.createClass({
                       <i className="fa fa-user fa-fw"></i> Matt Aitchison
                       <b className="caret"></b>
                     </a>
-                    <ul className="dropdown-menu" role="menu">
-                      <li>
-                        <a href="#"><i className="fa fa-cogs fa-fw"></i> Settings</a>
-                      </li>
-                      <li className="divider"></li>
-                      <li>
-                        <button className="btn btn-link"><i className="fa fa-power-off fa-fw"></i> Logout</button>
-                      </li>
-                    </ul>
+                    <DropdownMenu>
+                      <MenuItem key="1">Dropdown link</MenuItem>
+                      <MenuItem key="2">Dropdown link</MenuItem>
+                    </DropdownMenu>
                   </li>
                 </ul>
+
+
               </div>
             </div>
           </div>
@@ -92,6 +72,24 @@ var HeaderNav = React.createClass({
   );
 }
 });
+                // <ul className="nav navbar-nav pull-right">
+
+                //   <li className="dropdown">
+                //     <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                //       <i className="fa fa-user fa-fw"></i> Matt Aitchison
+                //       <b className="caret"></b>
+                //     </a>
+                //     <ul className="dropdown-menu" role="menu">
+                //       <li>
+                //         <a href="#"><i className="fa fa-cogs fa-fw"></i> Settings</a>
+                //       </li>
+                //       <li className="divider"></li>
+                //       <li>
+                //         <button className="btn btn-link"><i className="fa fa-power-off fa-fw"></i> Logout</button>
+                //       </li>
+                //     </ul>
+                //                   </li>
+                // </ul>
 
 
 var Header = React.createClass({

@@ -19,22 +19,18 @@ module.exports = {
   // },
   module: {
     loaders: [
-      { test: /\.jsx$/, loader: "jsx-loader?insertPragma=React.DOM" },
+      { test: /\.jsx$/, loader: "jsx-loader?insertPragma=React.DOM&harmony=true" },
       { test: /\.less$/, loader: "style-loader!css-loader!less-loader" },
       { test: /\.gif/, loader: "url-loader?limit=10000&minetype=image/gif" },
       { test: /\.jpg/, loader: "url-loader?limit=10000&minetype=image/jpg" },
       { test: /\.png/, loader: "url-loader?limit=10000&minetype=image/png" },
-      { test: /\.js$/, loader: "jsx-loader" },
+      { test: /\.js$/, loader: "jsx-loader?harmony=true" },
       { test: /\.woff$/,   loader: "url-loader?prefix=font/&limit=10000&mimetype=application/font-woff" },
       { test: /\.ttf$/,    loader: "file-loader?prefix=font/" },
       { test: /\.eot$/,    loader: "file-loader?prefix=font/" },
       { test: /\.svg$/,    loader: "file-loader?prefix=font/" }
     ],
     noParse: /\.min\.js/
-  },
-  console: true,
-  optimize: {
-    LimitChunkCountPlugin: 20,
   },
   plugins: [
     new webpack.optimize.DedupePlugin()

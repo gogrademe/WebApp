@@ -6,15 +6,15 @@ var Panel = require('../components/Panel.jsx');
 // var Router = Routed.Router;
 
 
-var DashboardPage = React.createClass({
+var NotFoundPage = React.createClass({
 
   render: function() {
         return (
-        <Panel title="Dashboard" hasBody>
-           This will be a cool dashboard soon!
+        <Panel title="Oops!" hasBody>
+           The requested page could not be found.
         </Panel>
         );
     }
   });
 
-module.exports = DashboardPage;
+module.exports = NotFoundPage;

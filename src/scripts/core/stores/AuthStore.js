@@ -52,7 +52,7 @@ function _isLoggedIn() {
 
 function login(username, password) {
     request
-        .post('http://10.1.1.109:3000/authenticate')
+        .post('http://localhost:3000/authenticate')
         .type('form')
         .send({
             username: username,
