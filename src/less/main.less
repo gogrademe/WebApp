@@ -1,0 +1,45 @@
+// * {
+//   font-family: 'Questrial', sans-serif;
+// }
+
+#app {
+  padding-top: 100px;
+}
+
+//body {
+//  background-image: url('../img/grey_wash.png');
+//}
+
+.two-col {
+  .make-row();
+  .sidebar {
+    .make-sm-column(2);
+    .make-md-column(3);
+  }
+  .content-area {
+    .make-sm-column(10);
+    .make-md-column(9);
+  }
+}
+
+.animate-enter {
+  opacity    : 0.01;
+  transition : opacity .5s ease-in;
+}
+
+.animate-enter.animate-enter-active {
+  opacity : 1;
+}
+
+.animate-leave {
+  opacity    : 1;
+  transition : opacity .5s ease-in;
+}
+
+.animate-leave.animate-leave-active {
+  opacity : 0.01;
+}
+
+// a {
+//   cursor : pointer;
+// }

@@ -1,0 +1,3 @@
+GoGrade.controller('TeacherList', ['',function() {
+  
+}]);
