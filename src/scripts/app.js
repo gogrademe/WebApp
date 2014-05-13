@@ -2,7 +2,8 @@
 
 require('../less/styles.less');
 
-React = require('react');
+
+React = require('react/addons');
 
 // var Routed = require('Reactful-Router');
 // var Link = Routed.Link;
@@ -18,7 +19,7 @@ var Header = require('./components/Header.jsx');
 var LoginPage = require('./pages/LoginPage.jsx');
 var DashboardPage = require('./pages/Dashboard.jsx');
 var ClassesPage = require('./pages/ClassesPage.jsx');
-
+var StudentsPage = require('./pages/StudentsPage.jsx');
 var NotFountPage = require('./pages/NotFoundPage.jsx');
 
 
@@ -92,6 +93,7 @@ var Root = React.createClass({
           <Location path="/" handler={LoginPage} />
           <Location path="/dashboard" handler={DashboardPage} />
           <Location path="/classes/*" handler={ClassesPage} />
+          <Location path="/students/*" handler={StudentsPage} />
           <NotFound handler={NotFountPage} />
         </Locations>
         </div>

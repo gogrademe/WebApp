@@ -1,9 +1,10 @@
 
 var Panel = require('../components/Panel.jsx');
-
+var Grid = require('react-grid');
 // var HomePage = require('./ClassHomePage');
 // var StudentsPage = require('./ClassStudentsPage');
-
+var StudentActions = require('../core/actions/StudentActions');
+var StudentStore = require('../core/stores/StudentStore');
 
 // var Routed = require('Reactful-Router');
 // var Link = Routed.NavLink;
@@ -44,40 +45,44 @@ var ClassGrades = React.createClass({
   }
 
 });
+
+var columns = [
+  {
+    name: '#',
+    width: '20%',
+    key: 0,
+    resizeable: true
+  },
+  {
+    name: 'Name',
+    width: '80%',
+    key: 1,
+    resizeable: true
+  }
+];
+function rows(start, end) {
+
+  var rRows = [];
+  for (var i = start; i < end; i++) {
+    rRows.push([i, 'Name ' + i]);
+  }
+  console.log(rRows);
+  return rRows;
+}
+
 var ClassStudents = React.createClass({
+
   render: function() {
+    StudentActions.create({firstName: "test"});
+    console.log(StudentStore.getAll());
     return (
       <Panel title="Students">
-        <table className="table table-hover">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </table>
+        <Grid
+          columns={columns}
+          length={10000}
+          rows={rows}
+          rowHeight={40}
+          />
       </Panel>
     );
   }
@@ -95,17 +100,17 @@ var ClassSettings = React.createClass({
 });
 
 
-var ClassMain = React.createClass({
+var ClassDetail = React.createClass({
   render: function() {
     return (
       <div className="two-col">
         <Panel title="Nav" className="sidebar">
           <ul className="sidebar-nav nav">
-            <Link href="/classes/" matchPattern="/classes/">Home</Link>
-            <Link href="/classes/assignments" matchPattern="/classes/assignments">Assignments</Link>
-            <Link href="/classes/grades">Grades</Link>
-            <Link href="/classes/students">Students</Link>
-            <Link href="/classes/settings">Settings</Link>
+            <Link href={this.props.id + '/'} matchPattern="/classes/">Home</Link>
+            <Link href={this.props.id + '/assignments'} matchPattern="/classes/assignments">Assignments</Link>
+            <Link href={this.props.id + '/grades'}>Grades</Link>
+            <Link href={this.props.id + '/students'}>Students</Link>
+            <Link href={this.props.id + '/settings'}>Settings</Link>
           </ul>
         </Panel>
           <Locations contextual className="content-area">
@@ -120,5 +125,26 @@ var ClassMain = React.createClass({
     );
   }
 });
+var ClassList = React.createClass({
+  render: function() {
+    return (
+      <div>
+         Some list
+      </div>
+    );
+  }
+});
+var ClassPage = React.createClass({
+  render: function() {
+    return (
+      <div>
+          <Locations contextual>
+            <Location path="/" handler={ClassList} />
+            <Location path="/:id/*" handler={ClassDetail} />
+          </Locations>
+      </div>
+    );
+  }
+});
 
-module.exports = ClassMain;
+module.exports = ClassPage;

@@ -3,7 +3,7 @@
 var Router = require('react-router-component');
 var Link = require('./HighlightedLink.jsx');
 
-var DropdownMenu = require('react-bootstrap').DropdownMenu;
+var DropdownButton = require('react-bootstrap').DropdownButton;
 var MenuItem = require('react-bootstrap').MenuItem;
 
 var HeaderBar = React.createClass({
@@ -50,21 +50,14 @@ var HeaderNav = React.createClass({
                 <ul className="nav navbar-nav">
                     <Link activeClassName="active" href="/dashboard" matchPattern="/dashboard">Dashboard</Link>
                     <Link activeClassName="active" href="/classes/" matchPattern="/classes/*">Classes</Link>
+                    <Link activeClassName="active" href="/students/" matchPattern="/students/*">Students</Link>
                 </ul>
                 <ul className="nav navbar-nav pull-right">
-                  <li className="dropdown">
-                    <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                      <i className="fa fa-user fa-fw"></i> Matt Aitchison
-                      <b className="caret"></b>
-                    </a>
-                    <DropdownMenu>
+                    <DropdownButton title="Matt Aitchison" className="btn-link">
                       <MenuItem key="1">Dropdown link</MenuItem>
                       <MenuItem key="2">Dropdown link</MenuItem>
-                    </DropdownMenu>
-                  </li>
+                    </DropdownButton>
                 </ul>
-
-
               </div>
             </div>
           </div>

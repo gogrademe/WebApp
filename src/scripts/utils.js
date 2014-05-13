@@ -4,5 +4,6 @@ module.exports = {
     camelCase: require('mout/string/camelCase'),
     forEach: require('mout/array/forEach'),
     pick: require('mout/object/pick'),
-    contains: require('mout/array/contains')
+    contains: require('mout/array/contains'),
+    find: require('mout/collection/find')
 };
