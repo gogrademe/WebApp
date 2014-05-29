@@ -8,7 +8,9 @@ React = require('react/addons');
 // var Routed = require('Reactful-Router');
 // var Link = Routed.Link;
 // var Router = Routed.Router;
-
+AppCfg = {
+  apiUrl: 'http://localhost:3088/api'
+}
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;

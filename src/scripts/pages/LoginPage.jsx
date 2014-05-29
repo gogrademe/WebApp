@@ -7,10 +7,10 @@ var Panel = require('../components/Panel.jsx');
 var AuthActions = require('../core/actions/AuthActions');
 var LoginPage = React.createClass({
   handleSubmit: function() {
-    var username = this.refs.username.getDOMNode().value.trim();
+    var email = this.refs.email.getDOMNode().value.trim();
     var password = this.refs.password.getDOMNode().value.trim();
 
-    AuthActions.login(username, password);
+    AuthActions.login(email, password);
 
     return false;
   },
@@ -20,7 +20,7 @@ var LoginPage = React.createClass({
         <form className = "form-horizontal" onSubmit={this.handleSubmit}>
           <div className="input-group field">
             <span className="input-group-addon"><i className="fa fa-user fa-fw"></i></span>
-            <input type="text" className="form-control" placeholder="Username" ref="username" required/>
+            <input type="text" className="form-control" placeholder="Email Address" ref="email" required/>
           </div>
           <div className="input-group field">
             <span className="input-group-addon"><i className="fa fa-lock fa-fw"></i ></span>
