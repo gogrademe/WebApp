@@ -14,8 +14,6 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "Reactful-Router": "git://github.com/MattAitchison/Reactful-Router",
-    "backbone": "^1.1.2",
     "browser-sync": "^0.8.2",
     "browserify": "^3.46.0",
     "connect": "^2.14.5",
@@ -40,17 +38,16 @@
     "less-loader": "^0.7.2",
     "mout": "^0.9.1",
     "react": "^0.10.0",
-    "react-bootstrap": "^0.10.0",
     "react-forms": "^0.1.0",
     "react-grid": "git://github.com/prometheusresearch/react-grid",
-    "react-router-component": "^0.18.2",
+    "react-router": "git://github.com/rpflorence/react-router",
     "reactify": "^0.13.1",
     "style-loader": "^0.6.3",
     "superagent": "^0.18.0",
     "url-loader": "^0.5.5",
-    "url-pattern": "^0.6.0",
     "vinyl-source-stream": "^0.1.1",
     "watchify": "^0.8.3",
+    "webpack": "^1.2.0-beta6",
     "webpack-dev-middleware": "^1.0.5",
     "webpack-dev-server": "^1.2.7"
   }

@@ -1,18 +1,35 @@
 var Panel = require('../components/Panel.jsx');
 
-// var Routed = require('Reactful-Router');
-// var Link = Routed.Link;
-// var Router = Routed.Router;
+var Fluxxor = require('fluxxor');
+var FluxChildMixin = Fluxxor.FluxChildMixin(React);
+var StoreWatchMixin = Fluxxor.StoreWatchMixin;
+var ReactRouter = require('react-router');
 
-var AuthActions = require('../core/actions/AuthActions');
 var LoginPage = React.createClass({
-  handleSubmit: function() {
+  mixins: [FluxChildMixin, StoreWatchMixin("AuthStore")],
+  getStateFromFlux: function() {
+    var flux = this.getFlux();
+    return {
+      AuthStore: flux.store("AuthStore").getState()
+    }
+  },
+  // getInitialState: function(e) {
+  //   return {
+  //     AuthStore: {}
+  //   }
+  // },
+  handleSubmit: function(e) {
+    e.preventDefault();
     var email = this.refs.email.getDOMNode().value.trim();
     var password = this.refs.password.getDOMNode().value.trim();
 
-    AuthActions.login(email, password);
-
-    return false;
+    // AuthActions.login(email, password);
+    this.getFlux().actions.loginAuth(email, password);
+  },
+  componentWillMount: function() {
+    if (!this.state.isLoggedIn) {
+      ReactRouter.replaceWith('dashboard', {});
+    }
   },
   render: function() {
     return (
@@ -27,13 +44,27 @@ var LoginPage = React.createClass({
             <input type="password" className="form-control" placeholder="Password" ref="password" required/>
           </div>
           <div className="field">
-            <button type="submit" role="button" className="btn btn-primary btn-block" value="Post">
-            <i className="fa fa-cog fa-spin"></i> Log in </button>
+            <button type="submit" role="button" className="btn btn-primary btn-block" value="Post" disabled={this.state.AuthStore.isLoggingIn}>
+            <LoginLoading isLoggingIn={this.state.AuthStore.isLoggingIn} /> Log in </button>
           </div>
         </form>
       </Panel>
       );
   }
 });
+
+
+var LoginLoading = React.createClass({
+  render: function() {
+    var style = {};
+    if(!this.props.isLoggingIn === true) {
+      style.display = 'none';
+    }
+    return (
+        <i className="fa fa-cog fa-spin" style={style}></i>
+      );
+  }
+});
+
 
 module.exports = LoginPage;

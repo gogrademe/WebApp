@@ -1,10 +1,12 @@
 /** @jsx React.DOM */
 
-var Router = require('react-router-component');
-var Link = require('./HighlightedLink.jsx');
+var DropdownButton = require('react-bootstrap/DropdownButton');
 
-var DropdownButton = require('react-bootstrap').DropdownButton;
-var MenuItem = require('react-bootstrap').MenuItem;
+var MenuItem = require('react-bootstrap/MenuItem');
+var Nav = require('react-bootstrap/Nav');
+var NavItem = require('react-bootstrap/NavItem');
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
 
 var HeaderBar = React.createClass({
     render: function () {
@@ -21,8 +23,22 @@ var HeaderBar = React.createClass({
             );
     }
 });
+    // <Navbar>
+    //   <Nav>
+    //     <NavItem key={1} href="#">Link</NavItem>
+    //     <NavItem key={2} href="#">Link</NavItem>
+    //     <DropdownButton key={3} title="Dropdown">
+    //       <MenuItem key="1">Action</MenuItem>
+    //       <MenuItem key="2">Another action</MenuItem>
+    //       <MenuItem key="3">Something else here</MenuItem>
+    //       <MenuItem divider />
+    //       <MenuItem key="4">Separated link</MenuItem>
+    //     </DropdownButton>
+    //   </Nav>
+    // </Navbar>
 var HeaderNav = React.createClass({
   render: function() {
+    var userTitle = <span><i className="fa fa-user fa-fw"></i>{this.props.currentUser.Email}</span>;
   return (
         <div>
           <div className="navbar navbar-default navbar-fixed-top header">
@@ -48,22 +64,42 @@ var HeaderNav = React.createClass({
               </div>
               <div className="navbar-collapse collapse">
                 <ul className="nav navbar-nav">
-                    <Link activeClassName="active" href="/dashboard" matchPattern="/dashboard">Dashboard</Link>
-                    <Link activeClassName="active" href="/classes/" matchPattern="/classes/*">Classes</Link>
-                    <Link activeClassName="active" href="/students/" matchPattern="/students/*">Students</Link>
-                </ul>
-                <ul className="nav navbar-nav pull-right">
-                    <DropdownButton title="Matt Aitchison" className="btn-link">
+                    <li>
+                        <Link to="dashboard">Dashboard</Link>
+                    </li>
+                </ul>                
+                <Nav className="nav navbar-nav pull-right">
+                    <DropdownButton title={userTitle} className="btn-link">
                       <MenuItem key="1">Dropdown link</MenuItem>
                       <MenuItem key="2">Dropdown link</MenuItem>
                     </DropdownButton>
-                </ul>
+                </Nav>
               </div>
             </div>
           </div>
         </div>
   );
 }
+                /* <Link activeClassName="active" href="/classes/" matchPattern="/classes/*">Classes</Link>
+                    <Link activeClassName="active" href="/students/" matchPattern="/students/*">Students</Link> */
+
+
+                // <ul className="nav navbar-nav">
+                //     <Link activeClassName="active" href="/dashboard" matchPattern="/dashboard">Dashboard</Link>
+                //     <Link activeClassName="active" href="/classes/" matchPattern="/classes/*">Classes</Link>
+                //     <Link activeClassName="active" href="/students/" matchPattern="/students/*">Students</Link>
+                // </ul>
+
+
+    // var title = <span><i className="fa fa-user fa-fw"></i> Matt Aitchison</span>;
+    // <Navbar>
+    //   <Nav>
+    //     <DropdownButton key={3} title={title}>
+    //       <MenuItem key="1">Dropdown link</MenuItem>
+    //       <MenuItem key="2">Dropdown link</MenuItem>
+    //     </DropdownButton>
+    //   </Nav>
+    // </Navbar>
 });
                 // <ul className="nav navbar-nav pull-right">
 
@@ -86,15 +122,10 @@ var HeaderNav = React.createClass({
 
 
 var Header = React.createClass({
-  getDefaultProps: function() {
-    return {
-      isLoggedIn: true
-    };
-  },
   render: function() {
   return (
     <div>
-    {this.props.isLoggedIn ? HeaderNav(null) : HeaderBar(null)}
+    {this.props.isLoggedIn ? <HeaderNav currentUser={this.props.currentUser}/> : HeaderBar(null)}
     </div>
   )
 }

@@ -4,112 +4,94 @@ require('../less/styles.less');
 
 
 React = require('react/addons');
+var Fluxxor = require('fluxxor');
 
-// var Routed = require('Reactful-Router');
-// var Link = Routed.Link;
-// var Router = Routed.Router;
+
+
+
+var FluxMixin = Fluxxor.FluxMixin(React);
+var FluxChildMixin = Fluxxor.FluxChildMixin(React);
+var StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
+
+var AuthStore = require('./core/stores/AuthStore');
+var actions = require('./core/actions/AuthActions');
+var stores = {
+  AuthStore: new AuthStore()
+};
+
+var flux = new Fluxxor.Flux(stores, actions);
+
+window.flux = flux;
+console.log(flux);
 AppCfg = {
   apiUrl: 'http://localhost:3088/api'
-}
-var Router = require('react-router-component');
-var Locations = Router.Locations;
-var Location = Router.Location;
-var NotFound = Router.NotFound;
+};
+
+var ReactRouter = require('react-router');
+var Routes = ReactRouter.Routes;
+var Route = ReactRouter.Route;
+var Link = ReactRouter.Link;
+
+// var NotFound = ReactRouter.NotFound;
 
 
 var Header = require('./components/Header.jsx');
 var LoginPage = require('./pages/LoginPage.jsx');
 var DashboardPage = require('./pages/Dashboard.jsx');
 var ClassesPage = require('./pages/ClassesPage.jsx');
-var StudentsPage = require('./pages/StudentsPage.jsx');
-var NotFountPage = require('./pages/NotFoundPage.jsx');
+// var StudentsPage = require('./pages/StudentsPage.jsx');
+// var NotFountPage = require('./pages/NotFoundPage.jsx');
 
+var Main = React.createClass({
+    mixins: [FluxMixin],
+  render: function() {
+    return this.transferPropsTo(
+        <Routes handler={App}>
+          <Route name="login" path="login" handler={LoginPage} />
+          <Route name="dashboard" handler={DashboardPage} />
+          <Route name="classes" path="classes" handler={ClassesPage} />
+        </Routes> 
+      );
+  }
+});
 
-
-var AuthStore = require('./core/stores/AuthStore');
-
-function getAppState() {
-    return {
-        currentUser: AuthStore.getCurrentUser(),
-        isLoggedIn: AuthStore.isLoggedIn()
-    };
-}
 var App = React.createClass({
-  getInitialState: function () {
-    return getAppState();
+  mixins: [FluxMixin, StoreWatchMixin("AuthStore")],
+  getStateFromFlux: function() {
+    var flux = this.getFlux();
+    console.log(flux);
+    return {
+      Auth: flux.store("AuthStore").getState()
+    }
   },
-  componentWillMount: function () {
-    AuthStore.addChangeListener(this._onChange);
-  },
-  componentWillUnmount: function () {
-    AuthStore.removeChangeListener(this._onChange);
+  componentWillMount: function() {
+    if (this.state.Auth.isLoggedIn !== true) {
+        ReactRouter.replaceWith('login', {});
+    }
   },
   render: function() {
+    console.log(this.state.Auth.currentUser);
     return (
-      <Locations>
-        <Location path="/*" handler={Root} isLoggedIn={this.state.isLoggedIn}/>
-      </Locations>
-    );
-  },
-  _onChange: function() {
-    this.setState(getAppState());
-  }
-});
-
-var Root = React.createClass({
-  // componentWillReceiveProps: function(nextProps) {
-  //   console.log('componentWillReceiveProps');
-  //   if(this.props.isLoggedIn == false && nextProps.isLoggedIn == true) {
-  //     this.navigate('/dashboard');
-  //   }
-  // },
-  // componentWillMount: function() {
-  //   console.log('componentWillMount');
-  //   if (this.props.isLoggedIn != true) {
-  //     return this.navigate('/login');
-  //   } else if (this.props.currentPath == '/login') {
-  //     return this.navigate('/dashboard');
-  //   }
-  // },
-
-  // onBeforeNavigate: function(path) {
-  //   console.log('onBeforeNavigate');
-  //   if (this.props.isLoggedIn != true && path != "/login") {
-  //     this.navigate('/login');
-  //     return false;
-  //   } else if (this.props.isLoggedIn === true && path === '/login') {
-  //     this.navigate('/dashboard');
-  //     return false;
-  //   }
-
-  //   // console.log(History.checkUrl());
-
-  //   return true;
-  // },
-  render: function() {
-    return (
-      <div>
-        <Header isLoggedIn={this.props.isLoggedIn}/>
-        <div className="container">
-        <Locations contextual>
-          <Location path="/" handler={LoginPage} />
-          <Location path="/dashboard" handler={DashboardPage} />
-          <Location path="/classes/*" handler={ClassesPage} />
-          <Location path="/students/*" handler={StudentsPage} />
-          <NotFound handler={NotFountPage} />
-        </Locations>
+        <div>
+            <Header isLoggedIn={this.state.Auth.isLoggedIn} currentUser={this.state.Auth.currentUser}/>
+            <div className="container">
+            {this.props.activeRoute}
+            </div>
         </div>
-      </div>
     );
   }
 });
-     /**   <Locations contextual>
-        <Location path="/test" handler={DashboardPage}/>
 
-        </Locations> */
+      // <Locations>
+      //   <Location path="/*" handler={Root} isLoggedIn={this.state.AuthStore.isLoggedIn} isLoggingIn={this.state.AuthStore.isLoggingIn}/>
+      // </Locations>
 
-        // <Location path="/login"/>
-        // <Location path="/dashboard"/>
-        // <Location path="/classes" />
 
-React.renderComponent(<App/>, document.getElementById('app'));
+
+
+          // <Route path="/dashboard" handler={DashboardPage} />
+          // <Route path="/classes/*" handler={ClassesPage} />
+          // <Route path="/students/*" handler={StudentsPage} />
+
+React.renderComponent(<Main flux={flux}/>, document.getElementById('app'));
