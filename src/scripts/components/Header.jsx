@@ -5,8 +5,6 @@ var DropdownButton = require('react-bootstrap/DropdownButton');
 var MenuItem = require('react-bootstrap/MenuItem');
 var Nav = require('react-bootstrap/Nav');
 var NavItem = require('react-bootstrap/NavItem');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
 
 var HeaderBar = React.createClass({
     render: function () {
@@ -67,7 +65,7 @@ var HeaderNav = React.createClass({
                     <li>
                         <Link to="dashboard">Dashboard</Link>
                     </li>
-                </ul>                
+                </ul>
                 <Nav className="nav navbar-nav pull-right">
                     <DropdownButton title={userTitle} className="btn-link">
                       <MenuItem key="1">Dropdown link</MenuItem>
@@ -122,6 +120,10 @@ var HeaderNav = React.createClass({
 
 
 var Header = React.createClass({
+  propTypes: {
+    currentUser: React.PropTypes.object.isRequired,
+    isLoggedIn: React.PropTypes.bool.isRequired
+  },
   render: function() {
   return (
     <div>
