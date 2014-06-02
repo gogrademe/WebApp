@@ -7,7 +7,8 @@ var Nav = require('react-bootstrap/Nav');
 var NavItem = require('react-bootstrap/NavItem');
 
 var RRouter = require('rrouter');
-var Link = RRouter.Link;
+// var Link = RRouter.Link;
+var Link = require('./HighlightedLink.jsx');
 
 var HeaderBar = React.createClass({
     render: function () {
@@ -65,9 +66,7 @@ var HeaderNav = React.createClass({
               </div>
               <div className="navbar-collapse collapse">
                 <ul className="nav navbar-nav">
-                    <li>
-                        <Link to="dashboard">Dashboard</Link>
-                    </li>
+                  <Link to="dashboard">Dashboard</Link>
                 </ul>
                 <Nav className="nav navbar-nav pull-right">
                     <DropdownButton title={userTitle} className="btn-link">

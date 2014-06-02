@@ -152,7 +152,8 @@
 	var NavItem = __webpack_require__(25);
 
 	var RRouter = __webpack_require__(11);
-	var Link = RRouter.Link;
+	// var Link = RRouter.Link;
+	var Link = __webpack_require__(394);
 
 	var HeaderBar = React.createClass({displayName: 'HeaderBar',
 	    render: function () {
@@ -210,9 +211,7 @@
 	              ),
 	              React.DOM.div( {className:"navbar-collapse collapse"}, 
 	                React.DOM.ul( {className:"nav navbar-nav"}, 
-	                    React.DOM.li(null, 
-	                        Link( {to:"dashboard"}, "Dashboard")
-	                    )
+	                  Link( {to:"dashboard"}, "Dashboard")
 	                ),
 	                Nav( {className:"nav navbar-nav pull-right"}, 
 	                    DropdownButton( {title:userTitle, className:"btn-link"}, 
@@ -395,14 +394,6 @@
 	    // AuthActions.login(email, password);
 	    this.props.flux.actions.loginAuth(email, password);
 	  },
-	  componentWillMount: function() {
-	    // var flux = window.flux.getFlux();
-	    // console.log(this.getFlux());
-
-	    // if (!this.state.isLoggedIn) {
-	    //   console.log('is logged in should be moving to dashboard');
-	    // }
-	  },
 	  render: function() {
 	    return (
 	      Panel( {className:"form-login", title:"Login", hasBody:true}, 
@@ -417,7 +408,7 @@
 	          ),
 	          React.DOM.div( {className:"field"}, 
 	            React.DOM.button( {type:"submit", role:"button", className:"btn btn-primary btn-block", value:"Post"}, 
-	            "Log in " )
+	            LoginLoading( {isLoggingIn:this.state.AuthStore.isLoggingIn} ), " Log in " )
 	          )
 	        )
 	      )
@@ -33249,6 +33240,49 @@
 	};
 
 	exports["default"] = keyMirror;
+
+/***/ },
+/* 394 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx React.DOM */var React = __webpack_require__(8);
+	var RRouter = __webpack_require__(11);
+	var RoutingContextMixin = RRouter.RoutingContextMixin;
+	var Link = RRouter.Link;
+	var utils = __webpack_require__(14);
+	var urlPattern = __webpack_require__(134);
+
+	var HighlightedLink = React.createClass({displayName: 'HighlightedLink',
+	  mixins: [RoutingContextMixin],
+	  getDefaultProps: function() {
+	    return {
+	      activeClassName: 'active',
+	      matchPattern: '/' + this.props.to
+	    };
+	  },
+	  isActive: function() {
+	    if (this.props.matchPattern) {
+	      var pattern = urlPattern.newPattern(this.props.matchPattern);
+	      // console.log(!!pattern.match(this.getPath()));
+	      console.log(!!pattern.match(this.getMatch().path));
+	      return !!pattern.match(this.getMatch().path);
+	    } else { return false; }
+	  },
+	  render: function() {
+	    var className;
+	    if (this.props.activeClassName && this.isActive()) {
+	      className = this.props.activeClassName;
+	    }
+	    var link = Link(null, this.props.children);
+	    return (
+	      React.DOM.li( {className:className}, 
+	      this.transferPropsTo(link)
+	      ));
+	  }
+	});
+
+	module.exports = HighlightedLink;
+
 
 /***/ }
 /******/ ])

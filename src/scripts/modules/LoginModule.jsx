@@ -79,14 +79,6 @@ var LoginPage = React.createClass({
     // AuthActions.login(email, password);
     this.props.flux.actions.loginAuth(email, password);
   },
-  componentWillMount: function() {
-    // var flux = window.flux.getFlux();
-    // console.log(this.getFlux());
-
-    // if (!this.state.isLoggedIn) {
-    //   console.log('is logged in should be moving to dashboard');
-    // }
-  },
   render: function() {
     return (
       <Panel className="form-login" title="Login" hasBody>
@@ -101,7 +93,7 @@ var LoginPage = React.createClass({
           </div>
           <div className="field">
             <button type="submit" role="button" className="btn btn-primary btn-block" value="Post">
-            Log in </button>
+            <LoginLoading isLoggingIn={this.state.AuthStore.isLoggingIn} /> Log in </button>
           </div>
         </form>
       </Panel>
