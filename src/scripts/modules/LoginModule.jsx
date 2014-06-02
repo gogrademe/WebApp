@@ -56,7 +56,7 @@ var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 // });
 
 var LoginPage = React.createClass({
-  mixins: [FluxChildMixin],
+  // mixins: [FluxChildMixin],
   // getStateFromFlux: function() {
   //
   //   // var flux = this.getFlux();
@@ -65,13 +65,12 @@ var LoginPage = React.createClass({
   //     AuthStore: flux.store("AuthStore").getState()
   //   }
   // },
-  // getInitialState : function() {
-  //   console.log(flux);
-  //   console.log("flux:", flux);
-  //   return {
-  //     AuthStore: {}
-  //   }
-  // },
+  getInitialState : function() {
+    console.log("flux:", flux);
+    return {
+      AuthStore: this.props.flux.store("AuthStore").getState()
+    }
+  },
   handleSubmit: function(e) {
     e.preventDefault();
     var email = this.refs.email.getDOMNode().value.trim();
@@ -82,7 +81,7 @@ var LoginPage = React.createClass({
   },
   componentWillMount: function() {
     // var flux = window.flux.getFlux();
-    console.log(this.getFlux());
+    // console.log(this.getFlux());
 
     // if (!this.state.isLoggedIn) {
     //   console.log('is logged in should be moving to dashboard');

@@ -54,5 +54,6 @@ module.exports = {
     contains: require('mout/array/contains'),
     find: require('mout/collection/find'),
     decode64: decode64,
-    isEmpty: require('mout/lang/isEmpty')
+    isEmpty: require('mout/lang/isEmpty'),
+		getParam: require('mout/queryString/getParam')
 };

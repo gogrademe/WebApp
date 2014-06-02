@@ -13,6 +13,7 @@ React = require('react');
 var RRouter = require('rrouter');
 var Routes = RRouter.Routes;
 var Route = RRouter.Route;
+var RoutingContextMixin = RRouter.RoutingContextMixin;
 
 //Fluxxor
 var Fluxxor = require('fluxxor');
@@ -35,7 +36,7 @@ window.flux = flux;
 var Header = require('./components/Header.jsx');
 
 var App = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin("AuthStore")],
+    mixins: [FluxMixin, StoreWatchMixin("AuthStore"), RoutingContextMixin],
     getStateFromFlux: function() {
       var flux = this.getFlux();
 
@@ -43,23 +44,43 @@ var App = React.createClass({
         Auth: flux.store("AuthStore").getState()
       }
     },
-  render: function() {
-    return this.transferPropsTo(
-      <div>
-        <Header currentUser={this.state.Auth.currentUser} isLoggedIn={this.state.Auth.isLoggedIn}/>
-        <div flux={flux}>
-          {this.props.view}
-        </div>
-      </div>
-    );
-  }
-});
+    componentWillMount: function() {
+      console.log(this.getMatch());
+      var match = this.getMatch();
 
+
+      // Handle login/logged out cases.
+      if (!this.state.Auth.isLoggedIn) {
+        this.navigate('/login');
+      } else if(match.path === '/login') {
+        this.navigate('/dashboard');
+      }
+
+      // Handle not found.
+      // if (!match.route) {
+      //   this.navigate('/404/?req=' + match.path);
+      // }
+    },
+    render: function() {
+      return this.transferPropsTo(
+        <div>
+          <Header currentUser={this.state.Auth.currentUser} isLoggedIn={this.state.Auth.isLoggedIn}/>
+          <div className="container">
+            {this.props.view}
+          </div>
+        </div>
+      );
+    }
+});
+var DashboardModule = require('./modules/DashboardModule.jsx');
 var LoginModule = require('./modules/LoginModule.jsx');
+var NotFoundModule = require('./modules/NotFoundModule.jsx');
 
 var routes = (
-  <Routes flux={flux}>
-      <Route name="login" view={LoginModule}/>
+  <Routes>
+      <Route name="dashboard" path="/dashboard" view={DashboardModule} flux={flux}/>
+      <Route name="login" path="/login" view={LoginModule} flux={flux}/>
+      <Route name="notfound" path="" view={NotFoundModule} flux={flux}/>
   </Routes>
 );
 

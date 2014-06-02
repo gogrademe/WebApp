@@ -66,7 +66,7 @@ var HeaderNav = React.createClass({
               <div className="navbar-collapse collapse">
                 <ul className="nav navbar-nav">
                     <li>
-                        <Link href="login">Dashboard</Link>
+                        <Link to="dashboard">Dashboard</Link>
                     </li>
                 </ul>
                 <Nav className="nav navbar-nav pull-right">
