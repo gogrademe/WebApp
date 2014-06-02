@@ -80,7 +80,7 @@ var routes = (
   <Routes>
       <Route name="dashboard" path="/dashboard" view={DashboardModule} flux={flux}/>
       <Route name="login" path="/login" view={LoginModule} flux={flux}/>
-      <Route path="/classes" flux={flux} >
+      <Route path="/classes" flux={flux}>
         {ClassesModule}
       </Route>
       <Route name="notfound" path="" view={NotFoundModule} flux={flux}/>
