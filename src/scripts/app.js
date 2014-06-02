@@ -45,21 +45,15 @@ var App = React.createClass({
       }
     },
     componentWillMount: function() {
-      console.log(this.getMatch());
-      var match = this.getMatch();
+      var path = this.getRouting().path;
 
 
       // Handle login/logged out cases.
       if (!this.state.Auth.isLoggedIn) {
         this.navigate('/login');
-      } else if(match.path === '/login') {
+      } else if(path === '/login') {
         this.navigate('/dashboard');
       }
-
-      // Handle not found.
-      // if (!match.route) {
-      //   this.navigate('/404/?req=' + match.path);
-      // }
     },
     render: function() {
       return this.transferPropsTo(
@@ -72,15 +66,25 @@ var App = React.createClass({
       );
     }
 });
+
+// Single pages
 var DashboardModule = require('./modules/DashboardModule.jsx');
 var LoginModule = require('./modules/LoginModule.jsx');
+
+// Mountable
+var ClassesModule = require('./modules/Classes');
+
 var NotFoundModule = require('./modules/NotFoundModule.jsx');
 
 var routes = (
   <Routes>
       <Route name="dashboard" path="/dashboard" view={DashboardModule} flux={flux}/>
       <Route name="login" path="/login" view={LoginModule} flux={flux}/>
+      <Route path="/classes" flux={flux} >
+        {ClassesModule}
+      </Route>
       <Route name="notfound" path="" view={NotFoundModule} flux={flux}/>
+
   </Routes>
 );
 

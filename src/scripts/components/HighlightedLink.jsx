@@ -10,15 +10,13 @@ var HighlightedLink = React.createClass({
   getDefaultProps: function() {
     return {
       activeClassName: 'active',
-      matchPattern: '/' + this.props.to
+      matchPattern: this.props.href
     };
   },
   isActive: function() {
     if (this.props.matchPattern) {
       var pattern = urlPattern.newPattern(this.props.matchPattern);
-      // console.log(!!pattern.match(this.getPath()));
-      console.log(!!pattern.match(this.getMatch().path));
-      return !!pattern.match(this.getMatch().path);
+      return !!pattern.match(this.getRouting().path);
     } else { return false; }
   },
   render: function() {

@@ -92,21 +92,15 @@
 	      }
 	    },
 	    componentWillMount: function() {
-	      console.log(this.getMatch());
-	      var match = this.getMatch();
+	      var path = this.getRouting().path;
 
 
 	      // Handle login/logged out cases.
 	      if (!this.state.Auth.isLoggedIn) {
 	        this.navigate('/login');
-	      } else if(match.path === '/login') {
+	      } else if(path === '/login') {
 	        this.navigate('/dashboard');
 	      }
-
-	      // Handle not found.
-	      // if (!match.route) {
-	      //   this.navigate('/404/?req=' + match.path);
-	      // }
 	    },
 	    render: function() {
 	      return this.transferPropsTo(
@@ -119,15 +113,25 @@
 	      );
 	    }
 	});
+
+	// Single pages
 	var DashboardModule = __webpack_require__(2);
 	var LoginModule = __webpack_require__(3);
+
+	// Mountable
+	var ClassesModule = __webpack_require__(395);
+
 	var NotFoundModule = __webpack_require__(4);
 
 	var routes = (
 	  Routes(null, 
 	      Route( {name:"dashboard", path:"/dashboard", view:DashboardModule, flux:flux}),
 	      Route( {name:"login", path:"/login", view:LoginModule, flux:flux}),
+	      Route( {path:"/classes", flux:flux} , 
+	        ClassesModule
+	      ),
 	      Route( {name:"notfound", path:"", view:NotFoundModule, flux:flux})
+
 	  )
 	);
 
@@ -211,7 +215,8 @@
 	              ),
 	              React.DOM.div( {className:"navbar-collapse collapse"}, 
 	                React.DOM.ul( {className:"nav navbar-nav"}, 
-	                  Link( {to:"dashboard"}, "Dashboard")
+	                  Link( {href:"/dashboard"}, "Dashboard"),
+	                  Link( {href:"/classes", matchPattern:"/classes*"}, "Classes")
 	                ),
 	                Nav( {className:"nav navbar-nav pull-right"}, 
 	                    DropdownButton( {title:userTitle, className:"btn-link"}, 
@@ -33257,15 +33262,13 @@
 	  getDefaultProps: function() {
 	    return {
 	      activeClassName: 'active',
-	      matchPattern: '/' + this.props.to
+	      matchPattern: this.props.href
 	    };
 	  },
 	  isActive: function() {
 	    if (this.props.matchPattern) {
 	      var pattern = urlPattern.newPattern(this.props.matchPattern);
-	      // console.log(!!pattern.match(this.getPath()));
-	      console.log(!!pattern.match(this.getMatch().path));
-	      return !!pattern.match(this.getMatch().path);
+	      return !!pattern.match(this.getRouting().path);
 	    } else { return false; }
 	  },
 	  render: function() {
@@ -33282,6 +33285,43 @@
 	});
 
 	module.exports = HighlightedLink;
+
+
+/***/ },
+/* 395 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx React.DOM */
+
+	var React = __webpack_require__(8);
+	var RRouter = __webpack_require__(11);
+	var Routes = RRouter.Routes;
+	var Route = RRouter.Route;
+
+	var Users = React.createClass({displayName: 'Users',
+	  render: function() {
+	    return React.DOM.div(null, "Users")
+	  }
+	});
+
+	var User = React.createClass({displayName: 'User',
+	  render: function() {
+	    return React.DOM.div(null, "User Page for ", this.props.username)
+	  }
+	});
+	var UserEdit = React.createClass({displayName: 'UserEdit',
+	  render: function() {
+	    return React.DOM.div(null, "User Edit")
+	  }
+	});
+
+	module.exports = (
+	  Routes( {name:"classes", view:Users}, 
+	    Route( {name:"user", path:":username", view:User} , 
+	      Route( {name:"edit", view:UserEdit} )
+	    )
+	  )
+	);
 
 
 /***/ }
