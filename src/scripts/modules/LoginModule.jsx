@@ -2,14 +2,15 @@
 var React = require('react');
 var Panel = require('../components/Panel.jsx');
 
-// var Fluxxor = require('fluxxor');
-// var FluxChildMixin = Fluxxor.FluxChildMixin(React);
-// var StoreWatchMixin = Fluxxor.StoreWatchMixin;
+var Fluxxor = require('fluxxor');
+var FluxMixin = Fluxxor.FluxMixin(React);
+var FluxChildMixin = Fluxxor.FluxChildMixin(React);
+var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 // var LoginPage = React.createClass({
-//   // mixins: [FluxChildMixin, StoreWatchMixin("AuthStore")],
+//   mixins: [FluxChildMixin, StoreWatchMixin("AuthStore")],
 //   getStateFromFlux: function() {
-//     // var flux = this.getFlux();
+//     var flux = this.getFlux();
 //     return {
 //       // AuthStore: flux.store("AuthStore").getState()
 //     }
@@ -55,30 +56,37 @@ var Panel = require('../components/Panel.jsx');
 // });
 
 var LoginPage = React.createClass({
-  // mixins: [FluxChildMixin, StoreWatchMixin("AuthStore")],
-  getStateFromFlux: function() {
-    // var flux = this.getFlux();
-    return {
-      // AuthStore: flux.store("AuthStore").getState()
-    }
-  },
-  getInitialState : function() {
-    return {
-      AuthStore: {}
-    }
-  },
+  mixins: [FluxChildMixin],
+  // getStateFromFlux: function() {
+  //
+  //   // var flux = this.getFlux();
+  //   // console.log(flux);
+  //   return {
+  //     AuthStore: flux.store("AuthStore").getState()
+  //   }
+  // },
+  // getInitialState : function() {
+  //   console.log(flux);
+  //   console.log("flux:", flux);
+  //   return {
+  //     AuthStore: {}
+  //   }
+  // },
   handleSubmit: function(e) {
     e.preventDefault();
     var email = this.refs.email.getDOMNode().value.trim();
     var password = this.refs.password.getDOMNode().value.trim();
 
     // AuthActions.login(email, password);
-    // this.getFlux().actions.loginAuth(email, password);
+    this.props.flux.actions.loginAuth(email, password);
   },
   componentWillMount: function() {
-    if (!this.state.isLoggedIn) {
-      console.log('is logged in should be moving to dashboard');
-    }
+    // var flux = window.flux.getFlux();
+    console.log(this.getFlux());
+
+    // if (!this.state.isLoggedIn) {
+    //   console.log('is logged in should be moving to dashboard');
+    // }
   },
   render: function() {
     return (
@@ -93,22 +101,22 @@ var LoginPage = React.createClass({
             <input type="password" className="form-control" placeholder="Password" ref="password" required/>
           </div>
           <div className="field">
-            <button type="submit" role="button" className="btn btn-primary btn-block" value="Post" disabled={this.state.AuthStore.isLoggingIn}>
-            <LoginLoading isLoggingIn={this.state.AuthStore.isLoggingIn} /> Log in </button>
+            <button type="submit" role="button" className="btn btn-primary btn-block" value="Post">
+            Log in </button>
           </div>
         </form>
       </Panel>
       );
-  }
+    }
 });
 
 
 var LoginLoading = React.createClass({
   render: function() {
     var style = {};
-    // if(!this.props.isLoggingIn === true) {
-    //   style.display = 'none';
-    // }
+    if(!this.props.isLoggingIn === true) {
+      style.display = 'none';
+    }
     return (
         <i className="fa fa-cog fa-spin" style={style}></i>
       );

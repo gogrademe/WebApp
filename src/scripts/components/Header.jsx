@@ -6,6 +6,9 @@ var MenuItem = require('react-bootstrap/MenuItem');
 var Nav = require('react-bootstrap/Nav');
 var NavItem = require('react-bootstrap/NavItem');
 
+var RRouter = require('rrouter');
+var Link = RRouter.Link;
+
 var HeaderBar = React.createClass({
     render: function () {
         return (
@@ -63,7 +66,7 @@ var HeaderNav = React.createClass({
               <div className="navbar-collapse collapse">
                 <ul className="nav navbar-nav">
                     <li>
-                        <Link to="dashboard">Dashboard</Link>
+                        <Link href="login">Dashboard</Link>
                     </li>
                 </ul>
                 <Nav className="nav navbar-nav pull-right">

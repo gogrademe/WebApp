@@ -38,30 +38,28 @@ var App = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin("AuthStore")],
     getStateFromFlux: function() {
       var flux = this.getFlux();
-      console.log(flux);
+
       return {
         Auth: flux.store("AuthStore").getState()
       }
     },
   render: function() {
-    return (
+    return this.transferPropsTo(
       <div>
-        <Header />
-        <div>
-          {this.props.appView}
+        <Header currentUser={this.state.Auth.currentUser} isLoggedIn={this.state.Auth.isLoggedIn}/>
+        <div flux={flux}>
+          {this.props.view}
         </div>
       </div>
     );
   }
 });
 
-var LoginPage = require('./pages/LoginPage.jsx');
+var LoginModule = require('./modules/LoginModule.jsx');
 
 var routes = (
-  <Routes>
-    <Route name="app" path="/" view={App} flux={flux}>
-      <Route name="login" path="login" appView={LoginPage} />
-    </Route>
+  <Routes flux={flux}>
+      <Route name="login" view={LoginModule}/>
   </Routes>
 );
 
@@ -69,6 +67,5 @@ var routes = (
 
 
 RRouter.start(routes, function(view) {
-  console.log(view);
-  React.renderComponent(view, document.getElementById('app'));
+  React.renderComponent(App({view: view, flux: flux}), document.getElementById('app'));
 });
