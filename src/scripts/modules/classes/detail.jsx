@@ -1,12 +1,12 @@
 var React = require('react');
-
+var Panel = require('../../components/Panel.jsx');
 
 var ClassDetail = React.createClass({
   render: function() {
     return (
-        <div>
+        <Panel hasBody title="Home" className="content-area">
           Detail page!
-        </div>
+        </Panel>
     );
   }
 });

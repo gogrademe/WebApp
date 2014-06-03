@@ -10,7 +10,7 @@ var HighlightedLink = React.createClass({
   getDefaultProps: function() {
     return {
       activeClassName: 'active',
-      matchPattern: this.props.href
+      matchPattern: this.props.href || this.props.to
     };
   },
   isActive: function() {
@@ -21,6 +21,7 @@ var HighlightedLink = React.createClass({
   },
   render: function() {
     var className;
+    
     if (this.props.activeClassName && this.isActive()) {
       className = this.props.activeClassName;
     }

@@ -47,7 +47,6 @@ var App = React.createClass({
     componentWillMount: function() {
       var path = this.getRouting().path;
 
-
       // Handle login/logged out cases.
       if (!this.state.Auth.isLoggedIn) {
         this.navigate('/login');
@@ -56,7 +55,7 @@ var App = React.createClass({
       }
     },
     render: function() {
-      return this.transferPropsTo(
+      return (
         <div>
           <Header currentUser={this.state.Auth.currentUser} isLoggedIn={this.state.Auth.isLoggedIn}/>
           <div className="container">
@@ -73,18 +72,21 @@ var LoginModule = require('./modules/LoginModule.jsx');
 
 // Mountable
 var ClassesModule = require('./modules/Classes');
+var PeopleModule = require('./modules/People');
 
 var NotFoundModule = require('./modules/NotFoundModule.jsx');
-
+// <ClassesModule flux={flux} />
 var routes = (
-  <Routes>
+  <Routes flux={flux}>
       <Route name="dashboard" path="/dashboard" view={DashboardModule} flux={flux}/>
       <Route name="login" path="/login" view={LoginModule} flux={flux}/>
-      <Route path="/classes" flux={flux}>
-        {ClassesModule}
+      <Route path="/classes" >
+        <ClassesModule flux={flux} />
       </Route>
-      <Route name="notfound" path="" view={NotFoundModule} flux={flux}/>
-
+      <Route path="/people" >
+        <PeopleModule flux={flux} />
+      </Route>
+      <Route name="notfound" path="*" view={NotFoundModule} flux={flux}/>
   </Routes>
 );
 

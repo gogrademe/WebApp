@@ -68,6 +68,7 @@ var HeaderNav = React.createClass({
                 <ul className="nav navbar-nav">
                   <Link href="/dashboard">Dashboard</Link>
                   <Link href="/classes" matchPattern="/classes*">Classes</Link>
+                  <Link href="/people" matchPattern="/people*">People</Link>
                 </ul>
                 <Nav className="nav navbar-nav pull-right">
                     <DropdownButton title={userTitle} className="btn-link">

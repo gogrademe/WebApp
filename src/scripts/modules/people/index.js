@@ -12,7 +12,7 @@ var RoutingContextMixin = RRouter.RoutingContextMixin;
 var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
 
-var Nav = require('./nav.jsx');
+
 var Split = React.createClass({
   mixins: [RoutingContextMixin, FluxMixin],
   componentWillMount: function() {
@@ -23,7 +23,6 @@ var Split = React.createClass({
   render: function() {
     return (
       <div className="two-col">
-        <Nav currentClass={this.props.currentClass} className="sidebar-nav" />
           {this.props.detailView}
       </div>
     )
@@ -36,32 +35,15 @@ var UserEdit = React.createClass({
     return <div>User Edit</div>
   }
 });
-var ClassHome = React.createClass({
-  render: function() {
-    return <div>UClassHome</div>
-  }
-});
 
-var ClassDetail = require('./detail.jsx');
-var ClassAssignments = require('./Assignments.jsx');
-var ClassSettings = require('./Settings.jsx');
+var ListModule = require('./list.jsx');
 module.exports = function(props){
   var props = props || null;
   return (
-  <Routes path="/" view={ClassHome}>
+  <Routes path="/" view={ListModule}>
     <Routes view={Split} path=":currentClass" flux={props.flux}>
-      <Route name="home" path="home" detailView={ClassDetail} flux={props.flux} />
-      <Route name="assignments" path="assignments" detailView={ClassAssignments} flux={props.flux}/>
-      <Route name="settings" path="settings" detailView={ClassSettings} flux={props.flux}/>
+      <Route name="home" path="home" detailView={UserEdit} flux={props.flux} />
     </Routes>
   </Routes>
 )
 };
-// module.exports = (
-//   <Routes path="/" view={ClassHome}>
-//     <Route view={Split} path=":currentClass">
-//       <Route name="assignments" path="assignments" detailView={ClassAssignments} />
-//       <Route path="*" detailView={ClassDetail} />
-//     </Route>
-//   </Routes>
-// );

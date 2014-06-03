@@ -68,13 +68,12 @@ var AuthStore = Fluxxor.createStore({
         }
     },
     _currentUser: function() {
-        console.log('ughh');
         if (this.isLoggedIn) {
             var tokenInfo = localStorage.token.split('.')[1];
-            return JSON.parse(window.atob(tokenInfo)); 
-        } 
+            return JSON.parse(window.atob(tokenInfo));
+        }
         return {};
-    }           
+    }
 });
 
 // function login(email, password) {
