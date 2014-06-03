@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var DropdownButton = require('react-bootstrap/DropdownButton');
 
 var MenuItem = require('react-bootstrap/MenuItem');

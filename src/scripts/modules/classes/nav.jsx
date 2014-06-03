@@ -1,7 +1,6 @@
 var React = require('react');
 var RRouter = require('rrouter');
 var Link = require('../../components/HighlightedLink.jsx');
-// var Link = RRouter.Link;
 
 var Panel = require('../../components/Panel.jsx');
 
@@ -10,10 +9,9 @@ var Nav = React.createClass({
     return this.transferPropsTo(
       <Panel title="Nav" className="sidebar">
         <ul className="sidebar-nav nav">
-
-          <Link to="home" currentClass={this.props.currentClass} matchPattern="/classes/assignments">Home</Link>
-          <Link to="assignments" currentClass={this.props.currentClass} matchPattern="/classes/assignments">Assignments</Link>
-          <Link to="settings" currentClass={this.props.currentClass} matchPattern="/classes/assignments">Settings</Link>
+          <Link to="detail/home"  currentClass={this.props.currentClass} matchPattern="/classes/assignments">Home</Link>
+          <Link to="detail/assignments" currentClass={this.props.currentClass} matchPattern="/classes/assignments">Assignments</Link>
+          <Link to="detail/settings" currentClass={this.props.currentClass} matchPattern="/classes/assignments">Settings</Link>
         </ul>
       </Panel>
     );
@@ -21,12 +19,3 @@ var Nav = React.createClass({
 });
 
 module.exports = Nav;
-
-//
-// <Panel title="Nav" className="sidebar">
-//   <ul className="sidebar-nav nav">
-//     <Link to="/classes" matchPattern="/classes/assignments">Back</Link>
-//     <Link to="home" currentClass={this.props.currentClass} matchPattern="/classes/assignments">Home</Link>
-//     <Link to="assignments" currentClass={this.props.currentClass} matchPattern="/classes/assignments">Settings</Link>
-//   </ul>
-// </Panel>

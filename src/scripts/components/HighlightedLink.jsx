@@ -1,35 +1,38 @@
 var React = require('react');
 var RRouter = require('rrouter');
-var RoutingContextMixin = RRouter.RoutingContextMixin;
+var LinkMixin = RRouter.LinkMixin;
 var Link = RRouter.Link;
 var utils = require('../utils');
-var urlPattern = require('url-pattern');
+var pattern = require('url-pattern');
 
 var HighlightedLink = React.createClass({
-  mixins: [RoutingContextMixin],
+  mixins: [LinkMixin],
   getDefaultProps: function() {
     return {
-      activeClassName: 'active',
-      matchPattern: this.props.href || this.props.to
+      activeClassName: 'active'
     };
   },
+  onClick: function(e) {
+    e.preventDefault();
+    this.navigate(this.href());
+  },
   isActive: function() {
-    if (this.props.matchPattern) {
-      var pattern = urlPattern.newPattern(this.props.matchPattern);
-      return !!pattern.match(this.getRouting().path);
-    } else { return false; }
+    var pat = pattern.newPattern(this.href() + '*');
+
+    return !!pat.match(this.getRouting().path);
   },
   render: function() {
     var className;
-    
     if (this.props.activeClassName && this.isActive()) {
       className = this.props.activeClassName;
     }
-    var link = Link(null, this.props.children);
     return (
       <li className={className}>
-      {this.transferPropsTo(link)}
-      </li>);
+        <a href={this.href()} onClick={this.onClick}>
+          {this.props.children}
+        </a>
+      </li>
+    );
   }
 });
 

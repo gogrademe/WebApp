@@ -1,4 +1,4 @@
-
+var React = require('react');
 var Panel = require('../components/Panel.jsx');
 
 // var Routed = require('Reactful-Router');

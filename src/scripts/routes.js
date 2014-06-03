@@ -15,9 +15,6 @@ var PeopleModule = require('./modules/People');
 
 var NotFoundModule = require('./modules/NotFoundModule.jsx');
 
-// Eww
-
-
 module.exports = (
   <Routes>
       <Route name="dashboard" path="/dashboard" view={DashboardModule}/>

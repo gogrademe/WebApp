@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
+var cloneWithProps = require('react/lib/cloneWithProps')
 var RRouter = require('rrouter');
 var Panel = require('../../components/Panel.jsx');
 
@@ -21,33 +22,24 @@ var Split = React.createClass({
     }
   },
   render: function() {
+    var detailViewWithProps = cloneWithProps(this.props.detailView, {currentClass: this.props.currentClass});
     return (
       <div className="two-col">
         <Nav currentClass={this.props.currentClass} className="sidebar-nav" />
-          {this.props.detailView}
+          {detailViewWithProps}
       </div>
     )
   }
 });
 
 
-var UserEdit = React.createClass({
-  render: function() {
-    return <div>User Edit</div>
-  }
-});
-var ClassHome = React.createClass({
-  render: function() {
-    return <div>UClassHome</div>
-  }
-});
-
 var ClassDetail = require('./detail.jsx');
+var ClassList = require('./list.jsx');
 var ClassAssignments = require('./Assignments.jsx');
 var ClassSettings = require('./Settings.jsx');
 module.exports = (
-  <Routes path="/" view={ClassHome}>
-    <Routes view={Split} path=":currentClass">
+  <Routes path="/" view={ClassList}>
+    <Routes view={Split} name="detail" path=":currentClass">
       <Route name="home" path="home" detailView={ClassDetail} />
       <Route name="assignments" path="assignments" detailView={ClassAssignments}/>
       <Route name="settings" path="settings" detailView={ClassSettings}/>
