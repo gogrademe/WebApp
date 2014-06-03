@@ -68,7 +68,7 @@ var LoginPage = React.createClass({
   getInitialState : function() {
     console.log("flux:", flux);
     return {
-      AuthStore: this.props.flux.store("AuthStore").getState()
+      AuthStore: flux.store("AuthStore").getState()
     }
   },
   handleSubmit: function(e) {
@@ -77,7 +77,7 @@ var LoginPage = React.createClass({
     var password = this.refs.password.getDOMNode().value.trim();
 
     // AuthActions.login(email, password);
-    this.props.flux.actions.loginAuth(email, password);
+    flux.actions.loginAuth(email, password);
   },
   render: function() {
     return (

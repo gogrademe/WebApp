@@ -41,8 +41,8 @@ module.exports = function(props){
   var props = props || null;
   return (
   <Routes path="/" view={ListModule}>
-    <Routes view={Split} path=":currentClass" flux={props.flux}>
-      <Route name="home" path="home" detailView={UserEdit} flux={props.flux} />
+    <Routes view={Split} path=":currentClass">
+      <Route name="home" path="home" detailView={UserEdit} />
     </Routes>
   </Routes>
 )

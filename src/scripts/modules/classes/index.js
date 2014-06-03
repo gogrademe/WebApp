@@ -45,18 +45,15 @@ var ClassHome = React.createClass({
 var ClassDetail = require('./detail.jsx');
 var ClassAssignments = require('./Assignments.jsx');
 var ClassSettings = require('./Settings.jsx');
-module.exports = function(props){
-  var props = props || null;
-  return (
+module.exports = (
   <Routes path="/" view={ClassHome}>
-    <Routes view={Split} path=":currentClass" flux={props.flux}>
-      <Route name="home" path="home" detailView={ClassDetail} flux={props.flux} />
-      <Route name="assignments" path="assignments" detailView={ClassAssignments} flux={props.flux}/>
-      <Route name="settings" path="settings" detailView={ClassSettings} flux={props.flux}/>
+    <Routes view={Split} path=":currentClass">
+      <Route name="home" path="home" detailView={ClassDetail} />
+      <Route name="assignments" path="assignments" detailView={ClassAssignments}/>
+      <Route name="settings" path="settings" detailView={ClassSettings}/>
     </Routes>
   </Routes>
-)
-};
+);
 // module.exports = (
 //   <Routes path="/" view={ClassHome}>
 //     <Route view={Split} path=":currentClass">
