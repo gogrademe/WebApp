@@ -1,4 +1,6 @@
 /** @jsx React.DOM */
+
+'use strict';
 var React = require('react');
 
 var PanelBody = React.createClass({
@@ -8,7 +10,7 @@ var PanelBody = React.createClass({
         {this.props.children}
       </div>
     );
-  }
+}
 });
 
 var Panel = React.createClass({

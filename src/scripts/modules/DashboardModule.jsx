@@ -11,7 +11,7 @@ var DashboardModule = React.createClass({
   render: function() {
         return (
         <Panel title="Dashboard" hasBody>
-           This will be a cool dashboard soon!
+           Welcome to the test version of Cuane Gradebook.
         </Panel>
         );
     }

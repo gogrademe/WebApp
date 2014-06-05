@@ -1,6 +1,6 @@
+'use strict';
 var Fluxxor = require('fluxxor');
 var request = require('superagent');
-var utils = require('../../utils');
 
 var AuthStore = Fluxxor.createStore({
     actions: {
@@ -13,23 +13,23 @@ var AuthStore = Fluxxor.createStore({
     },
     onLoginAuth: function(payload) {
         this.isLoggingIn = true;
-        email = payload.email.trim();
-        password = payload.password.trim();
+        var email = payload.email.trim();
+        var password = payload.password.trim();
         if (email !== '' && password !== '') {
             request
                 .post(AppCfg.apiUrl + '/auth/login')
                 .type('form')
                 .send({
                     email: email,
-                    password, password
+                    password: password
                 })
-                .end(function(error, res){
+                .end((error, res) =>{
                     if (res.status == 200) {
                         this._setLoggedIn(res.body.token);
                     } else {
                         this._setLoggedOut();
                     }
-                }.bind(this));
+                });
         }
         return this.emit('change');
     },

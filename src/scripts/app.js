@@ -1,7 +1,11 @@
 /** @jsx React.DOM */
 
+// 'use strict';
+// AppCfg = {
+//   apiUrl: 'http://localhost:3088/api'
+// };
 AppCfg = {
-  apiUrl: 'http://localhost:3088/api'
+  apiUrl: 'http://private-63e8-cunaegradebook.apiary-mock.com/api'
 };
 
 
@@ -44,6 +48,9 @@ var App = React.createClass({
       }
     },
     componentWillMount: function() {
+
+    },
+    render: function() {
       var path = this.getRouting().path;
 
       // Handle login/logged out cases.
@@ -54,8 +61,7 @@ var App = React.createClass({
       } else if (path === "/") {
         this.navigate('/dashboard');
       }
-    },
-    render: function() {
+
       return (
         <div>
           <Header currentUser={this.state.Auth.currentUser} isLoggedIn={this.state.Auth.isLoggedIn}/>
