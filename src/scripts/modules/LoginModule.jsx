@@ -33,8 +33,12 @@ var LoginPage = React.createClass({
             <input type="password" className="form-control" placeholder="Password" ref="password" required/>
           </div>
           <div className="field">
-            <button type="submit" role="button" className="btn btn-primary btn-block" value="Post">
-            <LoginLoading isLoggingIn={this.state.AuthStore.isLoggingIn} /> Log in </button>
+            <button type="submit"
+                    disabled={this.state.isLoggingIn}
+                    role="button"
+                    className="btn btn-primary btn-block"
+                    value="Post">
+            <LoginLoading isLoggingIn={this.state.isLoggingIn} /> Log in </button>
           </div>
         </form>
       </Panel>
