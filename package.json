@@ -44,6 +44,7 @@
     "reactify": "^0.13.1",
     "style-loader": "^0.6.3",
     "superagent": "^0.18.0",
+    "superagent-defaults": "^0.1.6",
     "url-loader": "^0.5.5",
     "url-pattern": "^0.6.0",
     "vinyl-source-stream": "^0.1.1",

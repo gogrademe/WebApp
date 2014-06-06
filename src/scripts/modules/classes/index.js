@@ -21,7 +21,6 @@ var Split = React.createClass({
     // }
   },
   render: function() {
-    console.log(this.props.detail);
     var detailView = this.props.detail;
     return (
       <div className="two-col">
@@ -39,15 +38,14 @@ var ClassAssignments = require('./Assignments.jsx');
 var ClassSettings = require('./Settings.jsx');
 
 module.exports = function(props){
-  console.log(props)
   var props = props || null;
   return (
-  <Routes path="/" view={ClassList}>
-    <Routes view={Split} name="detail" path=":currentClass">
-      <Route name="home" path="home" detailView={ClassDetail} />
-      <Route name="assignments" path="assignments" detailView={ClassAssignments}/>
-      <Route name="settings" path="settings" detailView={ClassSettings}/>
+    <Routes path="/" view={ClassList}>
+      <Routes view={Split} name="detail" path=":currentClass">
+        <Route name="home" path="home" detailView={ClassDetail} />
+        <Route name="assignments" path="assignments" detailView={ClassAssignments}/>
+        <Route name="settings" path="settings" detailView={ClassSettings}/>
+      </Routes>
     </Routes>
-  </Routes>
-);
+  );
 };

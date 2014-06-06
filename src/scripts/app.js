@@ -1,12 +1,12 @@
 /** @jsx React.DOM */
 
 // 'use strict';
-// AppCfg = {
-//   apiUrl: 'http://localhost:3088/api'
-// };
 AppCfg = {
-  apiUrl: 'http://private-63e8-cunaegradebook.apiary-mock.com/api'
+  apiUrl: 'http://localhost:3088/api'
 };
+// AppCfg = {
+//   apiUrl: 'http://private-63e8-cunaegradebook.apiary-mock.com/api'
+// };
 
 
 
@@ -28,9 +28,11 @@ var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 var AuthStore = require('./core/stores/AuthStore');
 var actions = require('./core/actions/AuthActions');
 var ClassesStore = require('./core/stores/ClassesStore');
+var PeopleStore = require('./core/stores/PeopleStore');
 var stores = {
   AuthStore: new AuthStore(),
-  ClassesStore: new ClassesStore()
+  ClassesStore: new ClassesStore(),
+  PeopleStore: new PeopleStore()
 };
 
 var AppRoutes = require('./routes.js');

@@ -4,13 +4,21 @@
 var React = require('react');
 var Panel = require('../components/Panel.jsx');
 
+var Fluxxor = require('fluxxor');
+var FluxChildMixin = Fluxxor.FluxChildMixin(React);
+var StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
 var LoginPage = React.createClass({
-  getInitialState : function() {
+  mixins: [FluxChildMixin, StoreWatchMixin('AuthStore')],
+  getStateFromFlux : function() {
+    var flux = this.getFlux();
     return {
-      AuthStore: window.flux.store("AuthStore").getState()
+      AuthStore: flux.store("AuthStore").getState()
     };
   },
   handleSubmit: function(e) {
+    var flux = this.getFlux();
+
     this.setState({isLoggingIn: true});
     e.preventDefault();
     var email = this.refs.email.getDOMNode().value.trim();
@@ -20,7 +28,6 @@ var LoginPage = React.createClass({
     flux.actions.loginAuth(email, password);
   },
   render: function() {
-    console.log(this.state);
     return (
       <Panel className="form-login" title="Login" hasBody>
         <form className = "form-horizontal" onSubmit={this.handleSubmit}>
