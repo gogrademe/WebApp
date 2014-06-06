@@ -58,6 +58,9 @@ function rows(start, end) {
 
 var ClassList = React.createClass({
   mixins: [RoutingContextMixin, FluxChildMixin],
+  componentWillMount: function() {
+    flux.actions.getAllClasses();
+  },
   render: function() {
     return (
         <Panel title="All Classes" className="content-area">

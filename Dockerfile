@@ -1,3 +1,3 @@
 FROM orchardup/nginx
-ADD src/ /var/www
+ADD build/ /var/www
 CMD 'nginx'

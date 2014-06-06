@@ -20,7 +20,7 @@ module.exports = (
       <Route name="dashboard" path="/dashboard" view={DashboardModule}/>
       <Route name="login" path="/login" view={LoginModule}/>
       <Route path="/classes" >
-        {ClassesModule}
+        <ClassesModule />
       </Route>
       <Route path="/people" >
         <PeopleModule />

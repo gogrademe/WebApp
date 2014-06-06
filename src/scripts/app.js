@@ -12,6 +12,7 @@ AppCfg = {
 
 require('../less/styles.less');
 React = require('react');
+var cloneWithProps = require('react/lib/cloneWithProps');
 
 // RRouter
 var RRouter = require('rrouter');
@@ -26,15 +27,15 @@ var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 // Stores
 var AuthStore = require('./core/stores/AuthStore');
 var actions = require('./core/actions/AuthActions');
+var ClassesStore = require('./core/stores/ClassesStore');
 var stores = {
-  AuthStore: new AuthStore()
+  AuthStore: new AuthStore(),
+  ClassesStore: new ClassesStore()
 };
 
 var AppRoutes = require('./routes.js');
 
 var flux = new Fluxxor.Flux(stores, actions);
-window.flux = flux;
-
 
 var Header = require('./components/Header.jsx');
 
@@ -45,10 +46,7 @@ var App = React.createClass({
 
       return {
         Auth: flux.store("AuthStore").getState()
-      }
-    },
-    componentWillMount: function() {
-
+      };
     },
     render: function() {
       var path = this.getRouting().path;
@@ -62,11 +60,13 @@ var App = React.createClass({
         this.navigate('/dashboard');
       }
 
+      // This is needed to pass the current context to the View.
+      var View = cloneWithProps(this.props.view, {});
       return (
         <div>
           <Header currentUser={this.state.Auth.currentUser} isLoggedIn={this.state.Auth.isLoggedIn}/>
           <div className="container">
-            {this.props.view}
+            {View}
           </div>
         </div>
       );
