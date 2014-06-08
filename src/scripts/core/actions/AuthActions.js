@@ -1,3 +1,4 @@
+var c = require('../constants');
 module.exports = {
 	loginAuth: function(email, password){
 		this.dispatch('LOGIN_AUTH', {email: email, password: password});
@@ -13,5 +14,5 @@ module.exports = {
 	},
 	addPerson: function(payload){
 		this.dispatch('ADD_PERSON', payload);
-	},
+	}
 };

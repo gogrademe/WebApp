@@ -1,7 +1,7 @@
 'use strict';
 
 var Fluxxor = require('fluxxor');
-
+var Actions = require('../actions/AuthActions.js');
 var request = require('./api');
 var PeopleStore = Fluxxor.createStore({
     actions: {
@@ -23,7 +23,7 @@ var PeopleStore = Fluxxor.createStore({
           })
           .end((error, res) =>{
             if(res.status !== 200) {
-              return 'error'
+              return this.emit('error');
             }
             this.people = res.body;
             return this.emit('change');
@@ -35,14 +35,17 @@ var PeopleStore = Fluxxor.createStore({
           .post('/people/create')
           .send(payload)
           .on('error', function(){
-            console.log('err');
+            return this.emit('error');
           })
           .end((error, res) =>{
             if(res.status !== 200) {
-              console.log(res.body);
-              return 'error'
+              console.log(res);
+              return this.emit('error', res.text);
             }
+
             this.people.push(res.body);
+
+            this.emit('success');
             return this.emit('change');
           });
     }
