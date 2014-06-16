@@ -20,7 +20,7 @@ var LinkCell = React.createClass({
   render: function() {
     return (
       <div>
-        <Link to="detail/home" currentClass={this.props.value}>{this.props.value} </Link>
+        <Link to="home" person={this.props.value}>{this.props.value} </Link>
       </div>
     );
   }
@@ -41,7 +41,8 @@ var columns = [
   {
     name: 'Id',
     key: 'id',
-    width: 30
+    width: 30,
+    renderer: LinkCell
   },
   {
     name: 'First Name',
@@ -85,7 +86,7 @@ var PeopleList = React.createClass({
         <div className="panel-heading clearfix">
           <div className="row">
             <div className="col-sm-4">
-              <h3 className="panel-title">Some Title</h3>
+              <h3 className="panel-title">All People</h3>
             </div>
             <div className="col-sm-8 text-align-right">
               <div className="btn-group pull-right">

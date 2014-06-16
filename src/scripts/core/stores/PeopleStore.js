@@ -14,6 +14,19 @@ var PeopleStore = Fluxxor.createStore({
     getState: function() {
       return this.people;
     },
+    ongetPerson: function(payload) {
+      request
+        .get('/people/' + payload.id)
+        .on('error', function(err) {
+          return this.emit('error', payload)
+        })
+        .end((err, res) => {
+          if (res.status !== 200) {
+            return this.emit('error', payload);
+          }
+          utils.findIndex
+        })
+    },
     getAllPeople: function(payload) {
 
       request
@@ -23,7 +36,7 @@ var PeopleStore = Fluxxor.createStore({
           })
           .end((error, res) =>{
             if(res.status !== 200) {
-              return this.emit('error');
+              return this.emit('error', payload);
             }
             this.people = res.body;
             return this.emit('change');
@@ -40,7 +53,7 @@ var PeopleStore = Fluxxor.createStore({
           .end((error, res) =>{
             if(res.status !== 200) {
               console.log(res);
-              return this.emit('error', res.text);
+              return this.emit('error', {payload: payload, errors: res.text});
             }
 
             this.people.push(res.body);

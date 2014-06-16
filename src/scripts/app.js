@@ -2,7 +2,7 @@
 
 // 'use strict';
 AppCfg = {
-  apiUrl: 'http://localhost:3000/api'
+  apiUrl: 'http://localhost:5000/api'
 };
 // AppCfg = {
 //   apiUrl: 'http://private-63e8-cunaegradebook.apiary-mock.com/api'

@@ -37,17 +37,10 @@ var CreatePersonModal = React.createClass({
     }
   },
   render: function() {
-    if (!!this.state.error) {
-      var alert = (
-        <Alert bsStyle="danger">
-          {this.state.error}
-        </Alert>
-      );
-    };
     return this.transferPropsTo(
         <Modal title="Create Person" animation={true}>
           <div className="modal-body">
-            {alert}
+            {this.errorAlerts()}
             <Form ref="form" className="form-horizontal" schema={PersonSchema} onSubmit={this.saveChanges}/>
           </div>
           <div className="modal-footer">

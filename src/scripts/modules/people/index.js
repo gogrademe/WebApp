@@ -30,20 +30,15 @@ var Split = React.createClass({
 });
 
 
-var UserEdit = React.createClass({
-  render: function() {
-    return <div>User Edit</div>
-  }
-});
-
+var DetailModule = require('./detail.jsx');
 var ListModule = require('./list.jsx');
-module.exports = function(props){
+module.exports = function(props){2
   var props = props || null;
   return (
   <Routes path="/" view={ListModule}>
-    <Routes view={Split} path=":currentClass">
-      <Route name="home" path="home" detailView={UserEdit} />
-    </Routes>
+
+      <Route name="home" path=":person" view={DetailModule} />
+
   </Routes>
 )
 };
