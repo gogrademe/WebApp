@@ -20,12 +20,12 @@ var PeopleStore = Fluxxor.createStore({
         .on('error', function(err) {
           return this.emit('error', payload)
         })
-        .end((err, res) => {
+        .end(function(err, res) {
           if (res.status !== 200) {
             return this.emit('error', payload);
           }
           utils.findIndex
-        })
+        }.bind());
     },
     getAllPeople: function(payload) {
 
@@ -34,13 +34,13 @@ var PeopleStore = Fluxxor.createStore({
           .on('error', function(){
             console.log('err');
           })
-          .end((error, res) =>{
+          .end(function(error, res){
             if(res.status !== 200) {
               return this.emit('error', payload);
             }
             this.people = res.body;
             return this.emit('change');
-          });
+          }.bind());
     },
     onAddPerson: function(payload) {
       console.log(payload);
@@ -50,7 +50,7 @@ var PeopleStore = Fluxxor.createStore({
           .on('error', function(){
             return this.emit('error');
           })
-          .end((error, res) =>{
+          .end(function(error, res){
             if(res.status !== 200) {
               console.log(res);
               return this.emit('error', {payload: payload, errors: res.text});
@@ -60,7 +60,7 @@ var PeopleStore = Fluxxor.createStore({
 
             this.emit('success');
             return this.emit('change');
-          });
+          }.bind());
     }
   });
 module.exports = PeopleStore;

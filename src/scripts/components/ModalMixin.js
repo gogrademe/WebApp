@@ -12,10 +12,10 @@ module.exports = function() {
     },
     componentWillMount: function() {
       var flux = this.props.flux || this.context.flux;
-      utils.forEach(storeNames, (store) => {
+      utils.forEach(storeNames, function(store) {
         flux.store(store).on('success', this.modalSaveSuccess);
         flux.store(store).on('error', this.modalSaveFail);
-      });
+      }.bind());
     },
     modalSaving: function() {
         this.setState({isSaving: true});
@@ -32,10 +32,10 @@ module.exports = function() {
     },
     componentWillUnmount: function() {
       var flux = this.props.flux || this.context.flux;
-      utils.forEach(storeNames, (store) => {
+      utils.forEach(storeNames, function(store) {
         flux.store(store).removeListener('error', this.modalSaveFail);
         flux.store(store).removeListener('sucess', this.modalSaveSuccess);
-      });
+      }.bind());
     },
     errorAlerts: function() {
       if (this.state.error) {

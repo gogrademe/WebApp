@@ -17,19 +17,18 @@ var AuthStore = Fluxxor.createStore({
         var password = payload.password.trim();
         if (email !== '' && password !== '') {
             request
-                .post('/auth/login')
-                .type('form')
+                .post('/session')
                 .send({
                     email: email,
                     password: password
                 })
-                .end((error, res) =>{
+                .end(function(error, res){
                     if (res.status == 200) {
                         this._setLoggedIn(res.body.token);
                     } else {
                         this._setLoggedOut();
                     }
-                });
+                }.bind());
         }
         return this.emit('change');
     },

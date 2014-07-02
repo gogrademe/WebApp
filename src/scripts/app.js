@@ -8,9 +8,6 @@ AppCfg = {
 //   apiUrl: 'http://private-63e8-cunaegradebook.apiary-mock.com/api'
 // };
 
-
-
-require('../less/styles.less');
 React = require('react');
 var cloneWithProps = require('react/lib/cloneWithProps');
 

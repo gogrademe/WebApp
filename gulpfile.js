@@ -9,15 +9,11 @@ var less = require('gulp-less');
 var clean = require('gulp-clean');
 var plumber = require('gulp-plumber');
 var browserSync = require('browser-sync');
-var webpack = require("webpack");
 var modRewrite = require('connect-modrewrite');
 
 
-var webpackConfig = require("./webpack.config.js");
-
-var dist = './build';
+var build = './build';
 var src = './src';
-var libs = ['react', 'jquery', 'backbone', 'es6-promise', 'superagent', 'events'];
 
 
 gulp.task('clean', function() {
@@ -26,17 +22,15 @@ gulp.task('clean', function() {
     }).pipe(clean());
 });
 
-// gulp.task('less', function () {
-//   gulp.src('./src/less/styles.less')
-//     .pipe(plumber())
-//     .pipe(less({
-//       paths: [path.join(__dirname, 'less', 'includes')]
-//     }))
-//     .pipe(gulp.dest('./build/assets'))
-//     .pipe(browserSync.reload({
-//       stream: true
-//     }));
-// });
+gulp.task('less', function () {
+  gulp.src('./src/less/styles.less')
+    .pipe(plumber())
+    .pipe(less())
+    .pipe(gulp.dest('./build/assets'))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
+});
 
 gulp.task('browser-sync', function () {
   browserSync.init([src + '/index.html'], {
@@ -44,11 +38,10 @@ gulp.task('browser-sync', function () {
     ghostMode: false,
     open: false,
     server: {
-      baseDir: dist,
+      baseDir: build,
       middleware: [
         modRewrite(['!\.html|\.woff|\.js|\.ttf|\.svg|\.css|\.png$ /index.html [L]'])
       ]
-      // middleware: [modRewrite ['!\.html|\.js|\.css|\.png$ /index.html [L]']]
     }
   });
 });
@@ -56,73 +49,47 @@ gulp.task('browser-sync', function () {
 gulp.task('copy', function () {
  // Copy html
  gulp.src(src + '/index.html')
-   .pipe(gulp.dest(dist));
+   .pipe(gulp.dest(build));
 gulp.src(src + '/img/*.*')
-   .pipe(gulp.dest(dist + '/assets/img'));
+   .pipe(gulp.dest(build + '/assets/img'));
 gulp.src(src + '/bower/fontawesome/fonts/*.*')
-  .pipe(gulp.dest(dist + '/assets/fonts'));
+  .pipe(gulp.dest(build + '/assets/fonts'));
    //     gulp.src(src + '/bower/**/*')
-   // .pipe(gulp.dest(dist + '/bower'));
+   // .pipe(gulp.dest(build + '/bower'));
 
 });
-// gulp.task('libs', function () {
-//   return browserify()
-//     .require(libs)
-//     .bundle()
-//     .on('error', util.log)
-//     .pipe(source('libs.js'))
-//     .pipe(gulp.dest('./dist'));
-// });
-// gulp.task('browserify-watch', function() {
-//     var bundler = watchify('./src/js/GoGradeApp.jsx')
 
-//     bundler.transform(reactify)
-//     bundler.on('update', rebundle)
+gulp.task('browserify-watch', function() {
+    var bundler = watchify('./src/scripts/app.js')
 
-//   function rebundle () {
-//     return bundler
-//       .external(libs)
-//       .bundle({debug: true})
-//       .on('error', util.log)
-//       .pipe(source('bundle.js'))
-//       .pipe(gulp.dest('./dist'))
-//       .pipe(browserSync.reload({
-//         stream: true
-//     }));
-//   }
-//   return rebundle();
-// });
-gulp.task('webpack', function(callback) {
-    execWebpack(webpackConfig);
-    return callback();
+    bundler.transform(reactify)
+    bundler.on('update', rebundle)
+
+  function rebundle () {
+    return bundler
+      .bundle({debug: true})
+      .on('error', util.log)
+      .pipe(source('assets/bundle.js'))
+      .pipe(gulp.dest('./build'))
+      .pipe(browserSync.reload({
+        stream: true
+    }));
+  }
+  return rebundle();
 });
-var execWebpack = function(config) {
-    return webpack(config, function(err, stats) {
-        if (err) {
-            throw new util.PluginError("execWebpack", err);
-        }
-        return util.log("[execWebpack]", stats.toString({
-            colors: true
-        }));
-    });
-};
-
 
 gulp.task('watch', function () {
+  gulp.start('browserify-watch');
   gulp.watch('src/index.html', ['copy'])
-  // gulp.watch('src/less/*.less', ['less']);
-  gulp.watch(src + '/js/**/*.*');
+  gulp.watch('src/less/*.less', ['less']);
+  // gulp.watch(src + '/js/**/*.*', ['browserify-watch);
 
   gulp.watch('./build/**/*.*', function(){
     browserSync.reload();
   });
 });
 
-gulp.task('build', function(){
-  gulp.start('webpack', 'copy');
-})
-
 // Default Task
-gulp.task('default', ['build'], function () {
+gulp.task('default', ['copy'], function () {
   gulp.start('watch','browser-sync');
 });

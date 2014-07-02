@@ -17,10 +17,10 @@ var ClassesStore = Fluxxor.createStore({
 
       request
           .get('/classes')
-          .end((error, res) =>{
+          .end(function(error, res){
             this.gbClasses = res.body;
             return this.emit('change');
-          });
+          }.bind());
     },
     onAddClass: function(payload) {
       this.gbClasses.push({className: 'a', gradeLevel: 'Second Grade'});
