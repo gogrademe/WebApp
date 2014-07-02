@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var path = require('path');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
-var reactify = require('reactify');
+var liveify = require('liveify');
 var watchify = require('watchify');
 var util = require('gulp-util')
 var less = require('gulp-less');
@@ -33,8 +33,8 @@ gulp.task('less', function () {
 });
 
 gulp.task('browser-sync', function () {
-  browserSync.init([src + '/index.html'], {
-    notify: true,
+  browserSync.init([build + '/index.html'], {
+    notify: false,
     ghostMode: false,
     open: false,
     server: {
@@ -60,9 +60,9 @@ gulp.src(src + '/bower/fontawesome/fonts/*.*')
 });
 
 gulp.task('browserify-watch', function() {
-    var bundler = watchify('./src/scripts/app.js')
+    var bundler = watchify('./src/scripts/app.ls')
 
-    bundler.transform(reactify)
+    bundler.transform(liveify)
     bundler.on('update', rebundle)
 
   function rebundle () {
