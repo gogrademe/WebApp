@@ -1,8 +1,17 @@
+require 'LiveScript'
 require! './api'
 api.base-url = 'http://localhost:5000/api'
 
 console.log "Logging in"
 api.session.create {email: "test@test.com", password: "somePassword"}
-.finally ->
-    console.log it
-    console.log it?.status-code
+.then ->
+    console.log it?.body
+.then ->
+    api.person.find!
+.then ->
+    console.log JSON.stringify it, null, 4
+.catch (err) ->
+    x = {}
+    for key, val of err
+        x[key] = val unless typeof val is 'object'
+    console.log x
