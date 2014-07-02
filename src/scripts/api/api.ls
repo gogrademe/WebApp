@@ -12,14 +12,27 @@ promisify-req = (req) ->
        .set 'Authorization'     if auth.token then "Bearer #{auth.token}" else null
        .end (error, res) ->
         switch
-        | res?.status-code < 400 or error => reject res or error
+        | error or res?.status-code >= 400 => reject res or error
         | otherwise                  => resolve res.body
+
+    console.log "-"*20
+    console.log "#{req.method} #{req.url}"
+    for own name, value of req.header
+      console.log "#name: #value"
+    # if req._data
+    #   console.log ""
+    #   console.log JSON.stringify(that, null, 4)
+    console.log "-"*20
 
 http-get = (url) ->
   promisify-req request.get url
 
 http-post = (url, data) -->
   promisify-req request.post(url).send(data)
+
+http-delete = (url) -->
+  promisify-req request.delete url
+
 
 # get the url for a resource
 url = (type, id) ->
@@ -38,11 +51,21 @@ status-by-number =  {[value, key] for key, value of status-by-name}
 base-api = 
   get: (id) ->
     | @cache[id] => Promise.resolve that
-    | otherwise  => base-api.do-get.call @, @type, id
+    | otherwise  => base-api.do-get.call(@, @type, id).then ~> @cache[id]
+  find: (opts={}) ->
+    base-api.do-get.call @, @type
   create: (data) ->
     | @find-similar and @find-similar data => 
         Promise.reject {status: status.conflict, message: "This #{@type} already exists"}
     | otherwise => base-api.do-post.call @, @type, id
+  delete: -> base-api.do-delete.call @, @type, id
+  
+  do-get: (type, id) ->
+    (http-get (url @type, id))
+      .get 'body'
+      .then response-to-caches
+      .then ~>
+        @get id
 
   do-post: (type, id) ->
     http-post (url type) data
@@ -55,13 +78,9 @@ base-api =
             throw (data `merge-into` it)
           .then response-to-caches
           .then ~> @get data.id
-        
-  do-get: (type, id) ->
-    (http-get (url @type, id))
-      .get 'body'
-      .then response-to-caches
-      .then ~>
-        @get id
+
+  do-delete: (type, id) ->
+    http-delete (url type, id)
         
 types = 
   student: {}
@@ -102,16 +121,21 @@ for let key, thing of types
   thing.type = key
   thing.get = (id) ->
     base-api.get.call this, id
+  thing.find = (opts) -> base-api.find.call this, opts
   thing.create = (data) ->
     base-api.create.call this, id
+     .get 'body'
+  thing.delete = (id) ->
+    base-api.delete.call this, id
+     .return true
 
 
 # session is special, and requres special treatment
 types.session = 
+  cache: []
   get: -> ...
   create: ({email, password}) ->
     new Promise (resolve, reject) ->
-      console.log "POST #{(url 'session')}"
       request.post (url 'session')
          .send {email, password}
          .set 'Accept'            'application/json'
@@ -122,10 +146,11 @@ types.session =
             message = resp?.body?.message or status-by-number[status-code]
             reject {status-code, message}
           else
-            auth.token = resp?.body.token
+            auth.token = resp?.body.session.0.token
+            types.session.cache.0 = resp?.body.session.0
             resolve resp
 
 
-
+types.auth = auth
 module.exports = types
 
