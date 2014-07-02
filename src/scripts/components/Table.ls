@@ -1,13 +1,7 @@
 {td, th, tr, thead, tr, tbody}= require 'react'
 
-
-
-
-
-
 defaultCellRenderer = (props) ->
   props.value
-"use strict"
 
 BTable = require("react-bootstrap").Table
 RRouter = require("rrouter")
@@ -37,12 +31,12 @@ Table = React.createClass(
 
   getInitialState: ->
     items: @props.initialItems or []
-    
+
     # sort: this.props.config.sort || { column: "", order: "" },
     columns: @props.config.columns
 
   componentWillReceiveProps: (nextProps) ->
-    
+
     # Load new data when the dataSource property changes.
     @loadData nextProps.dataSource  unless nextProps.dataSource is @props.dataSource
     return
@@ -62,13 +56,11 @@ Table = React.createClass(
   render: ->
     rows = []
     columnNames = @columnNames()
-    header = columnNames.map((c, k) ->
+    header = columnNames.map (c, k) ->
       console.log c
-      th
-        key: k
-      , @state.columns[c].name
-    , this)
-    
+      th key: k,
+        @state.columns[c].name
+
     # var cell = (x) => {
     #   return columnNames.map(function(c,k) {
     #     var cell;

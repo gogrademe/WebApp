@@ -1,4 +1,4 @@
-{}= require 'react'
+/*{}= require 'react'
 
 
 
@@ -17,8 +17,8 @@ destroy = (id) ->
 EventEmitter = require("events").EventEmitter
 request = require("superagent")
 merge = require("react/lib/merge")
-StudentConstants = require("../constants/StudentConstants")
-AppDispatcher = require("../dispatcher/AppDispatcher")
+StudentConstants = require("../constants/StudentConstants.ls")
+AppDispatcher = require("../dispatcher/AppDispatcher.ls")
 CHANGE_EVENT = "change"
 _students = []
 StudentStore = merge(EventEmitter::,
@@ -29,18 +29,18 @@ StudentStore = merge(EventEmitter::,
     @emit CHANGE_EVENT
     return
 
-  
-  
+
+
   @param {function} callback
-  
+
   addChangeListener: (callback) ->
     @on CHANGE_EVENT, callback
     return
 
-  
-  
+
+
   @param {function} callback
-  
+
   removeChangeListener: (callback) ->
     @removeListener CHANGE_EVENT, callback
     return
@@ -57,4 +57,4 @@ AppDispatcher.register (payload) ->
   StudentStore.emitChange()
   true # No errors.  Needed by promise in Dispatcher.
 
-module.exports = StudentStore
+module.exports = StudentStore*/

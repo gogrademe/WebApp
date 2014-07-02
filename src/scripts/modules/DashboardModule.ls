@@ -2,7 +2,7 @@
 
 
 
-Panel = require("../components/Panel.jsx")
+Panel = require("../components/Panel.ls")
 
 # var Routed = require('Reactful-Router');
 # var Link = Routed.Link;

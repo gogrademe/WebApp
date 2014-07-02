@@ -7,7 +7,7 @@
 
 "use strict"
 
-Panel = require("../components/Panel.jsx")
+Panel = require("../components/Panel.ls")
 Fluxxor = require("fluxxor")
 FluxChildMixin = Fluxxor.FluxChildMixin(React)
 StoreWatchMixin = Fluxxor.StoreWatchMixin

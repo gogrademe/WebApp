@@ -3,8 +3,8 @@
 
 
 RRouter = require("rrouter")
-Link = require("../../components/HighlightedLink.jsx")
-Panel = require("../../components/Panel.jsx")
+Link = require("../../components/HighlightedLink.ls")
+Panel = require("../../components/Panel.ls")
 Nav = React.createClass(
   displayName: "Nav"
   render: ->

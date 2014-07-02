@@ -1,22 +1,26 @@
-{}= require 'react'
+
+require! {
+  React
+  RRouter
+
+  # Single pages
+  DashboardModule: "./modules/DashboardModule.ls"
+  LoginModule: "./modules/LoginModule.ls"
+
+  # Mountable
+  ClassesModule: "./modules/Classes/index.ls"
+  PeopleModule: "./modules/People/index.ls"
+  NotFoundModule: "./modules/NotFoundModule.ls"
+}
 
 
 
-
-
-
-RRouter = require("rrouter")
 Routes = RRouter.Routes
 Route = RRouter.Route
 
-# Single pages
-DashboardModule = require("./modules/DashboardModule")
-LoginModule = require("./modules/LoginModule")
 
-# Mountable
-ClassesModule = require("./modules/Classes")
-PeopleModule = require("./modules/People")
-NotFoundModule = require("./modules/NotFoundModule")
+
+
 module.exports = (Routes(null, Route(
   name: "dashboard"
   path: "/dashboard"

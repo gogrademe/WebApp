@@ -1,18 +1,10 @@
 {div, div, div, div, h3}= require 'react'
 
-
-
-
-
-
-"use strict"
-
 PanelBody = React.createClass(
   displayName: "PanelBody"
   render: ->
-    div
-      className: "panel-body"
-    , @props.children
+    div className: "panel-body",
+      @props.children
 )
 Panel = React.createClass(
   displayName: "Panel"

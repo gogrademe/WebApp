@@ -1,5 +1,5 @@
 {}= require 'react'
-c = require("../constants") 
+c = require("../constants.ls") 
 
 
 module.exports =

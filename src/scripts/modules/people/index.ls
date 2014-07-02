@@ -1,13 +1,7 @@
 {div}= require 'react'
 
-
-
-
-
-
-
 RRouter = require("rrouter")
-Panel = require("../../components/Panel")
+Panel = require("../../components/Panel.ls")
 Routes = RRouter.Routes
 Route = RRouter.Route
 RoutingContextMixin = RRouter.RoutingContextMixin
@@ -27,20 +21,12 @@ Split = React.createClass(
     return
 
   render: ->
-    div
-      className: "two-col"
-    , @props.detailView
+    div className: "two-col",
+      @props.detailView
 )
-DetailModule = require("./detail")
-ListModule = require("./list")
+DetailModule = require("./detail.ls")
+ListModule = require("./list.ls")
 module.exports = (props) ->
-  2
   props = props or null
-  Routes
-    path: "/"
-    view: ListModule
-  , Route(
-    name: "home"
-    path: ":person"
-    view: DetailModule
-  )
+  Routes path: "/" view: ListModule,
+    Route name: "home" path: ":person" view: DetailModule

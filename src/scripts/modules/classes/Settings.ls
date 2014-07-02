@@ -7,7 +7,7 @@
 
 "use strict"
 
-Panel = require("../../components/Panel.jsx")
+Panel = require("../../components/Panel.ls")
 RoutingContextMixin = require("rrouter").RoutingContextMixin
 Fluxxor = require("fluxxor")
 FluxChildMixin = Fluxxor.FluxChildMixin(React)
@@ -42,13 +42,7 @@ ClassSettings = React.createClass(
     FluxChildMixin
   ]
   render: ->
-    Panel
-      hasBody: true
-      title: "Settings"
-      className: "content-area"
-    , Form(
-      className: "form-horizontal"
-      schema: PersonSchema
-    )
+    Panel hasBody: true title: "Settings" className: "content-area",
+      Form className: "form-horizontal" schema: PersonSchema
 )
 module.exports = ClassSettings

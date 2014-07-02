@@ -1,10 +1,8 @@
 {}= require 'react'
-"use strict"
-
 
 Fluxxor = require("fluxxor")
-Actions = require("../actions/AuthActions")
-request = require("./api")
+Actions = require("../actions/AuthActions.ls")
+request = require("./api.ls")
 PeopleStore = Fluxxor.createStore(
   actions:
     GET_ALL_PEOPLE: "getAllPeople"

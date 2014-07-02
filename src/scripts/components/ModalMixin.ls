@@ -6,7 +6,7 @@
 
 
 Alert = require("react-bootstrap/alert")
-utils = require("../utils")
+utils = require("../utils.ls")
 module.exports = ->
   storeNames = Array::slice.call(arguments_)
   getInitialState: ->
@@ -34,9 +34,7 @@ module.exports = ->
   modalSaveFail: (error) ->
     console.log "fail", error.errors
     if @state.isSaving
-      @setState
-        isSaving: false
-        error: error.errors
+      @setState isSaving: false error: error.errors
 
     return
 

@@ -1,11 +1,18 @@
-{div, h1, a, img, span, i, a, img, button, span, span, span, span, ul}= require 'react'
+require! {
+  React
+  Header: "../components/Header.ls"
 
-DropdownButton = require("react-bootstrap/DropdownButton")
-MenuItem = require("react-bootstrap/MenuItem")
-Nav = require("react-bootstrap/Nav")
+  Link: "./HighlightedLink.ls"
+
+  Bootstrap: "react-bootstrap"
+}
+
+{DropdownButton, MenuItem, Nav} = Bootstrap
+
+Dom = React.DOM
+{div, h1, img, span, ul, a, i, button} = Dom
 
 # var Link = RRouter.Link;
-Link = require("./HighlightedLink")
 HeaderBar = React.createClass(
   displayName: "HeaderBar"
   render: ->

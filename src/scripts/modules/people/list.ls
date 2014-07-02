@@ -7,14 +7,14 @@
 
 "use strict"
 
-Panel = require("../../components/Panel.jsx")
+Panel = require("../../components/Panel.ls")
 RoutingContextMixin = require("rrouter").RoutingContextMixin
 Link = require("rrouter").Link
 Fluxxor = require("fluxxor")
 FluxChildMixin = Fluxxor.FluxChildMixin(React)
 StoreWatchMixin = Fluxxor.StoreWatchMixin
 Grid = require("react-grid")
-CreatePersonModal = require("./CreatePersonModal.jsx")
+CreatePersonModal = require("./CreatePersonModal.ls")
 Button = require("react-bootstrap/button")
 ModalTrigger = require("react-bootstrap/modaltrigger")
 LinkCell = React.createClass(
@@ -72,41 +72,27 @@ PeopleList = React.createClass(
     StoreWatchMixin("PeopleStore")
   ]
   componentWillMount: ->
-    flux = @getFlux()
-    flux.actions.getAllPeople()
+    flux = @getFlux!
+    flux.actions.getAllPeople!
     return
 
   getStateFromFlux: ->
-    flux = @getFlux()
+    flux = @getFlux!
     People: flux.store("PeopleStore").getState()
 
   render: ->
-    flux = @getFlux()
-    div
-      title: "All Classes"
-      className: "content-area panel panel-default"
-    , div(
-      className: "panel-heading clearfix"
-    , div(
-      className: "row"
-    , div(
-      className: "col-sm-4"
-    , h3(
-      className: "panel-title"
-    , "All People")), div(
-      className: "col-sm-8 text-align-right"
-    , div(
-      className: "btn-group pull-right"
-    , ModalTrigger(
-      modal: CreatePersonModal(flux: flux)
-    , Button(
-      bsStyle: "primary"
-      bsSite: "small"
-    , "Add")))))), Grid(
-      length: @state.People.length
-      columns: columns
-      rows: @state.People
-      rowHeight: 40
-    )
+    flux = @getFlux!
+    div title: "All Classes" className: "content-area panel panel-default",
+     div className: "panel-heading clearfix",
+      div className: "row",
+        div className: "col-sm-4",
+          h3 className: "panel-title",
+            "All People"
+        div className: "col-sm-8 text-align-right",
+          div className: "btn-group pull-right",
+            ModalTrigger modal: CreatePersonModal(flux: flux),
+              Button bsStyle: "primary" bsSite: "small",
+                "Add"
+        Grid length: @state.People.length columns: columns rows: @state.People rowHeight: 40
 )
 module.exports = PeopleList

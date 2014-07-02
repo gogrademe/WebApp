@@ -1,9 +1,9 @@
 {}= require 'react'
-"use strict" 
+"use strict"
 
 
 Fluxxor = require("fluxxor")
-request = require("./api")
+request = require("./api.ls")
 ClassesStore = Fluxxor.createStore(
   actions:
     GET_CLASSES: "onGetAllClasses"
@@ -24,7 +24,7 @@ ClassesStore = Fluxxor.createStore(
     return
 
   onAddClass: (payload) ->
-    @gbClasses.push
+    @gbClasses.push do
       className: "a"
       gradeLevel: "Second Grade"
 

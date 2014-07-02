@@ -1,13 +1,10 @@
-{}= require 'react'
+require! {
+  React
 
+  "../components/Panel.ls"
+  "../utils.ls"
+}
 
-
-Panel = require("../components/Panel.jsx")
-
-# var Routed = require('Reactful-Router');
-# var Link = Routed.Link;
-# var Router = Routed.Router;
-utils = require("../utils.js")
 NotFoundPage = React.createClass(
   displayName: "NotFoundPage"
   render: ->

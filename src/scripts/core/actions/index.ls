@@ -1,6 +1,6 @@
 {}= require 'react'
-module.exports = 
+module.exports =
 
 
-  Auth: require("./AuthActions")
-  Class: require("./ClassActions")
+  Auth: require("./AuthActions.ls")
+  Class: require("./ClassActions.ls")

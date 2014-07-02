@@ -1,5 +1,5 @@
 {}= require 'react'
-decode64 = (input) -> 
+/*decode64 = (input) ->
 
 
   keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv" + "wxyz0123456789+/" + "="
@@ -12,7 +12,7 @@ decode64 = (input) ->
   enc3 = undefined
   enc4 = ""
   i = 0
-  
+
   # remove all characters that are not A-Z, a-z, 0-9, +, /, or =
   base64test = /[^A-Za-z0-9\+\/\=]/g
   if base64test.exec(input)
@@ -33,8 +33,11 @@ decode64 = (input) ->
     chr1 = chr2 = chr3 = ""
     enc1 = enc2 = enc3 = enc4 = ""
     break unless i < input.length
-  unescape output
+  unescape output*/
 
+decode64 = (input) ->
+  false
+  
 module.exports =
   map: require("mout/array/map")
   camelCase: require("mout/string/camelCase")

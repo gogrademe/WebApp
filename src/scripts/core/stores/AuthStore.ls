@@ -1,9 +1,9 @@
 {}= require 'react'
-"use strict" 
+"use strict"
 
 
 Fluxxor = require("fluxxor")
-request = require("./api")
+request = require("./api.ls")
 AuthStore = Fluxxor.createStore(
   actions:
     LOGIN_AUTH: "onLoginAuth"
@@ -47,14 +47,14 @@ AuthStore = Fluxxor.createStore(
   _setLoggedIn: (token) ->
     console.log token
     console.log token isnt ""
-    
+
     # TODO: This is unreliable! Doesn't work when token === undefined
     if token? or token isnt ""
       console.log token
       localStorage.setItem "token", token
       @isLoggingIn = false
       @isLoggedIn = true
-      
+
       # TODO: This looks bad!
       @currentUser = @_currentUser()
       @emit "change"

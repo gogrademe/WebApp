@@ -1,82 +1,73 @@
-AppCfg = {
-  apiUrl: 'http:#localhost:5000/api'
-};
-
-
-require! = {
+require! {
   React
-  RRouter: rrouter
-  Fluxxor: fluxxor
+  cloneWithProps: "react/lib/cloneWithProps"
+
+  RRouter
+  Fluxxor
+
+  AuthStore: "./core/stores/AuthStore.ls"
+  actions: "./core/actions/AuthActions.ls"
+  ClassesStore: "./core/stores/ClassesStore.ls"
+  PeopleStore: "./core/stores/PeopleStore.ls"
+
+  AppRoutes: "./routes.ls"
+
+  Header: "./components/Header.ls"
 }
 
-cloneWithProps = require('react/lib/cloneWithProps');
+Dom = React.DOM
+{div} = Dom
+
+AppCfg = apiUrl: "http://localhost:5000/api"
 
 
 
-RoutingContextMixin = RRouter.RoutingContextMixin;
+
+RoutingContextMixin = RRouter.RoutingContextMixin
 
 
-
-FluxMixin = Fluxxor.FluxMixin(React);
-FluxChildMixin = Fluxxor.FluxChildMixin(React);
-StoreWatchMixin = Fluxxor.StoreWatchMixin;
+FluxMixin = Fluxxor.FluxMixin(React)
+FluxChildMixin = Fluxxor.FluxChildMixin(React)
+StoreWatchMixin = Fluxxor.StoreWatchMixin
 
 # Stores
-AuthStore = require('./core/stores/AuthStore');
-actions = require('./core/actions/AuthActions');
-ClassesStore = require('./core/stores/ClassesStore');
-PeopleStore = require('./core/stores/PeopleStore');
-
-stores = {
-  AuthStore: new AuthStore(),
-  ClassesStore: new ClassesStore(),
-  PeopleStore: new PeopleStore()
-};
-
-AppRoutes = require('./routes.js');
-
-flux = new Fluxxor.Flux(stores, actions);
-
-Header = require('./components/Header.jsx');
-
-App = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin("AuthStore"), RoutingContextMixin],
-    getStateFromFlux: function() {
-      flux = this.getFlux();
-
-      return {
-        Auth: flux.store("AuthStore").getState()
-      };
-    },
-    render: function() {
-      path = this.getRouting().path;
-
-      # Handle login/logged out cases.
-      if (!this.state.Auth.isLoggedIn) {
-        this.navigate('/login');
-      } else if(path === '/login') {
-        this.navigate('/dashboard');
-      } else if (path === "/") {
-        this.navigate('/dashboard');
-      }
-
-      # This is needed to pass the current context to the View.
-      View = cloneWithProps(this.props.view, {});
-      return (
-        <div>
-          <Header currentUser={this.state.Auth.currentUser} isLoggedIn={this.state.Auth.isLoggedIn}/>
-          <div className="container">
-            {View}
-          </div>
-        </div>
-      );
-    }
-});
+stores =
+  AuthStore: new AuthStore!
+  ClassesStore: new ClassesStore!
+  PeopleStore: new PeopleStore!
 
 
+flux = new Fluxxor.Flux(stores, actions)
 
+App = React.create-class do
+  mixins: [
+    FluxMixin
+    StoreWatchMixin("AuthStore")
+    RoutingContextMixin
+  ]
+  getStateFromFlux: ->
+    flux = @getFlux!
+    Auth: flux.store("AuthStore").getState!
 
+  render: ->
+    path = @getRouting!path
 
-RRouter.start(AppRoutes, function(view) {
-  React.renderComponent(App({view: view, flux: flux}), document.getElementById('app'));
-});
+    # Handle login/logged out cases.
+    unless @state.Auth.isLoggedIn
+      @navigate "/login"
+    else if path is "/login"
+      @navigate "/dashboard"
+    else @navigate "/dashboard" if path is "/"
+
+    # This is needed to pass the current context to the View.
+    View = cloneWithProps(@props.view, {})
+
+    div null,
+      Header currentUser: @state.Auth.currentUser isLoggedIn: @state.Auth.isLoggedIn
+      div className: "container",
+        View
+
+RRouter.start AppRoutes, (view) ->
+  React.render-component do
+    App view: view flux: flux,
+      document.get-element-by-id "app"

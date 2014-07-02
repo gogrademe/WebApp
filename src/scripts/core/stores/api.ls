@@ -28,7 +28,7 @@ SuperApi = (baseurl, headers) ->
     req
 
   request
-utils = require("../../utils")
+utils = require("../../utils.ls")
 request = require("superagent")
 methods = [
   "get"

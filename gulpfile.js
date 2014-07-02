@@ -23,7 +23,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('less', function () {
-  gulp.src('./src/less/styles.less')
+  gulp.src('./src/less/main.less')
     .pipe(plumber())
     .pipe(less())
     .pipe(gulp.dest('./build/assets'))
@@ -69,7 +69,7 @@ gulp.task('browserify-watch', function() {
     return bundler
       .bundle({debug: true})
       .on('error', util.log)
-      .pipe(source('assets/bundle.js'))
+      .pipe(source('app.js'))
       .pipe(gulp.dest('./build'))
       .pipe(browserSync.reload({
         stream: true
@@ -84,12 +84,10 @@ gulp.task('watch', function () {
   gulp.watch('src/less/*.less', ['less']);
   // gulp.watch(src + '/js/**/*.*', ['browserify-watch);
 
-  gulp.watch('./build/**/*.*', function(){
-    browserSync.reload();
-  });
 });
 
 // Default Task
-gulp.task('default', ['copy'], function () {
-  gulp.start('watch','browser-sync');
+gulp.task('default', function () {
+  gulp.start('clean')
+  gulp.start('copy', 'watch','browser-sync');
 });
