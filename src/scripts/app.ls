@@ -18,7 +18,7 @@ require! {
 Dom = React.DOM
 {div} = Dom
 
-AppCfg = apiUrl: "http://localhost:5000/api"
+
 
 
 
@@ -30,44 +30,47 @@ FluxMixin = Fluxxor.FluxMixin(React)
 FluxChildMixin = Fluxxor.FluxChildMixin(React)
 StoreWatchMixin = Fluxxor.StoreWatchMixin
 
-# Stores
 stores =
-  AuthStore: new AuthStore!
-  ClassesStore: new ClassesStore!
-  PeopleStore: new PeopleStore!
+  AuthStore: new AuthStore()
+  ClassesStore: new ClassesStore()
+  PeopleStore: new PeopleStore()
 
 
 flux = new Fluxxor.Flux(stores, actions)
 
-App = React.create-class do
+App = React.createClass(
+  displayName: "App"
   mixins: [
     FluxMixin
     StoreWatchMixin("AuthStore")
     RoutingContextMixin
   ]
   getStateFromFlux: ->
-    flux = @getFlux!
-    Auth: flux.store("AuthStore").getState!
+    flux = @getFlux()
+    Auth: flux.store("AuthStore").getState()
 
   render: ->
-    path = @getRouting!path
+    path = @getRouting().path
 
     # Handle login/logged out cases.
     unless @state.Auth.isLoggedIn
       @navigate "/login"
     else if path is "/login"
       @navigate "/dashboard"
-    else @navigate "/dashboard" if path is "/"
+    else @navigate "/dashboard"  if path is "/"
 
     # This is needed to pass the current context to the View.
     View = cloneWithProps(@props.view, {})
-
-    div null,
-      Header currentUser: @state.Auth.currentUser isLoggedIn: @state.Auth.isLoggedIn
-      div className: "container",
-        View
-
+    div null, Header(
+      currentUser: @state.Auth.currentUser
+      isLoggedIn: @state.Auth.isLoggedIn
+    ), div(
+      className: "container"
+    , View)
+)
 RRouter.start AppRoutes, (view) ->
-  React.render-component do
-    App view: view flux: flux,
-      document.get-element-by-id "app"
+  React.renderComponent App(
+    view: view
+    flux: flux
+  ), document.getElementById("app")
+  return
