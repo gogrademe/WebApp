@@ -1,4 +1,6 @@
-{}= require 'react'
+require! {
+  React
+}
 /*decode64 = (input) ->
 
 
@@ -37,7 +39,7 @@
 
 decode64 = (input) ->
   false
-  
+
 module.exports =
   map: require("mout/array/map")
   camelCase: require("mout/string/camelCase")

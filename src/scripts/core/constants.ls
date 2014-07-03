@@ -1,5 +1,7 @@
-{}= require 'react'
-keyMirror = require("react/lib/keyMirror") 
+require! {
+  React
+}
+keyMirror = require("react/lib/keyMirror")
 
 
 module.exports = keyMirror(PERSON_ADD: null)

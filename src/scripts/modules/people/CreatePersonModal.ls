@@ -1,16 +1,26 @@
-{div, div}= require 'react'
- 
+require! {
+  React
+  Fluxxor
+
+  Bootstrap: "react-bootstrap"
+  ReactForms: "react-forms"
+
+  Header: "../../components/Header.ls"
+  Link: "../../components/HighlightedLink.ls"
+  ModalMixin: "../../components/ModalMixin.ls"
+
+}
+
+{Modal, Alert,Button, Nav} = Bootstrap
+
+Dom = React.DOM
+{div} = Dom
 
 
-Modal = require("react-bootstrap/modal")
-Alert = require("react-bootstrap/alert")
-Button = require("react-bootstrap/button")
-ReactForms = require("react-forms")
 Schema = ReactForms.schema.Schema
 Property = ReactForms.schema.Property
 Form = ReactForms.Form
 FormFor = ReactForms.FormFor
-ModalMixin = require("../../components/ModalMixin")
 
 # var LaddaButton = require('react-ladda');
 PersonSchema = (Schema(null, Property(

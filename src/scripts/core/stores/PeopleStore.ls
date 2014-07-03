@@ -1,4 +1,6 @@
-{}= require 'react'
+require! {
+  React
+}
 
 Fluxxor = require("fluxxor")
 Actions = require("../actions/AuthActions.ls")

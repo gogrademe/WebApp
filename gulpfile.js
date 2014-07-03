@@ -23,7 +23,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('less', function () {
-  gulp.src('./src/less/main.less')
+  gulp.src('./src/less/styles.less')
     .pipe(plumber())
     .pipe(less())
     .pipe(gulp.dest('./build/assets'))
@@ -89,5 +89,5 @@ gulp.task('watch', function () {
 // Default Task
 gulp.task('default', function () {
   gulp.start('clean')
-  gulp.start('copy', 'watch','browser-sync');
+  gulp.start('copy', 'less', 'watch','browser-sync');
 });

@@ -1,10 +1,8 @@
 require! {
   React
-  Header: "../components/Header.ls"
+  Link: './HighlightedLink.ls'
 
-  Link: "./HighlightedLink.ls"
-
-  Bootstrap: "react-bootstrap"
+  Bootstrap: 'react-bootstrap'
 }
 
 {DropdownButton, MenuItem, Nav} = Bootstrap

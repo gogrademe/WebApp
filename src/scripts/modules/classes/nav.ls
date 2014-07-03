@@ -1,5 +1,9 @@
+require! {
+  React
+}
+
 {ul}= require 'react'
- 
+
 
 
 RRouter = require("rrouter")

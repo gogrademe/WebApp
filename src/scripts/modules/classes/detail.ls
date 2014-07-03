@@ -1,5 +1,6 @@
-{}= require 'react'
-
+require! {
+  React
+}
 
 
 Panel = require("../../components/Panel.ls")

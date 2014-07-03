@@ -1,10 +1,20 @@
-{td, th, tr, thead, tr, tbody}= require 'react'
+require! {
+  React
+  RRouter
+
+  Link: './HighlightedLink.ls'
+
+  Bootstrap: 'react-bootstrap'
+}
+
+BTable = Bootstap.Table
+
+Dom = React.DOM
+{td,th,tr,thead,tbody} = Dom
 
 defaultCellRenderer = (props) ->
   props.value
 
-BTable = require("react-bootstrap").Table
-RRouter = require("rrouter")
 RoutingContextMixin = RRouter.RoutingContextMixin
 Cell = React.createClass(
   displayName: "Cell"

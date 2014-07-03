@@ -1,4 +1,6 @@
-{}= require 'react'
+require! {
+  React
+}
 
 
 

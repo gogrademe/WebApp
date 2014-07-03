@@ -1,10 +1,19 @@
-{li, a}= require 'react'
+require! {
+  React
+  RRouter
 
-RRouter = require("rrouter")
-LinkMixin = RRouter.LinkMixin
-Link = RRouter.Link
-utils = require("../utils.ls")
-pattern = require("url-pattern")
+  Pattern: 'url-pattern'
+
+  '../utils.ls'
+
+}
+
+
+Dom = React.DOM
+{li, a} = Dom
+
+{LinkMixin, Link} = RRouter
+
 HighlightedLink = React.createClass(
   displayName: "HighlightedLink"
   mixins: [LinkMixin]

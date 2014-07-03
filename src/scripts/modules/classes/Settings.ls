@@ -1,3 +1,8 @@
+require! {
+  React
+}
+
+
 {div}= require 'react'
 
 

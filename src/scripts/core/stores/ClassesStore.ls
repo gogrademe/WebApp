@@ -1,5 +1,6 @@
-{}= require 'react'
-"use strict"
+require! {
+  React
+}
 
 
 Fluxxor = require("fluxxor")

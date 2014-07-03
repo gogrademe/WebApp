@@ -1,5 +1,7 @@
-{}= require 'react'
-c = require("../constants.ls") 
+require! {
+  React
+}
+c = require("../constants.ls")
 
 
 module.exports =

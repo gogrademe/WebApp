@@ -1,5 +1,7 @@
-{}= require 'react'
-module.exports = 
+require! {
+  React
+}
+module.exports =
 
 
   getAll: ->

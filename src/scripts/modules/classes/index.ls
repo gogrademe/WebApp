@@ -1,3 +1,7 @@
+require! {
+  React
+}
+
 {div}= require 'react'
 
 RRouter = require("rrouter")

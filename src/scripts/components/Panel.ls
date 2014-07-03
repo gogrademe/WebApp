@@ -1,4 +1,9 @@
-{div, div, div, div, h3}= require 'react'
+require! {
+  React
+}
+
+Dom = React.DOM
+{div, h3} = Dom
 
 PanelBody = React.createClass(
   displayName: "PanelBody"

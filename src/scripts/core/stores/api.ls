@@ -1,5 +1,6 @@
-{}= require 'react'
-
+require! {
+  React
+}
 
 
 # https://github.com/hkjels/superapi/blob/master/index.js

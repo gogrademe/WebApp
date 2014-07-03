@@ -1,19 +1,23 @@
 require! {
   React
-  Header: "../components/Header.ls"
-
-  Link: "./HighlightedLink.ls"
+  Fluxxor
 
   Bootstrap: "react-bootstrap"
+  ReactForms: "react-forms"
+
+  Header: "../../components/Header.ls"
+  Link: "../../components/HighlightedLink.ls"
+  ModalMixin: "../../components/ModalMixin.ls"
+
 }
 
-{Modal, Button, Nav} = Bootstrap
+{Modal, Alert,Button, Nav} = Bootstrap
 
-{div, div}= require 'react'
- 
-Fluxxor = require("fluxxor")
+Dom = React.DOM
+{div} = Dom
+
 FluxChildMixin = Fluxxor.FluxChildMixin(React)
-ReactForms = require("react-forms")
+
 Schema = ReactForms.schema.Schema
 Property = ReactForms.schema.Property
 Form = ReactForms.Form

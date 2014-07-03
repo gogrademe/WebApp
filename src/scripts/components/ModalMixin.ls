@@ -1,14 +1,16 @@
-{}= require 'react'
+require! {
+  React
 
+  Link: './HighlightedLink.ls'
+  '../utils.ls'
 
+  Bootstrap: 'react-bootstrap'
+}
 
+{Alerts} = Bootstrap
 
-
-
-Alert = require("react-bootstrap/alert")
-utils = require("../utils.ls")
 module.exports = ->
-  storeNames = Array::slice.call(arguments_)
+  /*storeNames = Array::slice.call(arguments_)*/
   getInitialState: ->
     isSaving: false
     error: null

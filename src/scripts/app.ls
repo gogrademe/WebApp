@@ -1,25 +1,8 @@
-{div}= require 'react'
-
-AppCfg = apiUrl: "http://localhost:5000/api"
-
-
-
-
-RoutingContextMixin = RRouter.RoutingContextMixin
-
-
-FluxMixin = Fluxxor.FluxMixin(React)
-FluxChildMixin = Fluxxor.FluxChildMixin(React)
-StoreWatchMixin = Fluxxor.StoreWatchMixin
-
-# Stores
 require! {
   React
   cloneWithProps: "react/lib/cloneWithProps"
 
-  # RRouter
   RRouter
-  #Fluxxor
   Fluxxor
 
   AuthStore: "./core/stores/AuthStore.ls"
@@ -31,6 +14,21 @@ require! {
 
   Header: "./components/Header.ls"
 }
+
+Dom = React.DOM
+{div} = Dom
+
+
+
+
+
+
+RoutingContextMixin = RRouter.RoutingContextMixin
+
+
+FluxMixin = Fluxxor.FluxMixin(React)
+FluxChildMixin = Fluxxor.FluxChildMixin(React)
+StoreWatchMixin = Fluxxor.StoreWatchMixin
 
 stores =
   AuthStore: new AuthStore()
