@@ -1,14 +1,12 @@
 require! {
   React
+  Fluxxor
+
+  "../../components/Panel.ls"
 }
 
-
-
-Panel = require("../../components/Panel.ls")
-RoutingContextMixin = require("rrouter").RoutingContextMixin
-Fluxxor = require("fluxxor")
 FluxChildMixin = Fluxxor.FluxChildMixin(React)
-ClassAssignments = React.createClass(
+ClassAssignments = React.create-class do
   displayName: "ClassAssignments"
   mixins: [
     RoutingContextMixin
@@ -17,5 +15,5 @@ ClassAssignments = React.createClass(
   render: ->
     Panel hasBody: true title: "Assignments" className: "content-area",
       "Detail page!"
-)
+
 module.exports = ClassAssignments

@@ -1,33 +1,53 @@
 require! {
   React
+  moment
 
   "../../components/Panel.ls"
   '../../components/NewTable.ls'
+  '../../components/ActionRenderer.ls'
 
   "../../api/api.ls"
 }
 Dom = React.DOM
 {div, h3} = Dom
 
+{Grid, StringRenderer} = NewTable
 
-{Grid, StringRenderer, bindId} = NewTable
 
+cols = [
+  {
+    key: 'firstName'
+    display: 'First Name'
+  }
+  {
+    key:'middleName'
+    display: 'Middle Name'
+  }
+  {
+    key: 'lastName'
+    display: 'Last Name'
+  }
+  {
+    key: 'updatedAt'
+    display: 'Updated At'
+    format: (d) ->
+      moment(d).format('L')
+  }
+  {
+    display: 'Actions'
+    renderer: ActionRenderer
+    link-to: "people"
+  }
 
+]
 PeopleList = React.create-class do
   displayName: "PeopleList"
   getInitialState: ->
     people: []
-  componentDidMount: ->
-    @set-state people: [
-      ["John", 67, 10000]
-      ["Tom", 99, 10001]
-    ]
-
-
-  /*componentWillMount: ->
+  componentWillMount: ->
     api.person.find!
     .then ~>
-      @set-state people: it[0]*/
+      @set-state people: it[0]
 
   render: ->
     div title: "All Classes" className: "content-area panel panel-default",
@@ -39,6 +59,6 @@ PeopleList = React.create-class do
           div className: "col-sm-8 text-align-right",
             div className: "btn-group pull-right",
               "Button"
-      Grid headers: ["First Name", "Grade", "Id"], data: @state.people, renderers: [bindId(StringRenderer)]
+      Grid columns: cols, data: @state.people
 
 module.exports = PeopleList

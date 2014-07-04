@@ -1,21 +1,17 @@
 require! {
   React
-  RRouter
+  Router: "react-nested-router"
 
   "../../components/Panel.ls"
 
   "../../api/api.ls"
 }
 
+Route = Router.Route
 
-{div}= require 'react'
-
-Routes = RRouter.Routes
-Route = RRouter.Route
-RoutingContextMixin = RRouter.RoutingContextMixin
 /*Fluxxor = require("fluxxor")*/
 /*FluxMixin = Fluxxor.FluxMixin(React)*/
-Split = React.createClass(
+Split = React.create-class do
   displayName: "Split"
   componentWillMount: !->
     #unless @props.detailView
@@ -25,9 +21,8 @@ Split = React.createClass(
   render: ->
     div className: "two-col",
       @props.detailView
-)
-DetailModule = require("./detail.ls")
-ListModule = require("./list.ls")
-module.exports = (props) ->
-  Route path: "/" view: ListModule,
-    #Route name: "home" path: ":person" view: DetailModule
+
+
+module.exports =
+  List: require './list.ls'
+  Detail: require './detail.ls'

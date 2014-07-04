@@ -60,7 +60,7 @@ gulp.src(src + '/bower/fontawesome/fonts/*.*')
 });
 
 gulp.task('browserify-watch', function() {
-    var bundler = watchify('./src/scripts/app.ls')
+    var bundler = watchify('./src/scripts/index.ls')
 
     bundler.transform(liveify)
     bundler.on('update', rebundle)
@@ -68,7 +68,7 @@ gulp.task('browserify-watch', function() {
   function rebundle () {
     return bundler
       .bundle({debug: true})
-      .on('error', util.log)
+      .pipe(plumber())
       .pipe(source('app.js'))
       .pipe(gulp.dest('./build'))
       .pipe(browserSync.reload({

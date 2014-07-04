@@ -1,22 +1,16 @@
 require! {
   React
-  RRouter
 
   pattern: 'url-pattern'
 
   '../utils.ls'
-
 }
-
 
 Dom = React.DOM
 {li, a} = Dom
 
-{LinkMixin, Link} = RRouter
-
 HighlightedLink = React.create-class do
   displayName: "HighlightedLink"
-  mixins: [LinkMixin]
   getDefaultProps: ->
     activeClassName: "active"
 

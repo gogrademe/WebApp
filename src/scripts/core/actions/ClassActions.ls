@@ -1,9 +1,4 @@
-require! {
-  React
-}
 module.exports =
-
-
   getAll: ->
     @dispatch "GET_CLASSES", {}
     return
