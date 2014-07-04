@@ -1,7 +1,7 @@
 request = require 'superagent'
 Promise = require 'bluebird'
 
-auth = 
+auth =
   token: null
 
 promisify-req = (req) ->
@@ -39,8 +39,8 @@ url = (type, id) ->
   parts = [module.exports.base-url or "/api", type, id].filter -> it and it.length
   parts.join '/'
 
-# status codes 
-status-by-name = 
+# status codes
+status-by-name =
   ok: 200
   created: 201
   not-authorized: 401
@@ -48,24 +48,28 @@ status-by-name =
   conflict: 409
 status-by-number =  {[value, key] for key, value of status-by-name}
 
-base-api = 
+base-api =
   get: (id) ->
     | @cache[id] => Promise.resolve that
     | otherwise  => base-api.do-get.call(@, @type, id).then ~> @cache[id]
   find: (opts={}) ->
     base-api.do-get.call @, @type
   create: (data) ->
-    | @find-similar and @find-similar data => 
+    | @find-similar and @find-similar data =>
         Promise.reject {status: status.conflict, message: "This #{@type} already exists"}
     | otherwise => base-api.do-post.call @, @type, id
   delete: -> base-api.do-delete.call @, @type, id
-  
+
+
+  ## FIXME: 
+  # returning from cache for everything does not work yet!
+  # It will just do requests forever since id is never set.
   do-get: (type, id) ->
     (http-get (url @type, id))
-      .get 'body'
+      #.get 'body'
       .then response-to-caches
-      .then ~>
-        @get id
+      #.then ->
+      #  @get id
 
   do-post: (type, id) ->
     http-post (url type) data
@@ -81,8 +85,8 @@ base-api =
 
   do-delete: (type, id) ->
     http-delete (url type, id)
-        
-types = 
+
+types =
   student: {}
   teacher: {}
   parent: {}
@@ -96,7 +100,7 @@ types =
 # update the cache
 cache-set = (cache, data) ->
   | cache[data.id] => data `merge-into` cache[data.id]
-  | data.id        => cache[data.id]
+  | data.id        => cache[data.id] = data
   | otherwise      => throw new Error 'cannot set item without id .' + JSON.stringify data
 
 response-to-caches = (data) ->
@@ -113,7 +117,7 @@ merge-into = (source, target) ->
     | 'Null'    => value
     | 'Object'  => value `merge-into` (target[key] or {})
     | otherwise => value
-    
+
   target
 
 for let key, thing of types
@@ -131,7 +135,7 @@ for let key, thing of types
 
 
 # session is special, and requres special treatment
-types.session = 
+types.session =
   cache: []
   get: -> ...
   create: ({email, password}) ->
@@ -153,4 +157,3 @@ types.session =
 
 types.auth = auth
 module.exports = types
-
