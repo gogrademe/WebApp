@@ -34,6 +34,16 @@ cols = [
       moment(d).format('L')
   }
   {
+    key: 'profiles'
+    display: 'Types'
+    format: (v) ->
+      console.log v
+      if v.teacherId
+        "Teacher"
+      else
+        "Student"
+  }
+  {
     display: 'Actions'
     renderer: ActionRenderer
     link-to: "people"
