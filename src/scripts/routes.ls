@@ -11,7 +11,7 @@ require! {
   LoginModule: "./modules/LoginModule.ls"
 
   # Mountable
-  #ClassesModule: "./modules/Classes/index.ls"
+  Classes: "./modules/Classes/index.ls"
   People: "./modules/People/index.ls"
   #NotFoundModule: "./modules/NotFoundModule.ls"
 }
@@ -27,8 +27,16 @@ module.exports =
         name: "login"
         handler: LoginModule
     Route name:"people" handler: People.List
-    Route name:"detail" path:"people/:resourceId" handler: People.Detail
+    Route name:"people.detail" path:"people/:resourceId" handler: People.Detail
+    Route name: "class" handler: Classes.List
+    Route handler: Classes.Split,
+      Route name: "class.detail" path: "class/:resourceId" handler: Classes.Detail
+      Route name: "assignments" path: "class/:resourceId/assignments" handler: Classes.Assignments
+      Route name: "settings" path: "class/:resourceId/settings" handler: Classes.Settings
     Route name:"dashboard" handler: DashboardModule
+
+
+
 /*Route do
   name: "dashboard"
   path: "/dashboard"

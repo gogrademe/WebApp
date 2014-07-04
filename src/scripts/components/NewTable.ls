@@ -21,23 +21,24 @@ Grid = React.create-class do
     data = @props.data
     cols = @props.columns
     getRenderer = @getRenderer
-    table className: "table",
-      thead null,
-        tr null,
-          cols.map(@renderHeader)
-      tbody null,
-        data.map (row, rowI) ->
-          # Table Row
-          tr key: "row-#rowI",
-            cols.map (column, columnI) ->
-              result = getRenderer(column, rowI, columnI) do
-                rowI: rowI
-                row: row
-                columnI: columnI
-                column: column
-                value: row[column.key] || ""
-              # Row Cell
-              td key: "cell-#rowI-#columnI", result
+    div class-name: "table-responsive",
+      table class-name: "table",
+        thead null,
+          tr null,
+            cols.map(@renderHeader)
+        tbody null,
+          data.map (row, rowI) ->
+            # Table Row
+            tr key: "row-#rowI",
+              cols.map (column, columnI) ->
+                result = getRenderer(column, rowI, columnI) do
+                  rowI: rowI
+                  row: row
+                  columnI: columnI
+                  column: column
+                  value: row[column.key] || ""
+                # Row Cell
+                td key: "cell-#rowI-#columnI", class-name:'vert-align', result
 
   getRenderer: (column, rowI, columnI) ->
     renderer = column.renderer || StringRenderer

@@ -9,7 +9,6 @@ FluxChildMixin = Fluxxor.FluxChildMixin(React)
 ClassAssignments = React.create-class do
   displayName: "ClassAssignments"
   mixins: [
-    RoutingContextMixin
     FluxChildMixin
   ]
   render: ->

@@ -10,12 +10,13 @@ Link = Router.Link
 
 ActionRenderer = React.create-class do
   render: ->
-    div null,
-      Link to: "detail", resourceId: @props.row.id,
-        "Detail "
-      Link to: "detail", resourceId: @props.row.id,
-        "Edit "
-      Link to: "detail", resourceId: @props.row.id,
-        "Delete "
+    lnk = @props.column.link-to
+    div class-name: "btn-group btn-group-sm",
+      Link to: "#lnk.detail", resourceId: @props.row.id, class-name: "btn btn-default",
+        "Detail"
+      Link to: "#lnk.detail", resourceId: @props.row.id, class-name: "btn btn-default",
+        "Edit"
+      Link to: "#lnk.detail", resourceId: @props.row.id, class-name: "btn btn-default",
+        "Delete"
 
 module.exports = ActionRenderer

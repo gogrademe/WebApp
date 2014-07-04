@@ -1,22 +1,15 @@
 require! {
   React
+  Fluxxor
+  ReactForms: "react-forms"
+  "../../components/Panel.ls"
 }
 
+Dom = React.DOM
+{div} = Dom
 
-{div}= require 'react'
-
-
-
-
-
-
-"use strict"
-
-Panel = require("../../components/Panel.ls")
-RoutingContextMixin = require("rrouter").RoutingContextMixin
-Fluxxor = require("fluxxor")
 FluxChildMixin = Fluxxor.FluxChildMixin(React)
-ReactForms = require("react-forms")
+
 Schema = ReactForms.schema.Schema
 Property = ReactForms.schema.Property
 Form = ReactForms.Form
@@ -43,7 +36,6 @@ PersonSchema = (Schema(
 ClassSettings = React.createClass(
   displayName: "ClassSettings"
   mixins: [
-    RoutingContextMixin
     FluxChildMixin
   ]
   render: ->

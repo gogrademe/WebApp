@@ -43,6 +43,8 @@ HeaderNav = React.create-class do
               li null,
                 Link to: "dashboard", "Home"
               li null,
+                Link to: "class", "Classes"
+              li null,
                 Link to: "people", "People"
               #Link href: "/dashboard",
               #  "Dashboard"
