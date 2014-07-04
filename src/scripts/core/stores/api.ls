@@ -1,4 +1,4 @@
-require! {
+/*require! {
   React
 }
 
@@ -40,4 +40,4 @@ methods = [
 ]
 module.exports = SuperApi(AppCfg.apiUrl,
   Authorization: "Bearer " + localStorage.token
-)
+)*/

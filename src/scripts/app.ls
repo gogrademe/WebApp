@@ -20,7 +20,7 @@ Dom = React.DOM
 
 
 
-
+window.React = React
 
 
 RoutingContextMixin = RRouter.RoutingContextMixin
@@ -31,14 +31,14 @@ FluxChildMixin = Fluxxor.FluxChildMixin(React)
 StoreWatchMixin = Fluxxor.StoreWatchMixin
 
 stores =
-  AuthStore: new AuthStore()
-  ClassesStore: new ClassesStore()
-  PeopleStore: new PeopleStore()
+  AuthStore: new AuthStore!
+  ClassesStore: new ClassesStore!
+  PeopleStore: new PeopleStore!
 
 
 flux = new Fluxxor.Flux(stores, actions)
 
-App = React.createClass(
+App = React.create-class do
   displayName: "App"
   mixins: [
     FluxMixin
@@ -60,17 +60,13 @@ App = React.createClass(
     else @navigate "/dashboard"  if path is "/"
 
     # This is needed to pass the current context to the View.
-    View = cloneWithProps(@props.view, {})
-    div null, Header(
-      currentUser: @state.Auth.currentUser
-      isLoggedIn: @state.Auth.isLoggedIn
-    ), div(
-      className: "container"
-    , View)
-)
-RRouter.start AppRoutes, (view) ->
-  React.renderComponent App(
-    view: view
-    flux: flux
-  ), document.getElementById("app")
-  return
+    /*View = cloneWithProps(@props.view, {})*/
+    div null,
+      Header {currentUser: @state.Auth.currentUser, isLoggedIn: @state.Auth.isLoggedIn}
+      div className: "container",
+        @props.view
+
+RRouter.start AppRoutes, (view) !->
+  React.render-component do
+    App {view: view, flux: flux}
+    document.getElementById("app")

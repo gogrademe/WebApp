@@ -2,7 +2,7 @@ require! {
   React
   RRouter
 
-  Pattern: 'url-pattern'
+  pattern: 'url-pattern'
 
   '../utils.ls'
 
@@ -14,16 +14,15 @@ Dom = React.DOM
 
 {LinkMixin, Link} = RRouter
 
-HighlightedLink = React.createClass(
+HighlightedLink = React.create-class do
   displayName: "HighlightedLink"
   mixins: [LinkMixin]
   getDefaultProps: ->
     activeClassName: "active"
 
   onClick: (e) ->
-    e.preventDefault!
+    e.prevent-pefault!
     @navigate @href!
-    return
 
   isActive: ->
     pat = pattern.newPattern(@href! + "*")
@@ -32,10 +31,8 @@ HighlightedLink = React.createClass(
   render: ->
     className = undefined
     className = @props.activeClassName  if @props.activeClassName and @isActive!
-    li className: className
-    a(
-      href: @href!
-      onClick: @onClick
-    , @props.children)
-)
+    li className: className,
+      a {href: @href onClick: @onClick},
+        @props.children
+
 module.exports = HighlightedLink

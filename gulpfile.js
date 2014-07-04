@@ -87,7 +87,6 @@ gulp.task('watch', function () {
 });
 
 // Default Task
-gulp.task('default', function () {
-  gulp.start('clean')
+gulp.task('default',['clean'], function () {
   gulp.start('copy', 'less', 'watch','browser-sync');
 });

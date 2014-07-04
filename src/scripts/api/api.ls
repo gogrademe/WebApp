@@ -2,7 +2,10 @@ request = require 'superagent'
 Promise = require 'bluebird'
 
 auth =
-  token: null
+  token:
+    switch
+    | localStorage.token => localStorage.token
+    | otherwise => null
 
 promisify-req = (req) ->
   new Promise (resolve, reject) ->
@@ -61,7 +64,7 @@ base-api =
   delete: -> base-api.do-delete.call @, @type, id
 
 
-  ## FIXME: 
+  ## FIXME:
   # returning from cache for everything does not work yet!
   # It will just do requests forever since id is never set.
   do-get: (type, id) ->

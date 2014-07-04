@@ -1,10 +1,11 @@
 require! {
   React
+  Fluxxor
+  '../../api/api.ls'
 }
 
+api.base-url = 'http://localhost:5005/api'
 
-Fluxxor = require("fluxxor")
-request = require("./api.ls")
 AuthStore = Fluxxor.createStore(
   actions:
     LOGIN_AUTH: "onLoginAuth"
@@ -20,7 +21,10 @@ AuthStore = Fluxxor.createStore(
     email = payload.email.trim()
     password = payload.password.trim()
     if email isnt "" and password isnt ""
-      request.post("/session").send(
+      api.session.create {email: email, password: password}
+      .then ~>
+        @_setLoggedIn api.auth.token
+      /*request.post("/session").send(
         email: email
         password: password
       ).end ((error, res) ->
@@ -29,7 +33,7 @@ AuthStore = Fluxxor.createStore(
         else
           @_setLoggedOut()
         return
-      ).bind()
+      ).bind()*/
     @emit "change"
 
   onLogout: (payload) ->

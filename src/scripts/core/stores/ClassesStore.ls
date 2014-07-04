@@ -1,10 +1,11 @@
 require! {
   React
+  Fluxxor
+  '../../api/api.ls'
 }
 
 
-Fluxxor = require("fluxxor")
-request = require("./api.ls")
+/*Fluxxor = require("fluxxor")*/
 ClassesStore = Fluxxor.createStore(
   actions:
     GET_CLASSES: "onGetAllClasses"
@@ -18,10 +19,13 @@ ClassesStore = Fluxxor.createStore(
     @gbClasses
 
   onGetAllClasses: (payload) ->
-    request.get("/classes").end ((error, res) ->
+    api.class.find!
+      .then ->
+        
+    /*request.get("/classes").end ((error, res) ->
       @gbClasses = res.body
       @emit "change"
-    ).bind()
+    ).bind()*/
     return
 
   onAddClass: (payload) ->
