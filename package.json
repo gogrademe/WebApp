@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "repository": {
-    "type": "git",
-    "url": "git@bitbucket.org:lanciv/gogradeweb.git"
+    "type": "git"
   },
   "author": "",
   "devDependencies": {
@@ -29,14 +28,14 @@
     "gulp-util": "*",
     "less": "*",
     "liveify": "^0.4.0",
+    "moment": "^2.7.0",
     "mout": "*",
     "react": "^0.10.0",
     "react-bootstrap": "^0.10.2",
     "react-forms": "^0.1.0",
     "react-grid": "git://github.com/prometheusresearch/react-grid",
-    "rrouter": "^0.4.0",
+    "react-nested-router": "^0.2.0",
     "superagent": "^0.18.0",
-    "superagent-defaults": "^0.1.6",
     "url-pattern": "^0.6.0",
     "vinyl-source-stream": "*",
     "watchify": "*"

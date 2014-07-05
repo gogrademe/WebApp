@@ -1,6 +1,5 @@
 require! {
   React
-  RRouter
 
   Link: './HighlightedLink.ls'
 

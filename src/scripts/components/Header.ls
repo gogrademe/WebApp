@@ -1,26 +1,28 @@
 require! {
   React
-  Link: './HighlightedLink.ls'
-
+  #Link: './HighlightedLink.ls'
+  Router: "react-nested-router"
   Bootstrap: 'react-bootstrap'
 }
 
 {DropdownButton, MenuItem, Nav} = Bootstrap
 
 Dom = React.DOM
-{div, h1, img, span, ul, a, i, button} = Dom
+{div, h1, img, span, ul,li, a, i, button} = Dom
+
+Link = Router.Link
 
 # var Link = RRouter.Link;
 HeaderBar = React.create-class do
   displayName: "HeaderBar"
   render: ->
-    div className: "navbar navbar-fixed-top nav-justified navbar-default header header-tall",
-      div className: "navbar-header",
-        div className: "nav nav-justified",
+    div class-name: "navbar navbar-fixed-top nav-justified navbar-default header header-tall",
+      div class-name: "navbar-header",
+        div class-name: "nav nav-justified",
           h1 null,
-            a className: "navbar-brand" href: "/",
-              img src: "/assets/img/lanciv-logo-final.png",
-                "Cunae Gradebook"
+            a class-name: "navbar-brand" href: "/",
+              img src: '/assets/img/lanciv-logo-final.png'
+              "Cunae Gradebook"
 
 HeaderNav = React.create-class do
   displayName: "HeaderNav"
@@ -38,12 +40,18 @@ HeaderNav = React.create-class do
           div className: "navbar-header"
           div className: "navbar-collapse collapse",
             ul className: "nav navbar-nav",
-              Link href: "/dashboard",
-                "Dashboard"
-              Link href: "/classes" matchPattern: "/classes*",
-                "Classes"
-              Link href: "/people" matchPattern: "/people*",
-                "People"
+              li null,
+                Link to: "dashboard", "Home"
+              li null,
+                Link to: "class", "Classes"
+              li null,
+                Link to: "people", "People"
+              #Link href: "/dashboard",
+              #  "Dashboard"
+              #Link href: "/classes" matchPattern: "/classes*",
+              #  "Classes"
+              #Link href: "/people" matchPattern: "/people*",
+              #  "People"
             Nav className: "nav navbar-nav pull-right",
               DropdownButton title: "User" className: "btn-link",
                 MenuItem key: "1",
@@ -51,13 +59,16 @@ HeaderNav = React.create-class do
                 MenuItem key: "2",
                   "Dropdown link"
 
-Header = React.createClass(
+Header = React.create-class do
   displayName: "Header"
   propTypes:
     currentUser: React.PropTypes.object.isRequired
     isLoggedIn: React.PropTypes.bool.isRequired
 
   render: ->
-    div null, (if @props.isLoggedIn then HeaderNav(currentUser: @props.currentUser) else HeaderBar(null))
-)
+    if @props.isLoggedIn then
+      HeaderNav currentUser: @props.currentUser
+    else
+      HeaderBar null
+
 module.exports = Header

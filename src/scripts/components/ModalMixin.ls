@@ -15,14 +15,14 @@ module.exports = ->
     isSaving: false
     error: null
 
-  componentWillMount: ->
+  /*componentWillMount: ->
     flux = @props.flux or @context.flux
     utils.forEach storeNames, ((store) ->
       flux.store(store).on "success", @modalSaveSuccess
       flux.store(store).on "error", @modalSaveFail
       return
     ).bind()
-    return
+    return*/
 
   modalSaving: ->
     @setState isSaving: true
@@ -40,14 +40,14 @@ module.exports = ->
 
     return
 
-  componentWillUnmount: ->
+  /*componentWillUnmount: ->
     flux = @props.flux or @context.flux
     utils.forEach storeNames, ((store) ->
       flux.store(store).removeListener "error", @modalSaveFail
       flux.store(store).removeListener "sucess", @modalSaveSuccess
       return
     ).bind()
-    return
+    return*/
 
   errorAlerts: ->
     if @state.error

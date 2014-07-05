@@ -1,40 +1,57 @@
 
 require! {
   React
-  RRouter
+  Router: "react-nested-router"
 
+  App: "./app.ls"
+
+  SignedOut: "./components/SignedOut.ls"
   # Single pages
   DashboardModule: "./modules/DashboardModule.ls"
   LoginModule: "./modules/LoginModule.ls"
 
   # Mountable
-  ClassesModule: "./modules/Classes/index.ls"
-  PeopleModule: "./modules/People/index.ls"
-  NotFoundModule: "./modules/NotFoundModule.ls"
+  Classes: "./modules/Classes/index.ls"
+  People: "./modules/People/index.ls"
+  #NotFoundModule: "./modules/NotFoundModule.ls"
 }
 
+Route = Router.Route
 
 
-Routes = RRouter.Routes
-Route = RRouter.Route
+module.exports =
+  Route handler: App,
+    Route handler: SignedOut,
+      Route do
+        path: "login"
+        name: "login"
+        handler: LoginModule
+    Route name:"people" handler: People.List
+    Route name:"people.detail" path:"people/:resourceId" handler: People.Detail
+    Route name: "class" handler: Classes.List
+    Route handler: Classes.Split,
+      Route name: "class.detail" path: "class/:resourceId" handler: Classes.Detail
+      Route name: "assignments" path: "class/:resourceId/assignments" handler: Classes.Assignments
+      Route name: "settings" path: "class/:resourceId/settings" handler: Classes.Settings
+    Route name:"dashboard" handler: DashboardModule
 
 
 
-
-module.exports = (Routes(null, Route(
+/*Route do
   name: "dashboard"
   path: "/dashboard"
-  view: DashboardModule
-), Route(
+  handler: DashboardModule
+Route do
   name: "login"
   path: "/login"
-  view: LoginModule
-), Route(
+  handler: LoginModule
+Route do
   path: "/classes"
-, ClassesModule(null)), Route(
+  handler: ClassesModule
+Route do
   path: "/people"
-, PeopleModule(null)), Route(
+  handler: PeopleModule
+Route do
   name: "notfound"
   path: "*"
-  view: NotFoundModule
-)))
+  handler: NotFoundModule*/

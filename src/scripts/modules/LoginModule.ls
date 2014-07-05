@@ -1,33 +1,31 @@
 require! {
   React
+  Fluxxor
+
+  "../components/Panel.ls"
+
+  "../core/fluxMixin.ls"
 }
 Dom = React.DOM
 {form, div, span, i, input, button} = Dom
 
 
-Panel = require("../components/Panel.ls")
-Fluxxor = require("fluxxor")
 FluxChildMixin = Fluxxor.FluxChildMixin(React)
 StoreWatchMixin = Fluxxor.StoreWatchMixin
+
 LoginPage = React.create-class do
   displayName: "LoginPage"
-  mixins: [
-    FluxChildMixin
-    StoreWatchMixin("AuthStore")
-  ]
-  getStateFromFlux: ->
-    flux = @getFlux!
-    AuthStore: flux.store("AuthStore").getState!
+  getInitialState: ->
+    auth: window.flux.store("AuthStore").getState!
 
   handleSubmit: (e) ->
-    flux = @getFlux()
-    @setState isLoggingIn: true
     e.preventDefault()
+    @setState isLoggingIn: true
     email = @refs.email.getDOMNode().value.trim!
     password = @refs.password.getDOMNode().value.trim!
 
     # AuthActions.login(email, password);
-    flux.actions.loginAuth email, password
+    window.flux.actions.login email, password
     return
 
   render: ->
