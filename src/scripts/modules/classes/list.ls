@@ -18,30 +18,6 @@ Dom = React.DOM
 {Grid, StringRenderer} = NewTable
 {Modal, Alert,Button, Nav, ModalTrigger} = Bootstrap
 
-/*columns = [
-  {
-    name: "Id"
-    width: "20%"
-    key: "id"
-  }
-  {
-    name: "Class Name"
-    width: "20%"
-    key: "className"
-    renderer: LinkCell
-  }
-  {
-    name: "Grade Level"
-    width: "20%"
-    key: "gradeLevel"
-  }
-  {
-    name: "Teacher"
-    width: "40%"
-    key: "teacherName"
-  }
-]*/
-
 cols = [
   {
     key: 'name'
@@ -55,8 +31,10 @@ cols = [
     display: 'Actions'
     renderer: ActionRenderer
     link-to: 'class'
+    class-name: 'col-md-3'
   }
 ]
+
 ClassList = React.create-class do
   displayName: "ClassList"
   getInitialState: ->

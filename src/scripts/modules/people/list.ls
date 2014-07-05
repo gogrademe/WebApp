@@ -1,6 +1,5 @@
 require! {
   React
-  moment
 
   "../../components/Panel.ls"
   '../../components/NewTable.ls'
@@ -35,8 +34,7 @@ cols = [
   {
     key: 'updatedAt'
     display: 'Updated At'
-    format: (d) ->
-      moment(d).format('L')
+    format: 'date'
   }
   {
     key: 'profiles'
@@ -51,6 +49,7 @@ cols = [
     display: 'Actions'
     renderer: ActionRenderer
     link-to: "people"
+    class-name: 'col-md-3'
   }
 ]
 

@@ -1,5 +1,6 @@
 require! {
   React
+  moment
 }
 /*decode64 = (input) ->
 
@@ -40,6 +41,17 @@ require! {
 decode64 = (input) ->
   false
 
+# Date validating functions
+moment-invalid-date = -> not moment(it).is-valid!
+year-is-one = -> moment(it).year! is 1
+invalid-date = -> (moment-invalid-date it) or (year-is-one it)
+
+# Format Dates
+date = (x) -> match x
+  | (not)         => ""
+  | invalid-date  => ""
+  | otherwise     => moment(x).format('L')
+
 module.exports =
   map: require("mout/array/map")
   camelCase: require("mout/string/camelCase")
@@ -50,3 +62,4 @@ module.exports =
   decode64: decode64
   isEmpty: require("mout/lang/isEmpty")
   getParam: require("mout/queryString/getParam")
+  formatDate: date

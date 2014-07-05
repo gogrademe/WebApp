@@ -12,7 +12,6 @@ Dom = React.DOM
 
 Link = Router.Link
 
-# var Link = RRouter.Link;
 HeaderBar = React.create-class do
   displayName: "HeaderBar"
   render: ->
@@ -43,15 +42,9 @@ HeaderNav = React.create-class do
               li null,
                 Link to: "dashboard", "Home"
               li null,
-                Link to: "class", "Classes"
+                Link to: "class.list", "Classes"
               li null,
                 Link to: "people", "People"
-              #Link href: "/dashboard",
-              #  "Dashboard"
-              #Link href: "/classes" matchPattern: "/classes*",
-              #  "Classes"
-              #Link href: "/people" matchPattern: "/people*",
-              #  "People"
             Nav className: "nav navbar-nav pull-right",
               DropdownButton title: "User" className: "btn-link",
                 MenuItem key: "1",

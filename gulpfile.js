@@ -68,7 +68,7 @@ gulp.task('browserify-watch', function() {
   function rebundle () {
     return bundler
       .bundle({debug: true})
-      .pipe(plumber())
+      .on('error', util.log)
       .pipe(source('app.js'))
       .pipe(gulp.dest('./build'))
       .pipe(browserSync.reload({

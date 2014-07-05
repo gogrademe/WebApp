@@ -1,6 +1,8 @@
 require! {
   React
   EventEmitter2.EventEmitter2
+  p: 'prelude-ls'
+  "../utils.ls"
 }
 
 Dom = React.DOM
@@ -11,11 +13,37 @@ bindId = (x) ->
   ->
     x
 
+## Get a nested key.
+get = (obj, prop) ->
+  parts = prop.split('.')
+  last = parts.pop!
+
+  while prop = parts.shift!
+    obj = obj[prop]
+    return if typeof obj isnt 'object' or not obj
+  obj[last]
+
+format-val = (val, format) ->
+  if typeof format is 'function'
+    return format(val)
+
+  switch format
+  | 'date' => utils.formatDate(val)
+  | 'decimalPercent' => "#{val * 100}%"
+  | otherwise => val
+
+
 Grid = React.create-class do
   displayName: "Grid"
+
   getInitialState: ->
     sortByIndex: null
     sortDirection: true
+
+  render-body: (xs) ->
+    | !xs       => "Test"
+    | xs.length => xs.map rows
+    | otherwise => "No Results"
 
   render: ->
     data = @props.data
@@ -27,19 +55,23 @@ Grid = React.create-class do
           tr null,
             cols.map(@renderHeader)
         tbody null,
+          ## Build Rows
           data.map (row, rowI) ->
-            # Table Row
+            ## Table Row
             tr key: "row-#rowI",
+              ## Build columns
               cols.map (column, columnI) ->
                 result = getRenderer(column, rowI, columnI) do
                   rowI: rowI
                   row: row
                   columnI: columnI
                   column: column
-                  value: row[column.key] || ""
-                # Row Cell
-                td key: "cell-#rowI-#columnI", class-name:'vert-align', result
+                  value: get row, column.key || ""
+                ## Row Cell
+                td key: "cell-#rowI-#columnI", class-name:"vert-align #{column.class-name}", result
 
+  ## Responsible for getting the renderer set
+  ## for the column or the default StringRenderer.
   getRenderer: (column, rowI, columnI) ->
     renderer = column.renderer || StringRenderer
 
@@ -67,13 +99,11 @@ StringRenderer = React.create-class do
       row: @props.row
 
   render: ->
-    val = @props.value
-    if @props.column.format
-      val = @props.column.format(val)
+    val = format-val(@props.value, @props.column.format)
 
     if @state.editing
       div null,
-        input value: @props.value onChange: @handleChange
+        input value: val onChange: @handleChange
         button onClick: @toggle,
           "x"
     else
@@ -82,8 +112,6 @@ StringRenderer = React.create-class do
 
   toggle: !->
     @setState editing: not @state.editing
-
-
 
 module.exports =
   Grid: Grid

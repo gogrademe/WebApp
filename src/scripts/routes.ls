@@ -28,11 +28,12 @@ module.exports =
         handler: LoginModule
     Route name:"people" handler: People.List
     Route name:"people.detail" path:"people/:resourceId" handler: People.Detail
-    Route name: "class" handler: Classes.List
-    Route handler: Classes.Split,
+    Route name: "class.list" path: "class/list" handler: Classes.List
+    Route path: "class/:resourceId" handler: Classes.Split,
       Route name: "class.detail" path: "class/:resourceId" handler: Classes.Detail
-      Route name: "assignments" path: "class/:resourceId/assignments" handler: Classes.Assignments
-      Route name: "settings" path: "class/:resourceId/settings" handler: Classes.Settings
+      Route name: "class.students" path: "class/:resourceId/students" handler: Classes.Students
+      Route name: "class.assignments" path: "class/:resourceId/assignments" handler: Classes.Assignments
+      Route name: "class.settings" path: "class/:resourceId/settings" handler: Classes.Settings
     Route name:"dashboard" handler: DashboardModule
 
 

@@ -27,8 +27,8 @@ promisify-req = (req) ->
     #   console.log JSON.stringify(that, null, 4)
     console.log "-"*20
 
-http-get = (url) ->
-  promisify-req request.get url
+http-get = (url, opts) ->
+  promisify-req request.get(url).query(opts)
 
 http-post = (url, data) -->
   promisify-req request.post(url).send(data)
@@ -56,7 +56,7 @@ base-api =
     | @cache[id] => Promise.resolve that
     | otherwise  => base-api.do-get.call(@, @type, id).then ~> @cache[id]
   find: (opts={}) ->
-    base-api.do-get.call @, @type
+    base-api.do-get.call @, @type,,opts
   create: (data) ->
     | @find-similar and @find-similar data =>
         Promise.reject {status: status.conflict, message: "This #{@type} already exists"}
@@ -67,8 +67,8 @@ base-api =
   ## FIXME:
   # returning from cache for everything does not work yet!
   # It will just do requests forever since id is never set.
-  do-get: (type, id) ->
-    (http-get (url @type, id))
+  do-get: (type, id, opts) ->
+    (http-get (url @type, id), opts)
       #.get 'body'
       .then response-to-caches
       #.then ->
@@ -95,7 +95,7 @@ types =
   parent: {}
   person: {}
   class: {}
-  class-term: {}
+  term: {}
   assignment: {}
   grade: {}
   school: {}
