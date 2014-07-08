@@ -6,14 +6,15 @@ require! {
 Dom = React.DOM
 {div, h2} = Dom
 
-SignedOut = React.create-class do
+SignedIn = React.create-class do
   statics:
     willTransitionTo: (transition, params) ->
-      if api.auth.token
-        transition.redirect('/dashboard')
+      console.log transition
+      if !api.auth.token
+        transition.redirect('/login')
 
   render: ->
     div null,
       @props.activeRoute
 
-module.exports = SignedOut
+module.exports = SignedIn

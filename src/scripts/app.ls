@@ -1,6 +1,7 @@
 require! {
   React
   Fluxxor
+  EventEmitter2.EventEmitter2
   Router: "react-nested-router"
 
   AuthStore: "./core/stores/AuthStore.ls"
@@ -10,6 +11,8 @@ require! {
   actions: "./core/actions/AuthActions.ls"
 
   Header: "./components/Header.ls"
+
+  './api/api.ls'
 }
 
 Dom = React.DOM
@@ -18,6 +21,9 @@ Dom = React.DOM
 FluxMixin = Fluxxor.FluxMixin(React)
 StoreWatchMixin = Fluxxor.StoreWatchMixin
 
+
+
+window.events = new EventEmitter2!
 stores =
   AuthStore: new AuthStore!
   ClassesStore: new ClassesStore!
@@ -39,13 +45,10 @@ App = React.create-class do
   getStateFromFlux: ->
     auth: flux.store("AuthStore").getState!
 
-  navigate: ->
-    console.log "tried to navigate to #it"
-
   render: ->
-      div null,
-        Header currentUser: @state.auth.current-user, isLoggedIn: @state.auth.isLoggedIn
-        div className: "container",
-          @props.activeRoute || "test"
+    div null,
+      Header currentUser: @state.auth.current-user, isLoggedIn: @state.auth.isLoggedIn
+      div className: "container",
+        @props.activeRoute || "Loading..."
 
 module.exports = App

@@ -18,23 +18,14 @@ promisify-req = (req) ->
         | error or res?.status-code >= 400 => reject res or error
         | otherwise                  => resolve res.body
 
-    console.log "-"*20
-    console.log "#{req.method} #{req.url}"
-    for own name, value of req.header
-      console.log "#name: #value"
-    # if req._data
-    #   console.log ""
-    #   console.log JSON.stringify(that, null, 4)
-    console.log "-"*20
-
 http-get = (url, opts) ->
   promisify-req request.get(url).query(opts)
 
 http-post = (url, data) -->
   promisify-req request.post(url).send(data)
 
-http-delete = (url) -->
-  promisify-req request.delete url
+http-del = (url) -->
+  promisify-req request.del url
 
 
 # get the url for a resource
@@ -61,7 +52,7 @@ base-api =
     | @find-similar and @find-similar data =>
         Promise.reject {status: status.conflict, message: "This #{@type} already exists"}
     | otherwise => base-api.do-post.call @, @type, id
-  delete: -> base-api.do-delete.call @, @type, id
+  del: (id) -> base-api.do-del.call @, @type, id
 
 
   ## FIXME:
@@ -86,8 +77,8 @@ base-api =
           .then response-to-caches
           .then ~> @get data.id
 
-  do-delete: (type, id) ->
-    http-delete (url type, id)
+  do-del: (type, id) ->
+    http-del (url type, id)
 
 types =
   student: {}
@@ -95,6 +86,7 @@ types =
   parent: {}
   person: {}
   class: {}
+  enrollment: {}
   term: {}
   assignment: {}
   grade: {}
@@ -130,12 +122,20 @@ for let key, thing of types
     base-api.get.call this, id
   thing.find = (opts) -> base-api.find.call this, opts
   thing.create = (data) ->
+    window.events.emit "#{@type}.create.pending",
+      data: data
     base-api.create.call this, id
      .get 'body'
-  thing.delete = (id) ->
-    base-api.delete.call this, id
-     .return true
-
+  thing.del = (id) ->
+    console.log "#{@type}.delete.pending"
+    window.events.emit "#{@type}.delete.pending",
+      id: id
+    base-api.del.call this, id
+      .then ~>
+        console.log "#{@type}.delete.called"
+        window.events.emit "#{@type}.delete.success",
+          id: id
+      .return true
 
 # session is special, and requres special treatment
 types.session =

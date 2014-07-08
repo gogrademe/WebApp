@@ -2,6 +2,10 @@ require! {
   React
 
   pattern: 'url-pattern'
+  'react-nested-router/modules/stores/ActiveStore'
+  'react-nested-router/modules/helpers/withoutProperties'
+  'react-nested-router/modules/helpers/transitionTo'
+  'react-nested-router/modules/helpers/makeHref'
 
   '../utils.ls'
 }
@@ -9,24 +13,76 @@ require! {
 Dom = React.DOM
 {li, a} = Dom
 
-HighlightedLink = React.create-class do
-  displayName: "HighlightedLink"
+isModifiedEvent = (event) ->
+  !!(event.metaKey or event.ctrlKey or event.shiftKey)
+
+RESERVED_PROPS =
+  to: true
+  className: true
+  activeClassName: true
+  query: true
+  children: true
+
+Link = React.createClass(
+  displayName: "Link"
+  statics:
+    getUnreservedProps: (props) ->
+      withoutProperties props, RESERVED_PROPS
+
+  propTypes:
+    to: React.PropTypes.string.isRequired
+    activeClassName: React.PropTypes.string.isRequired
+    query: React.PropTypes.object
+
   getDefaultProps: ->
     activeClassName: "active"
 
-  onClick: (e) ->
-    e.prevent-pefault!
-    @navigate @href!
+  getInitialState: ->
+    isActive: false
 
-  isActive: ->
-    pat = pattern.newPattern(@href! + "*")
-    !!pat.match(@getRouting().path)
+  getParams: ->
+    Link.getUnreservedProps @props
+
+  getHref: ->
+    makeHref @props.to, @getParams(), @props.query
+
+  getClassName: ->
+    className = @props.className or ""
+    return className + " " + @props.activeClassName  if @state.isActive
+    className
+
+  componentWillMount: !->
+    ActiveStore.addChangeListener @handleActiveChange
+
+  componentDidMount: !->
+    @updateActive()
+
+  componentWillUnmount: !->
+    ActiveStore.removeChangeListener @handleActiveChange
+
+  componentWillReceiveProps: (props) ->
+    params = Link.getUnreservedProps(props)
+    @setState isActive: ActiveStore.isActive(props.to, params, props.query)
+    return
+
+  handleActiveChange: !->
+    @updateActive()  if @isMounted()
+
+  updateActive: !->
+    @setState isActive: ActiveStore.isActive(@props.to, @getParams(), @props.query)
+
+  handleClick: (event) !->
+    return  if isModifiedEvent(event)
+    event.prevent-default!
+    transitionTo @props.to, @getParams(), @props.query
 
   render: ->
-    className = undefined
-    className = @props.activeClassName  if @props.activeClassName and @isActive!
-    li className: className,
-      a {href: @href onClick: @onClick},
-        @props.children
+    props =
+      href: @getHref()
+      className: @getClassName()
+      onClick: @handleClick
 
-module.exports = HighlightedLink
+    li className: @getClassName(),
+      a props, @props.children
+)
+module.exports = Link

@@ -1,6 +1,6 @@
 require! {
   React
-  #Link: './HighlightedLink.ls'
+  Link: './HighlightedLink.ls'
   Router: "react-nested-router"
   Bootstrap: 'react-bootstrap'
 }
@@ -10,7 +10,7 @@ require! {
 Dom = React.DOM
 {div, h1, img, span, ul,li, a, i, button} = Dom
 
-Link = Router.Link
+#Link = Router.Link
 
 HeaderBar = React.create-class do
   displayName: "HeaderBar"
@@ -20,7 +20,7 @@ HeaderBar = React.create-class do
         div class-name: "nav nav-justified",
           h1 null,
             a class-name: "navbar-brand" href: "/",
-              img src: '/assets/img/lanciv-logo-final.png'
+              #img src: '/assets/img/lanciv-logo-final.png'
               "Cunae Gradebook"
 
 HeaderNav = React.create-class do
@@ -32,19 +32,16 @@ HeaderNav = React.create-class do
         div className: "container",
           div className: "navbar-header",
             a className: "navbar-brand" href: "/",
-              img src: "/assets/img/lanciv-logo-final.png"
+              #img src: "/assets/img/lanciv-logo-final.png"
               "Cunae Gradebook"
       div className: "navbar navbar-default subnav",
         div className: "container",
           div className: "navbar-header"
           div className: "navbar-collapse collapse",
             ul className: "nav navbar-nav",
-              li null,
-                Link to: "dashboard", "Home"
-              li null,
-                Link to: "class.list", "Classes"
-              li null,
-                Link to: "people", "People"
+              Link to: "dashboard", "Home"
+              Link to: "class", "Classes"
+              Link to: "people", "People"
             Nav className: "nav navbar-nav pull-right",
               DropdownButton title: "User" className: "btn-link",
                 MenuItem key: "1",

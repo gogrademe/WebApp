@@ -6,7 +6,6 @@ var liveify = require('liveify');
 var watchify = require('watchify');
 var util = require('gulp-util')
 var less = require('gulp-less');
-var clean = require('gulp-clean');
 var plumber = require('gulp-plumber');
 var browserSync = require('browser-sync');
 var modRewrite = require('connect-modrewrite');
@@ -14,13 +13,6 @@ var modRewrite = require('connect-modrewrite');
 
 var build = './build';
 var src = './src';
-
-
-gulp.task('clean', function() {
-    return gulp.src('build', {
-        read: false
-    }).pipe(clean());
-});
 
 gulp.task('less', function () {
   gulp.src('./src/less/styles.less')
@@ -82,11 +74,9 @@ gulp.task('watch', function () {
   gulp.start('browserify-watch');
   gulp.watch('src/index.html', ['copy'])
   gulp.watch('src/less/*.less', ['less']);
-  // gulp.watch(src + '/js/**/*.*', ['browserify-watch);
-
 });
 
 // Default Task
-gulp.task('default',['clean'], function () {
+gulp.task('default', function () {
   gulp.start('copy', 'less', 'watch','browser-sync');
 });

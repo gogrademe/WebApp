@@ -25,8 +25,6 @@ ClassDetail = React.createClass(
   render: ->
     Panel hasBody: true title: "Grades" className: "content-area",
       "Maybe put grades here?"
-      @state.terms.map ->
-        span null,
 
 )
 module.exports = ClassDetail
