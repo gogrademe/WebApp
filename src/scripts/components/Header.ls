@@ -10,8 +10,6 @@ require! {
 Dom = React.DOM
 {div, h1, img, span, ul,li, a, i, button} = Dom
 
-#Link = Router.Link
-
 HeaderBar = React.create-class do
   displayName: "HeaderBar"
   render: ->

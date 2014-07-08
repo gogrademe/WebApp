@@ -18,40 +18,32 @@ Dom = React.DOM
 {Modal, Alert,Button, Nav, ModalTrigger} = Bootstrap
 
 
-cols = [
-  {
-    key: 'firstName'
+cols =
+  * key: 'firstName'
     display: 'First Name'
-  }
-  {
-    key:'middleName'
+
+  * key:'middleName'
     display: 'Middle Name'
-  }
-  {
-    key: 'lastName'
+
+  * key: 'lastName'
     display: 'Last Name'
-  }
-  {
-    key: 'updatedAt'
+
+  * key: 'updatedAt'
     display: 'Updated At'
     format: 'date'
-  }
-  {
-    key: 'profiles'
+
+  * key: 'profiles'
     display: 'Types'
     format: (v) ->
       if v.teacherId
         "Teacher"
       else
         "Student"
-  }
-  {
-    display: 'Actions'
+
+  * display: 'Actions'
     renderer: ActionRenderer
     link-to: "people"
     class-name: 'col-md-3'
-  }
-]
 
 PeopleList = React.create-class do
   displayName: "PeopleList"

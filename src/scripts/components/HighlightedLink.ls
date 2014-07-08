@@ -23,7 +23,7 @@ RESERVED_PROPS =
   query: true
   children: true
 
-Link = React.createClass(
+Link = React.create-class do
   displayName: "Link"
   statics:
     getUnreservedProps: (props) ->
@@ -84,5 +84,5 @@ Link = React.createClass(
 
     li className: @getClassName(),
       a props, @props.children
-)
+
 module.exports = Link

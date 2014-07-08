@@ -9,7 +9,6 @@ require! {
 Dom = React.DOM
 {form, div, span, i, input, button} = Dom
 
-
 FluxChildMixin = Fluxxor.FluxChildMixin(React)
 StoreWatchMixin = Fluxxor.StoreWatchMixin
 
@@ -58,7 +57,6 @@ LoginPage = React.create-class do
             value: "Post",
             LoginLoading isLoggingIn: @state.isLoggingIn
             "Log in"
-
 
 LoginLoading = React.create-class do
   displayName: "LoginLoading"

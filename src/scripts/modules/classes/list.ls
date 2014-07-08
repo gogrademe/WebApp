@@ -18,31 +18,28 @@ Dom = React.DOM
 {Grid, StringRenderer} = NewTable
 {Modal, Alert,Button, Nav, ModalTrigger} = Bootstrap
 
-cols = [
-  {
-    key: 'name'
+cols =
+  * key: 'name'
     display: 'Class Name'
-  }
-  {
-    key: 'gradeLevel'
+
+  * key: 'gradeLevel'
     display: 'Grade Level'
-  }
-  {
-    display: 'Actions'
+
+  * display: 'Actions'
     renderer: ActionRenderer
     link-to: 'class'
     class-name: 'col-md-3'
-  }
-]
 
 ClassList = React.create-class do
   displayName: "ClassList"
   getInitialState: ->
     classes: []
+
   componentWillMount: ->
     api.class.find!
     .then ~>
       @set-state classes: it[0]
+
   render: ->
     div className: "content-area panel panel-default",
       div className: "panel-heading clearfix",

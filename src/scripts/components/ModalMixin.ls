@@ -10,48 +10,22 @@ require! {
 {Alerts} = Bootstrap
 
 module.exports = ->
-  /*storeNames = Array::slice.call(arguments_)*/
+
   getInitialState: ->
     isSaving: false
     error: null
 
-  /*componentWillMount: ->
-    flux = @props.flux or @context.flux
-    utils.forEach storeNames, ((store) ->
-      flux.store(store).on "success", @modalSaveSuccess
-      flux.store(store).on "error", @modalSaveFail
-      return
-    ).bind()
-    return*/
-
-  modalSaving: ->
+  modalSaving: !->
     @setState isSaving: true
-    return
 
-  modalSaveSuccess: ->
-    console.log "success"
+  modalSaveSuccess: !->
     @props.onRequestHide()
-    return
 
-  modalSaveFail: (error) ->
-    console.log "fail", error.errors
+  modalSaveFail: (error) !->
     if @state.isSaving
       @setState isSaving: false error: error.errors
 
-    return
-
-  /*componentWillUnmount: ->
-    flux = @props.flux or @context.flux
-    utils.forEach storeNames, ((store) ->
-      flux.store(store).removeListener "error", @modalSaveFail
-      flux.store(store).removeListener "sucess", @modalSaveSuccess
-      return
-    ).bind()
-    return*/
-
   errorAlerts: ->
     if @state.error
-      return (Alert(
-        bsStyle: "danger"
-      , @state.error))
-    return
+      Alert bsStyle: "danger",
+        @state.error

@@ -9,53 +9,45 @@ require! {
   "../../api/api.ls"
 
 }
+
 Dom = React.DOM
 {div, h1, img, span, ul,li, a, i, button} = Dom
 
-
 {Grid, StringRenderer} = NewTable
 
-assignmentCols = [
-  {
-    key: 'name'
+assignmentCols =
+  * key: 'name'
     display: 'Name'
-  }
-  {
-    key: 'dueDate'
+
+  * key: 'dueDate'
     display: 'Due Date'
     format: 'date'
-  }
-  {
-    key: 'type.name'
+
+  * key: 'type.name'
     display: 'Type'
-  }
-  {
-    key: 'type.maxScore'
+
+  * key: 'type.maxScore'
     display: 'Max Grade'
-  }
-  {
-    key: 'type.weight'
+
+  * key: 'type.weight'
     display: 'Weight'
     format: 'decimalPercent'
     class-name: 'col-md-1'
-  }
-  {
-    display: 'Actions'
+
+  * display: 'Actions'
     renderer: ActionRenderer
     link-to: 'class'
     class-name: 'col-md-3'
-  }
 
-]
 assignments-template = (xs)->
   Grid columns: assignmentCols, data: xs
 
 ClassAssignments = React.create-class do
   displayName: "ClassAssignments"
   get-initial-state: ->
-    assignments: null
+    assignments: []
     class: {}
-      
+
   component-will-mount: !->
     api.assignment.find classId: @props.params.resource-id
       .then !~>
@@ -72,8 +64,8 @@ ClassAssignments = React.create-class do
 
   render: ->
     Panel hasBody: false title: "Assignments" className: "content-area",
-      #Grid columns: assignmentCols, data: @state.assignments
-      @render-assignments @state.assignments
+      Grid columns: assignmentCols, data: @state.assignments
+      #@render-assignments @state.assignments
 
 
 module.exports = ClassAssignments

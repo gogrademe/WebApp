@@ -1,14 +1,8 @@
 require! {
   React
+  "../components/Panel.ls"
 }
 
-
-
-Panel = require("../components/Panel.ls")
-
-# var Routed = require('Reactful-Router');
-# var Link = Routed.Link;
-# var Router = Routed.Router;
 DashboardModule = React.create-class do
   displayName: "DashboardModule"
   render: ->

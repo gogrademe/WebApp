@@ -1,10 +1,12 @@
 require! {
   React
 
+  "../../components/Panel.ls"
+
   "../../api/api.ls"
 }
-Panel = require("../../components/Panel.ls")
-PersonDetail = React.createClass(
+
+PersonDetail = React.create-class do
   displayName: "PersonDetail"
   getInitialState: ->
     person: {}
@@ -23,5 +25,5 @@ PersonDetail = React.createClass(
   render: ->
     Panel hasBody: true title: @title @state.person, className: "content-area",
       "Detail page!"
-)
+
 module.exports = PersonDetail

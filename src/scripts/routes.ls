@@ -1,25 +1,21 @@
-
 require! {
   React
   Router: "react-nested-router"
 
   App: "./app.ls"
 
-  #SignedOut: "./components/SignedOut.ls"
   SignedIn: "./components/SignedIn.ls"
   # Single pages
-  DashboardModule: "./modules/DashboardModule.ls"
   LoginModule: "./modules/LoginModule.ls"
+  DashboardModule: "./modules/DashboardModule.ls"
   NotFoundModule: "./modules/NotFoundModule.ls"
 
   # Mountable
   Classes: "./modules/Classes/index.ls"
   People: "./modules/People/index.ls"
-  #NotFoundModule: "./modules/NotFoundModule.ls"
 }
 
 Route = Router.Route
-
 
 module.exports =
   Route handler: App,

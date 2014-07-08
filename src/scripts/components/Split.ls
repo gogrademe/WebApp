@@ -5,7 +5,7 @@ require! {
 Dom = React.DOM
 {div, h3} = Dom
 
-Split = React.createClass(
+Split = React.create-class do
   displayName: "Split"
   mixins: [RoutingContextMixin]
 
@@ -14,4 +14,3 @@ Split = React.createClass(
     div className: "two-col"
     Nav currentClass: @props.currentClass className: "sidebar-nav",
       detailView test: "someTestProp"
-)

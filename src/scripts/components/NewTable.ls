@@ -8,11 +8,6 @@ require! {
 Dom = React.DOM
 {div, table, thead, tr, tbody, td, th, span, input, button, pre} = Dom
 
-# flip direction if selected, otherwise set to false
-bindId = (x) ->
-  ->
-    x
-
 ## Get a nested key.
 get = (obj, prop) ->
   parts = prop.split('.')

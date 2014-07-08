@@ -26,31 +26,25 @@ StudentActions = React.create-class do
       button class-name: "btn btn-default" on-click: @unEnroll,
         "Un-Enroll"
 
-cols = [
-  {
-    key: 'person.firstName'
+cols =
+  * key: 'person.firstName'
     display: 'First Name'
-  }
-  {
-    key: 'person.middleName'
+
+  * key: 'person.middleName'
     display: 'Middle Name'
-  }
-  {
-    key: 'person.lastName'
+
+  * key: 'person.lastName'
     display: 'Last Name'
-  }
-  {
-    key: 'student.gradeLevel'
+
+  * key: 'student.gradeLevel'
     display: 'Grade Level'
-  }
-  {
-    display: 'Actions'
+
+  * display: 'Actions'
     renderer: StudentActions
     link-to: 'class'
     class-name: 'col-md-3'
-  }
 
-]
+
 find-index-where = (rule, array) ->
   array.find-index (x) ->
     for key, value of rule

@@ -1,17 +1,19 @@
 require! {
   React
 
+  "../../components/Panel.ls"
+
   "../../api/api.ls"
 }
 Dom = React.DOM
 {div, h1, img, span, ul,li, a, i, button} = Dom
 
-Panel = require("../../components/Panel.ls")
-ClassDetail = React.createClass(
+ClassDetail = React.create-class do
   displayName: "ClassDetail"
   get-initial-state: ->
     terms: []
     class: {}
+      
   component-will-mount: !->
     api.term.find!
     .then ~>
@@ -26,5 +28,4 @@ ClassDetail = React.createClass(
     Panel hasBody: true title: "Grades" className: "content-area",
       "Maybe put grades here?"
 
-)
 module.exports = ClassDetail
