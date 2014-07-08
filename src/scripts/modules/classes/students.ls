@@ -53,17 +53,17 @@ find-index-where = (rule, array) ->
     return true
 
 ClassStudents = React.create-class do
-  displayName: "ClassStudents"
+  display-name: "ClassStudents"
   get-initial-state: ->
     students: []
 
-  deleteSuccess: (e) !->
+  delete-success: (e) !->
     @state.students.splice (find-index (.id is e.id), @state.students), 1
     @set-state do
       students: @state.students
 
   component-will-mount: !->
-    window.events.on "enrollment.delete.success" @deleteSuccess
+    window.events.on "enrollment.delete.success" @delete-success
 
     api.enrollment.find {classId: @props.params.resource-id}
       .then ~>
@@ -71,15 +71,15 @@ ClassStudents = React.create-class do
           students: it[0]
 
   component-will-unmount: ->
-    window.events.off "enrollment.delete.success" @deleteSuccess
+    window.events.off "enrollment.delete.success" @delete-success
 
   render: ->
     div null,
-      Panel hasBody: true title: "Enroll" class-name: "content-area",
+      Panel has-body: true title: "Enroll" class-name: "content-area",
         div class-name: "form-group",
           input type:"text" placeholder: "Student" class-name:"form-control"
 
-      Panel hasBody: false title: "Students" className: "content-area",
+      Panel has-body: false title: "Students" class-name: "content-area",
         Grid columns: cols, data: @state.students
 
 module.exports = ClassStudents

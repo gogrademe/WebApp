@@ -21,23 +21,19 @@ Dom = React.DOM
 FluxMixin = Fluxxor.FluxMixin(React)
 StoreWatchMixin = Fluxxor.StoreWatchMixin
 
-
-
 window.events = new EventEmitter2!
 stores =
-  AuthStore: new AuthStore!
+  AuthStore:    new AuthStore!
   ClassesStore: new ClassesStore!
-  PeopleStore: new PeopleStore!
-
+  PeopleStore:  new PeopleStore!
 
 window.flux = new Fluxxor.Flux(stores, actions)
 
 App = React.create-class do
   displayName: "App"
-  mixins: [
+  mixins:
     FluxMixin
     StoreWatchMixin("AuthStore")
-  ]
 
   getDefaultProps: ->
     flux: window.flux

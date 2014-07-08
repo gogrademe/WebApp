@@ -17,5 +17,5 @@ Split = React.create-class do
       @props.detailView
 
 module.exports =
-  List: require './list.ls'
+  List:   require './list.ls'
   Detail: require './detail.ls'

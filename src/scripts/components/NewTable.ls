@@ -23,9 +23,9 @@ format-val = (val, format) ->
     return format(val)
 
   switch format
-  | 'date' => utils.formatDate(val)
+  | 'date'           => utils.formatDate(val)
   | 'decimalPercent' => "#{val * 100}%"
-  | otherwise => val
+  | otherwise        => val
 
 
 Grid = React.create-class do
@@ -34,11 +34,6 @@ Grid = React.create-class do
   getInitialState: ->
     sortByIndex: null
     sortDirection: true
-
-  render-body: (xs) ->
-    | !xs       => "Test"
-    | xs.length => xs.map rows
-    | otherwise => "No Results"
 
   render: ->
     data = @props.data
@@ -63,7 +58,8 @@ Grid = React.create-class do
                   column: column
                   value: get row, column.key || ""
                 ## Row Cell
-                td key: "cell-#rowI-#columnI", class-name:"vert-align #{column.class-name}", result
+                td key: "cell-#rowI-#columnI", class-name:"vert-align #{column.class-name}",
+                  result
 
   ## Responsible for getting the renderer set
   ## for the column or the default StringRenderer.

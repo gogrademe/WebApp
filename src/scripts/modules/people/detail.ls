@@ -19,8 +19,8 @@ PersonDetail = React.create-class do
 
   title: (it)->
     | it.middleName => "#{it.firstName} #{it.middleName} #{it.lastName}"
-    | it.firstName => "#{it.firstName} #{it.lastName}"
-    | otherwise => "Loading..."
+    | it.firstName  => "#{it.firstName} #{it.lastName}"
+    | otherwise     => "Loading..."
 
   render: ->
     Panel hasBody: true title: @title @state.person, className: "content-area",

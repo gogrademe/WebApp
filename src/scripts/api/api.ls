@@ -54,7 +54,6 @@ base-api =
     | otherwise => base-api.do-post.call @, @type, id
   del: (id) -> base-api.do-del.call @, @type, id
 
-
   ## FIXME:
   # returning from cache for everything does not work yet!
   # It will just do requests forever since id is never set.

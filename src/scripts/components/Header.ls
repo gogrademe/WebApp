@@ -8,7 +8,7 @@ require! {
 {DropdownButton, MenuItem, Nav} = Bootstrap
 
 Dom = React.DOM
-{div, h1, img, span, ul,li, a, i, button} = Dom
+{div, h1, img, span, ul, a, i, button} = Dom
 
 HeaderBar = React.create-class do
   displayName: "HeaderBar"
@@ -24,7 +24,11 @@ HeaderBar = React.create-class do
 HeaderNav = React.create-class do
   displayName: "HeaderNav"
   render: ->
-    userTitle = (span(null, i(className: "fa fa-user fa-fw"), @props.currentUser.Email))
+    userTitle =
+      span null,
+        i className: "fa fa-user fa-fw",
+          @props.currentUser.Email
+          
     div null,
       div className: "navbar navbar-default navbar-fixed-top header",
         div className: "container",

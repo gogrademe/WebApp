@@ -25,7 +25,7 @@ SpecialFieldset = React.create-class do
       FormFor name: "age"
 
 PersonSchema =
-  Schema component: SpecialFieldset
+  Schema component: SpecialFieldset,
     Property name: "name" label: "First name"
     Property name: "lastName" label: "Last name"
     Property name: "age" type: "number" label: "Age"

@@ -7,7 +7,6 @@ require! {
   '../../components/ActionRenderer.ls'
 
   "../../api/api.ls"
-
 }
 
 Dom = React.DOM
@@ -15,7 +14,7 @@ Dom = React.DOM
 
 {Grid, StringRenderer} = NewTable
 
-assignmentCols =
+assignment-cols =
   * key: 'name'
     display: 'Name'
 
@@ -39,9 +38,6 @@ assignmentCols =
     link-to: 'class'
     class-name: 'col-md-3'
 
-assignments-template = (xs)->
-  Grid columns: assignmentCols, data: xs
-
 ClassAssignments = React.create-class do
   displayName: "ClassAssignments"
   get-initial-state: ->
@@ -59,13 +55,12 @@ ClassAssignments = React.create-class do
           class: it
 
   render-assignments: (xs) ->
-    | !xs => 'Loading...'
+    | !xs       => 'Loading...'
     | otherwise => assignments-template xs
 
   render: ->
     Panel hasBody: false title: "Assignments" className: "content-area",
-      Grid columns: assignmentCols, data: @state.assignments
-      #@render-assignments @state.assignments
+      Grid columns: assignment-cols, data: @state.assignments
 
 
 module.exports = ClassAssignments

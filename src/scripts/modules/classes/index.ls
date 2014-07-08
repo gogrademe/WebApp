@@ -1,7 +1,7 @@
 require! {
   React
 
-  './nav.ls'
+  Nav: './nav.ls'
 
   '../../api/api.ls'
 }
@@ -16,9 +16,9 @@ Split = React.create-class do
       @props.activeRoute
 
 module.exports =
-  Split: Split
-  List: require './list.ls'
-  Detail: require './detail.ls'
+  Split:       Split
+  List:        require './list.ls'
+  Detail:      require './detail.ls'
   Assignments: require './Assignments.ls'
-  Students: require './students.ls'
-  Settings: require './Settings.ls'
+  Students:    require './students.ls'
+  Settings:    require './Settings.ls'

@@ -64,7 +64,7 @@ PeopleList = React.create-class do
           div className: "col-sm-8 text-align-right",
             div className: "btn-group pull-right",
               ModalTrigger modal: CreatePersonModal(flux: flux),
-                Button bsStyle: "primary" bsSite: "small",
+                Button bs-style: "primary" bs-site: "small",
                   "Add"
       Grid columns: cols, data: @state.people
 
