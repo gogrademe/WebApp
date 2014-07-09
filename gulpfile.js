@@ -18,11 +18,11 @@ var src = './src';
 gulp.task('less', function () {
   gulp.src('./src/less/styles.less')
     .pipe(plumber())
-    .pipe(sourcemaps.init())
+    //.pipe(sourcemaps.init())
     .pipe(less({
-      paths: [ path.join(__dirname, '/src/less'), path.join(__dirname, '/node_modules/semantic/build/less')]
+      paths: [ path.join(__dirname, '/src/less'), path.join(__dirname, '/node_modules/semantic/src')]
     }))
-    .pipe(sourcemaps.write())
+    //.pipe(sourcemaps.write())
     .pipe(gulp.dest('./build/assets'))
     .pipe(browserSync.reload({
       stream: true
@@ -51,6 +51,8 @@ gulp.src(src + '/img/*.*')
    .pipe(gulp.dest(build + '/assets/img'));
 gulp.src(src + '/bower/fontawesome/fonts/*.*')
   .pipe(gulp.dest(build + '/assets/fonts'));
+gulp.src('./node_modules/semantic/build/packaged/themes/**/*.*')
+  .pipe(gulp.dest(build + '/themes'));
    //     gulp.src(src + '/bower/**/*')
    // .pipe(gulp.dest(build + '/bower'));
 

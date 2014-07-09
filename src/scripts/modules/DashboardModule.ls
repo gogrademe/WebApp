@@ -2,13 +2,12 @@ require! {
   React
   "../components/Panel.ls"
 }
-
+div = React.DOM.div
 DashboardModule = React.create-class do
   displayName: "DashboardModule"
   render: ->
-    Panel do
-      title: "Dashboard"
-      hasBody: true,
-      "Welcome to the test version of Cuane Gradebook."
-      
+    div class-name:"ui celled grid",
+      Panel title: "Dashboard",
+        "Welcome to the test version of Cuane Gradebook."
+
 module.exports = DashboardModule

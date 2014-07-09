@@ -44,7 +44,6 @@ App = React.create-class do
   render: ->
     div null,
       Header currentUser: @state.auth.current-user, isLoggedIn: @state.auth.isLoggedIn
-      div className: "container",
-        @props.activeRoute || "Loading..."
+      @props.activeRoute || "Loading..."
 
 module.exports = App
