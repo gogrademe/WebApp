@@ -1,0 +1,101 @@
+/*-------------------
+      Checkbox
+--------------------*/
+
+@checkboxHeight: 1em;
+@checkboxColor: @textColor;
+
+/* Label */
+@labelPadding: 2em;
+
+@neutralCheckbox: @transparentBlack;
+@positiveCheckbox: @positiveColor;
+@negativeCheckbox: @negativeColor;
+
+/* Checkbox */
+@checkboxSize: 16px;
+@checkboxBackground: @white;
+@checkboxBorder: 1px solid @borderColor;
+@checkboxBorderRadius: 0.25em;
+@checkboxTransition:
+  background-color 0.3s ease,
+  border 0.3s ease,
+  box-shadow 0.3s ease
+;
+
+/* Checkmark */
+@checkboxCheckOffset: 1px;
+
+
+/* Radio */
+@checkboxRadioOffset: 0px;
+@checkboxRadioCircleSize: 9px;
+
+/* Slider & Toggle Handle */
+@handleBackground: #FFFFFF linear-gradient(transparent, rgba(0, 0, 0, 0.1));
+@handleBoxShadow:
+  0px 2px 2px 0px rgba(0, 0, 0, 0.1),
+  0px 0px 0px 1px rgba(0, 0, 0, 0.1) inset
+;
+@handleSize: 1.25em;
+
+/*-------------------
+      Coupling
+--------------------*/
+
+@labelColor: @textColor;
+
+@labelOpacity: 0.6;
+@labelHoverOpacity: 0.8;
+@labelSelectedOpacity: 1;
+
+/*-------------------
+        States
+--------------------*/
+
+@checkboxHoverBackground: @checkboxBackground;
+@checkboxHoverBorder: 1px solid @selectedBorderColor;
+@labelHoverColor: @selectedTextColor;
+
+@checkboxSelectedBackground: #F5F5F5;
+@checkboxSelectedBorder: 1px solid @selectedBorderColor;
+@labelSelectedColor: @selectedTextColor;
+
+/* Disabled */
+@disabledCheckboxOpacity: @disabledOpacity;
+@disabledCheckboxLabelColor: rgba(0, 0, 0, 0.3);
+
+/*-------------------
+        Types
+--------------------*/
+
+/* Radio */
+
+/* Slider */
+@sliderLineWidth: 2.25em;
+@sliderLineHeight: 0.25em;
+@sliderLineVerticalOffset: 0.4em;
+
+@sliderHandleOffset: (1em - @handleSize) / 2;
+@sliderTravelDistance: @sliderLineWidth - @handleSize;
+@sliderLabelDistance: @sliderLineWidth + 1em;
+
+
+/* Toggle */
+@toggleSwitchWidth: 2.25em;
+@toggleSwitchHeight: 1.25em;
+@toggleSwitchVerticalOffset: (1em - @toggleSwitchHeight) / 2;
+
+@toggleFocusColor: @strongTransparentBlack;
+@toggleHandleOffset: (1em - @handleSize) / 2;
+@toggleTravelDistance: @toggleSwitchWidth - @handleSize;
+@toggleLabelDistance: @toggleSwitchWidth + 1em;
+
+@toggleOffOffset: -0.2em;
+@toggleOnOffset: 1.2em;
+
+
+
+/*-------------------
+      Variations
+--------------------*/
