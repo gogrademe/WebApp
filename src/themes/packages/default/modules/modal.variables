@@ -1,0 +1,130 @@
+/*-------------------
+       Modal
+--------------------*/
+
+@background: transparent;
+@border: none;
+@width: 90%;
+@xOffset: -(@width / 2);
+@borderRadius: 0.25rem;
+@boxShadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
+
+/* Close Icon */
+@closeOpacity: 0.8;
+@closeSize: 1.25em;
+@closeColor: @white;
+@closeHitbox: 2.25em;
+@closeDistance: 0.25em;
+
+@closePadding: ( (@closeHitbox - 1em) / 2) 0em 0em 0em;
+@closeTop: -(@closeDistance + @closeHitbox);
+@closeRight: -(@closeDistance + @closeHitbox);
+
+/* Header */
+@headerMargin: 0em;
+@headerPadding: 1.5rem 2rem;
+@headerBackground: @lightBlack;
+@headerColor: @white;
+@headerFontSize: 1.6em;
+@headerFontWeight: bold;
+@headerFontFamily: @headerFont;
+@headerBorder: 1px solid @borderColor;
+
+/* Content */
+@contentFontSize: 1em;
+@contentPadding: 2rem;
+@contentLineHeight: 1.4;
+@contentBackground: #FFFFFF;
+
+/* Left / Right */
+@imageMinWidth: 25%;
+@imagePadding: 1em;
+@imageIconSize: 8rem;
+@imageVerticalAlign: top;
+
+@descriptionPadding: 1em;
+@descriptionMinWidth: '';
+@descriptionVerticalAlign: top;
+
+/* Modal Actions */
+@actionBorder: 1px solid @borderColor;
+@actionBackground: #EFEFEF;
+@actionPadding: 1rem 2rem;
+@actionAlign: right;
+
+@buttonDistance: 0.75em;
+
+/* Mobile Positions */
+@mobileImagePadding: 0em 0em 1em;
+@mobileDescriptionPadding: 0em 0em 1em;
+@mobileButtonDistance: 1em;
+
+/* Inner Close Position (Responsive) */
+@innerCloseTop: 1.5rem;
+@innerCloseRight: 1rem;
+@innerCloseColor: @textColor;
+
+/* Responsive Widths */
+@mobileWidth: 95%;
+@tabletWidth: 88%;
+@computerWidth: 74%;
+@largeMonitorWidth: 56%;
+@widescreenMonitorWidth: 42%;
+
+@mobileMargin: 0em 0em 0em -(@mobileWidth / 2);
+@tabletMargin: 0em 0em 0em -(@tabletWidth / 2);
+@computerMargin: 0em 0em 0em -(@computerWidth / 2);
+@largeMonitorMargin: 0em 0em 0em -(@largeMonitorWidth / 2);
+@widescreenMonitorMargin: 0em 0em 0em -(@widescreenMonitorWidth / 2);
+
+@fullScreenWidth: 99%;
+@fullScreenMargin: 0em 0em 0em -(@fullScreenWidth / 2);
+
+
+/*-------------------
+        Types
+--------------------*/
+
+/* Basic */
+@basicModalColor: @white;
+@basicModalCloseTop: 1.5rem;
+@basicModalCloseRight: 1rem;
+
+/* Scrolling Margin */
+@scrollingTopMargin: 1rem;
+
+
+/*-------------------
+      Variations
+--------------------*/
+
+/* Sizes */
+@smallRatio: 0.6;
+@largeRatio: 1.2;
+
+/* Derived Responsive Sizes */
+@smallHeaderSize: 1.3em;
+@smallMobileWidth: @mobileWidth;
+@smallTabletWidth: (@tabletWidth * @smallRatio);
+@smallComputerWidth: (@computerWidth * @smallRatio);
+@smallLargeMonitorWidth: (@largeMonitorWidth * @smallRatio);
+@smallWidescreenMonitorWidth: (@widescreenMonitorWidth * @smallRatio);
+
+@smallMobileMargin: 0em 0em 0em -(@smallMobileWidth / 2);
+@smallTabletMargin: 0em 0em 0em -(@smallTabletWidth / 2);
+@smallComputerMargin: 0em 0em 0em -(@smallComputerWidth / 2);
+@smallLargeMonitorMargin: 0em 0em 0em -(@smallLargeMonitorWidth / 2);
+@smallWidescreenMonitorMargin: 0em 0em 0em -(@smallWidescreenMonitorWidth / 2);
+
+@largeHeaderSize: 1.6em;
+@largeMobileWidth: @mobileWidth;
+@largeTabletWidth: @tabletWidth;
+@largeComputerWidth: (@computerWidth * @largeRatio);
+@largeLargeMonitorWidth: (@largeMonitorWidth * @largeRatio);
+@largeWidescreenMonitorWidth: (@widescreenMonitorWidth * @largeRatio);
+
+@largeMobileMargin: 0em 0em 0em -(@largeMobileWidth / 2);
+@largeTabletMargin: 0em 0em 0em -(@largeTabletWidth / 2);
+@largeComputerMargin: 0em 0em 0em -(@largeComputerWidth / 2);
+@largeLargeMonitorMargin: 0em 0em 0em -(@largeLargeMonitorWidth / 2);
+@largeWidescreenMonitorMargin: 0em 0em 0em -(@largeWidescreenMonitorWidth / 2);
