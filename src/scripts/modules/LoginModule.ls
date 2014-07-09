@@ -3,8 +3,6 @@ require! {
   Fluxxor
 
   "../components/Panel.ls"
-
-  "../core/fluxMixin.ls"
 }
 Dom = React.DOM
 {form, div, span, i, input, button} = Dom

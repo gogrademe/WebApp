@@ -9,6 +9,7 @@ var less = require('gulp-less');
 var plumber = require('gulp-plumber');
 var browserSync = require('browser-sync');
 var modRewrite = require('connect-modrewrite');
+var sourcemaps = require('gulp-sourcemaps');
 
 
 var build = './build';
@@ -17,7 +18,11 @@ var src = './src';
 gulp.task('less', function () {
   gulp.src('./src/less/styles.less')
     .pipe(plumber())
-    .pipe(less())
+    .pipe(sourcemaps.init())
+    .pipe(less({
+      paths: [ path.join(__dirname, '/src/less'), path.join(__dirname, '/node_modules/semantic/build/less')]
+    }))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('./build/assets'))
     .pipe(browserSync.reload({
       stream: true

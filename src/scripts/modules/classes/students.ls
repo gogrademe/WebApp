@@ -9,7 +9,7 @@ require! {
 }
 
 Dom = React.DOM
-{div, h1, img, span, ul,li, a, i, button, input, label} = Dom
+{div, h1, img, span, ul,li, a, i, button, input, label, form} = Dom
 
 {Grid, StringRenderer} = NewTable
 
@@ -76,8 +76,14 @@ ClassStudents = React.create-class do
   render: ->
     div null,
       Panel has-body: true title: "Enroll" class-name: "content-area",
-        div class-name: "form-group",
-          input type:"text" placeholder: "Student" class-name:"form-control"
+        div class-name: "ui form",
+          div class-name: "inline fields",
+            div class-name: "field",
+              label null,
+                "Student"
+              input type:"text" placeholder: "Student"
+            button class-name:"ui submit button",
+              "Enroll"
 
       Panel has-body: false title: "Students" class-name: "content-area",
         Grid columns: cols, data: @state.students

@@ -28,11 +28,12 @@ HeaderNav = React.create-class do
       span null,
         i className: "fa fa-user fa-fw",
           @props.currentUser.Email
-          
+
     div null,
       div className: "navbar navbar-default navbar-fixed-top header",
         div className: "container",
           div className: "navbar-header",
+            span id:"logo"
             a className: "navbar-brand" href: "/",
               #img src: "/assets/img/lanciv-logo-final.png"
               "Cunae Gradebook"
