@@ -44,6 +44,12 @@ App = React.create-class do
   render: ->
     div null,
       Header currentUser: @state.auth.current-user, isLoggedIn: @state.auth.isLoggedIn
-      @props.activeRoute || "Loading..."
+        div class-name: "ui floating sidebar vertical large thin menu active",
+          div class-name: "header item",
+            "Cunae Gradebook"
+          div class-name: "item",
+            "Test"
+        div class-name:"main",
+          @props.activeRoute || "Loading..."
 
 module.exports = App

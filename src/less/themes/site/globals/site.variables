@@ -1,0 +1,9 @@
+/*******************************
+     User Global Variables
+*******************************/
+
+@tealLight: #8bd6cd;
+@tealMiddle: #A2CFB5;
+@tealDark: #82D1C1;
+
+@teal: darken(@tealDark, 10%);

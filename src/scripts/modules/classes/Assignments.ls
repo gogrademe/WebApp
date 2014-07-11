@@ -59,7 +59,7 @@ ClassAssignments = React.create-class do
     | otherwise => assignments-template xs
 
   render: ->
-    Panel hasBody: false title: "Assignments" className: "content-area",
+    Panel hasBody: false title: "Assignments",
       Grid columns: assignment-cols, data: @state.assignments
 
 

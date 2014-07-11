@@ -41,17 +41,15 @@ ClassList = React.create-class do
       @set-state classes: it[0]
 
   render: ->
-    div className: "content-area panel panel-default",
-      div className: "panel-heading clearfix",
-        div className: "row",
-          div className: "col-sm-4",
-            h3 className: "panel-title",
-              "All Classes"
-          div className: "col-sm-8 text-align-right",
-            div className: "btn-group pull-right"
-              #ModalTrigger modal: CreateClassModal flux: @getFlux!,
-              #    Button bsStyle: "primary" bsSite: "small",
-              #      "Add"
-      Grid columns: cols, data: @state.classes
+    div class-name: "ui grid",
+      div class-name:"row",
+        Panel class-name:"column" hasBody: false title: "All Classes",
+          Grid class-name: "ui attached" columns: cols, data: @state.classes
+
+/*div className: "col-sm-8 text-align-right",
+  div className: "btn-group pull-right"
+    #ModalTrigger modal: CreateClassModal flux: @getFlux!,
+    #    Button bsStyle: "primary" bsSite: "small",
+    #      "Add"*/
 
 module.exports = ClassList

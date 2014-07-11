@@ -26,35 +26,39 @@ LoginPage = React.create-class do
     return
 
   render: ->
-    Panel className: "form-login" title: "Login" hasBody: true,
-      form className: "form-horizontal" onSubmit: @handleSubmit,
-        div className: "input-group field",
-          span className: "input-group-addon",
-            i className: "fa fa-user fa-fw"
-          input do
-            type: "text"
-            className: "form-control"
-            placeholder: "Email Address"
-            ref: "email"
-            required: true
-        div className: "input-group field",
-          span className: "input-group-addon",
-            i className: "fa fa-lock fa-fw"
-          input do
-            type: "password"
-            className: "form-control"
-            placeholder: "Password"
-            ref: "password"
-            required: true
-        div className: "field",
-          button do
-            type: "submit"
-            disabled: @state.isLoggingIn
-            role: "button"
-            className: "btn btn-primary btn-block"
-            value: "Post",
-            LoginLoading isLoggingIn: @state.isLoggingIn
-            "Log in"
+    div class-name:"ui centered grid",
+      div class-name: "row",
+        Panel class-name: "five wide column" title: "Login" hasBody: true,
+          form className: "ui fluid form" onSubmit: @handleSubmit,
+            div className: "field",
+              div class-name: "ui left labeled icon input",
+                input do
+                  type: "text"
+                  placeholder: "Email Address"
+                  ref: "email"
+                  required: true
+                i class-name: "user icon"
+                div class-name: "ui corner label",
+                  i class-name: "icon asterisk"
+            div className: "field",
+              div class-name: "ui left labeled icon input",
+                input do
+                  type: "password"
+                  placeholder: "Password"
+                  ref: "password"
+                  required: true
+                i class-name: "lock icon"
+                div class-name: "ui corner label",
+                  i class-name: "icon asterisk"
+            div className: "field",
+              button do
+                type: "submit"
+                disabled: @state.isLoggingIn
+                role: "button"
+                className: "ui teal fluid submit button"
+                value: "Post",
+                LoginLoading isLoggingIn: @state.isLoggingIn
+                "Log in"
 
 LoginLoading = React.create-class do
   displayName: "LoginLoading"

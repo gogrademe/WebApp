@@ -3,20 +3,20 @@ require! {
 }
 
 Dom = React.DOM
-{div, h3, h1} = Dom
+{div, h4, h1} = Dom
 
 PanelBody = React.create-class do
   displayName: "PanelBody"
   render: ->
-    div null,
+    div class-name: "ui segment attached",
       @props.children
 
 Panel = React.create-class do
   displayName: "Panel"
   render: ->
-    @transferPropsTo div null,
-      div className: "column",
-        h1 className: "ui header",
+    @transferPropsTo do
+      div null,
+        h4 className: "ui top header attached",
           @props.title
         if @props.hasBody then PanelBody null, @props.children else @props.children
 

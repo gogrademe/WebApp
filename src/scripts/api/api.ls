@@ -51,7 +51,7 @@ base-api =
   create: (data) ->
     | @find-similar and @find-similar data =>
         Promise.reject {status: status.conflict, message: "This #{@type} already exists"}
-    | otherwise => base-api.do-post.call @, @type, id
+    | otherwise => base-api.do-post.call @, @type, data
   del: (id) -> base-api.do-del.call @, @type, id
 
   ## FIXME:
@@ -64,8 +64,8 @@ base-api =
       #.then ->
       #  @get id
 
-  do-post: (type, id) ->
-    http-post (url type) data
+  do-post: (type, data) ->
+    (http-post (url type), data)
           .catch ->
             status = it.status or it.statusCode or it.body?.status
             data =
@@ -123,7 +123,7 @@ for let key, thing of types
   thing.create = (data) ->
     window.events.emit "#{@type}.create.pending",
       data: data
-    base-api.create.call this, id
+    base-api.create.call this, data
      .get 'body'
   thing.del = (id) ->
     console.log "#{@type}.delete.pending"
