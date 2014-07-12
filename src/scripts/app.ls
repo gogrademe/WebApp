@@ -1,46 +1,26 @@
 require! {
   React
-  Fluxxor
-  EventEmitter2.EventEmitter2
   Router: "react-nested-router"
-
-  AppState: './core/AppState.ls'
-
-  AuthStore: "./core/stores/AuthStore.ls"
-  actions: "./core/actions/AuthActions.ls"
-
   './components/Sidebar.ls'
 
   './api/api.ls'
+  './api/auth.ls'
 }
+unless process.env.NODE_ENV == "production"
+  api.base-url = 'http://localhost:5005/api'
 
 Dom = React.DOM
 {div} = Dom
 
-FluxMixin = Fluxxor.FluxMixin(React)
-StoreWatchMixin = Fluxxor.StoreWatchMixin
-
-window.events = new EventEmitter2!
-stores =
-  AuthStore:    new AuthStore!
-
-window.flux = new Fluxxor.Flux(stores, actions)
-
 App = React.create-class do
   displayName: "App"
-  mixins:
-    FluxMixin
-    StoreWatchMixin("AuthStore")
 
-  getDefaultProps: ->
-    flux: window.flux
-
-  getStateFromFlux: ->
-    auth: flux.store("AuthStore").getState!
+  logged-in: ->
+    if auth.is-logged-in! then Sidebar null
 
   render: ->
     div null,
-      Sidebar null
+      @logged-in null
       div null,
         @props.activeRoute || "Loading..."
 

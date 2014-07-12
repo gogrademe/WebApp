@@ -4,7 +4,7 @@ require! {
   '../../api/api.ls'
 }
 
-api.base-url = 'http://localhost:5005/api'
+#api.base-url = 'http://localhost:5005/api'
 
 AuthStore = Fluxxor.createStore(
   actions:

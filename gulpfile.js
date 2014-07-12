@@ -11,21 +11,26 @@ var browserSync = require('browser-sync');
 var modRewrite = require('connect-modrewrite');
 var sourcemaps = require('gulp-sourcemaps');
 var concat = require('gulp-concat');
+var rename     = require('gulp-rename');
+var streamify  = require('gulp-streamify');
+var uglify     = require('gulp-uglify');
 
 
 var build = './build';
 var src = './src';
 
+var production = process.env.NODE_ENV === 'production';
+
+
 gulp.task('less', function () {
   gulp.src(['./src/less/**/*.less', './src/semantic/src/**/*.less'])
     .pipe(plumber())
-    //.pipe(sourcemaps.init())
     .pipe(less({
-      paths: [ path.join(__dirname, '/src/less')]
+      compress: !production,
+      paths: [ path.join(__dirname, src, '/less')]
     }))
-    //.pipe(sourcemaps.write())
     .pipe(concat('styles.css'))
-    .pipe(gulp.dest('./build/assets'))
+    .pipe(gulp.dest(build + '/assets'))
     .pipe(browserSync.reload({
       stream: true
     }));
@@ -47,17 +52,10 @@ gulp.task('browser-sync', function () {
 
 gulp.task('copy', function () {
  // Copy html
- gulp.src(src + '/index.html')
-   .pipe(gulp.dest(build));
-gulp.src(src + '/img/*.*')
-   .pipe(gulp.dest(build + '/assets/img'));
-gulp.src(src + '/bower/fontawesome/fonts/*.*')
-  .pipe(gulp.dest(build + '/assets/fonts'));
-gulp.src('./node_modules/semantic/build/packaged/themes/**/*.*')
-  .pipe(gulp.dest(build + '/themes'));
-   //     gulp.src(src + '/bower/**/*')
-   // .pipe(gulp.dest(build + '/bower'));
-
+  gulp.src(src + '/index.html').pipe(gulp.dest(build));
+  gulp.src(src + '/img/*.*').pipe(gulp.dest(build + '/assets/img'));
+  gulp.src(src + '/bower/fontawesome/fonts/*.*').pipe(gulp.dest(build + '/assets/fonts'));
+  gulp.src('./node_modules/semantic/build/packaged/themes/**/*.*').pipe(gulp.dest(build + '/themes'));
 });
 
 gulp.task('browserify-watch', function() {
@@ -79,13 +77,50 @@ gulp.task('browserify-watch', function() {
   return rebundle();
 });
 
-gulp.task('watch', function () {
+gulp.task('browserify', function() {
+	var bundleMethod = global.isWatching ? watchify : browserify;
+	var bundler = bundleMethod({
+		// Specify the entry point of your app
+		entries: ['./src/scripts/index.ls'],
+		// Add file extentions to make optional in your requires
+		extensions: ['.ls']
+	});
+
+	var bundle = function() {
+		return bundler
+      .transform(liveify)
+			// Enable source maps!
+			.bundle({debug: !production})
+			// Report compile errors
+			.on('error', util.log)
+			.pipe(source('app.js'))
+			// Specify the output destination
+			.pipe(gulp.dest(build))
+      .pipe(rename('app.min.js'))
+      .pipe(streamify(uglify()))
+      .pipe(gulp.dest(build))
+	}
+
+	if(global.isWatching) {
+		bundler.on('update', bundle)
+	}
+
+	return bundle();
+});
+
+gulp.task('watch', function() {
+  global.isWatching = true;
   gulp.start('browserify-watch');
   gulp.watch('src/index.html', ['copy'])
   gulp.watch('src/less/**/*.*', ['less']);
 });
 
 // Default Task
-gulp.task('default', function () {
+gulp.task('default', function() {
   gulp.start('copy', 'less', 'watch','browser-sync');
+});
+
+
+gulp.task('build', function() {
+  gulp.start('copy', 'less', 'browserify');
 });

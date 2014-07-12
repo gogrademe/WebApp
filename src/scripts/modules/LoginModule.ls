@@ -1,32 +1,39 @@
 require! {
   React
-  Fluxxor
+  Router: "react-nested-router"
 
   "../components/Panel.ls"
+  "../api/auth.ls"
 }
 Dom = React.DOM
-{form, div, span, i, input, button} = Dom
-
-FluxChildMixin = Fluxxor.FluxChildMixin(React)
-StoreWatchMixin = Fluxxor.StoreWatchMixin
+{form, div, span, i, input, button, h2} = Dom
 
 LoginPage = React.create-class do
   displayName: "LoginPage"
-  getInitialState: ->
-    auth: window.flux.store("AuthStore").getState!
+  get-initial-state: ->
+    is-logging-in: false
 
-  handleSubmit: (e) ->
-    e.preventDefault()
+  handleSubmit: (e) !->
+    e.preventDefault!
     @setState isLoggingIn: true
     email = @refs.email.getDOMNode().value.trim!
     password = @refs.password.getDOMNode().value.trim!
 
     # AuthActions.login(email, password);
-    window.flux.actions.login email, password
-    return
+    #window.flux.actions.login email, password
+    auth.login email: email, password: password
+      .then ->
+        Router.transitionTo('dashboard');
+      .error ~>
+        @set-state is-logging-in: false
+
+  component-will-mount: ->
+    if auth.isLoggedIn then Router.replaceWith('dashboard')
 
   render: ->
-    div class-name:"ui centered grid",
+    div class-name:"ui centered grid login form",
+      h2 class-name:"ui header",
+        "Cunae Gradebook"
       div class-name: "row",
         Panel class-name: "five wide column" title: "Login" hasBody: true,
           form className: "ui fluid form" onSubmit: @handleSubmit,

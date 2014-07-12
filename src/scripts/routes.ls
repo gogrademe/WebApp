@@ -9,6 +9,7 @@ require! {
   LoginModule: "./modules/LoginModule.ls"
   DashboardModule: "./modules/DashboardModule.ls"
   NotFoundModule: "./modules/NotFoundModule.ls"
+  RootRedirect: "./modules/RootRedirect.ls"
 
   # Mountable
   Classes: "./modules/Classes/index.ls"
@@ -17,12 +18,11 @@ require! {
 
 Route = Router.Route
 
+
 module.exports =
-  Route location: 'history' handler: App,
-    Route do
-      path: "login"
-      name: "login"
-      handler: LoginModule
+  Route handler: App,
+    Route path: "/" handler: RootRedirect
+    Route path: "login" name: "login" handler: LoginModule
     Route handler: SignedIn,
       Route name:"people" handler: People.List
       Route name:"people.detail" path:"people/:resourceId" handler: People.Detail
