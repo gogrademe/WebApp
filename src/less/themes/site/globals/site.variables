@@ -6,4 +6,7 @@
 @tealMiddle: #A2CFB5;
 @tealDark: #82D1C1;
 
-@teal: darken(@tealDark, 10%);
+//@teal: darken(@tealDark, 10%);
+//@teal: #03a9f4;
+@teal: darken(#39cccc, 5%);
+@purple: lighten(#564f8a, 10%);

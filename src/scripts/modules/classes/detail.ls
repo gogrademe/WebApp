@@ -4,6 +4,9 @@ require! {
   "../../components/Panel.ls"
 
   "../../api/api.ls"
+
+  Nav: './nav.ls'
+  Header: '../../components/Header.ls'
 }
 Dom = React.DOM
 {div, h1, img, span, ul,li, a, i, button} = Dom
@@ -13,7 +16,7 @@ ClassDetail = React.create-class do
   get-initial-state: ->
     terms: []
     class: {}
-      
+
   component-will-mount: !->
     api.term.find!
     .then ~>
@@ -25,7 +28,9 @@ ClassDetail = React.create-class do
           class: it
 
   render: ->
-    Panel hasBody: true title: "Grades" className: "content-area",
-      "Maybe put grades here?"
+    div null,
+      Nav resource-id: @props.params.resource-id
+      div null,
+        "Maybe put grades here?"
 
 module.exports = ClassDetail

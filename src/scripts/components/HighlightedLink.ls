@@ -82,7 +82,6 @@ Link = React.create-class do
       className: @getClassName()
       onClick: @handleClick
 
-    li className: @getClassName(),
-      a props, @props.children
+    a props, @props.children
 
 module.exports = Link

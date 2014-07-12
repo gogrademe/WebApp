@@ -49,7 +49,7 @@ Dropdown = React.create-class do
   render: ->
     @transfer-props-to do
       div do
-        class-name: "ui selection dropdown #{@get-class!}"
+        class-name: "ui dropdown #{@get-class!}"
         on-click: @events!.drop.click,
         on-mouse-enter: @events!.mouse.enter,
         on-mouse-leave: @events!.mouse.leave,

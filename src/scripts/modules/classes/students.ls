@@ -7,6 +7,8 @@ require! {
   '../../components/autocomplete.ls'
 
   "../../api/api.ls"
+  Nav: './nav.ls'
+  Header: '../../components/Header.ls'
 }
 
 Dom = React.DOM
@@ -83,13 +85,13 @@ ClassStudents = React.create-class do
 
   render: ->
     div null,
+      Nav resource-id: @props.params.resource-id
       Panel has-body: true title: "Enroll",
         div class-name: "ui search form",
           div class-name: "ui fluid action input",
             autocomplete item-selected: @student-selected, placeholder: "Student..."
             div class-name:"ui teal button" on-click: @enroll-student,
               "Enroll"
-
       Panel has-body: false title: "Students" class-name: "content-area",
         Grid columns: cols, data: @state.students
 

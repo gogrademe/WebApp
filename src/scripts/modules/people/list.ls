@@ -9,14 +9,12 @@ require! {
 
   './CreatePersonModal.ls'
 
-  Bootstrap: "react-bootstrap"
+  '../../components/Header.ls'
 }
 Dom = React.DOM
 {div, h3, span} = Dom
 
 {Grid, StringRenderer} = NewTable
-{Modal, Alert,Button, Nav, ModalTrigger} = Bootstrap
-
 
 cols =
   * key: 'firstName'
@@ -55,17 +53,9 @@ PeopleList = React.create-class do
       @set-state people: it[0]
 
   render: ->
-    div class-name: "content-area panel panel-default",
-      div class-name: "panel-heading clearfix",
-        div class-name: "row",
-          div class-name: "col-sm-4",
-            h3 class-name: "panel-title",
-              "All People"
-          div className: "col-sm-8 text-align-right",
-            div className: "btn-group pull-right",
-              ModalTrigger modal: CreatePersonModal(flux: flux),
-                Button bs-style: "primary" bs-site: "small",
-                  "Add"
-      Grid columns: cols, data: @state.people
+    div null,
+      Header title: "All People"
+      div class-name: "main",
+        Grid columns: cols, data: @state.people
 
 module.exports = PeopleList

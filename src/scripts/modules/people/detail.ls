@@ -1,10 +1,13 @@
 require! {
   React
 
-  "../../components/Panel.ls"
-
   "../../api/api.ls"
+
+  '../../components/Header.ls'
 }
+
+Dom = React.DOM
+{div} = Dom
 
 PersonDetail = React.create-class do
   displayName: "PersonDetail"
@@ -23,7 +26,9 @@ PersonDetail = React.create-class do
     | otherwise     => "Loading..."
 
   render: ->
-    Panel hasBody: true title: @title @state.person, className: "content-area",
-      "Detail page!"
+    div null,
+      Header title: @title @state.person
+      div class-name: "main",
+        "Detail page!"
 
 module.exports = PersonDetail

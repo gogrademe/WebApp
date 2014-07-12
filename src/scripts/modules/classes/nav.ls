@@ -11,7 +11,7 @@ require! {
 Dom = React.DOM
 {div, span, input, a} = Dom
 
-Link = Router.Link
+Link = require '../../components/HighlightedLink.ls'
 
 select = Semantic
 
@@ -38,19 +38,23 @@ Nav = React.create-class do
 
   options: ->
     @state.terms.map (k,v)->
-      console.log k,v
       text: k.name
 
   render: ->
     @transferPropsTo do
-      div class-name: "ui vertical fluid menu",
-        div class-name: "header item",
-          "Nav"
-        div class-name: "ui item",
-          select class-name: "fluid" options: @options!
-        Link class-name: "item" to: "class.detail" resource-id: @props.resource-id, "Home"
-        Link class-name: "item" to: "class.students" resource-id: @props.resource-id, "Students"
-        Link class-name: "item" to: "class.assignments" resource-id: @props.resource-id, "Assignments"
-        Link class-name: "item" to: "class.settings" resource-id: @props.resource-id, "Settings"
+      div class-name: "ui toolbar menu inverted black block header",
+        div class-name:"left menu",
+          Link class-name: "item" to: "class.detail" resource-id: @props.resource-id, "Home"
+          Link class-name: "item" to: "class.students" resource-id: @props.resource-id, "Students"
+          Link class-name: "item" to: "class.assignments" resource-id: @props.resource-id, "Assignments"
+          Link class-name: "item" to: "class.settings" resource-id: @props.resource-id, "Settings"
+        div class-name: "right menu",
+        @props.children
 
 module.exports = Nav
+
+
+/*div class-name: "ui toolbar small menu inverted black block header",
+  Nav resource-id: @props.params.resource-id
+  div class-name: "right menu",
+    @props.children*/

@@ -40,27 +40,26 @@ Grid = React.create-class do
     getRenderer = @getRenderer
 
     @transfer-props-to do
-      div null,
-        table class-name: "ui table",
-          thead null,
-            tr null,
-              cols.map(@renderHeader)
-          tbody null,
-            ## Build Rows
-            data.map (row, rowI) ->
-              ## Table Row
-              tr key: "row-#rowI",
-                ## Build columns
-                cols.map (column, columnI) ->
-                  result = getRenderer(column, rowI, columnI) do
-                    rowI: rowI
-                    row: row
-                    columnI: columnI
-                    column: column
-                    value: get row, column.key || ""
-                  ## Row Cell
-                  td key: "cell-#rowI-#columnI",
-                    result
+      table class-name: "ui table",
+        thead null,
+          tr null,
+            cols.map(@renderHeader)
+        tbody null,
+          ## Build Rows
+          data.map (row, rowI) ->
+            ## Table Row
+            tr key: "row-#rowI",
+              ## Build columns
+              cols.map (column, columnI) ->
+                result = getRenderer(column, rowI, columnI) do
+                  rowI: rowI
+                  row: row
+                  columnI: columnI
+                  column: column
+                  value: get row, column.key || ""
+                ## Row Cell
+                td key: "cell-#rowI-#columnI",
+                  result
 
   ## Responsible for getting the renderer set
   ## for the column or the default StringRenderer.

@@ -7,6 +7,9 @@ require! {
   '../../components/ActionRenderer.ls'
 
   "../../api/api.ls"
+
+  Nav: './nav.ls'
+  Header: '../../components/Header.ls'
 }
 
 Dom = React.DOM
@@ -59,7 +62,8 @@ ClassAssignments = React.create-class do
     | otherwise => assignments-template xs
 
   render: ->
-    Panel hasBody: false title: "Assignments",
+    div null,
+      Nav resource-id: @props.params.resource-id
       Grid columns: assignment-cols, data: @state.assignments
 
 
