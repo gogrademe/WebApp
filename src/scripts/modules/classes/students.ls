@@ -4,12 +4,15 @@ require! {
   "../../components/Panel.ls"
   '../../components/NewTable.ls'
   '../../components/ActionRenderer.ls'
+  '../../components/autocomplete.ls'
 
   "../../api/api.ls"
+  Nav: './nav.ls'
+  Header: '../../components/Header.ls'
 }
 
 Dom = React.DOM
-{div, h1, img, span, ul,li, a, i, button, input, label} = Dom
+{div, h1, img, span, ul,li, a, i, button, input, label, form} = Dom
 
 {Grid, StringRenderer} = NewTable
 
@@ -22,9 +25,8 @@ StudentActions = React.create-class do
 
   render: ->
     lnk = @props.column.link-to
-    div class-name: "btn-group btn-group-sm",
-      button class-name: "btn btn-default" on-click: @unEnroll,
-        "Un-Enroll"
+    button class-name: "ui button tiny" on-click: @unEnroll,
+      "Un-Enroll"
 
 cols =
   * key: 'person.firstName'
@@ -73,12 +75,23 @@ ClassStudents = React.create-class do
   component-will-unmount: ->
     window.events.off "enrollment.delete.success" @delete-success
 
+  student-selected: ->
+    @set-state selected-student: it
+
+  enroll-student: ->
+    api.enrollment.create do
+      student-id: @state.selected-student.profiles.studentId
+      class-id: @props.params.resource-id
+
   render: ->
     div null,
-      Panel has-body: true title: "Enroll" class-name: "content-area",
-        div class-name: "form-group",
-          input type:"text" placeholder: "Student" class-name:"form-control"
-
+      Nav resource-id: @props.params.resource-id
+      Panel has-body: true title: "Enroll",
+        div class-name: "ui search form",
+          div class-name: "ui fluid action input",
+            autocomplete item-selected: @student-selected, placeholder: "Student..."
+            div class-name:"ui teal button" on-click: @enroll-student,
+              "Enroll"
       Panel has-body: false title: "Students" class-name: "content-area",
         Grid columns: cols, data: @state.students
 

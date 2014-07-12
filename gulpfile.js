@@ -9,15 +9,22 @@ var less = require('gulp-less');
 var plumber = require('gulp-plumber');
 var browserSync = require('browser-sync');
 var modRewrite = require('connect-modrewrite');
+var sourcemaps = require('gulp-sourcemaps');
+var concat = require('gulp-concat');
 
 
 var build = './build';
 var src = './src';
 
 gulp.task('less', function () {
-  gulp.src('./src/less/styles.less')
+  gulp.src(['./src/less/**/*.less', './src/semantic/src/**/*.less'])
     .pipe(plumber())
-    .pipe(less())
+    //.pipe(sourcemaps.init())
+    .pipe(less({
+      paths: [ path.join(__dirname, '/src/less')]
+    }))
+    //.pipe(sourcemaps.write())
+    .pipe(concat('styles.css'))
     .pipe(gulp.dest('./build/assets'))
     .pipe(browserSync.reload({
       stream: true
@@ -46,6 +53,8 @@ gulp.src(src + '/img/*.*')
    .pipe(gulp.dest(build + '/assets/img'));
 gulp.src(src + '/bower/fontawesome/fonts/*.*')
   .pipe(gulp.dest(build + '/assets/fonts'));
+gulp.src('./node_modules/semantic/build/packaged/themes/**/*.*')
+  .pipe(gulp.dest(build + '/themes'));
    //     gulp.src(src + '/bower/**/*')
    // .pipe(gulp.dest(build + '/bower'));
 
@@ -73,7 +82,7 @@ gulp.task('browserify-watch', function() {
 gulp.task('watch', function () {
   gulp.start('browserify-watch');
   gulp.watch('src/index.html', ['copy'])
-  gulp.watch('src/less/*.less', ['less']);
+  gulp.watch('src/less/**/*.*', ['less']);
 });
 
 // Default Task

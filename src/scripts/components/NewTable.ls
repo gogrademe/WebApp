@@ -27,7 +27,6 @@ format-val = (val, format) ->
   | 'decimalPercent' => "#{val * 100}%"
   | otherwise        => val
 
-
 Grid = React.create-class do
   displayName: "Grid"
 
@@ -39,8 +38,9 @@ Grid = React.create-class do
     data = @props.data
     cols = @props.columns
     getRenderer = @getRenderer
-    div class-name: "table-responsive",
-      table class-name: "table",
+
+    @transfer-props-to do
+      table class-name: "ui table",
         thead null,
           tr null,
             cols.map(@renderHeader)
@@ -58,7 +58,7 @@ Grid = React.create-class do
                   column: column
                   value: get row, column.key || ""
                 ## Row Cell
-                td key: "cell-#rowI-#columnI", class-name:"vert-align #{column.class-name}",
+                td key: "cell-#rowI-#columnI",
                   result
 
   ## Responsible for getting the renderer set

@@ -3,6 +3,9 @@ require! {
   Fluxxor
   ReactForms: "react-forms"
   "../../components/Panel.ls"
+
+  Nav: './nav.ls'
+  Header: '../../components/Header.ls'
 }
 
 Dom = React.DOM
@@ -35,7 +38,9 @@ ClassSettings = React.create-class do
   mixins: [FluxChildMixin]
 
   render: ->
-    Panel hasBody: true title: "Settings" className: "content-area",
-      Form className: "form-horizontal" schema: PersonSchema
+    div null,
+      Nav resource-id: @props.params.resource-id
+      Panel hasBody: true title: "Settings" className: "content-area",
+        Form className: "form-horizontal" schema: PersonSchema
 
 module.exports = ClassSettings

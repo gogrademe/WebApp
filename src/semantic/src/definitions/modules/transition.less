@@ -1,0 +1,85 @@
+/*******************************
+  Semantic - Transition
+  Author: Jack Lukic
+
+  CSS animation definitions for
+  transition module
+
+*******************************/
+
+/*******************************
+            Theme
+*******************************/
+
+@type    : 'module';
+@element : 'transition';
+
+@import '../../semantic.config';
+
+
+/*******************************
+          Transitions
+*******************************/
+
+/*
+  Some transitions adapted from Animate CSS
+  https://github.com/daneden/animate.css
+*/
+
+
+.ui.transition {
+  animation-iteration-count: 1;
+  animation-duration: @transitionDefaultDuration;
+  animation-timing-function: @transitionDefaultEasing;
+  animation-fill-mode: @transitionDefaultFill;
+}
+
+/*******************************
+            States
+*******************************/
+
+.ui.animating.transition {
+  display: block !important;
+  backface-visibility: @backfaceVisibility;
+  transform: @use3DAcceleration;
+}
+
+/* Loading */
+.ui.loading.transition {
+  position: absolute;
+  top: -999999px;
+  left: -99999px;
+}
+
+/* Hidden */
+.ui.hidden.transition {
+  display: none;
+}
+
+/* Visible */
+.ui.visible.transition {
+  display: block !important;
+  visibility: visible;
+  backface-visibility: @backfaceVisibility;
+  transform: @use3DAcceleration;
+}
+
+/* Disabled */
+.ui.disabled.transition {
+  animation-play-state: paused;
+}
+
+/*******************************
+          Variations
+*******************************/
+
+.ui.looping.transition {
+  animation-iteration-count: infinite;
+}
+
+
+/*******************************
+             Types
+*******************************/
+
+.loadUIOverrides();

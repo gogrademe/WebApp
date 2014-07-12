@@ -1,22 +1,41 @@
 require! {
   React
 
+  Header: '../../components/Header.ls'
   Nav: './nav.ls'
 
   '../../api/api.ls'
 }
 Dom = React.DOM
-{div} = Dom
+{h4, div} = Dom
 
-Split = React.create-class do
-  displayName: "Split"
+View = React.create-class do
+  displayName: "View"
+  get-initial-state: ->
+    terms: []
+    class: null
+
+  component-will-mount: !->
+    api.term.find!
+    .then ~>
+      @set-state do
+        terms: it[0]
+    api.class.get @props.params.resource-id
+      .then ~>
+        @set-state do
+          class: it
+  render-title: ->
+    | !@state.class => "Loading..."
+    | !@props.activeRoute.props.title => "#{@state.class.name} - #{@state.class.gradeLevel}"
+    | otherwise     => "#{@state.class.name} - #{@state.class.gradeLevel} / #{@props.activeRoute.props.title}"
   render: ->
-    div class-name: "two-col",
-      Nav class-name: "sidebar-nav" resource-id: @props.params.resource-id
-      @props.activeRoute
+    div null,
+      Header title: @render-title!
+      div class-name: "main",
+        @props.activeRoute
 
 module.exports =
-  Split:       Split
+  View:       View
   List:        require './list.ls'
   Detail:      require './detail.ls'
   Assignments: require './Assignments.ls'

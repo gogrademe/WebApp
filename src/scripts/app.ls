@@ -4,13 +4,12 @@ require! {
   EventEmitter2.EventEmitter2
   Router: "react-nested-router"
 
-  AuthStore: "./core/stores/AuthStore.ls"
-  ClassesStore: "./core/stores/ClassesStore.ls"
-  PeopleStore: "./core/stores/PeopleStore.ls"
+  AppState: './core/AppState.ls'
 
+  AuthStore: "./core/stores/AuthStore.ls"
   actions: "./core/actions/AuthActions.ls"
 
-  Header: "./components/Header.ls"
+  './components/Sidebar.ls'
 
   './api/api.ls'
 }
@@ -24,8 +23,6 @@ StoreWatchMixin = Fluxxor.StoreWatchMixin
 window.events = new EventEmitter2!
 stores =
   AuthStore:    new AuthStore!
-  ClassesStore: new ClassesStore!
-  PeopleStore:  new PeopleStore!
 
 window.flux = new Fluxxor.Flux(stores, actions)
 
@@ -43,8 +40,8 @@ App = React.create-class do
 
   render: ->
     div null,
-      Header currentUser: @state.auth.current-user, isLoggedIn: @state.auth.isLoggedIn
-      div className: "container",
+      Sidebar null
+      div null,
         @props.activeRoute || "Loading..."
 
 module.exports = App
