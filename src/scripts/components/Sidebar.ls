@@ -6,7 +6,7 @@ require! {
 }
 
 Dom = React.DOM
-{div, h1,h4, img, span, ul, a, i, button} = Dom
+{div, a, i} = Dom
 
 
 Sidebar = React.create-class do
@@ -28,6 +28,10 @@ Sidebar = React.create-class do
         "Classes"
       Link class-name: "item" to: "people",
         "People"
+      div class-name: "header item",
+        "School"
+      Link class-name: "item" to: "school.settings",
+        "Settings"
       div class-name: "header item",
         "Matt Aitchison"
       a class-name:"item",

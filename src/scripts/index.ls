@@ -1,7 +1,5 @@
 require! {
-  Fluxxor
-  React
-
+  React: 'react'
   AppRoutes: "./routes.ls"
 }
 

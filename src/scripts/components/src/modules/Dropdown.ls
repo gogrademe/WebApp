@@ -3,6 +3,8 @@ React = require('React')
 Dom = React.DOM
 {div, i, input} = Dom
 
+{find} = require 'prelude-ls'
+
 Dropdown = React.create-class do
   get-initial-state: ->
     selected:
@@ -23,13 +25,21 @@ Dropdown = React.create-class do
         @~toggle-dropdown!
     item:
       click: ~>
-        @~set-state do
+        @set-state do
           selected:
             text: it.text
             value: it.value || it.text
+        @props.select-callback it
 
   component-will-mount: ->
     document.add-event-listener 'click' @~handle-doc-click
+
+  component-did-mount: ->
+    if @props.default-value then
+      default-val = @props.default-value
+      selected = find (.value is default-val), @props.options
+      @events!.item.click selected
+      #@events!.item.click @props.options[@props.selected-index]
 
   component-will-unmount: ->
     document.remove-event-listener 'click' @~handle-doc-click
@@ -59,6 +69,6 @@ Dropdown = React.create-class do
         i class-name: "dropdown icon"
         div class-name: "menu #{@get-menu-class!}",
           @props.options.map (i, k) ~>
-            div key: k, class-name: "item" on-click: @events!item.click.bind(@, i), i.text
+            div key: k, class-name: "item" on-click: @events!.item.click.bind(@, i), i.text
 
 module.exports = Dropdown

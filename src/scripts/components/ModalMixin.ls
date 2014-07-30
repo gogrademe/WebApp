@@ -3,12 +3,10 @@ require! {
 
   Link: './HighlightedLink.ls'
   '../utils.ls'
-
-  Bootstrap: 'react-bootstrap'
 }
 
-{Alerts} = Bootstrap
-
+Dom = React.DOM
+{div} = Dom
 module.exports = ->
 
   getInitialState: ->
@@ -27,5 +25,5 @@ module.exports = ->
 
   errorAlerts: ->
     if @state.error
-      Alert bsStyle: "danger",
+      div bsStyle: "danger",
         @state.error

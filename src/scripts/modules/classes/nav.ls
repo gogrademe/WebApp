@@ -27,11 +27,6 @@ Nav = React.create-class do
         @set-state do
           class: it
 
-    api.term.find!
-      .then !~>
-        @set-state do
-          terms: it[0]
-
   title: ->
     | it        => "#{it.name} - #{it.gradeLevel}"
     | otherwise => "Loading..."
@@ -44,10 +39,10 @@ Nav = React.create-class do
     @transferPropsTo do
       div class-name: "ui toolbar menu inverted black block header",
         div class-name:"left menu",
-          Link class-name: "item" to: "class.detail" resource-id: @props.resource-id, "Home"
-          Link class-name: "item" to: "class.students" resource-id: @props.resource-id, "Students"
-          Link class-name: "item" to: "class.assignments" resource-id: @props.resource-id, "Assignments"
-          Link class-name: "item" to: "class.settings" resource-id: @props.resource-id, "Settings"
+          Link class-name: "item" to: "class.detail" term-id: @props.term-id, resource-id: @props.resource-id, "Grades"
+          Link class-name: "item" to: "class.students" term-id: @props.term-id, resource-id: @props.resource-id, "Students"
+          Link class-name: "item" to: "class.assignments" term-id: @props.term-id, resource-id: @props.resource-id, "Assignments"
+          Link class-name: "item" to: "class.settings" term-id: @props.term-id, resource-id: @props.resource-id, "Settings"
         div class-name: "right menu",
         @props.children
 

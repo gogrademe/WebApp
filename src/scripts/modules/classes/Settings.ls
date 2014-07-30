@@ -1,46 +1,38 @@
 require! {
   React
-  Fluxxor
-  ReactForms: "react-forms"
   "../../components/Panel.ls"
 
   Nav: './nav.ls'
   Header: '../../components/Header.ls'
+  '../../components/Form.ls'
 }
 
 Dom = React.DOM
-{div} = Dom
+{div, form, input, label, select} = Dom
 
-FluxChildMixin = Fluxxor.FluxChildMixin(React)
-
-Schema = ReactForms.schema.Schema
-Property = ReactForms.schema.Property
-Form = ReactForms.Form
-FormFor = ReactForms.FormFor
-
-SpecialFieldset = React.create-class do
-  displayName: "SpecialFieldset"
-  mixins: [ReactForms.FieldsetMixin]
-  render: ->
-    div null,
-      FormFor name: "name"
-      FormFor name: "lastName"
-      FormFor name: "age"
-
-PersonSchema =
-  Schema component: SpecialFieldset,
-    Property name: "name" label: "First name"
-    Property name: "lastName" label: "Last name"
-    Property name: "age" type: "number" label: "Age"
 
 ClassSettings = React.create-class do
   displayName: "ClassSettings"
-  mixins: [FluxChildMixin]
+  get-initial-state: ->
+    settings: @props.class
+
+  handle-change: (key, val)->
+    @state.settings[key] = val
+    @set-state settings: @state.settings
+
+  submit: ->
+    console.log "a"
 
   render: ->
     div null,
-      Nav resource-id: @props.params.resource-id
-      Panel hasBody: true title: "Settings" className: "content-area",
-        Form className: "form-horizontal" schema: PersonSchema
+      Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id
+      div class-name: "ui centered grid",
+        div class-name: "ten wide column",
+          div class-name: "ui form segment",
+            Form.Input type: "text" label: "Class Name" value: @state.settings?.name, on-change: @handle-change.bind null, "name"
+            Form.Input type: "text" label: "Grade Level" value: @state.settings?.gradeLevel, on-change: @handle-change.bind null, "gradeLevel"
+            Form.Input type: "text" label: "Max Students" value: @state.settings?.maxStudents, on-change: @handle-change.bind null, "maxStudents"
+            Form.Input type: "text" label: "Terms" value: @state.settings?.terms, on-change: @handle-change.bind null, "terms"
+            div class-name: "ui submit button" on-click: @submit, "Save"
 
 module.exports = ClassSettings

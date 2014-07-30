@@ -1,14 +1,10 @@
 require! {
   React
-  #Link: './HighlightedLink.ls'
   Router: "react-nested-router"
-  Bootstrap: 'react-bootstrap'
 }
 
-{DropdownButton, MenuItem, Nav} = Bootstrap
-
 Dom = React.DOM
-{div, h1,h4, img, span, ul, a, i, button, strong} = Dom
+{div} = Dom
 
 HeaderNav = React.create-class do
   displayName: "HeaderNav"
@@ -17,5 +13,8 @@ HeaderNav = React.create-class do
       div class-name: "container",
         div class-name: "title item",
           @props.title
+        div class-name: "right menu",
+          @props.right
+
 
 module.exports = HeaderNav

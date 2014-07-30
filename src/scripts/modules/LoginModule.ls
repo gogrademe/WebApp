@@ -28,7 +28,7 @@ LoginPage = React.create-class do
         @set-state is-logging-in: false
 
   component-will-mount: ->
-    if auth.isLoggedIn then Router.replaceWith('dashboard')
+    if auth.isLoggedIn! then Router.replaceWith('dashboard')
 
   render: ->
     div class-name:"ui centered grid login form",

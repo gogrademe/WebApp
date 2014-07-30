@@ -67,7 +67,7 @@ ClassStudents = React.create-class do
   component-will-mount: !->
     window.events.on "enrollment.delete.success" @delete-success
 
-    api.enrollment.find {classId: @props.params.resource-id}
+    api.enrollment.find {classId: @props.params.resource-id, term-id: @props.params.term-id}
       .then ~>
         @set-state do
           students: it[0]
@@ -82,10 +82,11 @@ ClassStudents = React.create-class do
     api.enrollment.create do
       student-id: @state.selected-student.profiles.studentId
       class-id: @props.params.resource-id
+      term-id: @props.params.term-id
 
   render: ->
     div null,
-      Nav resource-id: @props.params.resource-id
+      Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id
       Panel has-body: true title: "Enroll",
         div class-name: "ui search form",
           div class-name: "ui fluid action input",
