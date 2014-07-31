@@ -6,15 +6,15 @@
     "type": "git"
   },
   "author": "",
-  "dependencies":{
+  "dependencies": {
     "bluebird": "*",
     "eventemitter2": "*",
+    "eventemitter3": "^0.1.2",
     "moment": "*",
     "mout": "*",
-    "prelude-ls": "*",
+    "prelude-ls": "^1.1.1",
     "react": "*",
     "react-nested-router": "git://github.com/mattaitchison/react-nested-router",
-    "semantic-ui": "semantic-org/semantic-ui#css",
     "superagent": "*",
     "url-pattern": "*"
   },
@@ -39,6 +39,6 @@
     "less": "*",
     "liveify": "*",
     "vinyl-source-stream": "*",
-    "watchify": "*"
+    "watchify": "^0.10.2"
   }
 }

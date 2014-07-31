@@ -30,14 +30,12 @@ View = React.create-class do
       .then !~>
         term-id = @props.params.term-id
         term = find (.id is term-id), it[0]
-        console.log term
         @set-state terms: it[0]
         @set-state term: term
 
   render-title: ->
     | !@state.class or !@state.terms or !@state.term => "Loading..."
     | otherwise => "#{@state.class.name} - #{@state.class.gradeLevel} | Year #{@state.term.schoolYear} - #{@state.term.name} "
-    #| otherwise     => " / #{@state.class.name} - #{@state.class.gradeLevel} / #{@props.activeRoute.props.title}"
 
   render: ->
     div null,

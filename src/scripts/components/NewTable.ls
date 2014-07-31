@@ -25,6 +25,7 @@ format-val = (val, format) ->
   switch format
   | 'date'           => utils.formatDate(val)
   | 'decimalPercent' => "#{val * 100}%"
+  | val is undefined => "empty"
   | otherwise        => val
 
 Grid = React.create-class do
@@ -73,7 +74,7 @@ Grid = React.create-class do
         sortByIndex: index,
         sortByDirection: (if index is currentIndex then not @state.sortByDirection else false)
     #Col Header
-    th key: "col-#index" onClick: handler,
+    th key: "col-#index" onClick: handler, class-name: obj.class-name,
       @state.sortByIndex is index and span(null, (if @state.sortByDirection then "↑ " else "↓ ")),
         obj.display || obj.key
 

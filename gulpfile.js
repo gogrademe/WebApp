@@ -83,14 +83,15 @@ gulp.task('browserify', function() {
 		// Specify the entry point of your app
 		entries: ['./src/scripts/index.ls'],
 		// Add file extentions to make optional in your requires
-		extensions: ['.ls']
+		extensions: ['.ls'],
+    debug: !production
 	});
 
 	var bundle = function() {
 		return bundler
       .transform(liveify)
 			// Enable source maps!
-			.bundle({debug: !production})
+			.bundle()
 			// Report compile errors
 			.on('error', util.log)
 			.pipe(source('app.js'))

@@ -16,8 +16,6 @@ Dom = React.DOM
 
 {Grid, StringRenderer} = NewTable
 
-{find-index} = require 'prelude-ls'
-
 StudentActions = React.create-class do
   unEnroll: (e)->
     e.prevent-default!
@@ -46,34 +44,23 @@ cols =
     link-to: 'class'
     class-name: 'col-md-3'
 
-
-find-index-where = (rule, array) ->
-  array.find-index (x) ->
-    for key, value of rule
-      unless x[key] is value
-       return false
-    return true
-
 ClassStudents = React.create-class do
   display-name: "ClassStudents"
   get-initial-state: ->
     students: []
 
-  delete-success: (e) !->
-    @state.students.splice (find-index (.id is e.id), @state.students), 1
-    @set-state do
-      students: @state.students
-
-  component-will-mount: !->
-    window.events.on "enrollment.delete.success" @delete-success
-
+  get-enrollments: ->
     api.enrollment.find {classId: @props.params.resource-id, term-id: @props.params.term-id}
       .then ~>
         @set-state do
           students: it[0]
 
+  component-will-mount: !->
+    api.enrollment.events.add-listener "change", @get-enrollments
+    @get-enrollments!
+
   component-will-unmount: ->
-    window.events.off "enrollment.delete.success" @delete-success
+    api.enrollment.events.remove-listener "change", @get-enrollments
 
   student-selected: ->
     @set-state selected-student: it
