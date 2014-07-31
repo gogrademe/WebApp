@@ -10,4 +10,4 @@ ADD . /opt/app
 RUN npm install -g gulp
 RUN NODE_ENV=production gulp build
 
-EXPOSE 3000
+RUN ls ./build
