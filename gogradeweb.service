@@ -4,7 +4,7 @@ After=docker.service
 
 [Service]
 ExecStartPre=/usr/bin/docker pull registry.lanciv.com:5000/gogradeweb
-ExecStart=/usr/bin/docker run -v /opt/app --rm --name gogradeweb-1 registry.lanciv.com:5000/gogradeweb
+ExecStart=/usr/bin/docker run -v /opt/app/build --rm --name gogradeweb-1 registry.lanciv.com:5000/gogradeweb
 ExecStop=/usr/bin/docker stop gogradeweb-1
 
 [X-Fleet]
