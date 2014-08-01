@@ -9,7 +9,7 @@ require! {
 
   './CreateClassModal.ls'
 
-  Link: 'react-nested-router'.Link
+  Link: 'react-router'.Link
 
   Header: '../../components/Header.ls'
   select: '../../components/src/modules/Dropdown.ls'

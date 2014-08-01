@@ -1,6 +1,6 @@
 require! {
   React
-  Router: "react-nested-router"
+  Router: "react-router"
 
   "../api/auth.ls"
 }

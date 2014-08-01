@@ -1,7 +1,7 @@
 require! {
   React
   Link: './HighlightedLink.ls'
-  Router: "react-nested-router"
+  Router: "react-router"
   select: "./src/modules/Dropdown.ls"
 }
 

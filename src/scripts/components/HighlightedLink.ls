@@ -2,10 +2,10 @@ require! {
   React
 
   pattern: 'url-pattern'
-  'react-nested-router/modules/stores/ActiveStore'
-  'react-nested-router/modules/helpers/withoutProperties'
-  'react-nested-router/modules/helpers/transitionTo'
-  'react-nested-router/modules/helpers/makeHref'
+  'react-router/modules/stores/ActiveStore'
+  'react-router/modules/helpers/withoutProperties'
+  'react-router/modules/helpers/transitionTo'
+  'react-router/modules/helpers/makeHref'
 
   '../utils.ls'
 }

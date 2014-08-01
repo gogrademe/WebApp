@@ -4,7 +4,7 @@ require! {
   "../../components/Panel.ls"
   "../../api/api.ls"
 
-  Router: "react-nested-router"
+  Router: "react-router"
   Semantic: "../../components/src/modules/Dropdown.ls"
 }
 

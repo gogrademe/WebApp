@@ -1,5 +1,5 @@
 require! {
-  Router: "react-nested-router"
+  Router: "react-router"
 
   App: "./app.ls"
 
