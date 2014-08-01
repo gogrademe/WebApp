@@ -2,12 +2,12 @@ require! {
   React: 'react'
   Router: "react-router"
   './components/Sidebar.ls'
-  EventEmitter2.EventEmitter2
+  #EventEmitter2.EventEmitter2
   './api/api.ls'
   './api/auth.ls'
 }
 
-window.events = new EventEmitter2!
+#window.events = new EventEmitter2!
 
 unless process.env.NODE_ENV == "production"
   api.base-url = 'http://localhost:5005/api'
