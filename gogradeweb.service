@@ -4,7 +4,7 @@ After=docker.service
 
 [Service]
 ExecStartPre=/usr/bin/docker pull registry.lanciv.com:5000/gogradeweb
-ExecStart=/usr/bin/docker run -v /opt/app/build --rm --name gogradeweb-1 registry.lanciv.com:5000/gogradeweb
+ExecStart=/usr/bin/docker run -v /opt/app/build --rm --name gogradeweb-1 registry.lanciv.com:5000/gogradeweb /bin/sh -c "while true; do echo Hello World; sleep 1; done"
 ExecStop=/usr/bin/docker stop gogradeweb-1
 
 [X-Fleet]

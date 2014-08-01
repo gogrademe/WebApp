@@ -14,6 +14,6 @@ SignedIn = React.create-class do
 
   render: ->
     div null,
-      @props.activeRoute!
+      @props.active-route-handler!
 
 module.exports = SignedIn

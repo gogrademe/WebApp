@@ -55,18 +55,18 @@ gulp.task('copy', function () {
   gulp.src(src + '/index.html').pipe(gulp.dest(build));
   gulp.src(src + '/img/*.*').pipe(gulp.dest(build + '/assets/img'));
   gulp.src(src + '/bower/fontawesome/fonts/*.*').pipe(gulp.dest(build + '/assets/fonts'));
-  gulp.src('./node_modules/semantic/build/packaged/themes/**/*.*').pipe(gulp.dest(build + '/themes'));
+  gulp.src(src + '/semantic/build/packaged/themes/**/*.*').pipe(gulp.dest(build + '/themes'));
 });
 
 gulp.task('browserify-watch', function() {
-    var bundler = watchify('./src/scripts/index.ls')
+    var bundler = watchify(browserify('./src/scripts/index.ls', watchify.args));
 
     bundler.transform(liveify)
     bundler.on('update', rebundle)
 
   function rebundle () {
     return bundler
-      .bundle({debug: true})
+      .bundle()
       .on('error', util.log)
       .pipe(source('app.js'))
       .pipe(gulp.dest('./build'))

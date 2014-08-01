@@ -25,6 +25,6 @@ App = React.create-class do
     div null,
       @logged-in null
       div null,
-        @props.activeRoute! || "Loading..."
+        @props.active-route-handler! || "Loading..."
 
 module.exports = App
