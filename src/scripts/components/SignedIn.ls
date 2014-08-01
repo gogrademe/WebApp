@@ -4,7 +4,7 @@ require! {
 }
 
 Dom = React.DOM
-{div, h2} = Dom
+{div} = Dom
 
 SignedIn = React.create-class do
   statics:

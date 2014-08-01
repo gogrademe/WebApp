@@ -72,15 +72,6 @@ GradeInput = React.create-class do
   on-change: ->
     @set-state value: it
 
-  /*valid: ->
-    if @state.value > @state.max-score
-      @console.log @state.value > @state.max-score
-      false
-    if is-it-NaN @state.value
-      false
-
-    true*/
-
   save-change: ->
     it.prevent-default!
     if @state.initial-value !== @state.value

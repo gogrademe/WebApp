@@ -32,7 +32,7 @@ ClassSettings = React.create-class do
             Form.Input type: "text" label: "Class Name" value: @state.settings?.name, on-change: @handle-change.bind null, "name"
             Form.Input type: "text" label: "Grade Level" value: @state.settings?.gradeLevel, on-change: @handle-change.bind null, "gradeLevel"
             Form.Input type: "text" label: "Max Students" value: @state.settings?.maxStudents, on-change: @handle-change.bind null, "maxStudents"
-            Form.Input type: "text" label: "Terms" value: @state.settings?.terms, on-change: @handle-change.bind null, "terms"
+            #Form.Input type: "text" label: "Terms" value: @state.settings?.terms, on-change: @handle-change.bind null, "terms"
             div class-name: "ui submit button" on-click: @submit, "Save"
 
 module.exports = ClassSettings

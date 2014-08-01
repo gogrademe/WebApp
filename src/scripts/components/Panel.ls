@@ -3,7 +3,7 @@ require! {
 }
 
 Dom = React.DOM
-{div, h4, h1} = Dom
+{div, h4} = Dom
 
 PanelBody = React.create-class do
   displayName: "PanelBody"

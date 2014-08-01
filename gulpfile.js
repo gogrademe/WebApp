@@ -4,7 +4,7 @@ var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var liveify = require('liveify');
 var watchify = require('watchify');
-var util = require('gulp-util')
+var util = require('gulp-util');
 var less = require('gulp-less');
 var plumber = require('gulp-plumber');
 var browserSync = require('browser-sync');
@@ -14,6 +14,9 @@ var concat = require('gulp-concat');
 var rename     = require('gulp-rename');
 var streamify  = require('gulp-streamify');
 var uglify     = require('gulp-uglify');
+var envify = require('envify/custom');
+var cssmin = require('gulp-minify-css');
+var prefixer = require('gulp-autoprefixer');
 
 
 var build = './build';
@@ -29,11 +32,15 @@ gulp.task('less', function () {
       compress: !production,
       paths: [ path.join(__dirname, src, '/less')]
     }))
+    .pipe(prefixer("last 2 versions", "ie 10", "ie 9", "ie 11"))
     .pipe(concat('styles.css'))
     .pipe(gulp.dest(build + '/assets'))
     .pipe(browserSync.reload({
       stream: true
-    }));
+    }))
+    .pipe(cssmin())
+    .pipe(rename('styles.min.css'))
+    .pipe(gulp.dest(build + '/assets'));
 });
 
 gulp.task('browser-sync', function () {
@@ -61,8 +68,11 @@ gulp.task('copy', function () {
 gulp.task('browserify-watch', function() {
     var bundler = watchify(browserify('./src/scripts/index.ls', watchify.args));
 
-    bundler.transform(liveify)
-    bundler.on('update', rebundle)
+    bundler.transform(liveify);
+    bundler.transform(envify({
+      NODE_ENV: "development"
+    }));
+    bundler.on('update', rebundle);
 
   function rebundle () {
     return bundler
@@ -84,13 +94,15 @@ gulp.task('browserify', function() {
 		entries: ['./src/scripts/index.ls'],
 		// Add file extentions to make optional in your requires
 		extensions: ['.ls'],
-    debug: !production
+    debug: false
 	});
 
 	var bundle = function() {
 		return bundler
       .transform(liveify)
-			// Enable source maps!
+			.transform(envify({
+        NODE_ENV: "production"
+      }))
 			.bundle()
 			// Report compile errors
 			.on('error', util.log)
@@ -99,11 +111,11 @@ gulp.task('browserify', function() {
 			.pipe(gulp.dest(build))
       .pipe(rename('app.min.js'))
       .pipe(streamify(uglify()))
-      .pipe(gulp.dest(build))
-	}
+      .pipe(gulp.dest(build));
+	};
 
 	if(global.isWatching) {
-		bundler.on('update', bundle)
+		bundler.on('update', bundle);
 	}
 
 	return bundle();
@@ -112,7 +124,7 @@ gulp.task('browserify', function() {
 gulp.task('watch', function() {
   global.isWatching = true;
   gulp.start('browserify-watch');
-  gulp.watch('src/index.html', ['copy'])
+  gulp.watch('src/index.html', ['copy']);
   gulp.watch('src/less/**/*.*', ['less']);
 });
 

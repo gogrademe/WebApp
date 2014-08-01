@@ -11,7 +11,7 @@ require! {
 }
 
 Dom = React.DOM
-{div, h1, img, span, ul,li, a, i, button} = Dom
+{div} = Dom
 
 {Grid, StringRenderer} = NewTable
 

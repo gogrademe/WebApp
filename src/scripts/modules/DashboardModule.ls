@@ -2,8 +2,8 @@ require! {
   React: 'react'
   "../components/Header.ls"
 }
-div = React.DOM.div
-h2 = React.DOM.h2
+
+{div, h2} = React.DOM
 DashboardModule = React.create-class do
   displayName: "DashboardModule"
   render: ->

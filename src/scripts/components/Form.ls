@@ -4,11 +4,6 @@ require! {
 Dom = React.DOM
 {div, label, input} = Dom
 
-/*
-module.exports = make-input-props: (key, extras={}) -> {value: @state[key], on-change: ({target}) ~> @set-state {"#key": target.value}} <<< extra
-input @make-input-props 'x' {placeholder: 'X...'}*/
-
-
 Input = React.create-class do
   prop-types:
     type: React.PropTypes.string.isRequired

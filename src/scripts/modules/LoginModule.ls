@@ -20,7 +20,6 @@ LoginPage = React.create-class do
     password = @refs.password.getDOMNode().value.trim!
 
     # AuthActions.login(email, password);
-    #window.flux.actions.login email, password
     auth.login email: email, password: password
       .then ->
         Router.transitionTo('dashboard');
