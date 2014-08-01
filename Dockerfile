@@ -14,7 +14,3 @@ RUN npm install -g gulp
 RUN npm install
 
 RUN NODE_ENV=production gulp build
-
-RUN mv /opt/app/build /opt/app-built
-RUN rm -fr /opt/app
-RUN mv /opt/app-built /opt/app

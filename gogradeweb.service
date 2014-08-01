@@ -3,11 +3,9 @@ Description=GoGradeWeb
 After=docker.service
 
 [Service]
-TimeoutStartSec=0
 ExecStartPre=/usr/bin/docker pull registry.lanciv.com:5000/gogradeweb
-ExecStart=/bin/bash -c '/usr/bin/docker start -a gogradeweb-1 || /usr/bin/docker run -v /opt/app/build --rm --name gogradeweb-1 registry.lanciv.com:5000/gogradeweb'
-ExecStop=/bin/bash -c '/usr/bin/docker stop gogradeweb-1; \
-  /usr/bin/docker rm gogradeweb-1 '
+ExecStart=/usr/bin/docker run -v /opt/app --rm --name gogradeweb-1 registry.lanciv.com:5000/gogradeweb
+ExecStop=/usr/bin/docker stop gogradeweb-1
 
 [X-Fleet]
 X-Conflicts=gogradeweb.service
