@@ -1,5 +1,5 @@
 require! {
-  React
+  React: 'react'
 
   select: '../../components/src/modules/Dropdown.ls'
   Header: '../../components/Header.ls'

@@ -1,5 +1,5 @@
 require! {
-  React
+  React: 'react'
 
   Link: './HighlightedLink.ls'
   '../utils.ls'

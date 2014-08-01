@@ -1,5 +1,5 @@
 require! {
-  React
+  React: 'react'
   "../../components/Panel.ls"
   '../../components/NewTable.ls'
   '../../components/ActionRenderer.ls'

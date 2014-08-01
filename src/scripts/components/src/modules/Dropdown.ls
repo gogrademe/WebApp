@@ -1,4 +1,4 @@
-React = require('React')
+React = require('react')
 
 Dom = React.DOM
 {div, i, input} = Dom

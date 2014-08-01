@@ -1,5 +1,5 @@
 require! {
-  React
+  React: 'react'
   moment
 }
 /*decode64 = (input) ->

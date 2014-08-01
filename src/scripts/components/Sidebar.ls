@@ -1,5 +1,5 @@
 require! {
-  React
+  React: 'react'
   Link: './HighlightedLink.ls'
   Router: "react-router"
   select: "./src/modules/Dropdown.ls"

@@ -1,5 +1,5 @@
 require! {
-  React
+  React: 'react'
   "../components/Header.ls"
 }
 div = React.DOM.div

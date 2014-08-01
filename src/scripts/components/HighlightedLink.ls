@@ -1,5 +1,5 @@
 require! {
-  React
+  React: 'react'
 
   pattern: 'url-pattern'
   'react-router/modules/stores/ActiveStore'

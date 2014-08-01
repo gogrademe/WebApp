@@ -1,5 +1,5 @@
 require! {
-  React
+  React: 'react'
   Router: "react-router"
   './components/Sidebar.ls'
   EventEmitter2.EventEmitter2

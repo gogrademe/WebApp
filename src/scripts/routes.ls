@@ -11,8 +11,8 @@ require! {
   RootRedirect: "./modules/RootRedirect.ls"
 
   # Mountable
-  Classes: "./modules/Classes/index.ls"
-  People: "./modules/People/index.ls"
+  Classes: "./modules/classes/index.ls"
+  People: "./modules/people/index.ls"
   School: "./modules/SchoolSettings.ls"
 }
 

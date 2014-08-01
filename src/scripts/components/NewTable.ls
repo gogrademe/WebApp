@@ -1,6 +1,6 @@
 require! {
-  React
-  EventEmitter2.EventEmitter2
+  React: 'react'
+  #EventEmitter2.EventEmitter2
   p: 'prelude-ls'
   "../utils.ls"
 }
@@ -78,17 +78,17 @@ Grid = React.create-class do
       @state.sortByIndex is index and span(null, (if @state.sortByDirection then "↑ " else "↓ ")),
         obj.display || obj.key
 
-events = new EventEmitter2!
+#events = new EventEmitter2!
 StringRenderer = React.create-class do
   displayName: "StringRenderer"
   getInitialState: ->
     editing: false
 
   handleChange: (event) !->
-    events.emit "change",
-      value: event.target.value
-      column: @props.column
-      row: @props.row
+    #events.emit "change",
+    #  value: event.target.value
+    #  column: @props.column
+    #  row: @props.row
 
   render: ->
     val = format-val(@props.value, @props.column.format)

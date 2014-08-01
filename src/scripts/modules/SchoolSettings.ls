@@ -1,5 +1,5 @@
 require! {
-  React
+  React: 'react'
 
   Header: '../components/Header.ls'
 
