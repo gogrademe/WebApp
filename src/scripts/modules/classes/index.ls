@@ -41,7 +41,7 @@ View = React.create-class do
     div null,
       Header title: @render-title!
       div class-name: "main",
-        @props.active-route-handler class: @state.class
+        @props.active-route-handler class: @state.class, terms: @state.terms, term: @state.term
 
 module.exports =
   View:       View

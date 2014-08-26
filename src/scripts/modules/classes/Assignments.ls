@@ -11,7 +11,7 @@ require! {
 }
 
 Dom = React.DOM
-{div} = Dom
+{div, a} = Dom
 
 {Grid, StringRenderer} = NewTable
 
@@ -51,7 +51,8 @@ ClassAssignments = React.create-class do
 
   render: ->
     div null,
-      Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id
+      Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id,
+        a class-name: "item", "Create"
       Grid columns: assignment-cols, data: @state.assignments
 
 

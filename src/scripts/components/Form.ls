@@ -14,11 +14,16 @@ Input = React.create-class do
   call-change: (e)->
     @props.on-change e.target.value
 
+  get-inputDOM-Node: ->
+    console.log @refs
+    @refs.input.getDOM-Node!
+
   render: ->
     placeholder = @props.placeholder || @props.label
-    div class-name: "field",
+    div class-name: "#{@props.class-name} field",
       label null, @props.label if @props.label
       input do
+        ref: "input"
         placeholder: placeholder
         type: @props.type
         on-change: @call-change

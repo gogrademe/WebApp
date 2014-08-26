@@ -17,13 +17,17 @@ var uglify     = require('gulp-uglify');
 var envify = require('envify/custom');
 var cssmin = require('gulp-minify-css');
 var prefixer = require('gulp-autoprefixer');
+var rimraf = require('rimraf');
 
 
-var build = './build';
+var build = 'build';
 var src = './src';
 
 var production = process.env.NODE_ENV === 'production';
 
+gulp.task('clean', function(cb) {
+    rimraf(build + '/', cb);
+});
 
 gulp.task('less', function () {
   gulp.src(['./src/less/**/*.less', './src/semantic/src/**/*.less'])
@@ -43,6 +47,8 @@ gulp.task('less', function () {
     .pipe(gulp.dest(build + '/assets'));
 });
 
+
+
 gulp.task('browser-sync', function () {
   browserSync.init([build + '/index.html'], {
     notify: false,
@@ -61,7 +67,7 @@ gulp.task('copy', function () {
  // Copy html
   gulp.src(src + '/index.html').pipe(gulp.dest(build));
   gulp.src(src + '/img/*.*').pipe(gulp.dest(build + '/assets/img'));
-  gulp.src(src + '/bower/fontawesome/fonts/*.*').pipe(gulp.dest(build + '/assets/fonts'));
+  // gulp.src(src + '/bower/fontawesome/fonts/*.*').pipe(gulp.dest(build + '/assets/fonts'));
   gulp.src(src + '/semantic/build/packaged/themes/**/*.*').pipe(gulp.dest(build + '/themes'));
 });
 
@@ -129,11 +135,14 @@ gulp.task('watch', function() {
 });
 
 // Default Task
-gulp.task('default', function() {
-  gulp.start('copy', 'less', 'watch','browser-sync');
-});
+// gulp.task('default', function() {
+//   gulp.start('copy', 'less', 'watch','browser-sync');
+// });
 
+gulp.task('default', ['copy', 'less', 'watch','browser-sync']);
 
-gulp.task('build', function() {
-  gulp.start('copy', 'less', 'browserify');
-});
+// gulp.task('build', function() {
+//   gulp.start('copy', 'less', 'browserify');
+// });
+
+gulp.task('build', ['copy', 'less', 'browserify']);

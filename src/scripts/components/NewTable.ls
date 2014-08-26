@@ -59,7 +59,7 @@ Grid = React.create-class do
                   column: column
                   value: get row, column.key || ""
                 ## Row Cell
-                td key: "cell-#rowI-#columnI",
+                td key: "cell-#rowI-#columnI" class-name: "#{column.td-class-name}",
                   result
 
   ## Responsible for getting the renderer set
@@ -68,15 +68,18 @@ Grid = React.create-class do
     renderer = column.renderer || StringRenderer
 
   renderHeader: (obj, index) ->
-    handler = !~>
-      currentIndex = @state.sortByIndex
-      @setState do
-        sortByIndex: index,
-        sortByDirection: (if index is currentIndex then not @state.sortByDirection else false)
     #Col Header
-    th key: "col-#index" onClick: handler, class-name: obj.class-name,
-      @state.sortByIndex is index and span(null, (if @state.sortByDirection then "↑ " else "↓ ")),
-        obj.display || obj.key
+    th key: "col-#index" class-name: obj.class-name,
+      obj.display || obj.key
+
+    #handler = !~>
+    #  currentIndex = @state.sortByIndex
+    #  @setState do
+    #    sortByIndex: index,
+    #    sortByDirection: (if index is currentIndex then not @state.sortByDirection else false)
+    #th key: "col-#index" onClick: handler, class-name: obj.class-name,
+    #  @state.sortByIndex is index and span(null, (if @state.sortByDirection then "↑ " else "↓ ")),
+    #    obj.display || obj.key
 
 #events = new EventEmitter2!
 StringRenderer = React.create-class do
@@ -92,10 +95,9 @@ StringRenderer = React.create-class do
 
   render: ->
     val = format-val(@props.value, @props.column.format)
-
     if @state.editing
       div null,
-        input value: val onChange: @handleChange
+        input value: val, onChange: @handleChange
         button onClick: @toggle,
           "x"
     else
@@ -103,7 +105,8 @@ StringRenderer = React.create-class do
         val
 
   toggle: !->
-    @setState editing: not @state.editing
+    #disable editing
+    #@setState editing: not @state.editing
 
 module.exports =
   Grid: Grid

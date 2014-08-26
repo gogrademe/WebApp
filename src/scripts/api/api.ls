@@ -16,7 +16,7 @@ promisify-req = (req) ->
             .set 'Authorization'     if auth.token then "Bearer #{auth.token}" else null
             .end (error, res) ->
                 switch
-                  | error or res?.status-code >= 400 => reject res or error
+                  | error or res?.status >= 400 => reject res or error
                   | otherwise                  => resolve res.body
 
 http-get = (url, opts) ->
@@ -44,6 +44,7 @@ status-by-name =
     not-authorized: 401
     not-found: 404
     conflict: 409
+    bad-request: 400
 status-by-number =  {[value, key] for key, value of status-by-name}
 
 base-api =
@@ -72,11 +73,12 @@ base-api =
     do-post: (type, data) ->
         (http-post (url type), data)
               .catch ->
-                  status = it.status or it.statusCode or it.body?.status
+                  status = it.status or it.body?.status
                   data =
                       status-code: status
                       status: status-by-number[status]
                       message: it.body?.message or status-by-name[status]
+                  console.log data
                   throw (data `merge-into` it)
               .then response-to-caches
               .then ~> @get data.id
@@ -165,8 +167,8 @@ types.session =
                .set 'Accept'            'application/json'
                .set 'Content-Type'      'application/json'
                .end (error, resp) ->
-                  if error or (resp is null) or resp?.status-code >= 400
-                      status-code = resp?.status-code or 400
+                  if error or (resp is null) or resp?.status >= 400
+                      status-code = resp?.satus or 400
                       message = resp?.body?.message or status-by-number[status-code]
                       reject {status-code, message}
                   else

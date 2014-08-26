@@ -15,12 +15,12 @@ App = React.create-class do
   displayName: "App"
 
   logged-in: ->
-    if auth.is-logged-in! then Sidebar null
+    if api.auth.token then Sidebar {}
 
   render: ->
-    div null,
-      @logged-in null
-      div null,
+    div {},
+      @logged-in {}
+      div {},
         @props.active-route-handler! || "Loading..."
 
 module.exports = App

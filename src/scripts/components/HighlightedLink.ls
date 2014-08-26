@@ -1,7 +1,6 @@
 require! {
   React: 'react'
 
-  pattern: 'url-pattern'
   'react-router/modules/stores/ActiveStore'
   'react-router/modules/helpers/withoutProperties'
   'react-router/modules/helpers/transitionTo'

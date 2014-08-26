@@ -7,7 +7,7 @@ require! {
   "../../api/api.ls"
 
   Nav: './nav.ls'
-  Header: '../../components/Header.ls'
+  '../../components/Header.ls'
   '../../components/Form.ls'
 }
 Dom = React.DOM
@@ -68,30 +68,63 @@ GradeInput = React.create-class do
     value: @props.value
     grade-id: @props.row.assignments[@props.column.assignment-id].grade?.id
     max-score: @props.row.assignments[@props.column.assignment-id].assignment.type.max-score
+    loading: false
+    error: false
 
   on-change: ->
     @set-state value: it
 
+  change-loading: (loading, error)->
+    set-timeout do
+      @set-state.bind @, loading: loading, error: error || false
+      300ms
+
   save-change: ->
     it.prevent-default!
     if @state.initial-value !== @state.value
-      @props.column.change-handler do
-        grade: @state.grade-id
-        assignment: @props.column.assignment-id
-        student: @props.row.student.id
-        value: @state.value
+      data =
+        student-id: @props.row.student.id
+        assignment-id: @props.column.assignment-id
+        grade: @state.value
+
+      @set-state loading: true
+
+      if !@state.grade-id
+        api.grade.create data
+          .then ~>
+            @change-loading false
+          .catch ~>
+            @refs.grade-input.get-inputDOM-Node!.focus!
+            @change-loading false, true
+      else
+        api.grade.update @state.grade-id, data
+          .then ~>
+            @change-loading false
+          .catch ~>
+            @refs.grade-input.getDOMNode!.focus!
+            @change-loading false, true
 
   render: ->
-    div class-name: "ui icon small input",
+    render-icon = ~>
+      if @state.loading
+        i class-name: "spinner loading icon"
+      else if @state.error
+        i class-name: "red circular inverted attention sign icon"
+      else
+        i class-name: "icon",
+          " / #{@state.max-score}"
+
+    div class-name: "ui icon input #{'error' if @state.error}",
       Form.Input do
+        ref: "gradeInput"
         type: "text"
+        class-name: "grade"
         placeholder: "Score"
         on-blur: @save-change
         value: @state.value
         on-change: @on-change
 
-      i class-name: "icon",
-        " / #{@state.max-score} "
+      render-icon!
 
 ClassDetail = React.create-class do
   displayName: "ClassDetail"
@@ -136,13 +169,14 @@ ClassDetail = React.create-class do
       cols.push do
         assignment-id: x.id
         key: "assignments.#{x.id}.grade.grade"
-        display: x.name
+        display: "#{x.name}"
         renderer: GradeInput
         change-handler: @handle-grade-change
 
     cols.push do
       display: "Avg - IB - US"
       class-name: "two wide"
+      td-class-name: "positive"
       renderer: GradeAverage
 
     cols
@@ -170,6 +204,7 @@ ClassDetail = React.create-class do
 
   component-will-mount: ->
     api.grade.events.add-listener "change", @get-grades
+
     @get-grades!
     @get-assignments!
     @get-students!
@@ -178,7 +213,7 @@ ClassDetail = React.create-class do
     api.grade.events.remove-listener "change", @get-grades
 
   render: ->
-    div null,
+    div {},
       Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id
       Grid columns: @build-cols!, data: @build-data!
 

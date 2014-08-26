@@ -22,7 +22,6 @@ require! {
 module.exports =
   Routes {},
     Route handler: App,
-      #Route path: "" handler: RootRedirect
       Route path: "login" name: "login" handler: LoginModule
       Route handler: SignedIn,
         Route name:"school.settings"  path: "school/settings" handler: School.Settings
