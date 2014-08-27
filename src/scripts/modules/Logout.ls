@@ -1,20 +1,25 @@
 require! {
   React: 'react'
+  Router: "react-router"
+
+  "../api/api.ls"
   "../components/Header.ls"
-  "../components/SemanticModal.ls"
 }
 
 {div, h2} = React.DOM
-DashboardModule = React.create-class do
-  displayName: "DashboardModule"
+LogoutModule = React.create-class do
+  displayName: "LogoutModule"
+  component-did-mount: ->
+    api.session.del!
+    
   render: ->
     div null,
-      Header title: "Dashboard"
+      Header title: "Logging Out..."
       div class-name: "main",
         div class-name: "ui grid",
           div class-name: "column",
             div class-name: "ui segment",
               h2 class-name:"ui center aligned header",
-                "Welcome to the test version of Cuane Gradebook."
+                "Logging out..."
 
-module.exports = DashboardModule
+module.exports = LogoutModule

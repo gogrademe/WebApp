@@ -159,7 +159,13 @@ for let key, thing of types
 # session is special, and requres special treatment
 types.session =
     cache: []
-    get: -> ...
+    get: ->
+      switch
+      | localStorage.token => localStorage.token
+      | otherwise => null
+    del: ->
+      console.log "deleted token"
+      delete localStorage.token
     create: ({email, password}) ->
         new Promise (resolve, reject) ->
             request.post (url 'session')

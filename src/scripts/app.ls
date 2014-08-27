@@ -15,7 +15,7 @@ App = React.create-class do
   displayName: "App"
 
   logged-in: ->
-    if api.auth.token then Sidebar {}
+    if api.session.get! then Sidebar {}
 
   render: ->
     div {},

@@ -6,6 +6,7 @@ require! {
   SignedIn: "./components/SignedIn.ls"
   # Single pages
   LoginModule: "./modules/LoginModule.ls"
+  LogoutModule: "./modules/Logout.ls"
   DashboardModule: "./modules/DashboardModule.ls"
   NotFoundModule: "./modules/NotFoundModule.ls"
   RootRedirect: "./modules/RootRedirect.ls"
@@ -16,7 +17,7 @@ require! {
   School: "./modules/SchoolSettings.ls"
 }
 
-{Route,Routes} = Router
+{Route,Routes,DefaultRoute} = Router
 
 
 module.exports =
@@ -24,6 +25,7 @@ module.exports =
     Route handler: App,
       Route path: "login" name: "login" handler: LoginModule
       Route handler: SignedIn,
+        Route path: "logout" name: "logout" handler: LogoutModule
         Route name:"school.settings"  path: "school/settings" handler: School.Settings
         Route name:"people" handler: People.List
         Route name:"people.detail" path:"people/:resourceId" handler: People.Detail

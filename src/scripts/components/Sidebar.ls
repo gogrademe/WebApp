@@ -36,7 +36,7 @@ Sidebar = React.create-class do
         "Matt Aitchison"
       a class-name:"item",
         "Settings"
-      a class-name:"item",
+      Link class-name:"item" to: "logout",
         "Logout"
 
 
