@@ -6,11 +6,12 @@ require! {
   "../api/auth.ls"
 }
 Dom = React.DOM
-{form, div, span, i, input, button, h2} = Dom
+{form, div, span, i, input, button, h2, li, ul} = Dom
 
 LoginPage = React.create-class do
   displayName: "LoginPage"
   get-initial-state: ->
+    error: null
     is-logging-in: false
 
   handleSubmit: (e) !->
@@ -22,12 +23,21 @@ LoginPage = React.create-class do
     # AuthActions.login(email, password);
     auth.login email: email, password: password
       .then ->
-        Router.transitionTo('dashboard');
+        console.log it
+        Router.transitionTo('dashboard')
       .error ~>
-        @set-state is-logging-in: false
+        console.log it
+        @set-state do
+          is-logging-in: false
+          error: it
 
   component-will-mount: ->
     if auth.isLoggedIn! then Router.replaceWith('dashboard')
+
+  render-messages: ->
+    if @state.error is not null
+      div class-name: "ui error visible message",
+        "#{@state.error.status-code}: #{@state.error.message}"
 
   render: ->
     div class-name:"ui centered grid login form",
@@ -35,6 +45,7 @@ LoginPage = React.create-class do
         "Cunae Gradebook"
       div class-name: "row",
         Panel class-name: "five wide column" title: "Login" hasBody: true,
+          @render-messages!
           form className: "ui fluid form" onSubmit: @handleSubmit,
             div className: "field",
               div class-name: "ui left labeled icon input",

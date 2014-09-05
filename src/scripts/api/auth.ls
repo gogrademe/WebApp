@@ -12,9 +12,10 @@ Auth =
     email = email.trim!
     password = password.trim!
     if email isnt "" and password isnt ""
-      api.session.create {email: email, password: password}
-      .then ~>
-        @_setLoggedIn api.auth.token
+      return
+        api.session.create {email: email, password: password}
+          .then ~>
+            @_setLoggedIn api.auth.token
 
   _setLoggedOut: ->
     localStorage.removeItem "token"
