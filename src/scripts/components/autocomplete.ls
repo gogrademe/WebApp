@@ -43,7 +43,7 @@ Autocomplete = React.create-class do
     on-select: React.PropTypes.func
     value: React.PropTypes.any
 
-  get-default-props:
+  get-default-props: ->
     typeahead: true
 
   getInitialState: ->
@@ -58,14 +58,14 @@ Autocomplete = React.create-class do
 
     @show-list!
 
-    k = e.target.value
+    value = e.target.value
 
     if e.keyCode is 27
       @refs.input.getDOMNode().blur!
-    else if k.length is 0
+    else if value.length is 0
       @hide-list!
     else
-      @set-state term: k
+      @set-state term: value
 
   handle-option-on-select: ->
     @refs.input.getDOMNode().value = it.props.label
