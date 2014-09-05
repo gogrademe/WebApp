@@ -16,6 +16,8 @@ Dom = React.DOM
 
 {Grid, StringRenderer} = NewTable
 
+{Autocomplete, Option} = autocomplete
+
 StudentActions = React.create-class do
   unEnroll: (e)->
     e.prevent-default!
@@ -59,6 +61,10 @@ ClassStudents = React.create-class do
     api.enrollment.events.add-listener "change", @get-enrollments
     @get-enrollments!
 
+    api.person.find!
+      .then ~>
+        @set-state people: it[0]
+
   component-will-unmount: ->
     api.enrollment.events.remove-listener "change", @get-enrollments
 
@@ -77,7 +83,13 @@ ClassStudents = React.create-class do
       Panel has-body: true title: "Enroll",
         div class-name: "ui search form",
           div class-name: "ui fluid action input",
-            autocomplete item-selected: @student-selected, placeholder: "Student..."
+            Autocomplete item-selected: @student-selected, placeholder: "Student...",
+              if @state.people
+                @state.people.map (p, key)->
+                  Option key: key, value: p.id, label: "#{p.first-name} #{p.last-name}"
+
+              else
+                "Loading..."
             div class-name:"ui teal button" on-click: @enroll-student,
               "Enroll"
       Panel has-body: false title: "Students" class-name: "content-area",

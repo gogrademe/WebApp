@@ -59,7 +59,7 @@ ClassList = React.create-class do
 
   update-select: ->
     @set-state term: it
-
+    
   select-render: (xs)->
     | !xs => "Loading..."
     | otherwise => select do
@@ -70,6 +70,7 @@ ClassList = React.create-class do
                     options: xs.map (x) ->
                       text: "Year #{x?.schoolYear} - #{x?.name}"
                       value: x?.id
+
   render: ->
     div null,
       Header do

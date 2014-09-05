@@ -14,7 +14,6 @@ Dom = React.DOM
 SignedIn = React.create-class do
   statics:
     willTransitionTo: (transition, params) ->
-      console.log "will-transition"
       if !api.auth.token
         transition.redirect('/login')
 

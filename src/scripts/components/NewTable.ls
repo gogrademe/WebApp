@@ -88,10 +88,10 @@ StringRenderer = React.create-class do
     editing: false
 
   handleChange: (event) !->
-    #events.emit "change",
-    #  value: event.target.value
-    #  column: @props.column
-    #  row: @props.row
+    events.emit "change",
+      value: event.target.value
+      column: @props.column
+      row: @props.row
 
   render: ->
     val = format-val(@props.value, @props.column.format)
@@ -106,7 +106,7 @@ StringRenderer = React.create-class do
 
   toggle: !->
     #disable editing
-    #@setState editing: not @state.editing
+    @setState editing: not @state.editing
 
 module.exports =
   Grid: Grid

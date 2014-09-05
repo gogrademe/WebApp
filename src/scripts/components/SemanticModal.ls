@@ -21,11 +21,12 @@ SemanticModal = React.create-class do
     close-button: true
 
   render: ->
-    div class-name: "ui dimmer page visible active",
-      div class-name: "ui modal top transition visible active",
-        @render-close-button!
-        @render-header!
-        @props.children
+    @transfer-props-to do
+      div class-name: "ui dimmer page visible active",
+        div class-name: "ui modal top transition visible active",
+          @render-close-button!
+          @render-header!
+          @props.children
 
   render-close-button: ->
     if @props.close-button
@@ -50,8 +51,7 @@ OverlayMixin =
   componentWillUnmount: ->
     @_unrenderOverlay!
     if @_overlayTarget then
-      @getContainerDOMNode!
-        .removeChild(@_overlayTarget)
+      @getContainerDOMNode().removeChild @_overlayTarget
       @_overlayTarget = null
 
   componentDidUpdate: ->
@@ -62,8 +62,7 @@ OverlayMixin =
 
   _mountOverlayTarget: ->
     @_overlayTarget = document.create-element 'div'
-    @getContainerDOMNode!
-      .appendChild(@_overlayTarget)
+    @getContainerDOMNode().appendChild @_overlayTarget
 
   _renderOverlay: ->
     if (!@_overlayTarget)

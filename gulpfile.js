@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var path = require('path');
 var source = require('vinyl-source-stream');
+var reactify = require('reactify');
 var browserify = require('browserify');
 var liveify = require('liveify');
 var watchify = require('watchify');
@@ -73,9 +74,10 @@ gulp.task('copy', function () {
 
 gulp.task('browserify-watch', function() {
     var bundler = watchify(browserify('./src/scripts/index.ls', watchify.args));
-
-    bundler.transform(liveify);
-    bundler.transform(envify({
+    bundler
+      .transform(reactify)
+      .transform(liveify)
+      .transform(envify({
       NODE_ENV: "development"
     }));
     bundler.on('update', rebundle);
@@ -105,6 +107,7 @@ gulp.task('browserify', function() {
 
 	var bundle = function() {
 		return bundler
+      .transform(reactify)
       .transform(liveify)
 			.transform(envify({
         NODE_ENV: "production"

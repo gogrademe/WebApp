@@ -15,7 +15,6 @@ Input = React.create-class do
     @props.on-change e.target.value
 
   get-inputDOM-Node: ->
-    console.log @refs
     @refs.input.getDOM-Node!
 
   render: ->

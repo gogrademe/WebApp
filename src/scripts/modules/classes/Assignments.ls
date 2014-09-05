@@ -1,16 +1,20 @@
 require! {
   React: 'react'
+
+
   "../../components/Panel.ls"
   '../../components/NewTable.ls'
   '../../components/ActionRenderer.ls'
 
   '../../components/SemanticModal.ls'
   '../../components/Form.ls'
+  '../../components/Header.ls'
 
   "../../api/api.ls"
 
   Nav: './nav.ls'
-  Header: '../../components/Header.ls'
+
+  './AssignmentsModal.ls'
 
 }
 
@@ -38,27 +42,6 @@ assignment-cols =
     format: 'decimalPercent'
     class-name: 'col-md-1'
 
-AssignmentsModal = React.create-class do
-  render: ->
-    @transfer-props-to do
-      SemanticModal.SemanticModal title:"Create Assignment",
-        div class-name: "content",
-          div class-name: "ui form",
-            Form.Input type: "text" label: "Name" value: "a"
-            div class-name: "ui two fields",
-              Form.Input type: "date" label: "Due Date" value: "b"
-              Form.Input type: "text" label: "Type" value: "c"
-            div class-name: "ui two fields",
-              Form.Input type: "number" label: "Max Grade" value: "c"
-              Form.Input type: "text" label: "Weight" value: "c"
-        div class-name:"actions",
-          a class-name: "ui button" on-click: @props.on-request-hide,
-            "Cancel"
-          a class-name: "ui button primary",
-            "Save"
-
-
-
 ClassAssignments = React.create-class do
   displayName: "ClassAssignments"
   get-initial-state: ->
@@ -74,10 +57,13 @@ ClassAssignments = React.create-class do
     | !xs       => 'Loading...'
     | otherwise => assignments-template xs
 
+  modal: ->
+    AssignmentsModal class-id: @props.params.resource-id, term-id: @props.params.term-id
+
   render: ->
     div null,
       Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id,
-        SemanticModal.ModalTrigger modal: AssignmentsModal!,
+        SemanticModal.ModalTrigger modal: @modal!,
           a class-name: "item", "Create"
       Grid columns: assignment-cols, data: @state.assignments
 
