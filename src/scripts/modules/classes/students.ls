@@ -73,7 +73,7 @@ ClassStudents = React.create-class do
 
   enroll-student: ->
     api.enrollment.create do
-      student-id: @state.selected-student.profiles.studentId
+      student-id: @state.selected-student
       class-id: @props.params.resource-id
       term-id: @props.params.term-id
 
@@ -83,10 +83,10 @@ ClassStudents = React.create-class do
       Panel has-body: true title: "Enroll",
         div class-name: "ui search form",
           div class-name: "ui fluid action input",
-            Autocomplete item-selected: @student-selected, placeholder: "Student...",
+            Autocomplete on-select: @student-selected, placeholder: "Student...",
               if @state.people
                 @state.people.map (p, key)->
-                  Option key: key, value: p.id, label: "#{p.first-name} #{p.last-name}"
+                  Option key: key, value: p.profiles.studentId, label: "#{p.first-name} #{p.last-name}"
 
               else
                 "Loading..."
