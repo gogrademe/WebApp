@@ -38,6 +38,7 @@ Autocomplete = React.create-class do
   display-name: "Autocomplete"
 
   prop-types:
+    dropdown: React.PropTypes.bool
     typeahead: React.PropTypes.bool
     on-input: React.PropTypes.func
     on-select: React.PropTypes.func
@@ -45,6 +46,9 @@ Autocomplete = React.create-class do
 
   get-default-props: ->
     typeahead: true
+    dropdown: false
+    on-input: -> {}
+    on-select: -> {}
 
   getInitialState: ->
     last-focused-option: null
@@ -71,6 +75,8 @@ Autocomplete = React.create-class do
     @refs.input.getDOMNode().value = it.props.label
 
     @set-state value: it.props.value
+
+    @props.on-select it.props.value
 
     @hide-list!
 
@@ -102,6 +108,11 @@ Autocomplete = React.create-class do
   hide-list: ->
     @set-state is-open: false
 
+  handle-input-focus: (e)->
+    e.prevent-default!
+    if @props.dropdown
+      @show-list!
+
   handle-input-blur: ->
     it.prevent-default!
     if @state.focused-option is not @state.last-focused-option
@@ -115,16 +126,26 @@ Autocomplete = React.create-class do
     else
       display: 'none'
 
+  toggle-list: ->
+    if @state.is-open then @hide-list! else @show-list!
+  render-input: ->
+    input do
+      ref: "input"
+      class-name: "prompt"
+      type: "text"
+      placeholder: @props.placeholder
+      onKeyUp: @handle-key-up
+      on-focus: @handle-input-focus
+      onBlur: @handle-input-blur
   render: ->
     @transfer-props-to do
-      div null,
-        input do
-          ref: "input"
-          class-name: "prompt"
-          type: "text"
-          placeholder: @props.placeholder
-          onKeyUp: @handle-key-up
-          onBlur: @handle-input-blur
+      div class-name: "ui search",
+        if @props.dropdown then
+          div class-name:"ui icon input",
+            @render-input!
+            i class-name: "sort ascending icon" on-click: @toggle-list
+        else
+          @render-input!
         div ref: "list" class-name: "results" style: @make-list-style!,
           @render-options!
 

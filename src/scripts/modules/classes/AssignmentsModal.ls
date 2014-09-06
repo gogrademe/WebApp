@@ -8,6 +8,9 @@ require! {
   "../../utils.ls"
 
   #"../../components/src/modules/Dropdown.ls"
+  "../../components/autocomplete.ls"
+
+  "../../components/AutocompleteFor.ls"
 
   Nav: './nav.ls'
   Header: '../../components/Header.ls'
@@ -15,8 +18,9 @@ require! {
 }
 
 Dom = React.DOM
-{div, a} = Dom
+{div, a, label} = Dom
 
+{Autocomplete, Option} = autocomplete
 
 AssignmentsModal = React.create-class do
   displayName: "AssignmentsModal"
@@ -28,12 +32,8 @@ AssignmentsModal = React.create-class do
     assignment:
       class-id: @props.class-id
       term-id: @props.term-id
+      type-id: null
       terms: []
-  component-will-mount: ->
-    #api.term.find!
-    #  .then !~>
-    #    @set-state terms: it[0]
-
 
   handle-save: ->
     it.prevent-default!
@@ -44,7 +44,7 @@ AssignmentsModal = React.create-class do
 
     api.assignment.create assignment
       .then ~>
-        console.log it
+        @props.on-request-hide!
       .catch ~>
         console.log it
 
@@ -52,7 +52,9 @@ AssignmentsModal = React.create-class do
     null
 
   on-select: ->
-    null
+    @state.assignment.type-id = it
+
+    @set-state assignment: @state.assignment
 
   handle-change: (key, val)->
     @state.assignment[key] = val
@@ -60,6 +62,7 @@ AssignmentsModal = React.create-class do
 
   render-input: ({type, label, key})->
     Form.Input type: type, label: label, value: @state.assignment[key], on-change: @handle-change.bind null, key
+
   render: ->
     @transfer-props-to do
       Modal title:"Create Assignment",
@@ -68,10 +71,9 @@ AssignmentsModal = React.create-class do
             @render-input type: "text" label:"Name" key: "name"
             div class-name: "ui two fields",
               @render-input type: "date" label:"Due Date" key: "dueDate"
-              @render-input type: "text" label:"Type" key: "typeId"
-              #Combobox on-input: @on-input, on-select: @on-select,
-              #  Option value: "foo",
-              #    "foo"
+              div class-name: "field",
+                label null, "Type"
+                AutocompleteFor.AssignmentType on-select: @on-select
         div class-name:"actions",
           a class-name: "ui button" on-click: @props.on-request-hide,
             "Cancel"
