@@ -19,13 +19,24 @@ require! {
 }
 
 Dom = React.DOM
-{div, a} = Dom
+{div, a, button} = Dom
 
 {Grid, StringRenderer} = NewTable
+
+
+AssignmentActions = React.create-class do
+  delete: (e)->
+    e.prevent-default!
+    api.assignment.del @props.row.id
+
+  render: ->
+    button class-name: "ui button red tiny" on-click: @delete,
+      "Delete"
 
 assignment-cols =
   * key: 'name'
     display: 'Name'
+    class-name: 'assignment.student'
 
   * key: 'dueDate'
     display: 'Due Date'
@@ -42,12 +53,25 @@ assignment-cols =
     format: 'decimalPercent'
     class-name: 'col-md-1'
 
+  * display: 'Actions'
+    renderer: AssignmentActions
+
+
+
 ClassAssignments = React.create-class do
   displayName: "ClassAssignments"
   get-initial-state: ->
     assignments: []
+  component-did-mount: ->
+    api.assignment.events.add-listener "change", @get-assignments
+
+  component-will-unmount: ->
+    api.assignment.events.remove-listener "change", @get-assignments
 
   component-will-mount: !->
+    @get-assignments!
+
+  get-assignments: ->
     api.assignment.find classId: @props.params.resource-id, term-id: @props.params.term-id
       .then !~>
         @set-state do

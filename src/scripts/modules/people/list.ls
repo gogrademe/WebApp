@@ -12,7 +12,7 @@ require! {
   '../../components/Header.ls'
 }
 Dom = React.DOM
-{div, h3, span} = Dom
+{div, h3, span, a} = Dom
 
 {Grid, StringRenderer} = NewTable
 
@@ -25,10 +25,6 @@ cols =
 
   * key: 'lastName'
     display: 'Last Name'
-
-  * key: 'updatedAt'
-    display: 'Updated At'
-    format: 'date'
 
   * key: 'profiles'
     display: 'Types'
@@ -56,6 +52,9 @@ PeopleList = React.create-class do
     div null,
       Header title: "All People"
       div class-name: "main",
+        div class-name: "ui toolbar menu inverted black block header",
+          div class-name:"right menu",
+            a class-name: "item", "Create"
         Grid columns: cols, data: @state.people
 
 module.exports = PeopleList

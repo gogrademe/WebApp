@@ -88,18 +88,20 @@ StringRenderer = React.create-class do
     editing: false
 
   handleChange: (event) !->
-    events.emit "change",
-      value: event.target.value
-      column: @props.column
-      row: @props.row
+    value: event.target.value
+    column: @props.column
+    row: @props.row
 
   render: ->
     val = format-val(@props.value, @props.column.format)
     if @state.editing
       div null,
-        input value: val, onChange: @handleChange
-        button onClick: @toggle,
-          "x"
+        div class-name:"ui action input",
+          input type: "text", value: val, onChange: @handleChange
+          div class-name: "ui button", on-click: @toggle,
+            "x"
+        #button onClick: @toggle,
+        #  "x"
     else
       div onClick: @toggle,
         val
