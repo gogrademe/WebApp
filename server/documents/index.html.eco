@@ -16,16 +16,39 @@ type   : 'Semantic'
     <div class="column">
       <div class="introduction">
         <h1 class="ui inverted header">Semantic UI
-          <a class="ui black pointing left label" href="https://github.com/semantic-org/Semantic-UI/blob/master/RELEASE%20NOTES.md">
-            1.0.0 ALPHA
+          <a class="ui tag label" href="https://github.com/semantic-org/Semantic-UI/blob/css/RELEASE%20NOTES.md">
+            1.0.0
           </a>
         </h1>
         <h2 class="ui inverted header">UI is the vocabulary of the web.</h2>
-        <p>Semantic empowers designers and developers by creating a language for sharing UI.</p>
-        <a class="ui large black view-ui button"><i class="icon list layout"></i> View UI</a>
-        <a class="ui large blue button" href="build/semantic.zip"><i class="awesome download cloud icon"></i> Download</a>
+        <div class="mobile buttons">
+          <a class="ui basic pink inverted view-ui button"><i class="cube icon"></i>UI Library</a>
+          <a class="ui basic red inverted button" data-title="Coming Soon">
+            <i class="theme icon"></i>
+            Themes
+          </a>
+          <a class="ui basic green inverted button" data-title="Coming Soon">
+            <i class="cubes icon"></i>
+            Layouts
+          </a>
+        </div>
+        <div class="ui huge inverted buttons">
+          <a class="ui basic pink inverted view-ui button"><i class="cube icon"></i>UI Library</a>
+          <a class="ui basic red inverted button" data-title="Coming Soon">
+            <i class="theme icon"></i>
+            Themes
+          </a>
+          <a class="ui basic green inverted button" data-title="Coming Soon">
+            <i class="cubes icon"></i>
+            Layouts
+          </a>
+        </div>
+        <div class="ui hidden divider"></div>
+        <a class="ui huge basic inverted teal button" href="build/semantic.zip">
+          <i class="download icon"></i> Customize &amp; Download
+        </a>
       </div>
-      <div class="inverted advertisement">
+      <!--div class="inverted advertisement">
         <% unless 'development' in @getEnvironments(): %>
         <div id="carbonads-container">
           <div class="carbonad">
@@ -34,15 +57,15 @@ type   : 'Semantic'
           </div>
         </div>
         <% end %>
-      </div>
+      </div !-->
     </div>
   </div>
 </div>
 <div class="stripe">
   <div class="ui page grid">
     <div class="ui column">
-      <h2 class="ui header">
-        <i class="circular emphasized book icon"></i>
+      <h2 class="ui center aligned icon header">
+        <i class="docs book icon"></i>
         <div class="content">
           Lose the Hieroglyphics
           <div class="sub header">Semantic is structured around natural language conventions to make development more intuitive.
@@ -52,7 +75,7 @@ type   : 'Semantic'
       <div class="ui message">
         Semantic is tag agnostic meaning you can use <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/HTML5_element_list" target="_blank">any html tags</a> with UI elements.
       </div>
-      <div class="ui stackable two column grid">
+      <div class="ui stackable two column fitted grid">
         <div class="column">
           <a class="ui teal label" href="/collections/grid.html">Semantic</a>
           <div class="code" data-type="html">
@@ -127,17 +150,17 @@ type   : 'Semantic'
   <div class="ui page grid">
     <div class="column">
       <h2 class="ui huge inverted center aligned icon header">
-        <i class="circular emphasized inverted teal chat outline icon"></i>
+        <i class="inverted teal chat outline icon"></i>
         <div class="content">Have a conversation with your components<div class="sub header">Semantic gives you a variety of UI components with real-time debug output, letting your code tell you what its doing.</div>
         </div>
       </h2>
       <div class="ui inverted horizontal section divider">
         <i class="circular heart icon"></i>
       </div>
-      <div class="ui stackable grid" data-demo="true">
+      <div class="ui stackable fitted grid" data-demo="true">
         <div class="row">
           <div class="ten wide column">
-          <div class="ui teal header">Open up your web console.</div>
+          <div class="ui inverted teal header">Open up your web console.</div>
           <p>Semantic provides tracing for javascript behavior so your components can tell you what they're doing as they do it.</p>
           <div class="code" data-type="javascript" data-demo="true">
           $('.kitten.image')
@@ -145,14 +168,10 @@ type   : 'Semantic'
             .transition('tada', '800ms')
           ;
           </div>
-<!--           <div class="ui raised segment">
-            <div class="ui black top attached label">Console</div>
-            <pre class="console"></pre>
-          </div> -->
-          <a href="module.html" class="ui teal right labeled button">Learn about modules <i class="right arrow icon"></i></a>
+          <a href="module.html" class="ui teal inverted button">Learn about modules <i class="right arrow icon"></i></a>
           </div>
           <div class="five wide right floated column">
-            <img src="/images/cat.png" class="ui kitten image">
+            <img src="/images/cat.png" class="ui fluid kitten image">
           </div>
         </div>
       </div>
@@ -215,8 +234,8 @@ type   : 'Semantic'
           <div class="column">
             <div class="ui stacked segment">
               <div class="ui statistic">
-                <div class="number"><%= uiElements.length %></div>
-                <div class="description">UI Elements</div>
+                <div class="value"><%= uiElements.length %></div>
+                <div class="label">UI Elements</div>
               </div>
               <div class="ui divided selection list">
                 <% for element in uiElements: %>
@@ -228,8 +247,8 @@ type   : 'Semantic'
           <div class="column">
             <div class="ui stacked segment">
               <div class="ui statistic">
-                <div class="number"><%= uiCollections.length %></div>
-                <div class="description">UI Collections</div>
+                <div class="value"><%= uiCollections.length %></div>
+                <div class="label">UI Collections</div>
               </div>
               <div class="ui divided selection list">
                 <% for element in uiCollections: %>
@@ -241,8 +260,8 @@ type   : 'Semantic'
           <div class="column">
             <div class="ui stacked segment">
               <div class="ui statistic">
-                <div class="number"><%= uiViews.length %></div>
-                <div class="description">UI Views</div>
+                <div class="value"><%= uiViews.length %></div>
+                <div class="label">UI Views</div>
               </div>
               <div class="ui divided selection list">
                 <% for element in uiViews: %>
@@ -254,8 +273,8 @@ type   : 'Semantic'
           <div class="column">
             <div class="ui stacked segment">
               <div class="ui statistic">
-                <div class="number"><%= uiModules.length %></div>
-                <div class="description">UI Modules</div>
+                <div class="value"><%= uiModules.length %></div>
+                <div class="label">UI Modules</div>
               </div>
               <div class="ui divided selection list">
                 <% for element in uiModules: %>

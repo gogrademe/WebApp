@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -16,7 +16,6 @@
 @element : 'message';
 
 @import '../../semantic.config';
-
 
 
 /*******************************
@@ -48,7 +47,7 @@
      Content
 ---------------*/
 
-/* block with headers */
+/* Header */
 .ui.message .header {
   display: @headerDisplay;
   font-family: @headerFont;
@@ -57,7 +56,7 @@
   margin: 0em @headerHorizontalDistance 0em 0em;
 }
 
-/* block with paragraphs */
+/* Paragraph */
 .ui.message p {
   opacity: @messageTextOpacity;
   margin: @messageParagraphMargin 0em;
@@ -69,15 +68,21 @@
   margin-bottom: 0em;
 }
 .ui.message .header + p {
-  margin-top: @headerBottomMargin;
+  margin-top: @headerParagraphDistance;
 }
 
-/* Block with list */
+/* List */
 .ui.message ul.list {
   opacity: @listOpacity;
   list-style-position: @listStylePosition;
   margin: @listMargin 0em 0em;
   padding: 0em;
+}
+.ui.message ul.list:first-child {
+  margin-top: 0em;
+}
+.ui.message ul.list:last-child {
+  margin-bottom: 0em;
 }
 .ui.message ul.list li {
   position: relative;
@@ -92,8 +97,14 @@
   height: 100%;
   vertical-align: baseline;
 }
-.ui.message ul.list li:first-child {
-  margin-top: 0em;
+.ui.message ul.list li:last-child {
+  margin-bottom: 0em;
+}
+
+
+/* Icon */
+.ui.message .icon {
+  margin-right: @iconDistance;
 }
 
 /* Close Icon */
@@ -151,21 +162,22 @@
 ---------------*/
 
 .ui.attached.message {
-  margin-left: @attachedOffset;
-  margin-right: @attachedOffset;
-  margin-bottom: @attachedOffset;
+  margin-bottom: @attachedYOffset;
   border-radius: @borderRadius @borderRadius 0em 0em;
   box-shadow:
     @attachedBoxShadow
   ;
+  margin-left: @attachedXOffset;
+  margin-right: @attachedXOffset;
 }
 .ui.attached + .ui.attached.message:not(.top):not(.bottom) {
-  margin-top: @attachedOffset;
+  margin-top: @attachedYOffset;
   border-radius: 0em;
 }
 .ui.bottom.attached.message {
-  margin-top: @attachedOffset;
+  margin-top: @attachedYOffset;
   border-radius: 0em 0em @borderRadius @borderRadius;
+  box-shadow: @attachedBottomBoxShadow;
 }
 .ui.bottom.attached.message:not(:last-child) {
   margin-bottom: @verticalMargin;
@@ -190,12 +202,16 @@
   font-size: @iconSize;
   opacity: @iconOpacity;
 }
-.ui.icon.message > .icon + .content {
-  padding-left: @iconDistance;
-}
 .ui.icon.message > .content {
   display: table-cell;
   vertical-align: @iconVerticalAlign;
+}
+
+.ui.icon.message .icon:not(.close) + .content {
+  padding-left: @iconContentDistance;
+}
+.ui.icon.message .circular.icon + .content {
+  padding-left: @circularIconContentDistance;
 }
 
 /*--------------
@@ -220,74 +236,165 @@
      Types
 ---------------*/
 
-/* Inverted */
+/* Positive */
+.ui.positive.message {
+  background-color: @positiveBackgroundColor;
+  color: @positiveTextColor;
+}
+.ui.positive.message,
+.ui.attached.positive.message {
+  box-shadow:
+    0px 0px 0px 1px @positiveBorderColor inset,
+    @subtleShadow
+  ;
+}
+.ui.positive.message .header {
+  color: @positiveHeaderColor;
+}
+
+/* Negative */
+.ui.negative.message {
+  background-color: @negativeBackgroundColor;
+  color: @negativeTextColor;
+}
+.ui.negative.message,
+.ui.attached.negative.message {
+  box-shadow:
+    0px 0px 0px 1px @negativeBorderColor inset,
+    @subtleShadow
+  ;
+}
+.ui.negative.message .header {
+  color: @negativeHeaderColor;
+}
+
+/* Info */
+.ui.info.message {
+  background-color: @infoBackgroundColor;
+  color: @infoTextColor;
+}
+.ui.info.message,
+.ui.attached.info.message {
+  box-shadow:
+    0px 0px 0px 1px @infoBorderColor inset,
+    @subtleShadow
+  ;
+}
+.ui.info.message .header {
+  color: @infoHeaderColor;
+}
+
+/* Warning */
+.ui.warning.message {
+  background-color: @warningBackgroundColor;
+  color: @warningTextColor;
+}
+.ui.warning.message,
+.ui.attached.warning.message {
+  box-shadow:
+    0px 0px 0px 1px @warningBorderColor inset,
+    @subtleShadow
+  ;
+}
+.ui.warning.message .header {
+  color: @warningHeaderColor;
+}
+
+/* Error */
+.ui.error.message {
+  background-color: @errorBackgroundColor;
+  color: @errorTextColor;
+}
+.ui.error.message,
+.ui.attached.error.message {
+  box-shadow:
+    0px 0px 0px 1px @errorBorderColor inset,
+    @subtleShadow
+  ;
+}
+.ui.error.message .header {
+  color: @errorHeaderColor;
+}
+
+/* Success */
+.ui.success.message {
+  background-color: @successBackgroundColor;
+  color: @successTextColor;
+}
+.ui.success.message,
+.ui.attached.success.message {
+  box-shadow:
+    0px 0px 0px 1px @successBorderColor inset,
+    @subtleShadow
+  ;
+}
+.ui.success.message .header {
+  color: @successHeaderColor;
+}
+
+
+/* Colors */
 .ui.inverted.message,
 .ui.black.message {
   background-color: @black;
   color: @invertedTextColor;
 }
 
-/* Positive / Negative */
-.ui.positive.message {
-  background-color: @positiveBackgroundColor;
-  color: @positiveTextColor;
-}
-.ui.negative.message {
-  background-color: @negativeBackgroundColor;
-  color: @negativeTextColor;
-}
-
-/* User Action */
-.ui.info.message {
-  background-color: @infoBackgroundColor;
-  color: @infoTextColor;
-}
-.ui.warning.message {
-  background-color: @warningBackgroundColor;
-  color: @warningTextColor;
-}
-.ui.error.message {
-  background-color: @errorBackgroundColor;
-  color: @errorTextColor;
-}
-.ui.success.message {
-  background-color: @successBackgroundColor;
-  color: @successTextColor;
-}
-
-
-/* Colors */
 .ui.blue.message {
   background-color: @blueBackground;
   color: @blueTextColor;
+}
+.ui.blue.message .header {
+  color: @blueHeaderColor;
 }
 .ui.green.message {
   background-color: @greenBackground;
   color: @greenTextColor;
 }
+.ui.green.message .header {
+  color: @greenHeaderColor;
+}
 .ui.orange.message {
   background-color: @orangeBackground;
   color: @orangeTextColor;
+}
+.ui.orange.message .header {
+  color: @orangeHeaderColor;
 }
 .ui.pink.message {
   background-color: @pinkBackground;
   color: @pinkTextColor;
 }
+.ui.pink.message .header {
+  color: @pinkHeaderColor;
+}
 .ui.purple.message {
   background-color: @purpleBackground;
   color: @purpleTextColor;
+}
+.ui.purple.message .header {
+  color: @purpleHeaderColor;
 }
 .ui.red.message {
   background-color: @redBackground;
   color: @redTextColor;
 }
+.ui.red.message .header {
+  color: @redHeaderColor;
+}
 .ui.teal.message {
   background-color: @tealBackground;
   color: @tealTextColor;
 }
+.ui.teal.message .header {
+  color: @tealHeaderColor;
+}
 .ui.yellow.message {
   background-color: @yellowBackground;
   color: @yellowTextColor;
+}
+.ui.yellow.message .header {
+  color: @yellowHeaderColor;
 }
 
 

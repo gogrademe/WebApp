@@ -1,5 +1,5 @@
 /*******************************
-            Form
+             Form
 *******************************/
 
 /*-------------------
@@ -14,18 +14,20 @@
 @fieldMargin: 0em 0em 1em;
 
 /* Form Label */
-@labelFontSize: 0.875em;
-@labelFontWeight: normal;
+@labelFontSize: 0.9em;
+@labelFontWeight: bold;
 @labelMargin: 0.3em;
 @labelColor: @textColor;
 
 /* Input */
 @inputWidth: 100%;
 @inputFontSize: 1em;
-@inputColor: @textColor;
 
-@inputVerticalPadding: 0.65em;
+@inputVerticalPadding: 0.8em;
 @inputHorizontalPadding: 1em;
+@inputLineHeight: 1.2;
+@inputPadding: (@inputVerticalPadding + ((1em - @inputLineHeight) / 2)) @inputHorizontalPadding;
+
 @inputBackground: #FFFFFF;
 @inputBorder: 1px solid @borderColor;
 @inputBorderRadius: 0.3125em;
@@ -62,7 +64,7 @@
 /* Disabled */
 
 /* Focus */
-@inputFocusPointerSize: 0.3em;
+@inputFocusPointerSize: 1px;
 
 /* Input Focus */
 @inputFocusBackground: #FFFFFF;
@@ -77,7 +79,7 @@
 @formErrorBackground: @negativeBackgroundColor;
 
 /* Input Error */
-@inputErrorPointerSize: 0.3em;
+@inputErrorPointerSize: 2px;
 @inputErrorBorderRadius: 0em @inputBorderRadius @inputBorderRadius 0em;
 @inputErrorBoxShadow: @inputErrorPointerSize 0em 0em 0em @formErrorColor inset;
 
@@ -86,16 +88,14 @@
 @dropdownErrorActiveBackground: #FDCFCF;
 
 /* Focused Error */
-@formErrorFocusColor: @negativeColorHover;
-@formErrorFocusBorder: @negativeBorderColor;
-@formErrorFocusBackground: @negativeBackgroundColor;
-
-/* Input Focused Error */
-@inputErrorFocusBoxShadow: @inputFocusPointerSize 0em 0em 0em @negativeColorHover inset;
+@inputErrorFocusBackground: @negativeBackgroundColor;
+@inputErrorFocusColor: @negativeColorHover;
+@inputErrorFocusBorder: @negativeBorderColor;
+@inputErrorFocusBoxShadow: @inputErrorPointerSize 0em 0em 0em @negativeColorHover inset;
 
 /* Placeholder */
-@inputPlaceholderColor: lighten(@inputColor, 70);
-@inputPlaceholderFocusColor: lighten(@inputColor, 55);
+@inputPlaceholderColor: lighten(@inputColor, 55);
+@inputPlaceholderFocusColor: lighten(@inputColor, 35);
 @inputErrorPlaceholderColor: lighten(@formErrorColor, 10);
 @inputErrorPlaceholderFocusColor: lighten(@formErrorColor, 5);
 
@@ -114,7 +114,7 @@
 @requiredVerticalOffset: -0.2em;
 
 /* Inverted */
-@invertedFormColor: @invertedTextColor;
+@invertedLabelColor: @invertedTextColor;
 @formInvertedLoaderPath: "@{imagePath}/loader-large-inverted.gif";
 @formInvertedLoaderDimmerColor: rgba(0, 0, 0, 0.8);
 
@@ -122,9 +122,22 @@
       Variations
 --------------------*/
 
-@small: 0.875em;
-@large: 1.125em;
+/* Grouped Fields */
+@groupedMargin: @fieldMargin;
+@groupedFieldMargin: 0.5em 0em;
 
+/* Inline */
+@inlineLabelFontSize: 1em;
+@inlineLabelVerticalAlign: middle;
+
+/* (x) Wide Field */
+@gutterWidth: 1%;
+
+/* Sizes */
+@small: 0.875em;
+@medium: auto;
+@large: 1.125em;
+@huge: 1.2em;
 
 /*-------------------
        Groups

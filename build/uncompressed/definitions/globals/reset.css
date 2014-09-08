@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -47,23 +47,35 @@
      Load Default
 -------------------*/
 /*******************************
-        Global Variables
+         Site Settings
 *******************************/
 /*-------------------
         Paths
 --------------------*/
 /*-------------------
+       Fonts
+--------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---  Colors  ---*/
+/*-------------------
         Page
 --------------------*/
 /*-------------------
-         Grid
+  Background Colors
+--------------------*/
+/* Used for differentiating neutrals */
+/* Used for differentiating layers */
+/*-------------------
+        Grid
 --------------------*/
 /*-------------------
      Breakpoints
 --------------------*/
-/*-------------------
-       Fonts
---------------------*/
+/*******************************
+           Power-User
+*******************************/
 /*-------------------
        Icons
 --------------------*/
@@ -71,28 +83,26 @@
 /*-------------------
        Easing
 --------------------*/
-/*******************************
-           BG Colors
-*******************************/
-/*******************************
-             Colors
-*******************************/
-/*---  Colors  ---*/
-/*---  Neutrals  ---*/
-/*--- Text Colors ---*/
-/* Preserve */
-/* Adjust for Legibility */
-/*--- Backgrounds ---*/
+/*---  Light Variations  ---*/
+/*---   Neutrals  ---*/
+/*--- Colored Backgrounds ---*/
+/*--- Colored Text ---*/
+/*--- Colored Headers ---*/
 /*-------------------
     Emotive Colors
 --------------------*/
-/* Positive / Negative */
-/* Messages */
+/* Mood */
+/* Solid Background Color */
+/* Status */
+/* Darkened Headers */
 /*-------------------
-     Text Colors
+     Neutral Text
 --------------------*/
 /*-------------------
      Brand Colors
+--------------------*/
+/*-------------------
+    Grid Columns
 --------------------*/
 /*-------------------
       Borders
@@ -127,9 +137,9 @@
 /*---  Standard  ---*/
 /*---  Emotive  ---*/
 /*---  Neutrals  ---*/
-/*-------------------
-        Reset
---------------------*/
+/*******************************
+             Reset
+*******************************/
 /*------------------
      Load Theme
 -------------------*/
@@ -258,9 +268,7 @@ dfn {
  * Address differences between Firefox and other browsers.
  */
 hr {
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
   height: 0;
 }
 /**
@@ -413,9 +421,7 @@ html input[disabled] {
  */
 input[type="checkbox"],
 input[type="radio"] {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   /* 1 */
   padding: 0;
   /* 2 */
@@ -428,8 +434,6 @@ input[type="radio"] {
 input[type="search"] {
   -webkit-appearance: textfield;
   /* 1 */
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
   /* 2 */
   box-sizing: content-box;
 }

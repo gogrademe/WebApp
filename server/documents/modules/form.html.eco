@@ -2,8 +2,12 @@
 layout      : 'default'
 css         : 'form'
 
+element     : 'form'
+elementType : 'behavior'
+
 title       : 'Form Validation'
 description : 'A form validation behavior checks user input data against a set of criteria before passing along the data to the server'
+
 type        : 'UI Behavior'
 ---
 
@@ -131,7 +135,7 @@ type        : 'UI Behavior'
     </h3>
     <div class="ui info message">Validation rules are found in <code>settings.rules</code>, to add new global validation rules, modify <code>$.fn.form.settings.rules</code> to include your function.</div>
     <div class="in red message">To pass parameters to a rule, use bracket notation in your settings object. For example <code>type: 'not[dog]'</code></div>
-    <table class="ui teal celled sortable definition table segment">
+    <table class="ui teal celled sortable definition table">
       <thead>
         <th class="four wide">Name</th>
         <th>Arguments</th>
@@ -247,7 +251,7 @@ type        : 'UI Behavior'
     <div class="example">
       <h3 class="ui header">Displaying Error Messages</h3>
       <p>Forms that contain a <a href="/elements/message.html">ui message</a> error block will automatically be filled in with form validation information.</p>
-      <div class="info message">The template for error messages can be modified by adjusting settings.template.error</div>
+      <div class="ui ignored info message">The template for error messages can be modified by adjusting settings.template.error</div>
 
       <div class="ui form segment">
         <p>Let's go ahead and get you signed up.</p>
@@ -283,7 +287,7 @@ type        : 'UI Behavior'
     <div class="inline example">
       <h3 class="ui header">Validating on Blur and other Events</h3>
       <p>Validation messages can also appear inline. UI Forms automatically format <a href="/elements/label.html">labels</a> with the class name <code>prompt</code>. These validation prompts are also set to appear on input change instead of form submission.</p>
-      <p>This example also uses a different validation event. Each element will be validated on input blur instead of the default form submit.</p>
+      <div class="ui ignored warning message">This example also uses a different validation event. Each element will be validated on input blur instead of the default form submit.</div>
       <div class="code" data-type="javascript">
         $('.ui.dropdown')
           .form(validationRules, {
@@ -366,7 +370,7 @@ type        : 'UI Behavior'
 
     All the following <a href="/module.html#/behavior">behaviors</a> can be called using the syntax <code>$('.foo').form('behavior name', argumentOne, argumentTwo)</code>
 
-    <table class="ui definition celled table segment">
+    <table class="ui definition celled table">
       <tr>
         <td>submit</td>
         <td>Submits selected form</td>
@@ -404,7 +408,7 @@ type        : 'UI Behavior'
       <div class="sub header">Form settings modify the form validation behavior</div>
     </h3>
 
-    <table class="ui celled sortable definition table segment">
+    <table class="ui celled sortable definition table">
       <thead>
         <th>Setting</th>
         <th class="four wide">Default</th>
@@ -458,7 +462,7 @@ type        : 'UI Behavior'
       <div class="sub header">Callbacks specify a function to occur after a specific behavior.</div>
     </h3>
 
-    <table class="ui celled definition table segment">
+    <table class="ui celled definition table">
       <thead>
         <th class="four wide">Setting</th>
         <th>Context</th>
@@ -494,8 +498,8 @@ type        : 'UI Behavior'
       Templates
       <div class="sub header">Templates are used to construct elements</div>
     </h3>
-    <div class="ui info message">Templates are found in <code>settings.template</code>, to modify templates across all forms, modify <code>$.fn.form.settings.templates</code> to include your function. They must return html.</div>
-    <table class="ui celled definition table segment">
+    <div class="ui ignored info message">Templates are found in <code>settings.template</code>, to modify templates across all forms, modify <code>$.fn.form.settings.templates</code> to include your function. They must return html.</div>
+    <table class="ui celled definition table">
       <thead>
         <th class="four wide">Template</th>
         <th>Arguments</th>
@@ -521,7 +525,7 @@ type        : 'UI Behavior'
       DOM Settings
       <div class="sub header">DOM settings specify how this module should interface with the DOM</div>
     </h3>
-    <table class="ui celled definition table segment">
+    <table class="ui celled definition table">
       <thead>
         <th>Setting</th>
         <th class="six wide">Default</th>
@@ -587,7 +591,7 @@ type        : 'UI Behavior'
       <div class="sub header">Debug settings controls debug output to the console</div>
     </h3>
 
-    <table class="ui celled sortable definition table segment">
+    <table class="ui celled sortable definition table">
       <thead>
         <th>Setting</th>
         <th class="four wide">Default</th>

@@ -44,6 +44,7 @@
 @image       : 'default';
 @input       : 'default';
 @label       : 'default';
+@list        : 'default';
 @loader      : 'default';
 @progress    : 'default';
 @reveal      : 'default';
@@ -62,6 +63,7 @@
 @accordion   : 'default';
 @chatroom    : 'default';
 @checkbox    : 'default';
+@dimmer      : 'default';
 @dropdown    : 'default';
 @modal       : 'default';
 @nag         : 'default';
@@ -76,10 +78,10 @@
 @video       : 'default';
 
 /* Views */
+@card        : 'default';
 @comment     : 'default';
 @feed        : 'default';
 @item        : 'default';
-@list        : 'default';
 @statistic   : 'default';
 
 

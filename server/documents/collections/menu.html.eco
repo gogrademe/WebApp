@@ -2,13 +2,14 @@
 layout      : 'default'
 css         : 'menu'
 
+element     : 'menu'
+elementType : 'collection'
+
 title       : 'Menu'
 description : 'A menu is a collection of elements showing related user actions'
 type        : 'UI Collection'
 
-element     : 'menu'
-elementType : 'collection'
-themes      : ['default', 'github']
+themes      : ['Default', 'GitHub']
 ---
 <link rel="stylesheet/less" type="text/css" href="/build/less/definitions/collections/menu.less" />
 <script src="/javascript/menu.js"></script>
@@ -40,7 +41,7 @@ themes      : ['default', 'github']
       </a>
       <div class="right menu">
         <div class="item">
-          <div class="ui icon input">
+          <div class="ui transparent icon input">
             <input type="text" placeholder="Search...">
             <i class="search link icon"></i>
           </div>
@@ -69,7 +70,7 @@ themes      : ['default', 'github']
         <div class="ui label">1</div>
       </a>
       <div class="item">
-        <div class="ui small icon input">
+        <div class="ui transparent icon input">
           <input type="text" placeholder="Search mail...">
           <i class="search icon"></i>
         </div>
@@ -115,6 +116,19 @@ themes      : ['default', 'github']
       <a class="item">
         Pics
       </a>
+    </div>
+  </div>
+  <div class="another example">
+    <div class="ui top attached tabular menu">
+      <a class="active item">
+        Bio
+      </a>
+      <a class="item">
+        Pics
+      </a>
+    </div>
+    <div class="ui bottom attached segment">
+      This is the content of the tab.
     </div>
   </div>
 
@@ -180,7 +194,8 @@ themes      : ['default', 'github']
         <i class="mail icon"></i> Messages
       </a>
       <div class="ui dropdown item">
-        More <i class="dropdown icon"></i>
+        <i class="dropdown icon"></i>
+        More
         <div class="menu">
           <a class="item"><i class="edit icon"></i> Edit Profile</a>
           <a class="item"><i class="globe icon"></i> Choose Language</a>
@@ -231,7 +246,8 @@ themes      : ['default', 'github']
         <i class="user icon"></i> Friends
       </a>
       <div class="ui dropdown item">
-        More <i class="dropdown icon"></i>
+        <i class="dropdown icon"></i>
+        More
         <div class="menu">
           <a class="item"><i class="edit icon"></i> Edit Profile</a>
           <a class="item"><i class="globe icon"></i> Choose Language</a>
@@ -262,7 +278,8 @@ themes      : ['default', 'github']
           </div>
         </div>
         <div class="ui dropdown item">
-          Language <i class="dropdown icon"></i>
+          <i class="dropdown icon"></i>
+          Language
           <div class="menu">
             <a class="item">English</a>
             <a class="item">Russian</a>
@@ -487,7 +504,8 @@ themes      : ['default', 'github']
     </div>
     <div class="ui vertical menu">
       <div class="ui dropdown item">
-        Categories <i class="dropdown icon"></i>
+        <i class="dropdown icon"></i>
+        Categories
         <div class="menu">
           <a class="item">Electronics</a>
           <a class="item">Automotive</a>

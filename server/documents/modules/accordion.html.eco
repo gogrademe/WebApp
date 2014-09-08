@@ -1,11 +1,16 @@
 ---
 layout      : 'default'
 css         : 'accordion'
+element     : 'accordion'
+elementType : 'module'
 
 title       : 'Accordion'
-description : 'An accordion displays a single piece of content, while allowing the option of displaying other related content'
+description : 'An accordion lets a user activate groups of collapsible content'
 type        : 'UI Module'
+
+themes      : ['Default', 'Chubby']
 ---
+<link rel="stylesheet/less" type="text/css" href="/build/less/definitions/modules/accordion.less" />
 <script src="/javascript/accordion.js"></script>
 
 <%- @partial('header', { tabs: 'module' }) %>
@@ -52,9 +57,9 @@ type        : 'UI Module'
     </div>
 
     <div class="example">
-      <h4 class="ui header">Basic</h4>
-      <p>A basic accordion does not add any extra formatting</p>
-      <div class="ui basic accordion">
+      <h4 class="ui header">Styled</h4>
+      <p>A styled accordion adds basic formatting</p>
+      <div class="ui styled accordion">
         <div class="active title">
           <i class="dropdown icon"></i>
           What is a dog?
@@ -84,7 +89,7 @@ type        : 'UI Module'
     <div class="example">
       <h4 class="ui header">Fluid</h4>
       <p>An accordion can take up the width of its container</p>
-      <div class="ui fluid accordion">
+      <div class="ui styled fluid accordion">
         <div class="active title">
           <i class="dropdown icon"></i>
           What is a dog?
@@ -119,13 +124,13 @@ type        : 'UI Module'
     <div class="example">
       <h3 class="ui header">Nested</h3>
       <p>An accordion can have multiple levels of nested content. This content can either be in a nested <code>accordion</code> or simply another level of <code>title</code> and <code>content</code></p>
-      <div class="ui accordion">
+      <div class="ui styled accordion">
         <div class="active title">
           <i class="dropdown icon"></i>
           Level 1
         </div>
         <div class="active content">
-          <p>Welcome to level 1 where sub content formatted as its own accordion.</p>
+          Welcome to level 1 where sub content formatted as its own accordion.
           <div class="accordion">
             <div class="active title">
                 <i class="dropdown icon"></i>
@@ -226,7 +231,7 @@ type        : 'UI Module'
               <input placeholder="Last Name" type="text">
             </div>
           </div>
-          <div class="ui basic accordion field">
+          <div class="ui accordion field">
             <div class="title">
               <i class="icon dropdown"></i>
               Optional Details
@@ -243,15 +248,15 @@ type        : 'UI Module'
     <div class="example">
       <h3 class="ui header">Menu</h3>
       <p>An accordion can be used to create content drawers inside a menu</p>
-      <div class="ui basic vertical accordion menu">
+      <div class="ui vertical accordion menu">
         <div class="item">
           <a class="active title">
             <i class="dropdown icon"></i>
             Size
           </a>
-          <div class="active content menu">
-            <div class="ui form item">
-              <div class="grouped inline fields">
+          <div class="active content">
+            <div class="ui form">
+              <div class="grouped fields">
                 <div class="field">
                   <div class="ui radio checkbox">
                     <input type="radio" name="size" value="small" />
@@ -281,13 +286,13 @@ type        : 'UI Module'
           </div>
         </div>
         <div class="item">
-          <a class="active title">
+          <a class="title">
             <i class="dropdown icon"></i>
             Colors
           </a>
-          <div class="active content menu">
-            <div class="ui form item">
-              <div class="grouped inline fields">
+          <div class="content">
+            <div class="ui form">
+              <div class="grouped fields">
                 <div class="field">
                   <div class="ui checkbox">
                     <input type="checkbox" name="small" />

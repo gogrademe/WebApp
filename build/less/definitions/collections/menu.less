@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -52,33 +52,25 @@
 .ui.menu > .item:first-child {
   border-radius: @borderRadius 0px 0px @borderRadius;
 }
-.ui.menu > .item:last-child {
-  border-radius: 0px @borderRadius @borderRadius 0px;
-}
 
 /*--------------
-    Colors
+     Colors
 ---------------*/
 
 /* Text Color */
-.ui.menu .item,
-.ui.menu .item > a:not(.button) {
+.ui.menu .item {
   color: @menuTextColor;
 }
-.ui.menu .item .item,
-.ui.menu .item .item > a:not(.button) {
+.ui.menu .item .item {
   color: @subMenuTextColor;
 }
+
 /* Hover */
 .ui.menu .item .menu a.item:hover,
 .ui.menu .item .menu .link.item:hover {
   color: @darkTextColor;
 }
-/* Hover */
-.ui.menu .item .menu a.item:hover,
-.ui.menu .item .menu .link.item:hover {
-  color: rgba(0, 0, 0, 0.85);
-}
+
 /* Active */
 .ui.menu .active.item {
   color: @selectedTextColor;
@@ -128,13 +120,12 @@
   position: absolute;
   content: '';
   top: 0%;
-  left: 0px;
+  right: 0px;
   width: @dividerSize;
   height: 100%;
   background: @dividerBackground;
 }
-.ui.menu > .menu:not(.right):first-child > .item:first-child:before,
-.ui.menu .item:first-child:before {
+.ui.menu > .right.menu:first-child {
   display: none;
 }
 .ui.menu .menu.right .item:before,
@@ -148,6 +139,7 @@
 ---------------*/
 
 .ui.menu .text.item > *,
+.ui.menu .item > a:not(.ui),
 .ui.menu .item > p:only-child {
   user-select: text;
   line-height: @textLineHeight;
@@ -160,6 +152,20 @@
   margin-bottom: 0;
 }
 
+/*--------------
+      Icons
+---------------*/
+
+.ui.menu .item > i.icon {
+  opacity: @iconOpacity;
+  float: @iconFloat;
+  margin: @iconMargin;
+}
+
+.ui.menu .item > i.dropdown.icon {
+  float: @dropdownIconFloat;
+  margin-left: @dropdownIconDistance;
+}
 
 /*--------------
      Button
@@ -195,13 +201,11 @@
 .ui.menu:not(.vertical) .item > .icon.input .icon {
   top: @inputIconOffset;
 }
-.ui.menu .item > .input input {
-  font-size: @inputSize;
-  padding-top: @inputVerticalPadding;
-  padding-bottom: @inputVerticalPadding;
+.ui.menu:not(.vertical) .item > .transparent.icon.input .icon {
+  top: @inputVerticalPadding;
 }
-.ui.vertical.menu .item > .input input {
-  margin: 0em;
+.ui.menu:not(.vertical) .item > .input input {
+  font-size: @inputSize;
   padding-top: @inputVerticalPadding;
   padding-bottom: @inputVerticalPadding;
 }
@@ -244,10 +248,7 @@
 .ui.vertical.menu .header.item {
   background: @headerBackground;
   margin: 0em;
-  font-size: @headerFontSize;
   text-transform: @headerTextTransform;
-}
-.ui.vertical.menu .header.item {
   font-weight: @headerWeight;
 }
 
@@ -281,37 +282,6 @@
   margin: 0px !important;
 }
 
-/* Dropdown Menu Item */
-.ui.menu .dropdown .menu .item {
-  width: 100%;
-  cursor: pointer;
-  color: @dropdownTextColor;
-}
-
-/* Hover */
-.ui.menu .dropdown .menu .item:hover {
-  background: @hoverBackground;
-  color: @darkTextColor;
-}
-
-/* Pressed */
-.ui.menu .dropdown .menu .item:active {
-  background: @downBackground;
-}
-
-/* Active */
-.ui.menu .dropdown.item .menu .active.item {
-  box-shadow: none !important;
-}
-
-/* Dropdown Menu Item Content */
-.ui.menu .dropdown .menu .item .icon {
-  float: none;
-  margin: 0em 0.75em 0em 0em;
-}
-.ui.menu .dropdown .menu .item:before {
-  display: none;
-}
 
 /* Secondary Menu Dropdown */
 .ui.secondary.menu > .menu > .active.dropdown.item {
@@ -361,22 +331,27 @@
       Hover
 ---------------*/
 
-.ui.link.menu .item:hover,
-.ui.menu .link.item:hover,
-.ui.menu a.item:hover {
+.ui.link.menu > .item:hover,
+.ui.menu > .link.item:hover,
+.ui.menu > a.item:hover,
+.ui.link.menu .menu > .item:hover,
+.ui.menu .menu > .link.item:hover,
+.ui.menu .menu > a.item:hover {
   cursor: pointer;
   background: @hoverBackground;
+  color: @hoverColor;
 }
 
 
 /*--------------
-      Down
+     Pressed
 ---------------*/
 
 .ui.link.menu .item:active,
 .ui.menu .link.item:active,
 .ui.menu a.item:active {
-  background: @downBackground;
+  background: @pressedBackground;
+  color: @pressedColor;
 }
 
 /*--------------
@@ -389,6 +364,11 @@
   font-weight: @activeFontWeight;
   box-shadow: 0em @activeBorderSize 0em inset;
 }
+.ui.menu .active.item > i.icon {
+  opacity: @activeIconOpacity;
+}
+
+/* Vertical */
 .ui.vertical.menu .active.item {
   background: @activeBackground;
   border-radius: 0em;
@@ -403,14 +383,14 @@
 .ui.vertical.menu > .active.item:only-child {
   border-radius: 0em @borderRadius @borderRadius 0em;
 }
-
 .ui.vertical.menu .active.item .menu .active.item {
   border-left: none;
 }
 .ui.vertical.menu .item .menu .active.item {
-  background-color: @subMenuActiveColor;
+  background-color: @subMenuActiveBackground;
   box-shadow: none;
 }
+
 
 /*--------------
   Active Hover
@@ -465,6 +445,7 @@
   background: @verticalBackground;
 }
 
+/*--- Item ---*/
 .ui.vertical.menu .item {
   background: @verticalItemBackground;
   display: block;
@@ -480,19 +461,23 @@
   border-radius: 0px 0px @borderRadius @borderRadius;
 }
 
+/*--- Label ---*/
 .ui.vertical.menu .item > .label {
   float: right;
   text-align: center;
 }
+
+/*--- Icon ---*/
 .ui.vertical.menu .item > i.icon {
-  float: right;
   width: @iconWidth;
-  margin: 0em 0em 0em @iconMargin;
+  float: @verticalIconFloat;
+  margin: @verticalIconMargin;
 }
 .ui.vertical.menu .item > .label + i.icon {
-  float: none;
-  margin: 0em @iconLabelMargin 0em 0em;
+  float: @labelAndIconFloat;
+  margin: @labelAndIconMargin;
 }
+
 
 /*--- Border ---*/
 .ui.vertical.menu .item:before {
@@ -507,13 +492,14 @@
 }
 
 .ui.vertical.menu .item:first-child:before {
-  background-image: none !important;
+  background: none !important;
 }
 
 /*--- Dropdown ---*/
-.ui.vertical.menu .dropdown.item > i {
+.ui.vertical.menu .dropdown.item > .icon {
   float: right;
   content: "\f0da";
+  margin-left: 1em;
 }
 .ui.vertical.menu .dropdown.item .menu {
   top: 0% !important;
@@ -587,7 +573,7 @@
 
 /* Sub Menu Divider */
 .ui.tiered.menu .sub.menu .item:before {
-  background-image: none;
+  background: none;
 }
 
 /* Sub Menu Hover */
@@ -695,7 +681,13 @@
   z-index: 2;
 }
 .ui.tabular.menu ~ .bottom.attached.segment {
-  margin: 1px 0px 0px 1px;
+  margin: 0px 0px 0px 1px;
+}
+
+/* Coupling with accordion */
+.ui.accordion.menu .item .title > i.dropdown.icon {
+  float: @dropdownIconFloat;
+  margin-left: @dropdownIconDistance;
 }
 
 
@@ -845,7 +837,7 @@
   color: rgba(255, 255, 255, 0.85);
 }
 
-/* Down */
+/* Pressed */
 .ui.secondary.inverted.pointing.menu > .menu > .item:active,
 .ui.secondary.inverted.pointing.menu > .item:active {
   border-color: rgba(255, 255, 255, 0.4);
@@ -901,7 +893,7 @@
   color: @secondaryPointingHoverTextColor;
 }
 
-/* Down */
+/* Pressed */
 .ui.secondary.pointing.menu > .menu > .link.item:active,
 .ui.secondary.pointing.menu > .link.item:active,
 .ui.secondary.pointing.menu > .menu > a.item:active,
@@ -937,7 +929,7 @@
   color: rgba(0, 0, 0, 0.7);
 }
 
-/* Down */
+/* Pressed */
 .ui.secondary.vertical.pointing.menu > .item:active {
   background-color: transparent;
   border-color: rgba(0, 0, 0, 0.2);
@@ -1186,11 +1178,16 @@
 }
 
 .ui.inverted.menu .item,
-.ui.inverted.menu .item > a {
+.ui.inverted.menu .item > a:not(.ui) {
   color: @invertedTextColor;
 }
+
+.ui.inverted.menu .item:not(.dropdown).menu {
+  background: @invertedSubMenuBackground;
+}
+
 .ui.inverted.menu .item .item,
-.ui.inverted.menu .item .item > a {
+.ui.inverted.menu .item .item > a:not(.ui) {
   color: @invertedSubMenuColor;
 }
 .ui.inverted.menu .dropdown .menu .item {
@@ -1216,43 +1213,42 @@
 .ui.inverted.menu .link.item:hover,
 .ui.inverted.menu a.item:hover,
 .ui.inverted.menu .dropdown.item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background: @invertedHoverBackground;
+  color: @invertedHoverColor;
 }
-.ui.inverted.menu a.item:hover,
-.ui.inverted.menu .item > a:hover,
 .ui.inverted.menu .item .menu a.item:hover,
 .ui.inverted.menu .item .menu .link.item:hover {
-  color: rgba(255, 255, 255, 1);
+  background: @invertedSubMenuBackground;
+  color: @invertedSubMenuHoverColor;
 }
 
-/*--- Down ---*/
+/*--- Pressed ---*/
 .ui.inverted.menu a.item:active,
 .ui.inverted.menu .dropdown.item:active,
 .ui.inverted.menu .link.item:active,
 .ui.inverted.menu a.item:active {
-  background-color: rgba(255, 255, 255, 0.15);
+  background: @invertedMenuPressedBackground;
+  color: @invertedMenuPressedColor;
 }
 
 /*--- Active ---*/
 .ui.inverted.menu .active.item {
   box-shadow: none !important;
-  background-color: rgba(255, 255, 255, 0.2);
-}
-.ui.inverted.menu .active.item {
-  color: rgba(255, 255, 255, 1) !important;
+  background: @invertedActiveBackground;
+  color: @invertedActiveColor !important;
 }
 .ui.inverted.vertical.menu .item .menu .active.item {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 1);
+  background: @invertedSubMenuActiveBackground;
+  color: @invertedSubMenuActiveColor;
 }
 
 /*--- Pointers ---*/
 .ui.inverted.pointing.menu .active.item:after {
-  background-color: #5B5B5B;
+  background: #5B5B5B;
   box-shadow: none;
 }
 .ui.inverted.pointing.menu .active.item:hover:after {
-  background-color: #4A4A4A;
+  background: #4A4A4A;
 }
 
 
@@ -1301,7 +1297,7 @@
 
 /*--- Light Colors  ---*/
 .ui.grey.menu {
-  background-color: #F0F0F0;
+  background-color: @offWhite;
 }
 
 /*--- Inverted Colors  ---*/
@@ -1346,7 +1342,7 @@
   background-color: @red;
 }
 .ui.inverted.red.pointing.menu .active.item:after {
-  background-color: #F16883;
+  background-color: @red;
 }
 /* Teal */
 .ui.inverted.teal.menu {
@@ -1393,7 +1389,7 @@
 .ui.borderless.menu .item:before,
 .ui.borderless.menu .item .menu .item:before,
 .ui.menu .borderless.item:before {
-  background-image: none;
+  background: none;
 }
 
 /*-------------------
@@ -1433,6 +1429,9 @@
   padding-left: 0px !important;
   padding-right: 0px !important;
   text-align: center;
+}
+.ui.item.menu > .item:last-child {
+  border-radius: 0px @borderRadius @borderRadius 0px;
 }
 .ui.menu.two.item .item {
   width: 50%;
@@ -1520,6 +1519,7 @@
   padding-top: @fixedGridMargin;
 }
 
+
 /*-------------------
        Pointing
 --------------------*/
@@ -1538,7 +1538,7 @@
   border-bottom: @arrowBorder;
   border-right: @arrowBorder;
 
-  background-image: none;
+  background: none;
   transform: rotate(45deg);
   z-index: 2;
 

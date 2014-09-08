@@ -1,35 +1,33 @@
+/*******************************
+            Button
+*******************************/
 
 /*-------------------
-    Globals Used
---------------------*/
-
-// (Color Variables)
-// @transitionDuration
-// @transitionEasing
-// @iconWidth
-// @borderColor
-// @textColor, @invertedTextColor
-
-/*-------------------
-       Button
+       Element
 --------------------*/
 
 @verticalMargin: 0em;
 @horizontalMargin: 0.25em;
 @textTransform: none;
+@tapColor: transparent;
 
 @fontWeight: bold;
 @textColor: rgba(0, 0, 0, 0.6);
 @textShadow: none;
 @invertedTextShadow: none;
-
 @borderRadius: 0.25em;
+
+/* Shadow */
+@shadowDistance: 0em;
+@shadowOffset: (@shadowDistance / 2);
+@shadowBoxShadow: 0px -@shadowDistance 0px 0px @borderColor inset;
 
 @backgroundColor: #FAFAFA;
 @backgroundImage: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.09));
 @boxShadow:
-  0px 0px 0px 1px rgba(0, 0, 0, 0.1) inset,
-  0px -@shadowDistance 0px 0px rgba(0, 0, 0, 0.1) inset
+  @subtleShadow,
+  0px 0px 0px 1px @borderColor inset,
+  @shadowBoxShadow
 ;
 
 /* transitions */
@@ -37,21 +35,21 @@
   opacity @transitionDuration @transitionEasing,
   background-color @transitionDuration @transitionEasing,
   color @transitionDuration @transitionEasing,
-  background @transitionDuration @transitionEasing,
-  box-shadow @transitionDuration @transitionEasing
+  box-shadow @transitionDuration @transitionEasing,
+  background @transitionDuration @transitionEasing
 ;
 
 /* Padding */
 @verticalPadding: 0.8em;
 @horizontalPadding: 1.5em;
 
-
-/* Shadow */
-@shadowDistance: 0em;
-@shadowOffset: (@shadowDistance / 2);
-
 /* Icon */
-@iconMargin: 0.6em;
+@iconOpacity: 0.8;
+@iconDistance: 0.4em;
+@iconTransition: opacity @transitionDuration @transitionEasing;
+@iconMargin: 0em @iconDistance 0em -(@iconDistance / 2);
+@rightIconMargin: 0em -(@iconDistance / 2) 0em @iconDistance;
+@iconVerticalAlign: baseline;
 
 /* Loader */
 @loaderPath: "@{imagePath}/loader-mini.gif";
@@ -62,31 +60,64 @@
         Group
 --------------------*/
 
+@groupBoxShadow: @subtleShadow;
+@groupButtonBoxShadow:
+  0px 0px 0px 1px @borderColor inset,
+  @shadowBoxShadow
+;
 @verticalBoxShadow: 0px 0px 0px 1px @borderColor inset;
-
+@groupButtonOffset: 0px 0px 0px -1px;
+@verticalGroupOffset: 0px 0px -1px 0px;
 
 /*-------------------
         States
 --------------------*/
 
+/* Hovered */
 @hoverBackgroundColor: '';
 @hoverBackgroundImage: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.13));
 @hoverBoxShadow: '';
+@hoverColor: @selectedTextColor;
 @iconHoverOpacity: 0.85;
 
+/* Focused */
 @focusBackgroundColor: '';
 @focusBackgroundImage: '';
-@focusBoxShadow: 0 0 1px rgba(81, 167, 232, 0.8) inset, 0 0 3px 2px rgba(81, 167, 232, 0.8);
+@focusBoxShadow:
+  0px 0px 1px rgba(81, 167, 232, 0.8) inset,
+  0px 0px 3px 2px rgba(81, 167, 232, 0.8)
+;
+@focusColor: @selectedTextColor;
 @iconFocusOpacity: 0.85;
 
+/* Pressed Down */
 @downBackgroundColor: #F1F1F1;
 @downBackgroundImage: '';
-@downBoxShadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.05) inset !important;
+@downBoxShadow:
+  0px 0px 0px 1px rgba(0, 0, 0, 0.1) inset,
+  0px 1px 4px 0px rgba(0, 0, 0, 0.1) inset !important
+;
+@downColor: @selectedTextColor;
 
-@activeBackgroundColor: #DDDDDD;
+/* Active */
+@activeBackgroundColor: #DADADA;
 @activeBackgroundImage: none;
-@activeBoxShadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.05) inset !important;
+@activeColor: rgba(0, 0, 0, 0.6);
+@activeBoxShadow:
+  0px 0px 0px 1px rgba(0, 0, 0, 0.1) inset,
+  0px 1px 4px 0px rgba(0, 0, 0, 0.1) inset !important
+;
 
+/* Active + Hovered */
+@activeHoverBackgroundColor: #DADADA;
+@activeHoverBackgroundImage: none;
+@activeHoverBoxShadow:
+  0px 0px 0px 1px rgba(0, 0, 0, 0.1) inset,
+  0px 1px 4px 0px rgba(0, 0, 0, 0.1) inset !important
+;
+@activeHoverColor: @selectedTextColor;
+
+/* Loading */
 @loadingBackgroundColor: #FFFFFF;
 
 /*-------------------
@@ -108,13 +139,13 @@
 @orBoxShadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
 
 @orSpacerHeight: 0.5em;
-@orSpacerColor: @white;
+@orSpacerColor: transparent;
 
 /* Icon */
 @iconButtonOpacity: 0.9;
 
 /* Labeled Icon */
-@labeledIconWidth: @iconWidth + (@verticalPadding * 2);
+@labeledIconWidth: 1em + (@verticalPadding * 2);
 @labeledIconBackgroundColor: rgba(0, 0, 0, 0.05);
 @labeledIconPadding: (@horizontalPadding + @labeledIconWidth);
 @labeledIconBorder: rgba(0, 0, 0, 0.05);
@@ -123,17 +154,38 @@
 @labeledIconLeftShadow: -1px 0px 0px 0px @labeledIconBorder inset;
 @labeledIconRightShadow: 1px 0px 0px 0px @labeledIconBorder inset;
 
+/* Inverted */
+@invertedBorderSize: 2px;
+@invertedTextColor: @white;
+@invertedTextHoverColor: @hoverColor;
+@invertedGroupButtonOffset: 0px 0px 0px -(@invertedBorderSize);
+@invertedVerticalGroupButtonOffset: 0px 0px -(@invertedBorderSize) 0px;
+
 /* Basic */
-@basicBoxShadow: 0px 0px 0px 1px @borderColor;
+@basicBorderSize: 1px;
+@basicColoredBorderSize: 2px;
+@basicPadding: @verticalPadding @horizontalPadding;
+@basicBackground: transparent;
+@basicFontWeight: normal;
+@basicBoxShadow: 0px 0px 0px @basicBorderSize rgba(0, 0, 0, 0.1) inset;
 @iconOffset: 0.05em;
 @basicLoadingColor: #FFFFFF;
+@basicBorderRadius: @borderRadius;
+@basicTextTransform: none;
 
-@basicHoverBackground: none transparent;
-@basicHoverBoxShadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.15);
-
-@basicDownBackground: rgba(0, 0, 0, 0.02);
-@basicDownBoxShadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
-
+/* Basic Hover */
+@basicHoverBackground: #FAFAFA;
+@basicHoverBoxShadow:
+  0px 0px 0px @basicBorderSize rgba(0, 0, 0, 0.1) inset,
+  0px 0px 0px 0px rgba(0, 0, 0, 0.1) inset
+;
+/* Basic Down */
+@basicDownBackground: #F8F8F8;
+@basicDownBoxShadow:
+  0px 0px 0px @basicBorderSize rgba(0, 0, 0, 0.15) inset,
+  0px 1px 4px 0px rgba(0, 0, 0, 0.1) inset
+;
+/* Basic Active */
 @basicActiveBackground: @transparentBlack;
 @basicActiveColor: @selectedTextColor;
 
@@ -143,10 +195,10 @@
 @basicInvertedDownBackground: @transparentWhite;
 @basicInvertedActiveBackground: @transparentWhite;
 
-@basicInvertedBoxShadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5);
-@basicInvertedHoverBoxShadow: 0px 0px 0px 2px @selectedWhiteBorderColor;
-@basicInvertedDownBoxShadow: 0px 0px 0px 2px @selectedWhiteBorderColor;
-@basicInvertedActiveBoxShadow: 0px 0px 0px 2px @selectedWhiteBorderColor;
+@basicInvertedBoxShadow: 0px 0px 0px @invertedBorderSize #999999 inset;
+@basicInvertedHoverBoxShadow: 0px 0px 0px @invertedBorderSize #FFFFFF inset;
+@basicInvertedDownBoxShadow: 0px 0px 0px @invertedBorderSize #CCCCCC inset;
+@basicInvertedActiveBoxShadow: 0px 0px 0px @invertedBorderSize #DADADA inset;
 
 @basicInvertedColor: @darkWhite;
 @basicInvertedHoverColor: @darkWhiteHover;
@@ -164,7 +216,7 @@
 
 /* Colors */
 @coloredBackgroundImage: linear-gradient(rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.1));
-@coloredBoxShadow: none;
+@coloredBoxShadow: @shadowBoxShadow;
 
 /* Compact */
 @compactVerticalPadding: (@verticalPadding * 0.75);

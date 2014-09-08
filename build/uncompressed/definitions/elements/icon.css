@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -59,23 +59,35 @@
      Load Default
 -------------------*/
 /*******************************
-        Global Variables
+         Site Settings
 *******************************/
 /*-------------------
         Paths
 --------------------*/
 /*-------------------
+       Fonts
+--------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---  Colors  ---*/
+/*-------------------
         Page
 --------------------*/
 /*-------------------
-         Grid
+  Background Colors
+--------------------*/
+/* Used for differentiating neutrals */
+/* Used for differentiating layers */
+/*-------------------
+        Grid
 --------------------*/
 /*-------------------
      Breakpoints
 --------------------*/
-/*-------------------
-       Fonts
---------------------*/
+/*******************************
+           Power-User
+*******************************/
 /*-------------------
        Icons
 --------------------*/
@@ -83,28 +95,26 @@
 /*-------------------
        Easing
 --------------------*/
-/*******************************
-           BG Colors
-*******************************/
-/*******************************
-             Colors
-*******************************/
-/*---  Colors  ---*/
-/*---  Neutrals  ---*/
-/*--- Text Colors ---*/
-/* Preserve */
-/* Adjust for Legibility */
-/*--- Backgrounds ---*/
+/*---  Light Variations  ---*/
+/*---   Neutrals  ---*/
+/*--- Colored Backgrounds ---*/
+/*--- Colored Text ---*/
+/*--- Colored Headers ---*/
 /*-------------------
     Emotive Colors
 --------------------*/
-/* Positive / Negative */
-/* Messages */
+/* Mood */
+/* Solid Background Color */
+/* Status */
+/* Darkened Headers */
 /*-------------------
-     Text Colors
+     Neutral Text
 --------------------*/
 /*-------------------
      Brand Colors
+--------------------*/
+/*-------------------
+    Grid Columns
 --------------------*/
 /*-------------------
       Borders
@@ -139,12 +149,9 @@
 /*---  Standard  ---*/
 /*---  Emotive  ---*/
 /*---  Neutrals  ---*/
-/*-------------------
-    Globals Used
---------------------*/
-/*
-  @disabledOpacity
-*/
+/*******************************
+             Icon
+*******************************/
 /*-------------------
    Icon Variables
 --------------------*/
@@ -179,9 +186,9 @@
 i.icon {
   display: inline-block;
   opacity: 0.75;
-  margin: 0em 0.25em 0em 0em;
+  margin: 0em 0.25rem 0em 0em;
   width: 1.23em;
-  height: 1em;
+  height: 0.9em;
   font-family: 'Icons';
   font-style: normal;
   line-height: 1;
@@ -189,9 +196,6 @@ i.icon {
   text-decoration: inherit;
   text-align: center;
   speak: none;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
   font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-backface-visibility: hidden;
@@ -204,6 +208,7 @@ i.icon {
     Loading
 ---------------*/
 i.icon.loading {
+  height: 1em;
   -webkit-animation: icon-loading 2s linear infinite;
           animation: icon-loading 2s linear infinite;
 }
@@ -263,16 +268,14 @@ i.link.icon:hover {
 i.circular.icon {
   border-radius: 500em !important;
   padding: 0.5em 0.35em !important;
-  -webkit-box-shadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;
-          box-shadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;
   line-height: 1 !important;
   width: 2em !important;
   height: 2em !important;
 }
 i.circular.inverted.icon {
   border: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 /*-------------------
       Flipped
@@ -310,28 +313,22 @@ i.counterclockwise.rotated.icon {
 i.bordered.icon {
   width: 2em;
   height: 2em;
-  padding: 0.5em 0.385em !important;
-  -webkit-box-shadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;
-          box-shadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;
+  padding: 0.55em 0.385em !important;
+  box-shadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;
   vertical-align: baseline;
 }
 i.bordered.inverted.icon {
   border: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-}
-/*-------------------
-      Inverted
---------------------*/
-i.inverted.icon {
-  background-color: #222222;
-  color: #FFFFFF;
+  box-shadow: none;
 }
 /*-------------------
        Colors
 --------------------*/
+i.white.icon {
+  color: #ffffff !important;
+}
 i.black.icon {
-  color: #555555 !important;
+  color: #191919 !important;
 }
 i.blue.icon {
   color: #0074d9 !important;
@@ -346,7 +343,7 @@ i.pink.icon {
   color: #d9499a !important;
 }
 i.purple.icon {
-  color: #564f8a !important;
+  color: #a24096 !important;
 }
 i.red.icon {
   color: #ff4136 !important;
@@ -358,41 +355,76 @@ i.yellow.icon {
   color: #ffcb08 !important;
 }
 /*-------------------
-   Inverted Colors
+      Inverted
 --------------------*/
+i.inverted.icon {
+  color: #ffffff;
+}
 i.inverted.black.icon {
-  background-color: #555555 !important;
-  color: #FFFFFF !important;
+  color: #333333 !important;
 }
 i.inverted.blue.icon {
+  color: #54c8ff !important;
+}
+i.inverted.green.icon {
+  color: #2ecc40 !important;
+}
+i.inverted.orange.icon {
+  color: #ff851b !important;
+}
+i.inverted.pink.icon {
+  color: #ff8edf !important;
+}
+i.inverted.purple.icon {
+  color: #cdc6ff !important;
+}
+i.inverted.red.icon {
+  color: #ff695e !important;
+}
+i.inverted.teal.icon {
+  color: #6dffff !important;
+}
+i.inverted.yellow.icon {
+  color: #ffe21f !important;
+}
+/* Inverted Circular */
+i.inverted.circular.icon {
+  background-color: #222222 !important;
+  color: #FFFFFF !important;
+}
+i.inverted.circular.black.icon {
+  background-color: #191919 !important;
+  color: #FFFFFF !important;
+}
+i.inverted.circular.blue.icon {
   background-color: #0074d9 !important;
   color: #FFFFFF !important;
 }
-i.inverted.green.icon {
+i.inverted.circular.green.icon {
   background-color: #2ecc40 !important;
   color: #FFFFFF !important;
 }
-i.inverted.orange.icon {
+i.inverted.circular.orange.icon {
   background-color: #ff851b !important;
   color: #FFFFFF !important;
 }
-i.inverted.pink.icon {
+i.inverted.circular.pink.icon {
   background-color: #d9499a !important;
   color: #FFFFFF !important;
 }
-i.inverted.purple.icon {
-  background-color: #564f8a !important;
+i.inverted.circular.purple.icon {
+  background-color: #a24096 !important;
   color: #FFFFFF !important;
 }
-i.inverted.red.icon {
+i.inverted.circular.red.icon {
   background-color: #ff4136 !important;
   color: #FFFFFF !important;
 }
-i.inverted.teal.icon {
+i.inverted.circular.teal.icon {
   background-color: #39cccc !important;
   color: #FFFFFF !important;
 }
-i.inverted.yellow.icon {
+i.inverted.circular.yellow.icon {
   background-color: #ffcb08 !important;
   color: #FFFFFF !important;
 }
@@ -426,7 +458,7 @@ i.massive.icon {
  * http://github.com/jlukic/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -518,7 +550,7 @@ i.icon.privacy:before {
 i.icon.settings:before {
   content: "\f085";
 }
-i.icon.top:before {
+i.icon.trophy:before {
   content: "\f091";
 }
 i.icon.payment:before {
@@ -606,9 +638,6 @@ i.icon.refresh:before {
 i.icon.lock:before {
   content: "\f023";
 }
-i.icon.flag:before {
-  content: "\f024";
-}
 i.icon.bookmark:before {
   content: "\f02e";
 }
@@ -618,7 +647,7 @@ i.icon.print:before {
 i.icon.write:before {
   content: "\f040";
 }
-i.icon.tint:before {
+i.icon.theme:before {
   content: "\f043";
 }
 i.icon.adjust:before {
@@ -745,13 +774,16 @@ i.icon.share.square:before {
   content: "\f14d";
 }
 /* Messages */
-i.icon.help.square:before {
+i.icon.help.circle:before {
   content: "\f059";
 }
-i.icon.info.square:before {
+i.icon.info.circle:before {
   content: "\f05a";
 }
-i.icon.warning.square:before {
+i.icon.warning:before {
+  content: "\f12a";
+}
+i.icon.warning.circle:before {
   content: "\f06a";
 }
 i.icon.warning.sign:before {
@@ -762,9 +794,6 @@ i.icon.help:before {
 }
 i.icon.info:before {
   content: "\f129";
-}
-i.icon.warning:before {
-  content: "\f12a";
 }
 i.icon.announcement:before {
   content: "\f0a1";
@@ -828,6 +857,9 @@ i.icon.cocktail:before {
 }
 i.icon.road:before {
   content: "\f018";
+}
+i.icon.flag:before {
+  content: "\f024";
 }
 i.icon.book:before {
   content: "\f02d";
@@ -1800,6 +1832,9 @@ i.icon.wechat:before {
 /*******************************
             Aliases
 *******************************/
+i.icon.like:before {
+  content: "\f004";
+}
 i.icon.video:before {
   content: "\f008";
 }
@@ -1813,6 +1848,12 @@ i.icon.remove:before {
   content: "\f00d";
 }
 i.icon.close:before {
+  content: "\f00d";
+}
+i.icon.cancel:before {
+  content: "\f00d";
+}
+i.icon.delete:before {
   content: "\f00d";
 }
 i.icon.x:before {
@@ -1842,9 +1883,6 @@ i.icon.play.circle.outline:before {
 i.icon.clockwise:before {
   content: "\f01e";
 }
-i.icon.warning:before {
-  content: "\f024";
-}
 i.icon.headphone:before {
   content: "\f025";
 }
@@ -1868,6 +1906,12 @@ i.icon.compose:before {
 }
 i.icon.point:before {
   content: "\f041";
+}
+i.icon.tint:before {
+  content: "\f043";
+}
+i.icon.signup:before {
+  content: "\f044";
 }
 i.icon.plus.circle:before {
   content: "\f055";
@@ -1905,6 +1949,9 @@ i.icon.chat:before {
 i.icon.shopping.cart:before {
   content: "\f07a";
 }
+i.icon.bar.graph:before {
+  content: "\f080";
+}
 i.icon.key:before {
   content: "\f084";
 }
@@ -1931,9 +1978,6 @@ i.icon.log.out:before {
 }
 i.icon.thumb.tack:before {
   content: "\f08d";
-}
-i.icon.trophy:before {
-  content: "\f091";
 }
 i.icon.winner:before {
   content: "\f091";
@@ -2011,6 +2055,9 @@ i.icon.currency:before {
   content: "\f0d6";
 }
 i.icon.triangle.down:before {
+  content: "\f0d7";
+}
+i.icon.dropdown:before {
   content: "\f0d7";
 }
 i.icon.triangle.up:before {

@@ -3,41 +3,182 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
 /*******************************
+            Theme
+*******************************/
+/*
+
+███████╗███████╗███╗   ███╗ █████╗ ███╗   ██╗████████╗██╗ ██████╗    ██╗   ██╗██╗
+██╔════╝██╔════╝████╗ ████║██╔══██╗████╗  ██║╚══██╔══╝██║██╔════╝    ██║   ██║██║
+███████╗█████╗  ██╔████╔██║███████║██╔██╗ ██║   ██║   ██║██║         ██║   ██║██║
+╚════██║██╔══╝  ██║╚██╔╝██║██╔══██║██║╚██╗██║   ██║   ██║██║         ██║   ██║██║
+███████║███████╗██║ ╚═╝ ██║██║  ██║██║ ╚████║   ██║   ██║╚██████╗    ╚██████╔╝██║
+╚══════╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝ ╚═════╝     ╚═════╝ ╚═╝
+
+*/
+/*******************************
+           Folders
+*******************************/
+/* Path to theme packages */
+/* Path to site override folder */
+/*******************************
+            Themes
+*******************************/
+/* To override a theme for an individual element
+   specify theme name below
+
+   Be sure to update the user folder name (see README)
+*/
+/* Global */
+/* Elements */
+/* Collections */
+/* Modules */
+/* Views */
+/*******************************
+        Import Directives
+*******************************/
+/*------------------
+     Load Default
+-------------------*/
+/*******************************
+         Site Settings
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/*-------------------
+       Fonts
+--------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---  Colors  ---*/
+/*-------------------
+        Page
+--------------------*/
+/*-------------------
+  Background Colors
+--------------------*/
+/* Used for differentiating neutrals */
+/* Used for differentiating layers */
+/*-------------------
+        Grid
+--------------------*/
+/*-------------------
+     Breakpoints
+--------------------*/
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+       Icons
+--------------------*/
+/* Max Width of Icon */
+/*-------------------
+       Easing
+--------------------*/
+/*---  Light Variations  ---*/
+/*---   Neutrals  ---*/
+/*--- Colored Backgrounds ---*/
+/*--- Colored Text ---*/
+/*--- Colored Headers ---*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Mood */
+/* Solid Background Color */
+/* Status */
+/* Darkened Headers */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+    Grid Columns
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*******************************
+           States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*---  Colors  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*---  Colors  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+        Active
+--------------------*/
+/*---  Standard  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*******************************
+             Shape
+*******************************/
+/* Animating */
+/* Side */
+/*--------------
+      Types
+---------------*/
+/* Cube */
+/*------------------
+     Load Theme
+-------------------*/
+/*------------------
+     Load Site
+-------------------*/
+/*******************************
+     User Global Variables
+*******************************/
+/*******************************
+    User Variable Overrides
+*******************************/
+/*------------------
+ Override Mix-in
+-------------------*/
+/*******************************
               Shape
 *******************************/
 .ui.shape {
-  display: inline-block;
   position: relative;
+  display: inline-block;
   -webkit-perspective: 2000px;
-  -ms-perspective: 2000px;
-  perspective: 2000px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  box-sizing: border-box;
+          perspective: 2000px;
 }
 .ui.shape .sides {
   -webkit-transform-style: preserve-3d;
-  -ms-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+          transform-style: preserve-3d;
 }
 .ui.shape .side {
   opacity: 1;
   width: 100%;
   margin: 0em !important;
   -webkit-backface-visibility: hidden;
-  -ms-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  box-sizing: border-box;
+          backface-visibility: hidden;
 }
 .ui.shape .side {
   display: none;
@@ -49,9 +190,8 @@
   min-width: 15em;
   height: 15em;
   padding: 2em;
-  background-color: #E6E6E6;
-  color: rgba(0, 0, 0, 0.6);
-  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  background-color: #e6e6e6;
+  color: rgba(0, 0, 0, 0.8);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
 }
 .ui.cube.shape .side > .content {
@@ -60,9 +200,9 @@
   display: table;
   text-align: center;
   -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
+     -moz-user-select: text;
+      -ms-user-select: text;
+          user-select: text;
 }
 .ui.cube.shape .side > .content > div {
   display: table-cell;
@@ -109,18 +249,18 @@
 ---------------*/
 .ui.shape.animating {
   -webkit-transition: all 0.6s ease-in-out;
-  transition: all 0.6s ease-in-out;
+          transition: all 0.6s ease-in-out;
 }
 .ui.shape.animating .sides {
   position: absolute;
 }
 .ui.shape.animating .sides {
   -webkit-transition: all 0.6s ease-in-out;
-  transition: all 0.6s ease-in-out;
+          transition: all 0.6s ease-in-out;
 }
 .ui.shape.animating .side {
   -webkit-transition: opacity 0.6s ease-in-out;
-  transition: opacity 0.6s ease-in-out;
+          transition: opacity 0.6s ease-in-out;
 }
 /*--------------
      Active
@@ -128,3 +268,9 @@
 .ui.shape .active.side {
   display: block;
 }
+/*******************************
+           Overrides
+*******************************/
+/*******************************
+        User Overrides
+*******************************/

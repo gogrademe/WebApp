@@ -3,7 +3,7 @@
  * http://github.com/jlukic/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -13,17 +13,18 @@
 
 $.fn.popup = function(parameters) {
   var
-    $allModules     = $(this),
-    $document       = $(document),
+    $allModules    = $(this),
+    $document      = $(document),
 
-    moduleSelector  = $allModules.selector || '',
+    moduleSelector = $allModules.selector || '',
 
-    time            = new Date().getTime(),
-    performance     = [],
+    hasTouch       = ('ontouchstart' in document.documentElement),
+    time           = new Date().getTime(),
+    performance    = [],
 
-    query           = arguments[0],
-    methodInvoked   = (typeof query == 'string'),
-    queryArguments  = [].slice.call(arguments, 1),
+    query          = arguments[0],
+    methodInvoked  = (typeof query == 'string'),
+    queryArguments = [].slice.call(arguments, 1),
 
     returnedValue
   ;
@@ -50,18 +51,9 @@ $.fn.popup = function(parameters) {
           : $module,
 
         $window         = $(window),
-
-        $popup          = (settings.popup)
-          ? $(settings.popup)
-          : (settings.inline)
-            ? $target.next(settings.selector.popup)
-            : $window.children(settings.selector.popup).last(),
-
-        $offsetParent   = (settings.popup)
-          ? $popup.offsetParent()
-          : (settings.inline)
-            ? $target.offsetParent()
-            : $window,
+        $body           = $('body'),
+        $popup,
+        $offsetParent,
 
         searchDepth     = 0,
 
@@ -75,12 +67,13 @@ $.fn.popup = function(parameters) {
         // binds events
         initialize: function() {
           module.debug('Initializing module', $module);
+          module.refresh();
           if(settings.on == 'click') {
             $module
-              .on('click', module.toggle)
+              .on('click' + eventNamespace, module.toggle)
             ;
           }
-          else {
+          else if( module.get.startEvent() ) {
             $module
               .on(module.get.startEvent() + eventNamespace, module.event.start)
               .on(module.get.endEvent() + eventNamespace, module.event.end)
@@ -110,27 +103,25 @@ $.fn.popup = function(parameters) {
         },
 
         refresh: function() {
-          if(settings.popup) {
-            $popup        = $(settings.popup);
-            $offsetParent = $popup.offsetParent();
-          }
-          else if(settings.inline) {
-            $popup        = $target.next(selector.popup);
-            $offsetParent = $target.offsetParent();
-          }
-          else {
-            $popup = $window.children(selector.popup).last();
-          }
+          $popup = (settings.popup)
+            ? $(settings.popup)
+            : (settings.inline)
+              ? $target.next(settings.selector.popup)
+              : false
+          ;
+          $offsetParent   = (settings.popup)
+            ? $popup.offsetParent()
+            : (settings.inline)
+              ? $target.offsetParent()
+              : $body
+          ;
         },
 
         destroy: function() {
           module.debug('Destroying previous module');
-          $window
-            .off(eventNamespace)
-          ;
-          $popup
-            .remove()
-          ;
+          if($popup && !settings.preserve) {
+            module.remove();
+          }
           $module
             .off(eventNamespace)
             .removeData(moduleNamespace)
@@ -173,7 +164,6 @@ $.fn.popup = function(parameters) {
 
         // generates popup html from metadata
         create: function() {
-          module.debug('Creating pop-up html');
           var
             html      = $module.data(metadata.html)      || settings.html,
             variation = $module.data(metadata.variation) || settings.variation,
@@ -181,8 +171,9 @@ $.fn.popup = function(parameters) {
             content   = $module.data(metadata.content)   || $module.attr('title') || settings.content
           ;
           if(html || content || title) {
+            module.debug('Creating pop-up html');
             if(!html) {
-              html = settings.template({
+              html = settings.templates.popup({
                 title   : title,
                 content : content
               });
@@ -192,6 +183,11 @@ $.fn.popup = function(parameters) {
               .addClass(variation)
               .html(html)
             ;
+            if(variation) {
+              $popup
+                .addClass(variation)
+              ;
+            }
             if(settings.inline) {
               module.verbose('Inserting popup element inline', $popup);
               $popup
@@ -238,7 +234,7 @@ $.fn.popup = function(parameters) {
           if( !module.exists() ) {
             module.create();
           }
-          if( module.set.position() ) {
+          if( $popup && module.set.position() ) {
             module.save.conditions();
             module.animate.show(callback);
           }
@@ -276,11 +272,14 @@ $.fn.popup = function(parameters) {
         },
 
         exists: function() {
-          if(settings.inline) {
+          if(!$popup) {
+            return false;
+          }
+          if(settings.inline || settings.popup) {
             return ( $popup.size() !== 0 );
           }
           else {
-            return ( $popup.parent($context).size() );
+            return ( $popup.closest($context).size() );
           }
         },
 
@@ -306,8 +305,8 @@ $.fn.popup = function(parameters) {
           conditions: function() {
             if(module.cache && module.cache.title) {
               $module.attr('title', module.cache.title);
+              module.verbose('Restoring original attributes', module.cache.title);
             }
-            module.verbose('Restoring original attributes', module.cache.title);
             return true;
           }
         },
@@ -368,6 +367,7 @@ $.fn.popup = function(parameters) {
             else if(settings.on == 'focus') {
               return 'focus';
             }
+            return false;
           },
           endEvent: function() {
             if(settings.on == 'hover') {
@@ -376,6 +376,7 @@ $.fn.popup = function(parameters) {
             else if(settings.on == 'focus') {
               return 'blur';
             }
+            return false;
           },
           offstagePosition: function() {
             var
@@ -461,7 +462,7 @@ $.fn.popup = function(parameters) {
 
               distanceAway = settings.distanceAway,
 
-              offset       = (settings.inline)
+              offset       = (settings.inline || settings.popup)
                 ? $target.position()
                 : $target.offset(),
 
@@ -471,7 +472,7 @@ $.fn.popup = function(parameters) {
             position    = position    || $module.data(metadata.position)    || settings.position;
             arrowOffset = arrowOffset || $module.data(metadata.offset)      || settings.offset;
             // adjust for margin when inline
-            if(settings.inline) {
+            if(settings.inline || settings.popup) {
               if(position == 'left center' || position == 'right center') {
                 arrowOffset  += parseInt( window.getComputedStyle(element).getPropertyValue('margin-top'), 10);
                 distanceAway += -parseInt( window.getComputedStyle(element).getPropertyValue('margin-left'), 10);
@@ -485,10 +486,10 @@ $.fn.popup = function(parameters) {
             switch(position) {
               case 'top left':
                 positioning = {
-                  bottom :  parentHeight - offset.top + distanceAway,
-                  right  :  parentWidth - offset.left - arrowOffset,
                   top    : 'auto',
-                  left   : 'auto'
+                  bottom : parentHeight - offset.top + distanceAway,
+                  left   : offset.left + arrowOffset,
+                  right  : 'auto'
                 };
               break;
               case 'top center':
@@ -501,10 +502,10 @@ $.fn.popup = function(parameters) {
               break;
               case 'top right':
                 positioning = {
+                  bottom :  parentHeight - offset.top + distanceAway,
+                  right  :  parentWidth - offset.left - width - arrowOffset,
                   top    : 'auto',
-                  bottom : parentHeight - offset.top + distanceAway,
-                  left   : offset.left + width + arrowOffset,
-                  right  : 'auto'
+                  left   : 'auto'
                 };
               break;
               case 'left center':
@@ -526,9 +527,9 @@ $.fn.popup = function(parameters) {
               case 'bottom left':
                 positioning = {
                   top    : offset.top + height + distanceAway,
-                  right  : parentWidth - offset.left - arrowOffset,
-                  left   : 'auto',
-                  bottom : 'auto'
+                  left   : offset.left + arrowOffset,
+                  bottom : 'auto',
+                  right  : 'auto'
                 };
               break;
               case 'bottom center':
@@ -542,9 +543,9 @@ $.fn.popup = function(parameters) {
               case 'bottom right':
                 positioning = {
                   top    : offset.top + height + distanceAway,
-                  left   : offset.left + width + arrowOffset,
-                  bottom : 'auto',
-                  right  : 'auto'
+                  right  : parentWidth - offset.left  - width - arrowOffset,
+                  left   : 'auto',
+                  bottom : 'auto'
                 };
               break;
             }
@@ -568,7 +569,10 @@ $.fn.popup = function(parameters) {
                 position = module.get.nextPosition(position);
                 searchDepth++;
                 module.debug('Trying new position', position);
-                return module.set.position(position);
+                return ($popup)
+                  ? module.set.position(position)
+                  : false
+                ;
               }
               else {
                 module.error(error.recursion);
@@ -604,7 +608,7 @@ $.fn.popup = function(parameters) {
               $document
                 .on('click' + eventNamespace, function(event) {
                   module.verbose('Pop-up clickaway intent detected');
-                  $.proxy(module.hideGracefully, this)(event);
+                  $.proxy(module.hideGracefully, element)(event);
                 })
               ;
             }
@@ -624,10 +628,10 @@ $.fn.popup = function(parameters) {
 
         is: {
           animating: function() {
-            return ( $popup.is(':animated') || $popup.hasClass(className.animating) );
+            return ( $popup && $popup.is(':animated') || $popup.hasClass(className.animating) );
           },
           visible: function() {
-            return $popup.is(':visible');
+            return $popup && $popup.is(':visible');
           },
           hidden: function() {
             return !module.is.visible();
@@ -829,12 +833,13 @@ $.fn.popup.settings = {
 
   name           : 'Popup',
 
-  debug          : true,
-  verbose        : true,
-  performance    : true,
+  debug          : false,
+  verbose        : false,
+  performance    : false,
   namespace      : 'popup',
 
   onCreate       : function(){},
+  onRemove       : function(){},
   onShow         : function(){},
   onHide         : function(){},
 
@@ -847,16 +852,16 @@ $.fn.popup.settings = {
   closable       : true,
 
   context        : 'body',
-  position       : 'top center',
+  position       : 'top left',
   delay          : {
-    show : 100,
-    hide : 100
+    show : 50,
+    hide : 0
   },
 
   target         : false,
   popup          : false,
   inline         : false,
-  preserve       : false,
+  preserve       : true,
   hoverable      : false,
 
   duration       : 200,
@@ -895,19 +900,55 @@ $.fn.popup.settings = {
     popup    : '.ui.popup'
   },
 
-  template: function(text) {
-    var html = '';
-    if(typeof text !== undefined) {
-      if(typeof text.title !== undefined && text.title) {
-        html += '<div class="header">' + text.title + '</div class="header">';
+  templates: {
+    escape: function(string) {
+      var
+        badChars     = /[&<>"'`]/g,
+        shouldEscape = /[&<>"'`]/,
+        escape       = {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#x27;",
+          "`": "&#x60;"
+        },
+        escapedChar  = function(chr) {
+          return escape[chr];
+        }
+      ;
+      if(shouldEscape.test(string)) {
+        return string.replace(badChars, escapedChar);
       }
-      if(typeof text.content !== undefined && text.content) {
-        html += '<div class="content">' + text.content + '</div>';
+      return string;
+    },
+    popup: function(text) {
+      var
+        html   = '',
+        escape = $.fn.popup.settings.templates.escape
+      ;
+      if(typeof text !== undefined) {
+        if(typeof text.title !== undefined && text.title) {
+          text.title = escape(text.title);
+          html += '<div class="header">' + text.title + '</div>';
+        }
+        if(typeof text.content !== undefined && text.content) {
+          text.content = escape(text.content);
+          html += '<div class="content">' + text.content + '</div>';
+        }
       }
+      return html;
     }
-    return html;
   }
 
 };
+
+// Adds easing
+$.extend( $.easing, {
+  easeOutQuad: function (x, t, b, c, d) {
+    return -c *(t/=d)*(t-2) + b;
+  }
+});
+
 
 })( jQuery, window , document );

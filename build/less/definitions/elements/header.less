@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -62,7 +62,8 @@
 .ui.header .icon:only-child {
   display: inline-block;
   padding: 0em;
-  vertical-align: middle;
+  margin-right: (@iconMargin / 2);
+  vertical-align: baseline;
 }
 .ui.header .content {
   display: inline-block;
@@ -129,7 +130,8 @@ h5.ui.header {
 ---------------*/
 
 .ui.header .ui.label {
-  vertical-align: middle;
+  margin: 0em 0em 0em @labelDistance;
+  vertical-align: @labelVerticalAlign;
 }
 
 
@@ -150,6 +152,7 @@ h5.ui.header {
   display: block;
   font-size: @iconHeaderSize;
   margin: 0em auto @iconHeaderMargin;
+  opacity: @iconHeaderOpacity;
   padding: 0em;
 }
 .ui.icon.header .content {
@@ -191,31 +194,65 @@ h5.ui.header {
 .ui.black.header {
   color: @black !important;
 }
+a.ui.black.header:hover {
+  color: @blackHover;
+}
+
 .ui.blue.header {
   color: @blue !important;
 }
+a.ui.blue.header:hover {
+  color: @blueHover;
+}
+
 .ui.green.header {
   color: @green !important;
 }
+a.ui.green.header:hover {
+  color: @greenHover;
+}
+
 .ui.orange.header {
   color: @orange !important;
 }
+a.ui.orange.header:hover {
+  color: @orangeHover;
+}
+
 .ui.pink.header {
   color: @pink !important;
 }
+a.ui.pink.header:hover {
+  color: @pinkHover;
+}
+
 .ui.purple.header {
   color: @purple !important;
 }
+a.ui.purple.header:hover {
+  color: @purpleHover;
+}
+
 .ui.red.header {
   color: @red !important;
 }
+a.ui.red.header:hover {
+  color: @redHover;
+}
+
 .ui.teal.header {
   color: @teal !important;
 }
+a.ui.teal.header:hover {
+  color: @tealHover;
+}
+
 .ui.yellow.header {
   color: @yellow !important;
 }
-
+a.ui.yellow.header:hover {
+  color: @yellowHover;
+}
 
 .ui.black.dividing.header {
   border-bottom: @dividedColoredBorderWidth solid @black;
@@ -255,6 +292,14 @@ h5.ui.header {
 .ui.inverted.header .sub.header {
   color: @invertedSubHeaderColor;
 }
+.ui.inverted.attached.header {
+  background: @invertedAttachedBackground;
+  box-shadow: none;
+}
+.ui.inverted.block.header {
+  background: @invertedBlockBackground;
+  box-shadow: none;
+}
 
 
 /*-------------------
@@ -262,40 +307,66 @@ h5.ui.header {
 --------------------*/
 
 .ui.inverted.black.header {
-  background-color: @black !important;
-  color: @white !important;
+  color: @darkGrey !important;
 }
+a.ui.inverted.black.header:hover {
+  color: @darkGreyHover !important;
+}
+
 .ui.inverted.blue.header {
-  background-color: @blue !important;
-  color: @white !important;
+  color: @lightBlue !important;
 }
+a.ui.inverted.blue.header:hover {
+  color: @lightBlueHover !important;
+}
+
 .ui.inverted.green.header {
-  background-color: @green !important;
-  color: @white !important;
+  color: @lightGreen !important;
 }
+a.ui.inverted.green.header:hover {
+  color: @lightGreenHover !important;
+}
+
 .ui.inverted.orange.header {
-  background-color: @orange !important;
-  color: @white !important;
+  color: @lightOrange !important;
 }
+a.ui.inverted.orange.header:hover {
+  color: @lightOrangeHover !important;
+}
+
 .ui.inverted.pink.header {
-  background-color: @pink !important;
-  color: @white !important;
+  color: @lightPink !important;
 }
+a.ui.inverted.pink.header:hover {
+  color: @lightPinkHover !important;
+}
+
 .ui.inverted.purple.header {
-  background-color: @purple !important;
-  color: @white !important;
+  color: @lightPurple !important;
 }
+a.ui.inverted.purple.header:hover {
+  color: @lightPurpleHover !important;
+}
+
 .ui.inverted.red.header {
-  background-color: @red !important;
-  color: @white !important;
+  color: @lightRed !important;
 }
+a.ui.inverted.red.header:hover {
+  color: @lightRedHover !important;
+}
+
 .ui.inverted.teal.header {
-  background-color: @teal !important;
-  color: @white !important;
+  color: @lightTeal !important;
 }
+a.ui.inverted.teal.header:hover {
+  color: @lightTealHover !important;
+}
+
 .ui.inverted.yellow.header {
-  background-color: @yellow !important;
-  color: @white !important;
+  color: @lightYellow !important;
+}
+a.ui.inverted.yellow.header:hover {
+  color: @lightYellowHover !important;
 }
 
 .ui.inverted.block.header {
@@ -365,6 +436,10 @@ h5.ui.header {
   margin-bottom: @dividedIconPadding;
 }
 
+.ui.inverted.dividing.header {
+  border-bottom-color: @invertedDividedBorderColor;
+}
+
 
 /*-------------------
         Block
@@ -373,6 +448,25 @@ h5.ui.header {
 .ui.block.header {
   background: @blockBackground;
   padding: @blockVerticalPadding @blockHorizontalPadding;
+  box-shadow: @blockBoxShadow;
+  border: @blockBorder;
+  border-radius: @blockBorderRadius;
+}
+
+.ui.tiny.block.header {
+  font-size: @tinyBlock;
+}
+.ui.small.block.header {
+  font-size: @smallBlock;
+}
+.ui.block.header {
+  font-size: @mediumBlock;
+}
+.ui.large.block.header {
+  font-size: @largeBlock;
+}
+.ui.huge.block.header {
+  font-size: @hugeBlock;
 }
 
 /*-------------------
@@ -382,19 +476,44 @@ h5.ui.header {
 .ui.attached.header {
   background: @attachedBackground;
   margin: 0em;
-  padding: @attachedVerticalPadding @attachedVerticalPadding;
+  padding: @attachedVerticalPadding @attachedHorizontalPadding;
   box-shadow: @attachedBoxShadow;
+  border: @attachedBorder;
+  margin-left: @attachedOffset;
+  margin-right: @attachedOffset;
 }
-.ui.attached:not(.top, .bottom) {
-  margin: 0em;
+.ui.attached:not(.top):not(.bottom) {
+  margin-top: 0em;
+  margin-bottom: 0em;
+  border-top: none;
+  border-bottom: none;
 }
 .ui.top.attached.header {
   margin-bottom: 0em;
+  border-bottom: none;
   border-radius: @attachedBorderRadius @attachedBorderRadius 0em 0em;
 }
 .ui.bottom.attached.header {
   margin-top: 0em;
+  border-top: none;
   border-radius: 0em 0em @attachedBorderRadius @attachedBorderRadius;
+}
+
+/* Attached Sizes */
+.ui.tiny.attached.header {
+  font-size: @tinyAttached;
+}
+.ui.small.attached.header {
+  font-size: @smallAttached;
+}
+.ui.attached.header {
+  font-size: @mediumAttached;
+}
+.ui.large.attached.header {
+  font-size: @largeAttached;
+}
+.ui.huge.attached.header {
+  font-size: @hugeAttached;
 }
 
 /*-------------------

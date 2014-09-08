@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -46,23 +46,35 @@
      Load Default
 -------------------*/
 /*******************************
-        Global Variables
+         Site Settings
 *******************************/
 /*-------------------
         Paths
 --------------------*/
 /*-------------------
+       Fonts
+--------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---  Colors  ---*/
+/*-------------------
         Page
 --------------------*/
 /*-------------------
-         Grid
+  Background Colors
+--------------------*/
+/* Used for differentiating neutrals */
+/* Used for differentiating layers */
+/*-------------------
+        Grid
 --------------------*/
 /*-------------------
      Breakpoints
 --------------------*/
-/*-------------------
-       Fonts
---------------------*/
+/*******************************
+           Power-User
+*******************************/
 /*-------------------
        Icons
 --------------------*/
@@ -70,28 +82,26 @@
 /*-------------------
        Easing
 --------------------*/
-/*******************************
-           BG Colors
-*******************************/
-/*******************************
-             Colors
-*******************************/
-/*---  Colors  ---*/
-/*---  Neutrals  ---*/
-/*--- Text Colors ---*/
-/* Preserve */
-/* Adjust for Legibility */
-/*--- Backgrounds ---*/
+/*---  Light Variations  ---*/
+/*---   Neutrals  ---*/
+/*--- Colored Backgrounds ---*/
+/*--- Colored Text ---*/
+/*--- Colored Headers ---*/
 /*-------------------
     Emotive Colors
 --------------------*/
-/* Positive / Negative */
-/* Messages */
+/* Mood */
+/* Solid Background Color */
+/* Status */
+/* Darkened Headers */
 /*-------------------
-     Text Colors
+     Neutral Text
 --------------------*/
 /*-------------------
      Brand Colors
+--------------------*/
+/*-------------------
+    Grid Columns
 --------------------*/
 /*-------------------
       Borders
@@ -127,18 +137,18 @@
 /*---  Emotive  ---*/
 /*---  Neutrals  ---*/
 /*******************************
-            Standard
+            Image
 *******************************/
 /*-------------------
-       Image
+       Element
 --------------------*/
-/*******************************
-              Types
-*******************************/
+/*-------------------
+       Types
+--------------------*/
 /* Avatar */
-/*******************************
-           Variations
-*******************************/
+/*-------------------
+       Variations
+--------------------*/
 /* Floated */
 /* Sizing */
 /* Size */
@@ -165,7 +175,7 @@
   display: inline-block;
   vertical-align: middle;
   max-width: 100%;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: transparent;
 }
 img.ui.image {
   display: block;
@@ -229,7 +239,7 @@ img.ui.image {
 .ui.bordered.images .image,
 .ui.bordered.images img,
 .ui.bordered.image img,
-.ui.bordered.image {
+img.ui.bordered.image {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 /*--------------

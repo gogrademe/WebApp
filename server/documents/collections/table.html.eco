@@ -2,10 +2,17 @@
 layout      : 'default'
 css         : 'table'
 
+element     : 'table'
+elementType : 'collection'
+
 title       : 'Table'
-description : 'Tables display collections of data grouped into rows'
+description : 'Tables display collections of related data grouped into rows'
 type        : 'UI Collection'
+
+themes      : ['Default']
 ---
+
+<link rel="stylesheet/less" type="text/css" href="/build/less/definitions/collections/table.less" />
 <script src="/javascript/table.js"></script>
 
 <%- @partial('header') %>
@@ -33,31 +40,41 @@ type        : 'UI Collection'
     </div>
     <table class="ui table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Registration Date</th>
+          <th>E-mail address</th>
+          <th>Premium Plan</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
-          <td>John</td>
-          <td>Approved</td>
-          <td>None</td>
+          <td>John Lilki</td>
+          <td>September 14, 2013</td>
+          <td>jhlilk22@yahoo.com</td>
+          <td>No</td>
         </tr>
         <tr>
-          <td>Jamie</td>
-          <td>Approved</td>
-          <td>Requires call</td>
+          <td>Jamie Harington</td>
+          <td>January 11, 2014</td>
+          <td>jamieharingonton@yahoo.com</td>
+          <td>Yes</td>
         </tr>
         <tr>
-          <td>Jill</td>
-          <td>Denied</td>
-          <td>None</td>
+          <td>Jill Lewis</td>
+          <td>May 11, 2014</td>
+          <td>jilsewris22@yahoo.com</td>
+          <td>Yes</td>
         </tr>
       </tbody>
       <tfoot>
-        <th colspan="3">
-          <div class="ui blue labeled icon button"><i class="user icon"></i> Add User</div>
-        </th>
+        <tr>
+          <th colspan="4">
+            <div class="ui primary labeled icon button">
+              <i class="user icon"></i> Add User
+            </div>
+          </th>
+        </tr>
       </tfoot>
     </table>
   </div>
@@ -69,9 +86,11 @@ type        : 'UI Collection'
     <p>A cell or row may let a user know whether a value is good or bad</p>
     <table class="ui table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -104,9 +123,11 @@ type        : 'UI Collection'
     <p>A cell or row may attention the user to an error or a negative value</p>
     <table class="ui table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -138,9 +159,11 @@ type        : 'UI Collection'
     <p>A cell or row may warn a user</p>
     <table class="ui table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -172,9 +195,11 @@ type        : 'UI Collection'
     <p>A cell or row can be active or selected by a user</p>
     <table class="ui table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -205,9 +230,11 @@ type        : 'UI Collection'
     <p>A cell can be disabled</p>
     <table class="ui table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr class="disabled">
@@ -242,9 +269,11 @@ type        : 'UI Collection'
     <p>A table can stripe alternate rows of content with a darker color to increase contrast</p>
     <table class="ui striped table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -276,9 +305,11 @@ type        : 'UI Collection'
     <p>A table may be divided each row into separate cells</p>
     <table class="ui celled table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -310,9 +341,39 @@ type        : 'UI Collection'
     <p>A table can reduce its complexity to increase readability.</p>
     <table class="ui basic table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>John</td>
+          <td>Approved</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Jamie</td>
+          <td>Approved</td>
+          <td>Requires call</td>
+        </tr>
+        <tr>
+          <td>Jill</td>
+          <td>Denied</td>
+          <td>None</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="another example">
+    <table class="ui very basic table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -415,9 +476,11 @@ type        : 'UI Collection'
     <p>By default tables take the size of their container. A collapsing takes up only as much space as its rows.</p>
     <table class="ui collapsing table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -444,15 +507,52 @@ type        : 'UI Collection'
     </table>
   </div>
 
+  <div class="example">
+    <h4 class="ui header">Colored</h4>
+    <p>A table can be given a color to distinguish it from other tables.</p>
+    <table class="ui blue table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>John</td>
+          <td>Approved</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Jamie</td>
+          <td>Approved</td>
+          <td>Requires call</td>
+        </tr>
+        <tr>
+          <td>Jill</td>
+          <td>Denied</td>
+          <td>None</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <th>3 People</th>
+        <th>2 Approved</th>
+        <th></th>
+      </tfoot>
+    </table>
+  </div>
 
   <div class="example">
     <h4 class="ui header">Inverted</h4>
     <p>A tables colors can be inverted</p>
     <table class="ui inverted table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -481,9 +581,11 @@ type        : 'UI Collection'
   <div class="another example">
     <table class="ui inverted red table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -542,9 +644,11 @@ type        : 'UI Collection'
 
     <table class="ui sortable table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -575,9 +679,34 @@ type        : 'UI Collection'
     <p>A table may sometimes need to be more padded for legibility</p>
     <table class="ui padded table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>John</td>
+          <td>Approved</td>
+          <td>He is a very nice guy and I enjoyed talking to him on the telephone. I hope we get to talk again.</td>
+        </tr>
+        <tr>
+          <td>Jamie</td>
+          <td>Approved</td>
+          <td>Jamie was not interested in purchasing our product.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="another example">
+    <table class="ui very padded table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -598,9 +727,11 @@ type        : 'UI Collection'
     <p>A table may sometimes need to be more compact to make more rows visible at a time</p>
     <table class="ui compact table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -646,15 +777,76 @@ type        : 'UI Collection'
       </tbody>
     </table>
   </div>
+  <div class="another example">
+    <table class="ui very compact table">
+      <thead>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Another Status</th>
+        <th>Notes</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>John</td>
+          <td>Approved</td>
+          <td>Approved</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Jamie</td>
+          <td>Approved</td>
+          <td>Approved</td>
+          <td>Requires call</td>
+        </tr>
+        <tr>
+          <td>John</td>
+          <td>Approved</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Jamie</td>
+          <td>Approved</td>
+          <td>Approved</td>
+          <td>Requires call</td>
+        </tr>
+        <tr>
+          <td>John</td>
+          <td>Approved</td>
+          <td>Approved</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Jamie</td>
+          <td>Approved</td>
+          <td>Approved</td>
+          <td>Requires call</td>
+        </tr>
+        <tr>
+          <td>John</td>
+          <td>Approved</td>
+          <td>Approved</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Jamie</td>
+          <td>Approved</td>
+          <td>Approved</td>
+          <td>Requires call</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="example">
     <h4 class="ui header">Size</h4>
     <p>A table can also be small or large</p>
     <table class="ui small table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -683,9 +875,11 @@ type        : 'UI Collection'
   <div class="another example">
     <table class="ui large table">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Notes</th>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
       </thead>
       <tbody>
         <tr>

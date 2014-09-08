@@ -1,17 +1,21 @@
 ---
 layout      : 'default'
 css         : 'header'
+
+element     : 'header'
+elementType : 'element'
+
 title       : 'Header'
 description : 'Headers provide a short summary of content'
 type        : 'UI Element'
 
-element     : 'header'
-elementType : 'element'
-themes      : ['default', 'bookish', 'chubby']
+themes      : ['Default', 'Bookish', 'Chubby']
 ---
 
 <%- @partial('header') %>
 <link rel="stylesheet/less" type="text/css" href="/build/less/definitions/elements/header.less" />
+<script src="/javascript/header.js"></script>
+
 <div class="main container">
 
   <div class="peek">
@@ -63,7 +67,11 @@ themes      : ['default', 'bookish', 'chubby']
     <h4 class="ui header">Page Headings</h4>
     <p class="header">Headers may be oriented to give the heirarchy of a section in the context of the page</p>
     <div class="ignored info ui message">Page headings size themselves relative to the base font of the entire page not the surrounding text.</div>
-    <div class="ui basic segment">
+    <div class="ui ignored two fluid font buttons">
+      <a class="increase ui button"> <i class="icon green plus"></i> Base Font</a>
+      <a class="decrease ui button"> <i class="icon red minus"></i> Base Font</a>
+    </div>
+    <div class="ui segment">
       <h1 class="ui header">First header</h1>
       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
       <h2 class="ui header">Second header</h2>
@@ -75,17 +83,17 @@ themes      : ['default', 'bookish', 'chubby']
       <h5 class="ui header">Fifth header</h5>
       <p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</p>
     </div>
-    <div class="ui ignored secondary two item font menu">
-      <a class="increase item"> <i class="icon circular green plus"></i> Base Font</a>
-      <a class="decrease item"> <i class="icon circular red minus"></i> Base Font</a>
-    </div>
   </div>
 
   <div class="example">
     <h4 class="ui header">Content Headings</h4>
     <p>Headers may be oriented to give the importance of a section in the context of the content that surrounds it</p>
     <div class="ignored info ui message">Content headings size themselves relative to the base font of the surrounding text</div>
-    <div class="ui basic segment">
+    <div class="ui ignored two fluid font buttons">
+      <a class="increase ui button"> <i class="icon green plus"></i> Base Font</a>
+      <a class="decrease ui button"> <i class="icon red minus"></i> Base Font</a>
+    </div>
+    <div class="ui segment">
       <div class="ui huge header">Huge Header</div>
       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
       <div class="ui large header">Large Header</div>
@@ -96,10 +104,6 @@ themes      : ['default', 'bookish', 'chubby']
       <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
       <div class="ui tiny header">Tiny Header</div>
       <p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</p>
-    </div>
-    <div class="ui ignored secondary two item font menu">
-      <a class="increase item"> <i class="icon circular green plus"></i> Base Font</a>
-      <a class="decrease item"> <i class="icon circular red minus"></i> Base Font</a>
     </div>
   </div>
 
@@ -140,23 +144,23 @@ themes      : ['default', 'bookish', 'chubby']
   <div class="example">
     <h4 class="ui header">Attached</h4>
     <p>A header can be attached to other content, like a <a href="elements/segment.html">segment</a></p>
-    <h4 class="ui top attached header">
-      Section 1
-    </h4>
+    <h3 class="ui top attached header">
+      Bulldog
+    </h3>
     <div class="ui attached segment">
-      <p>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</p>
-      <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+      <p>Bulldog is the name for a breed of dog commonly referred to as the English Bulldog. Other Bulldog breeds include the American Bulldog, Old English Bulldog (now extinct), Olde English Bulldogge, and the French Bulldog. The Bulldog is a muscular, heavy dog with a wrinkled face and a distinctive pushed-in nose.</p>
+      <p>The American Kennel Club (AKC), The Kennel Club (UK), and the United Kennel Club (UKC) oversee breeding standards. Bulldogs are the 5th most popular purebreed in the United States in 2013 according to the American Kennel Club.</p>
     </div>
-    <h4 class="ui attached header">
-      Section 2
-    </h4>
+    <h3 class="ui attached header">
+      Catahoula Cur
+    </h3>
     <div class="ui attached segment">
-    <p>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</p>
-    <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+    <p>The Catahoula Cur is an American dog breed named after Catahoula Parish, in the state of Louisiana, in the United States. After becoming the state dog of Louisiana in 1979, its name was officially changed to Louisiana Catahoula Leopard Dog. The Catahoula is believed to be the first dog breed developed in North America.</p>
+    <p>The breed is sometimes referred to as the "Catahoula Hound" or "Catahoula Leopard Hound", although it is not a true hound, but a cur. It is also called the "Catahoula Hog Dog", reflecting its traditional use in hunting wild boar.</p>
     </div>
-    <h4 class="ui bottom attached header">
+    <h3 class="ui bottom attached header">
       Thanks for reading
-    </h4>
+    </h3>
   </div>
 
   <div class="example">
@@ -223,24 +227,29 @@ themes      : ['default', 'bookish', 'chubby']
   <div class="example">
     <h4 class="ui header">Inverted</h4>
     <p>A header can have its colors inverted for contrast</p>
-    <h4 class="ui inverted black block header">
-      Black
-    </h4>
-    <h4 class="ui inverted blue block header">
-      Blue
-    </h4>
-    <h4 class="ui inverted red block header">
-      Red
-    </h4>
-    <h4 class="ui inverted green block header">
-      Green
-    </h4>
-    <h4 class="ui inverted purple block header">
-      Purple
-    </h4>
-    <h4 class="ui inverted teal block header">
-      Teal
-    </h4>
+    <div class="ui info message">
+      Inverted headers use modified light versions of your site's color scheme that are adapted to have more contrast on dark background
+    </div>
+    <div class="ui inverted segment">
+      <h4 class="ui inverted black header">
+        Black
+      </h4>
+      <h4 class="ui inverted blue header">
+        Blue
+      </h4>
+      <h4 class="ui inverted red header">
+        Red
+      </h4>
+      <h4 class="ui inverted green header">
+        Green
+      </h4>
+      <h4 class="ui inverted purple header">
+        Purple
+      </h4>
+      <h4 class="ui inverted teal header">
+        Teal
+      </h4>
+    </div>
   </div>
 
 </div>

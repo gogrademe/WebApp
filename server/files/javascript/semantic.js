@@ -27,11 +27,8 @@ semantic.ready = function() {
   // selector cache
   var
 
-    $peek             = $('.peek'),
-    $peekItem         = $peek.children('.menu').children('a.item'),
-    $peekSubItem      = $peek.find('.item .menu .item'),
     $sortableTables   = $('.sortable.table'),
-    $stuckColumn      = $('.fixed.column > .image, .fixed.column > .content'),
+    $sticky           = $('.ui.sticky'),
 
     $themeDropdown    = $('.theme.dropdown'),
 
@@ -41,12 +38,11 @@ semantic.ready = function() {
     $hideMenu         = $('#menu .hide.item'),
     $sortTable        = $('.sortable.table'),
     $demo             = $('.demo'),
-    $waypoints        = $peek.closest('.tab, .container').find('h2').first().siblings('h2').addBack(),
 
     $menuPopup        = $('.ui.main.menu .popup.item'),
     $menuDropdown     = $('.ui.main.menu .dropdown'),
-    $pageTabMenu      = $('body > .tab.segment .tabular.menu'),
-    $pageTabs         = $('body > .tab.segment .menu .item'),
+    $pageTabMenu      = $('.tab.header.segment .tabular.menu'),
+    $pageTabs         = $('.tab.header.segment .menu .item'),
 
     $downloadDropdown = $('.download.buttons .dropdown'),
 
@@ -59,11 +55,7 @@ semantic.ready = function() {
     $overview         = $('.overview.item, .overview.button'),
     $designer         = $('.designer.item'),
 
-    $sidebarButton    = $('.attached.launch.button'),
-
-    $increaseFont     = $('.font .increase'),
-    $decreaseFont     = $('.font .decrease'),
-
+    $sidebarButton    = $('.fixed.launch.button'),
     $code             = $('div.code').not('.existing'),
     $existingCode     = $('.existing.code'),
 
@@ -158,6 +150,7 @@ semantic.ready = function() {
                     if( $('style.override').size() > 0 ) {
                       $('style.override').remove();
                     }
+                    console.log(content);
                     $('<style>' + content + '</style>')
                       .addClass('override')
                       .appendTo('body')
@@ -234,28 +227,6 @@ semantic.ready = function() {
           $element.find(selector).text(text);
         });
         return $element;
-      }
-    },
-
-    font: {
-
-      increase: function() {
-        var
-          $container = $(this).parent().prev('.ui.segment'),
-          fontSize   = parseInt( $container.css('font-size'), 10)
-        ;
-        $container
-          .css('font-size', fontSize + 1)
-        ;
-      },
-      decrease: function() {
-        var
-          $container = $(this).parent().prev('.ui.segment'),
-          fontSize   = parseInt( $container.css('font-size'), 10)
-        ;
-        $container
-          .css('font-size', fontSize - 1)
-        ;
       }
     },
     overviewMode: function() {
@@ -340,7 +311,8 @@ semantic.ready = function() {
         $annotation = $example.find('.annotation'),
         $code       = $annotation.find('.code'),
         $header     = $example.not('.another').children('.ui.header:first-of-type').eq(0).add('p:first-of-type'),
-        $demo       = $example.children().not($header).not('i.code:first-child, .code, .instructive, .language.label, .annotation, br, .ignore, .ignored'),
+        $ignored    = $('i.code:first-child, .code, .existing, .instructive, .language.label, .annotation, br, .ignore, .ignored'),
+        $demo       = $example.children().not($header).not($ignored),
         code        = ''
       ;
       if( $code.size() === 0) {
@@ -358,14 +330,14 @@ semantic.ready = function() {
     },
     createCode: function(type) {
       var
-        $example    = $(this).closest('.example'),
-        $header     = $example.children('.ui.header:first-of-type').eq(0).add('p:first-of-type'),
-        $annotation = $example.find('.annotation'),
-        $code       = $annotation.find('.code'),
-        $demo       = $example.children().not($header).not('i.code:first-child, .code, .instructive, .language.label, .annotation, br, .ignore, .ignored'),
-        code        = $example.data('code') || $.proxy(handler.generateCode, this)()
+        $example        = $(this).closest('.example'),
+        $header         = $example.children('.ui.header:first-of-type').eq(0).add('p:first-of-type'),
+        $annotation     = $example.find('.annotation'),
+        $code           = $annotation.find('.code'),
+        $ignoredContent = $('.ui.popup, i.code:first-child, .code, .existing.segment, .instructive, .language.label, .annotation, br, .ignore, .ignored'),
+        $demo           = $example.children().not($header).not($ignoredContent),
+        code            = $example.data('code') || $.proxy(handler.generateCode, this)()
       ;
-
       if( $code.hasClass('existing') ) {
         $annotation.show();
         $code.removeClass('existing');
@@ -379,7 +351,7 @@ semantic.ready = function() {
         ;
       }
 
-      if( $example.find('.ace_editor').size() === 0) {
+      if( $example.find('.instructive').size() === 0) {
         $code = $('<div/>')
           .data('type', 'html')
           .addClass('code')
@@ -422,7 +394,7 @@ semantic.ready = function() {
         .each(function() {
           var
             $code = $(this),
-            padding     = 20,
+            padding     = 50,
             editor,
             editorSession,
             codeHeight
@@ -430,6 +402,7 @@ semantic.ready = function() {
           $code.css('height', 'auto');
           editor        = ace.edit($code[0]);
           editorSession = editor.getSession();
+
           codeHeight = editorSession.getScreenLength() * editor.renderer.lineHeight + padding;
           $code.css('height', codeHeight);
           editor.resize();
@@ -449,29 +422,13 @@ semantic.ready = function() {
       }
     },
 
-    makeStickyColumns: function() {
-      var
-        $visibleStuck = $(this).find('.fixed.column > .image, .fixed.column > .content'),
-        isInitialized = ($visibleStuck.parent('.sticky-wrapper').size() !== 0)
-      ;
-      if(!isInitialized) {
-        $visibleStuck
-          .waypoint('sticky', {
-            offset     : 65,
-            stuckClass : 'fixed'
-          })
-        ;
-      }
-      // apparently this doesnt refresh on first hit
-      $.waypoints('refresh');
-      $.waypoints('refresh');
-    },
 
     initializeCode: function() {
       var
         $code        = $(this).show(),
         code         = $code.html(),
         existingCode = $code.hasClass('existing'),
+        evaluatedCode = $code.hasClass('evaluated'),
         contentType  = $code.data('type')    || 'javascript',
         title        = $code.data('title')   || false,
         demo         = $code.data('demo')    || false,
@@ -484,8 +441,11 @@ semantic.ready = function() {
           text       : 'Command Line',
           sh         : 'Command Line'
         },
-        indent     = handler.getIndent(code) || 4,
+        indent     = handler.getIndent(code) || 2,
         padding    = 20,
+        name = (evaluatedCode)
+          ? 'existing'
+          : 'instructive',
         whiteSpace,
         $label,
         editor,
@@ -505,7 +465,7 @@ semantic.ready = function() {
       }
 
       // evaluate if specified
-      if($code.hasClass('evaluated')) {
+      if(evaluatedCode) {
         eval(code);
       }
 
@@ -513,6 +473,7 @@ semantic.ready = function() {
       editor        = ace.edit($code[0]);
       editorSession = editor.getSession();
 
+      //editor.setTheme('ace/theme/tomorrow');
       editor.setTheme('ace/theme/github');
       editor.setShowPrintMargin(false);
       editor.setReadOnly(true);
@@ -522,11 +483,10 @@ semantic.ready = function() {
       editorSession.setUseWrapMode(true);
       editorSession.setTabSize(2);
       editorSession.setUseSoftTabs(true);
-
       codeHeight = editorSession.getScreenLength() * editor.renderer.lineHeight + padding;
       $(this)
         .height(codeHeight + 'px')
-        .wrap('<div class="ui instructive segment">')
+        .wrap('<div class="ui ' + name + ' segment">')
       ;
       // add label
       if(title) {
@@ -546,7 +506,7 @@ semantic.ready = function() {
       // add run code button
       if(demo) {
         $('<a>')
-          .addClass('ui pointing below black label')
+          .addClass('ui pointing below label')
           .html('Run Code')
           .on('click', function() {
             eval(code);
@@ -561,129 +521,6 @@ semantic.ready = function() {
         ;
       }
       editor.resize();
-    },
-
-    movePeek: function() {
-      if( $('.stuck .peek').size() > 0 ) {
-        $('.peek')
-          .toggleClass('pushed')
-        ;
-      }
-      else {
-        $('.peek')
-          .removeClass('pushed')
-        ;
-      }
-    },
-
-    menu: {
-      mouseenter: function() {
-        $(this)
-          .stop()
-          .animate({
-            width: '155px'
-          }, 300, function() {
-            $(this).find('.text').show();
-          })
-        ;
-      },
-      mouseleave: function(event) {
-        $(this).find('.text').hide();
-        $(this)
-          .stop()
-          .animate({
-            width: '70px'
-          }, 300)
-        ;
-    }
-
-    },
-
-    peek: function() {
-      var
-        $body     = $('html, body'),
-        $header   = $(this),
-        $menu     = $header.parent(),
-        $group    = $menu.children(),
-        $headers  = $group.add( $group.find('.menu .item') ),
-        $waypoint = $waypoints.eq( $group.index( $header ) ),
-        offset
-      ;
-      offset    = $waypoint.offset().top - 70;
-      if(!$header.hasClass('active') ) {
-        $menu
-          .addClass('animating')
-        ;
-        $headers
-          .removeClass('active')
-        ;
-        $body
-          .stop()
-          .one('scroll', function() {
-            $body.stop();
-          })
-          .animate({
-            scrollTop: offset
-          }, 500)
-          .promise()
-            .done(function() {
-              $menu
-                .removeClass('animating')
-              ;
-              $headers
-                .removeClass('active')
-              ;
-              $header
-                .addClass('active')
-              ;
-              $waypoint
-                .css('color', $header.css('border-right-color'))
-              ;
-              $waypoints
-                .removeAttr('style')
-              ;
-            })
-        ;
-      }
-    },
-
-    peekSub: function() {
-      var
-        $body           = $('html, body'),
-        $subHeader      = $(this),
-        $header         = $subHeader.parents('.item'),
-        $menu           = $header.parent(),
-        $subHeaderGroup = $header.find('.item'),
-        $headerGroup    = $menu.children(),
-        $waypoint       = $('h2').eq( $headerGroup.index( $header ) ),
-        $subWaypoint    = $waypoint.nextAll('h3').eq( $subHeaderGroup.index($subHeader) ),
-        offset          = $subWaypoint.offset().top - 80
-      ;
-      $menu
-        .addClass('animating')
-      ;
-      $headerGroup
-        .removeClass('active')
-      ;
-      $subHeaderGroup
-        .removeClass('active')
-      ;
-      $body
-        .stop()
-        .animate({
-          scrollTop: offset
-        }, 500, function() {
-          $menu
-            .removeClass('animating')
-          ;
-          $subHeader
-            .addClass('active')
-          ;
-        })
-        .one('scroll', function() {
-          $body.stop();
-        })
-      ;
     },
 
     swapStyle: function() {
@@ -710,10 +547,27 @@ semantic.ready = function() {
     }
   };
 
+  $('.masthead')
+    .visibility({
+      once: false
+    })
+    .visibility('bottom visible', function(){
+      $('.main.menu').removeClass('filled');
+    })
+    .visibility('bottom passed', function(){
+      $('.main.menu').addClass('filled');
+    })
+    .find('.button')
+      .popup({
+        position  : 'top center',
+        variation : 'inverted'
+      })
+  ;
+
   $(window)
     .on('resize', function() {
       clearTimeout(handler.timer);
-      handler.timer = setTimeout(handler.resizeCode, 100);
+      handler.timer = setTimeout(handler.resizeCode, 500);
     })
   ;
 
@@ -731,16 +585,18 @@ semantic.ready = function() {
     ;
   }
 
+
   if( $pageTabs.size() > 0 ) {
     $pageTabs
       .tab({
         context      : '.main.container',
         childrenOnly : true,
         history      : true,
-        onTabInit    : handler.makeCode,
+        onTabInit    : function() {
+          handler.makeCode();
+        },
         onTabLoad    : function() {
-          $.proxy(handler.makeStickyColumns, this)();
-          $peekItem.removeClass('active').first().addClass('active');
+          $sticky.filter(':visible').sticky('refresh');
         }
       })
     ;
@@ -748,6 +604,14 @@ semantic.ready = function() {
   else {
     handler.makeCode();
   }
+
+  $menu
+    .sidebar({
+      transition: 'reveal'
+    })
+    .sidebar('attach events', '.launch.button, .view-ui.button, .launch.item')
+    .sidebar('attach events', $hideMenu, 'hide')
+  ;
 
 
   handler.createIcon();
@@ -775,13 +639,6 @@ semantic.ready = function() {
 
   $swap
     .on('click', handler.swapStyle)
-  ;
-
-  $increaseFont
-    .on('click', handler.font.increase)
-  ;
-  $decreaseFont
-    .on('click', handler.font.decrease)
   ;
 
   $developer
@@ -813,63 +670,13 @@ semantic.ready = function() {
     })
   ;
 
-  $sidebarButton
-    .on('mouseenter', handler.menu.mouseenter)
-    .on('mouseleave', handler.menu.mouseleave)
-  ;
-  $menu
-    .sidebar('attach events', '.launch.button, .view-ui.button, .launch.item')
-    .sidebar('attach events', $hideMenu, 'hide')
-  ;
-  $waypoints
-    .waypoint({
-      continuous : false,
-      offset     : 100,
-      handler    : function(direction) {
-        var
-          index = (direction == 'down')
-            ? $waypoints.index(this)
-            : ($waypoints.index(this) - 1 >= 0)
-              ? ($waypoints.index(this) - 1)
-              : 0
-        ;
-        $peekItem
-          .removeClass('active')
-          .eq( index )
-            .addClass('active')
-        ;
-      }
-    })
-  ;
-/*  $('body')
-    .waypoint({
-      handler: function(direction) {
-        if(direction == 'down') {
-          if( !$('body').is(':animated') ) {
-            $peekItem
-              .removeClass('active')
-              .eq( $peekItem.size() - 1 )
-                .addClass('active')
-            ;
-          }
-        }
-      },
-      offset: 'bottom-in-view'
-     })
-  ;*/
-  $peek
-    .waypoint('sticky', {
-      offset     : 85,
-      stuckClass : 'stuck'
+  $sticky
+    .sticky({
+      context : '.main.container',
+      pushing : true
     })
   ;
 
-  $peekItem
-    .on('click', handler.peek)
-  ;
-  $peekSubItem
-    .on('click', handler.peekSub)
-  ;
 
 };
 

@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -34,15 +34,16 @@
   color: @inputColor;
 }
 .ui.input input {
-  width: 100%;
-  font-family: @pageFont;
-
   margin: 0em;
-  padding: @verticalPadding @horizontalPadding;
+  width: 100%;
+  outline: none;
+  line-height: @lineHeight;
+
+  font-family: @pageFont;
+  padding: @padding;
 
   background: @background;
   border: @border;
-  outline: none;
   color: @inputColor;
   border-radius: @borderRadius;
   transition: @transition;
@@ -151,10 +152,9 @@
 ---------------------*/
 
 .ui.transparent.input input {
-  border: none;
+  border-color: transparent;
   background-color: transparent;
-  padding-left: 0em;
-  padding-right: 0em;
+  padding: 0em;
 }
 
 /*--------------------
@@ -169,7 +169,7 @@
   right: 0px;
 
   margin: 0em;
-  width: @inputHeight;
+  width: @iconWidth;
   height: 100%;
   padding-top: @iconOffset;
 
@@ -205,6 +205,20 @@
   padding-right: @horizontalPadding !important;
 }
 
+/* Transparent Icon */
+.ui.transparent.icon.input > .icon {
+  width: @transparentIconWidth;
+  padding-top: @transparentIconOffset;
+}
+.ui.transparent.icon.input > input {
+  padding-left: 0em !important;
+  padding-right: @transparentIconMargin !important;
+}
+.ui.transparent.left.icon.input > input {
+  padding-left: 0em !important;
+  padding-left: @transparentIconMargin !important;
+}
+
 /* Focus */
 .ui.icon.input > input:focus ~ .icon {
   opacity: 1;
@@ -215,10 +229,10 @@
 ---------------------*/
 
 .ui.labeled.input .corner.label {
-  top: @borderWidth;
-  right: @borderWidth;
+  top: @labelTop;
+  right: @labelRight;
   font-size: @labelSize;
-  border-top-right-radius: @borderRadius;
+  border-radius: 0em @borderRadius 0em 0em;
 }
 .ui.labeled.input input {
   padding-right: @labeledMargin !important;
