@@ -1,0 +1,131 @@
+/*******************************
+             Item
+*******************************/
+
+/*-------------------
+         View
+--------------------*/
+
+/* Items */
+@itemsMargin: 1.5em 0em;
+
+/* Item */
+@display: table;
+@background: transparent;
+@borderRadius: 0rem;
+@margin: 1em 0em;
+@minHeight: 0px;
+@padding: 0em;
+@width: 100%;
+@boxShadow: none;
+@border: none;
+@zIndex: '';
+@transition: box-shadow @transitionDuration @transitionEasing;
+
+
+/*-------------------
+       Content
+--------------------*/
+
+/* Image */
+@imageDisplay: table-cell;
+@imageFloat: none;
+@imageWidth: 175px;
+@imageMaxHeight: '';
+@imageVerticalAlign: top;
+@imageMargin: 0em;
+@imagePadding: 0em;
+@imageBorder: none;
+@imageBorderRadius: 0.125rem;
+@imageBoxShadow: none;
+@imageBorder: none;
+
+/* Content */
+@contentDisplay: table-cell;
+@contentVerticalAlign: top;
+@contentImagePadding: 1.5em;
+
+@contentOffset: 0em;
+@contentBackground: none;
+@contentMargin: 0em;
+@contentPadding: 0em;
+@contentFontSize: 1em;
+@contentBorder: none;
+@contentBorderRadius: 0em;
+@contentBoxShadow: none;
+
+/* Header */
+@headerMargin: 0em;
+@headerFontWeight: bold;
+@headerFontSize: 1.2em;
+@headerColor: @darkTextColor;
+
+/* Metadata */
+@metaFontSize: 1em;
+@metaSpacing: 0.3em;
+@metaColor: rgba(0, 0, 0, 0.6);
+
+/* Icons */
+@actionOpacity: 0.75;
+@actionHoverOpacity: 1;
+@actionTransition: color @transitionDuration @transitionEasing;
+@starColor: #AC9400;
+@starActiveColor: #E9B539;
+@likeColor: #FFADAE;
+@likeActiveColor: #EF404A;
+
+/* Links */
+@contentLinkTransition: color @transitionDuration @transitionEasing;
+@contentLinkColor: @linkColor;
+@contentLinkHoverColor: @linkHoverColor;
+@headerLinkColor: @headerColor;
+@headerLinkHoverColor: @linkHoverColor;
+@metaLinkColor: @lightTextColor;
+@metaLinkHoverColor: @textColor;
+
+/* Description */
+@descriptionDistance: 0.6em;
+@descriptionFontSize: 1.1em;
+@descriptionLineHeight: 1.2;
+@descriptionColor: @textColor;
+
+/* Content Image */
+@contentWidth: 100%;
+@contentImageWidth: 2em;
+@contentImageVerticalAlign: middle;
+
+/* Avatar Image */
+@avatarSize: @contentImageWidth;
+@avatarBorderRadius: @circularRadius;
+
+/* Paragraph */
+@paragraphDistance: 0.5em;
+
+/* Additional Content */
+@extraDivider: 1px solid rgba(0, 0, 0, 0.05);
+@extraBackground: none;
+@extraDisplay: block;
+@extraPosition: relative;
+@extraMargin: 1em 0em 0em;
+@extraTop: 0em;
+@extraLeft: 0em;
+@extraWidth: 100%;
+@extraPadding: 0.25em 0em 0em;
+@extraBoxShadow: none;
+@extraColor: @lightTextColor;
+@extraTransition: color @transitionDuration @transitionEasing;
+
+/*-------------------
+      Variations
+--------------------*/
+
+/* Divided */
+@dividedBorder: 1px solid @borderColor;
+@dividedMargin: 0em;
+@dividedPadding: 1em 0em;
+
+@dividedFirstLastMargin: 0em;
+@dividedFirstLastPadding: 0em;
+
+/* Sizes */
+@medium: 1em;

@@ -1,15 +1,17 @@
 ---
 layout      : 'default'
 css         : 'modal-page'
+
 element     : 'modal'
 elementType : 'module'
 
 title       : 'Modal'
-description : 'A modal displays content that temporarily blocks interactions with a web site'
+description : 'A modal displays content that temporarily blocks interactions with other content'
 type        : 'UI Module'
 
-themes      : ['default', 'fixed-width']
+themes      : ['Default', 'Fixed-width']
 ---
+<link rel="stylesheet/less" type="text/css" href="/build/less/definitions/modules/modal.less" />
 <script src="/javascript/modal.js"></script>
 
 <%- @partial('header', { tabs: 'module' }) %>
@@ -29,14 +31,14 @@ themes      : ['default', 'fixed-width']
       </div>
     </div>
     <div class="actions">
-      <div class="two fluid ui buttons">
-        <div class="ui negative labeled icon button">
+      <div class="two fluid ui inverted buttons">
+        <div class="ui red basic inverted button">
           <i class="remove icon"></i>
           No
         </div>
-        <div class="ui positive right labeled icon button">
-          Yes
+        <div class="ui green basic inverted button">
           <i class="checkmark icon"></i>
+          Yes
         </div>
       </div>
     </div>
@@ -45,10 +47,10 @@ themes      : ['default', 'fixed-width']
   <div class="ui small modal">
     <i class="close icon"></i>
     <div class="header">
-      Changing Your Thing
+      Delete Your Account
     </div>
     <div class="content">
-      <p>Do you want to change that thing to something else?</p>
+      <p>Are you sure you want to delete your account</p>
     </div>
     <div class="actions">
       <div class="ui negative button">
@@ -58,6 +60,32 @@ themes      : ['default', 'fixed-width']
         Yes
         <i class="checkmark icon"></i>
       </div>
+    </div>
+  </div>
+
+  <div class="ui fullscreen modal">
+    <i class="close icon"></i>
+    <div class="header">
+      Update Your Account Settings
+    </div>
+    <div class="content">
+      <div class="ui form">
+        <h4 class="ui dividing header">Give us your feedback</h4>
+        <div class="field">
+          <label>Feedback</label>
+          <textarea></textarea>
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            <input type="checkbox" checked="checked" name="contact-me">
+            <label>It's okay to contact me.</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="ui button">Cancel</div>
+      <div class="ui green button">Send</div>
     </div>
   </div>
 
@@ -86,8 +114,8 @@ themes      : ['default', 'fixed-width']
       Profile Picture
     </div>
     <div class="content">
-      <div class="image">
-        <img class="ui medium image" src="/images/demo/avatar2.jpg">
+      <div class="ui medium image">
+        <img src="/images/demo/highres2.jpg">
       </div>
       <div class="description">
         <div class="ui header">Are you sure you want to upload that?</div>
@@ -141,6 +169,15 @@ themes      : ['default', 'fixed-width']
     <h2 class="ui dividing header">Variations</h2>
 
     <div class="no example">
+      <h4 class="ui header">Full Screen</h4>
+      <p>A modal can use the entire size of the screen</p>
+      <div class="code" data-demo="true">
+      $('.fullscreen.modal')
+        .modal('show')
+      ;
+      </div>
+    </div>
+    <div class="no example">
       <h4 class="ui header">Size</h4>
       <p>A modal can vary in size</p>
       <div class="code" data-demo="true">
@@ -161,7 +198,7 @@ themes      : ['default', 'fixed-width']
       <h4 class="ui header">Active</h4>
       <p>An active modal is visible on the page</p>
       <div class="code" data-type="html">
-        <div class="active ui modal">...</div>
+        <div class="ui active modal"></div>
       </div>
     </div>
   </div>

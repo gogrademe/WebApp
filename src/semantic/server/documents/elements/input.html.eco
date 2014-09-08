@@ -1,16 +1,19 @@
 ---
 layout      : 'default'
 css         : 'input'
-title       : 'Input'
-description : 'Inputs allow a user to enter information'
-type        : 'UI Element'
 
 element     : 'input'
 elementType : 'element'
-themes      : ['default']
+
+title       : 'Input'
+description : 'An input allows a site to elicit user input'
+type        : 'UI Element'
+
+themes      : ['Default']
 ---
 
 <%- @partial('header') %>
+<link rel="stylesheet/less" type="text/css" href="/build/less/definitions/elements/input.less" />
 
 <div class="main container">
 

@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -20,7 +20,7 @@
 
 
 /*******************************
-           Standard
+            Elements
 *******************************/
 
 /*--------------------
@@ -48,11 +48,16 @@
   clear: both;
   margin: @fieldMargin;
 }
+.ui.form :not(.fields) .field:last-child {
+  margin-bottom: 0em;
+}
 
 /*--------------------
         Labels
 ---------------------*/
 
+.ui.form .grouped.fields > label,
+.ui.form .inline.fields > label,
 .ui.form .field > label {
   margin: 0em 0em @labelMargin 0em;
   display: block;
@@ -79,7 +84,6 @@
   width: 100%;
 }
 
-.ui.form textarea,
 .ui.form input[type="text"],
 .ui.form input[type="email"],
 .ui.form input[type="date"],
@@ -87,6 +91,26 @@
 .ui.form input[type="number"],
 .ui.form input[type="url"],
 .ui.form input[type="tel"] {
+  margin: 0em;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+
+  line-height: @inputLineHeight;
+  padding: @inputPadding;
+  font-size: @inputFontSize;
+
+  background: @inputBackground;
+  border: @inputBorder;
+  color: @inputColor;
+  border-radius: @inputBorderRadius;
+  box-shadow: @inputBoxShadow;
+  box-sizing: border-box;
+  transition: @inputTransition;
+}
+
+.ui.textarea,
+.ui.form textarea {
   margin: 0em;
   padding: @inputVerticalPadding @inputHorizontalPadding;
   font-size: @inputFontSize;
@@ -96,17 +120,14 @@
   outline: none;
 
   color: @inputColor;
-  border-radius: 0.3125em;
+  border-radius: @inputBorderRadius;
   box-shadow: @inputBoxShadow;
 
   -webkit-appearance: none;
   -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
   box-sizing: border-box;
   transition: @inputTransition;
-}
 
-.ui.textarea,
-.ui.form textarea {
   font-size: @textAreaFontSize;
 
   height: @textAreaHeight;
@@ -321,8 +342,9 @@
 .ui.form .field.error input[type="number"]:focus,
 .ui.form .field.error input[type="url"]:focus,
 .ui.form .field.error input[type="tel"]:focus{
-  border-color: @formErrorFocusBorder;
-  color: @formErrorFocusColor;
+  background: @inputErrorFocusBackground;
+  border-color: @inputErrorFocusBorder;
+  color: @inputErrorFocusColor;
 
   -webkit-appearance: none;
   box-shadow: @inputErrorFocusBoxShadow;
@@ -470,9 +492,12 @@
 ---------------------*/
 
 .ui.inverted.form label,
-.ui.inverted.form .ui.checkbox label:hover,
-.ui.inverted.form .ui.checkbox .box:hover {
-  color: @invertedFormColor;
+.ui.form .inverted.segment label,
+.ui.form .inverted.segment .ui.checkbox label,
+.ui.form .inverted.segment .ui.checkbox .box,
+.ui.inverted.form .ui.checkbox label,
+.ui.inverted.form .ui.checkbox .box {
+  color: @invertedLabelColor;
 }
 .ui.inverted.form.loading:after {
   background: @formInvertedLoaderDimmerColor url(@formInvertedLoaderPath) no-repeat @formLoaderPosition;
@@ -484,18 +509,21 @@
 
 /* Grouped Vertically */
 .ui.form .grouped.fields {
-  margin: 0em 0em 1em;
+  margin: @groupedMargin;
+}
+.ui.form .grouped.fields:last-child {
+  margin-bottom: 0em;
 }
 .ui.form .grouped.fields .field {
   display: block;
   float: none;
-  margin: 0.5em 0em;
+  margin: @groupedFieldMargin;
   padding: 0em;
 }
 
 
 /*--------------------
-          Fields
+        Fields
 ---------------------*/
 
 /* Split fields */
@@ -514,8 +542,8 @@
   clear: none;
   float: left;
   box-sizing: border-box;
-  padding-left: 1%;
-  padding-right: 1%;
+  padding-left: @gutterWidth;
+  padding-right: @gutterWidth;
 }
 .ui.form .fields > .field:first-child {
   border-left: none;
@@ -525,19 +553,19 @@
 /* Other Combinations */
 .ui.form .two.fields > .fields,
 .ui.form .two.fields > .field {
-  width: 50%;
+  width: @twoColumn;
 }
 .ui.form .three.fields > .fields,
 .ui.form .three.fields > .field {
-  width: 33.333%;
+  width: @threeColumn;
 }
 .ui.form .four.fields > .fields,
 .ui.form .four.fields > .field {
-  width: 25%;
+  width: @fourColumn;
 }
 .ui.form .five.fields > .fields,
 .ui.form .five.fields > .field {
-  width: 20%;
+  width: @fiveColumn;
 }
 
 /* Swap to full width on mobile */
@@ -550,7 +578,7 @@
   .ui.form .four.fields > .field,
   .ui.form .five.fields > .fields,
   .ui.form .five.fields > .field {
-    width: 100%;
+    width: @oneColumn;
     padding-left: 0%;
     padding-right: 0%;
   }
@@ -564,6 +592,100 @@
 }
 
 
+/* Sizing Combinations */
+
+.ui.form .fields .wide.field {
+  width: @oneWide;
+  padding-left: @gutterWidth;
+  padding-right: @gutterWidth;
+}
+.ui.form .fields .wide.field:first-child {
+  padding-left: 0%;
+}
+.ui.form .fields .wide.field:last-child {
+  padding-right: 0%;
+}
+
+.ui.form .one.wide.field {
+  width: @oneWide !important;
+}
+.ui.form .two.wide.field {
+  width: @twoWide !important;
+}
+.ui.form .three.wide.field {
+  width: @threeWide !important;
+}
+.ui.form .four.wide.field {
+  width: @fourWide !important;
+}
+.ui.form .five.wide.field {
+  width: @fiveWide !important;
+}
+.ui.form .six.wide.field {
+  width: @sixWide !important;
+}
+.ui.form .seven.wide.field {
+  width: @sevenWide !important;
+}
+.ui.form .eight.wide.field {
+  width: @eightWide !important;
+}
+.ui.form .nine.wide.field {
+  width: @nineWide !important;
+}
+.ui.form .ten.wide.field {
+  width: @tenWide !important;
+}
+.ui.form .eleven.wide.field {
+  width: @elevenWide !important;
+}
+.ui.form .twelve.wide.field {
+  width: @twelveWide !important;
+}
+.ui.form .thirteen.wide.field {
+  width: @thirteenWide !important;
+}
+.ui.form .fourteen.wide.field {
+  width: @fourteenWide !important;
+}
+.ui.form .fifteen.wide.field {
+  width: @fifteenWide !important;
+}
+.ui.form .sixteen.wide.field {
+  width: @sixteenWide !important;
+}
+
+/* Swap to full width on mobile */
+@media only screen and (max-width : 767px) {
+  .ui.form .two.fields > .fields,
+  .ui.form .two.fields > .field,
+  .ui.form .three.fields > .fields,
+  .ui.form .three.fields > .field,
+  .ui.form .four.fields > .fields,
+  .ui.form .four.fields > .field,
+  .ui.form .five.fields > .fields,
+  .ui.form .five.fields > .field,
+  .ui.form .fields > .two.wide.field,
+  .ui.form .fields > .three.wide.field,
+  .ui.form .fields > .four.wide.field,
+  .ui.form .fields > .five.wide.field,
+  .ui.form .fields > .six.wide.field,
+  .ui.form .fields > .seven.wide.field,
+  .ui.form .fields > .eight.wide.field,
+  .ui.form .fields > .nine.wide.field,
+  .ui.form .fields > .ten.wide.field,
+  .ui.form .fields > .eleven.wide.field,
+  .ui.form .fields > .twelve.wide.field,
+  .ui.form .fields > .thirteen.wide.field,
+  .ui.form .fields > .fourteen.wide.field,
+  .ui.form .fields > .fifteen.wide.field,
+  .ui.form .fields > .sixteen.wide.field {
+    width: @oneColumn;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+}
+
 /*--------------------
     Inline Fields
 ---------------------*/
@@ -572,7 +694,9 @@
   margin: @fieldMargin;
 }
 .ui.form .inline.fields .field {
+  display: inline-block;
   margin: @inlineFieldsMargin;
+  padding: 0em;
 }
 .ui.form .inline.fields .field > label,
 .ui.form .inline.fields .field > p,
@@ -580,19 +704,18 @@
 .ui.form .inline.field > label,
 .ui.form .inline.field > p,
 .ui.form .inline.field > input {
-
   display: inline-block;
   width: auto;
 
   margin-top: 0em;
   margin-bottom: 0em;
 
-  vertical-align: middle;
-  font-size: 1em;
+  vertical-align: @inlineLabelVerticalAlign;
+  font-size: @inlineLabelFontSize;
 }
 .ui.form .inline.fields .field > input,
 .ui.form .inline.field > input {
-  font-size: 1em;
+  font-size: @inlineLabelFontSize;
 }
 
 /* Label */
@@ -615,7 +738,17 @@
   font-size: @small;
 }
 
+/* Medium */
+.ui.form {
+  font-size: @medium;
+}
+
 /* Large */
 .ui.large.form {
   font-size: @large;
+}
+
+/* Huge */
+.ui.huge.form {
+  font-size: @huge;
 }

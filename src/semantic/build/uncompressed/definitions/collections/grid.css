@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -46,23 +46,35 @@
      Load Default
 -------------------*/
 /*******************************
-        Global Variables
+         Site Settings
 *******************************/
 /*-------------------
         Paths
 --------------------*/
 /*-------------------
+       Fonts
+--------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---  Colors  ---*/
+/*-------------------
         Page
 --------------------*/
 /*-------------------
-         Grid
+  Background Colors
+--------------------*/
+/* Used for differentiating neutrals */
+/* Used for differentiating layers */
+/*-------------------
+        Grid
 --------------------*/
 /*-------------------
      Breakpoints
 --------------------*/
-/*-------------------
-       Fonts
---------------------*/
+/*******************************
+           Power-User
+*******************************/
 /*-------------------
        Icons
 --------------------*/
@@ -70,28 +82,26 @@
 /*-------------------
        Easing
 --------------------*/
-/*******************************
-           BG Colors
-*******************************/
-/*******************************
-             Colors
-*******************************/
-/*---  Colors  ---*/
-/*---  Neutrals  ---*/
-/*--- Text Colors ---*/
-/* Preserve */
-/* Adjust for Legibility */
-/*--- Backgrounds ---*/
+/*---  Light Variations  ---*/
+/*---   Neutrals  ---*/
+/*--- Colored Backgrounds ---*/
+/*--- Colored Text ---*/
+/*--- Colored Headers ---*/
 /*-------------------
     Emotive Colors
 --------------------*/
-/* Positive / Negative */
-/* Messages */
+/* Mood */
+/* Solid Background Color */
+/* Status */
+/* Darkened Headers */
 /*-------------------
-     Text Colors
+     Neutral Text
 --------------------*/
 /*-------------------
      Brand Colors
+--------------------*/
+/*-------------------
+    Grid Columns
 --------------------*/
 /*-------------------
       Borders
@@ -126,6 +136,9 @@
 /*---  Standard  ---*/
 /*---  Emotive  ---*/
 /*---  Neutrals  ---*/
+/*******************************
+             Grid
+*******************************/
 /* Inherited From Site */
 /*******************************
             Grid
@@ -136,7 +149,7 @@
 /*--------------
      Page
 ---------------*/
-/* Standard */
+/* Column Gutters */
 /*--------------
      Relaxed
 ---------------*/
@@ -168,16 +181,15 @@
             Standard
 *******************************/
 .ui.grid {
+  position: relative;
   display: block;
   text-align: left;
   font-size: 0em;
   margin: 0%;
   padding: 0%;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
-body > .ui.grid {
+body > .ui.grid:not(.page) {
   margin-left: 0% !important;
   margin-right: 0% !important;
 }
@@ -201,9 +213,7 @@ body > .ui.grid {
   width: 6.25%;
   padding-left: 1.5%;
   padding-right: 1.5%;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   vertical-align: top;
 }
 .ui.grid > * {
@@ -255,38 +265,43 @@ body > .ui.grid {
   Page Grid (Responsive)
 -------------------------*/
 .ui.page.grid {
-  min-width: 320px;
   padding-left: 0%;
   padding-right: 0%;
+  width: auto;
   margin-left: 13%;
   margin-right: 13%;
 }
 @media only screen and (max-width: 767px) {
   .ui.page.grid {
-    margin-left: 1em;
-    margin-right: 1em;
+    width: auto;
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
 }
 @media only screen and (min-width: 768px) {
   .ui.page.grid {
+    width: auto;
     margin-left: 8%;
     margin-right: 8%;
   }
 }
 @media only screen and (min-width: 992px) {
   .ui.page.grid {
+    width: auto;
     margin-left: 13%;
     margin-right: 13%;
   }
 }
 @media only screen and (min-width: 1400px) {
   .ui.page.grid {
+    width: auto;
     margin-left: 18%;
     margin-right: 18%;
   }
 }
 @media only screen and (min-width: 1900px) {
   .ui.page.grid {
+    width: auto;
     margin-left: 23%;
     margin-right: 23%;
   }
@@ -521,6 +536,11 @@ body > .ui.grid {
 .ui.grid .centered.row {
   text-align: center;
 }
+.ui.centered.grid > .column:not(.aligned),
+.ui.centered.grid > .row > .column:not(.aligned),
+.ui.grid .centered.row > .column:not(.aligned) {
+  text-align: left;
+}
 /*----------------------
         Relaxed
 -----------------------*/
@@ -572,22 +592,18 @@ body > .ui.grid {
 -----------------------*/
 .ui.divided.grid:not(.vertically) > .column:not(.row),
 .ui.divided.grid:not(.vertically) > .row > .column {
-  -webkit-box-shadow: -1px 0px 0px 0px rgba(0, 0, 0, 0.1), -2px 0px 0px 0px rgba(255, 255, 255, 0.3);
-          box-shadow: -1px 0px 0px 0px rgba(0, 0, 0, 0.1), -2px 0px 0px 0px rgba(255, 255, 255, 0.3);
+  box-shadow: -1px 0px 0px 0px rgba(0, 0, 0, 0.1), -2px 0px 0px 0px rgba(255, 255, 255, 0.3);
 }
 .ui.divided.grid:not(.vertically) > .column:first-child,
 .ui.divided.grid:not(.vertically) > .row > .column:first-child {
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 /* Divided Row */
 .ui.grid > .divided.row > .column {
-  -webkit-box-shadow: -1px 0px 0px 0px rgba(0, 0, 0, 0.1), -2px 0px 0px 0px rgba(255, 255, 255, 0.3);
-          box-shadow: -1px 0px 0px 0px rgba(0, 0, 0, 0.1), -2px 0px 0px 0px rgba(255, 255, 255, 0.3);
+  box-shadow: -1px 0px 0px 0px rgba(0, 0, 0, 0.1), -2px 0px 0px 0px rgba(255, 255, 255, 0.3);
 }
 .ui.grid > .divided.row > .column:first-child {
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 /* Vertically Divided */
 .ui.vertically.divided.grid > .row {
@@ -601,21 +617,17 @@ body > .ui.grid {
   width: 97%;
   height: 1px;
   margin: 0% 1.5%;
-  -webkit-box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1), 0px -2px 0px 0px rgba(255, 255, 255, 0.3);
-          box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1), 0px -2px 0px 0px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1), 0px -2px 0px 0px rgba(255, 255, 255, 0.3);
 }
 .ui.vertically.divided.grid > .row:first-child:before {
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 /* Inverted Divided */
 .ui.inverted.divided.grid > .row {
-  -webkit-box-shadow: -1px 0px 0px 0px rgba(0, 0, 0, 0.15), -2px 0px 0px 0px rgba(0, 0, 0, 0.15);
-          box-shadow: -1px 0px 0px 0px rgba(0, 0, 0, 0.15), -2px 0px 0px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: -1px 0px 0px 0px rgba(0, 0, 0, 0.15), -2px 0px 0px 0px rgba(0, 0, 0, 0.15);
 }
 .ui.inverted.vertically.divided.grid > .row {
-  -webkit-box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.15), 0px -2px 0px 0px rgba(0, 0, 0, 0.15);
-          box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.15), 0px -2px 0px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.15), 0px -2px 0px 0px rgba(0, 0, 0, 0.15);
 }
 /* Relaxed */
 .ui.relaxed.vertically.divided.grid > .row:before {
@@ -641,36 +653,34 @@ body > .ui.grid {
 -----------------------*/
 .ui.celled.grid {
   display: table;
+  table-layout: fixed;
+  width: 100%;
   margin-left: 0%;
   margin-right: 0%;
-  -webkit-box-shadow: 0px 0px 0px 1px #dddddd;
-          box-shadow: 0px 0px 0px 1px #dddddd;
+  box-shadow: 0px 0px 0px 1px #dddddd;
 }
 .ui.celled.grid > .row,
 .ui.celled.grid > .column.row,
 .ui.celled.grid > .column.row:first-child {
   display: table;
+  table-layout: fixed;
   width: 100%;
   margin-top: 0em;
   padding-top: 0em;
-  -webkit-box-shadow: 0px -1px 0px 0px #dddddd;
-          box-shadow: 0px -1px 0px 0px #dddddd;
+  box-shadow: 0px -1px 0px 0px #dddddd;
 }
 .ui.celled.grid > .column:not(.row),
 .ui.celled.grid > .row > .column {
   display: table-cell;
   padding: 0.75em;
-  -webkit-box-shadow: -1px 0px 0px 0px #dddddd;
-          box-shadow: -1px 0px 0px 0px #dddddd;
+  box-shadow: -1px 0px 0px 0px #dddddd;
 }
 .ui.celled.grid > .column:first-child,
 .ui.celled.grid > .row > .column:first-child {
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 .ui.celled.page.grid {
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 /*----------------------
   Horizontally Centered
@@ -739,6 +749,7 @@ body > .ui.grid {
 .ui.grid > .equal.height.row,
 .ui.equal.height.grid {
   display: table;
+  width: 100%;
 }
 .ui.equal.height.grid > .column,
 .ui.equal.height.grid > .row > .column,
@@ -991,14 +1002,14 @@ body > .ui.grid {
   .ui.stackable.grid > .row > .wide.column,
   .ui.stackable.grid > .wide.column,
   .ui.stackable.grid > .column.grid > .column,
+  .ui.stackable.grid > .column.row > .column,
   .ui.stackable.grid > .row > .column,
   .ui.stackable.grid > .column {
     display: block !important;
     width: auto !important;
     margin: 0.75rem 0em 0em !important;
     padding: 0.75rem 0em 0em !important;
-    -webkit-box-shadow: none !important;
-            box-shadow: none !important;
+    box-shadow: none !important;
   }
   .ui.stackable.divided.grid > .column,
   .ui.stackable.celled.grid > .row > .column {

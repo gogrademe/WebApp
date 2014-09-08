@@ -1,30 +1,31 @@
 /*******************************
-            Standard
+            Image
 *******************************/
 
 /*-------------------
-       Image
+       Element
 --------------------*/
 
-@placeholderColor: rgba(0, 0, 0, 0.05);
+@placeholderColor: transparent;
 @roundedBorderRadius: 0.3125em;
 
 @imageHorizontalMargin: 0.25rem;
 @imageVerticalMargin: 0.5rem;
 @imageBorder: 1px solid rgba(0, 0, 0, 0.1);
 
-/*******************************
-              Types
-*******************************/
+/*-------------------
+       Types
+--------------------*/
+
 
 /* Avatar */
 @avatarSize: 2.5em;
 @avatarMargin: @imageHorizontalMargin;
 
 
-/*******************************
-           Variations
-*******************************/
+/*-------------------
+       Variations
+--------------------*/
 
 /* Floated */
 @floatedHorizontalMargin: 1em;

@@ -1,10 +1,14 @@
 ---
 layout      : 'default'
-css         : 'tab'
+css         : ''
+element     : 'tab'
+elementType : 'module'
 
 title       : 'Tab'
 description : 'A tab is a section of content tied to a navigation menu'
 type        : 'UI Module'
+
+themes      : ['Default']
 ---
 
 <script src="/javascript/tab.js"></script>
@@ -12,8 +16,8 @@ type        : 'UI Module'
 <%- @partial('header', { tabs: {  usage: 'Usage', examples: 'Examples', settings: 'Settings' } }) %>
 
 <div class="main container">
-
-  <div class="ui active tab" data-tab="definition">
+  <!--
+  <div class="ui tab" data-tab="definition">
 
     <div class="peek">
       <div class="ui vertical pointing secondary menu">
@@ -22,8 +26,9 @@ type        : 'UI Module'
     </div>
 
   </div>
+  -->
 
-  <div class="ui tab" data-tab="usage">
+  <div class="ui active tab" data-tab="usage">
 
     <h2 class="ui dividing header">Initializing Tabs</h2>
 

@@ -11,11 +11,19 @@ semantic.popup.ready = function() {
   ;
   $popup
     .popup({
+      preserve: true,
       className: {
         popup: 'ignored ui popup'
       }
     })
   ;
+
+  $('.fluid.example .button')
+    .popup({
+      inline: true
+    })
+  ;
+
 
 };
 

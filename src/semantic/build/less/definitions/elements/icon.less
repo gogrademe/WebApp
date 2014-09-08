@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -56,7 +56,7 @@ i.icon {
   display: inline-block;
   opacity: @opacity;
 
-  margin: 0em @margin 0em 0em;
+  margin: 0em @distanceFromText 0em 0em;
 
   width: @width;
   height: @height;
@@ -69,7 +69,6 @@ i.icon {
   text-align: center;
 
   speak: none;
-  box-sizing: border-box;
   font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   backface-visibility: hidden;
@@ -84,6 +83,7 @@ i.icon {
 ---------------*/
 
 i.icon.loading {
+  height: 1em;
   animation: icon-loading @loadingDuration linear infinite;
 }
 @keyframes icon-loading {
@@ -199,20 +199,13 @@ i.bordered.inverted.icon {
   box-shadow: none;
 }
 
-
-/*-------------------
-      Inverted
---------------------*/
-
-i.inverted.icon {
-  background-color: #222222;
-  color: #FFFFFF;
-}
-
 /*-------------------
        Colors
 --------------------*/
 
+i.white.icon {
+  color: @white !important;
+}
 i.black.icon {
   color: @black !important;
 }
@@ -241,46 +234,84 @@ i.yellow.icon {
   color: @yellow !important;
 }
 
+
 /*-------------------
-   Inverted Colors
+      Inverted
 --------------------*/
 
+i.inverted.icon {
+  color: @white;
+}
 i.inverted.black.icon {
+  color: @lightBlack !important;
+}
+i.inverted.blue.icon {
+  color: @lightBlue !important;
+}
+i.inverted.green.icon {
+  color: @lightGreen !important;
+}
+i.inverted.orange.icon {
+  color: @lightOrange !important;
+}
+i.inverted.pink.icon {
+  color: @lightPink !important;
+}
+i.inverted.purple.icon {
+  color: @lightPurple !important;
+}
+i.inverted.red.icon {
+  color: @lightRed !important;
+}
+i.inverted.teal.icon {
+  color: @lightTeal !important;
+}
+i.inverted.yellow.icon {
+  color: @lightYellow !important;
+}
+
+/* Inverted Circular */
+i.inverted.circular.icon {
+  background-color: #222222 !important;
+  color: #FFFFFF !important;
+}
+i.inverted.circular.black.icon {
   background-color: @black !important;
   color: #FFFFFF !important;
 }
-i.inverted.blue.icon {
+i.inverted.circular.blue.icon {
   background-color: @blue !important;
   color: #FFFFFF !important;
 }
-i.inverted.green.icon {
+i.inverted.circular.green.icon {
   background-color: @green !important;
   color: #FFFFFF !important;
 }
-i.inverted.orange.icon {
+i.inverted.circular.orange.icon {
   background-color: @orange !important;
   color: #FFFFFF !important;
 }
-i.inverted.pink.icon {
+i.inverted.circular.pink.icon {
   background-color: @pink !important;
   color: #FFFFFF !important;
 }
-i.inverted.purple.icon {
+i.inverted.circular.purple.icon {
   background-color: @purple !important;
   color: #FFFFFF !important;
 }
-i.inverted.red.icon {
+i.inverted.circular.red.icon {
   background-color: @red !important;
   color: #FFFFFF !important;
 }
-i.inverted.teal.icon {
+i.inverted.circular.teal.icon {
   background-color: @teal !important;
   color: #FFFFFF !important;
 }
-i.inverted.yellow.icon {
+i.inverted.circular.yellow.icon {
   background-color: @yellow !important;
   color: #FFFFFF !important;
 }
+
 
 /*-------------------
         Sizes

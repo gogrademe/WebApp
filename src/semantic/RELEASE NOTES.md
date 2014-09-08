@@ -3,18 +3,24 @@
 ### Version 1.0.0 - XX XX, 2014
 
 **Breaking Changes**
+- **Label** - Corner labels no longer support text, only icons.
 - **Form** - Standard grids now have gutters on left and right of first and last column. ``ui fitted grid`` can be used to remove these margins
 - **Checkbox** - Checkbox "enable" and "disable" have been replaced with "check" and "uncheck"
 - **Modal** - Modal ``left`` and ``right`` sections are now replaced with ``image`` and ``description``
+- **Accordion** - Accordions are not unstyled by default allowing for more compatability with other modules without having to override styles. Styled accordions are now included as a variation ``ui styled accordion``
+- **Item** - Items have now been renamed "card" to allow for a more generic item list that does not use a "card" style. Some 'card' view content has been slightly adjusted. Please refer to documentation
+- **Header / Icon** - Inverted headers and icons no longer invert background colors, but instead use a lighter version of colors more legible on dark backgrounds. Inverted circular icons, still however invert the color of the circle.
+- **Table** - Tables are no longer striped by default, instead you must specify the 'striped' variation
 
 **Enhancements**
-- **Table** - Tables are no longer striped by default, must specify variation 'striped'
-- **Form** - Form now has a success state which will automatically display success messages
-- **Form** - Forms in 'success' state will now show success messages inside
-- **List** - Child lists can now be formatted to sit inside text content
+- **General** - CSS animations now hint with will change properties to increase performance in supported browsers
+- **Accordion** - Accordion now includes all icons in an embedded font instead of requiring icons
 - **Button** - Now has compact form, used for fitting into tight spaces
 - **Checkbox** - All styles have been redone. Standard checkboxes are now based around PX and not EM making sure there are no unusual circles or rounding issues. Checkboxes also now use a custom font for glyphs instead of CSS tricks.
 - **Dropdown** - New action combo will change text of adjacent button, select will select element but not change text
+- **Form** - Form now has a success state which will automatically display success messages
+- **Form** - Grouped fields and inline fields can now have labels
+- **Form** - Forms in 'success' state will now show success messages inside
 - **Form** - Inputs now use 1em font size and correctly match selection dropdown height
 - **Form** - Inverted form now properly styles loader
 - **Form** - New field type ``required`` formats labels to show filling out field is mandatory
@@ -23,14 +29,25 @@
 - **Grid** - Elements inside a grid that are not rows or columns will now align properly
 - **Grid** - Fixed page grid allows for fixed pixel size containers used with a grid instead of percentage
 - **Grid** - Vertically divided grid now does not include left/right gutters in divider
+- **Header** - Linked headers now receive link colors
 - **Image** - New ``bordered image`` variation
+- **Item** - Items now have a horizontal list view for content lists
 - **Label** - Added tag label and empty circular label style
 - **Label** - Now has compact form, for fitting into tight spaces
-- **Popup** - Popup can now allow itself not to be closed when hovered over
-- **Popup** - Popup content can now be specified on initialization.
-- **Steps** - Steps can now have icons, descriptions and titles. Step default theme has been modified significantly to be more flexible.
-- **List** - List spacing defaults have been adjusted to be more consistent
+- **Label** - Now has more sizes available
+- **List** - Child lists can now be formatted to sit inside text content
 - **List** - List images can now specify vertical alignment
+- **List** - List spacing defaults have been adjusted to be more consistent
+- **Popup** - Popup can now allow itself not to be closed when hovered over
+- **Popup** - A popup element can now be specified on initialization.
+- **Popup** - Positioned popups will now extend in the opposite direction to fit better with floated content
+- **Rating** - Rating now uses an embedded icon font to maximize compatibility
+- **Sidebar** - Sidebar now has tall / very tall variations for resizing top/bottom sidebars
+- **Steps** - Steps can now have icons, descriptions and titles. Step default theme has been modified significantly to be more flexible.
+- **Table** - Tables now have 'basic' and 'very' basic variations
+
+** Bug Fixes **
+- **Rating** - Vertical alignment has been improved
 
 ### Version 0.15.0 - Mar 14, 2014
 

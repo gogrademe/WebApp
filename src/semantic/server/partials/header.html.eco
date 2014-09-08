@@ -1,6 +1,6 @@
 <% @tabs = {  definition: 'Definition', examples: 'Examples', usage: 'Usage', settings: 'Settings' } if @tabs == 'module' %>
 <% @tabs = {  overview: 'Overview', usage: 'Usage', examples: 'Examples', settings: 'Settings' } if @tabs == 'behavior' %>
-<div class="<% if @tabs?: %>tab <% end %>segment">
+<div class="<% if @tabs?: %>tab <% end %> header segment">
   <div class="container">
     <div class="introduction">
 
@@ -12,20 +12,19 @@
       <p><%=@document.description %></p>
       <% if @document.type is 'UI Element' or @document.type is 'UI View' or @document.type is 'UI Collection': %>
       <div class="ui divider"></div>
-      <div class="ui right floated basic labeled icon toggle overview button">
-        Definition Mode
-        <i class="book icon"></i>
+      <div class="ui basic toggle overview button">
+        Definition
       </div>
       <% end %>
       <% if @document.type is 'UI Module': %>
       <a href="/module.html" class="ui right floated basic labeled icon button">
         Learn about Modules
-        <i class="help icon"></i>
+        <i class="help icon" data-title="What are Modules?" data-content="Modules are UI elements that include behaviors as part of their definition. Modules require some knowledge of Javascript to trigger."></i>
       </a>
       <% end %>
       <% if @document.themes?: %>
       <div class="ui floating dropdown theme basic button" data-element="<%= @document.element %>" data-type="<%= @document.elementType %>">
-        <span class="text">Choose Theme</span>
+        <span class="text">Theme</span>
         <div class="menu ui transition hidden">
           <% for id, name of @document.themes: %>
             <div class="item" data-value="<%= name %>"><%= (name.charAt(0).toUpperCase() + name.slice(1)) %></div>
@@ -33,9 +32,11 @@
         </div>
       </div>
       <% end %>
-      <div class="ui secondary button">
+      <% if @document.type is 'UI Element' or @document.type is 'UI View' or @document.type is 'UI Collection' or @document.type is 'UI Module': %>
+      <div class="ui disabled secondary button">
         Download
       </div>
+      <% end %>
     </div>
     <div class="advertisement">
       <% unless 'development' in @getEnvironments(): %>

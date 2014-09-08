@@ -1,57 +1,66 @@
-/*-------------------
-    Globals Used
---------------------*/
+/*******************************
+             Label
+*******************************/
 
-// (Color Variables)
-// @transitionDuration
-// @transitionEasing
 
 /*-------------------
-      Standard
+       Element
 --------------------*/
+
 
 @verticalAlign: baseline;
-
 @verticalMargin: 0.25em;
 @horizontalMargin: 0.125em;
+@backgroundColor: #E8E8E8;
+@backgroundImage: none;
+@labelTextColor: rgba(0, 0, 0, 0.6);
+@verticalPadding: 0.6em;
+@horizontalPadding: 0.8em;
+@borderRadius: 0.325em;
+@textTransform: none;
+@fontWeight: bold;
 
+@labelTransitionDuration: @transitionDuration;
+@labelTransitionEasing: @transitionEasing;
+
+/* Group */
 @groupVerticalMargin: 0.75em;
 @groupHorizontalMargin: 0.5em;
 
-@backgroundColor: #E8E8E8;
-@backgroundImage: none;
-
-@labelTextColor: @textColor;
-
-@verticalPadding: 0.8em;
-@horizontalPadding: 0.8em;
-
-@borderRadius: 0.325em;
-
-@textTransform: uppercase;
-@fontWeight: normal;
-
 /*-------------------
-      Elements
+        Parts
 --------------------*/
 
 @linkOpacity: 0.8;
 @iconDistance: 0.75em;
 
 @detailOpacity: 0.8;
+@detailIconDistance: 0.25em;
+@detailMargin: 1em;
 
-@detailMargin: 0.5em;
 @deleteMargin: 0.5em;
 
 /*-------------------
         Types
 --------------------*/
 
-@imageLabelBackgroundColor: @backgroundColor;
+/* Image Label */
+@imageLabelBackground: @backgroundColor;
+@imageLabelBorderRadius: @circularRadius;
+@imageLabelVerticalPadding: @verticalPadding;
+@imageLabelHorizontalPadding: @horizontalPadding;
+@imageLabelTextDistance: 0.5em;
+@imageLabelDetailDistance: @imageLabelTextDistance;
+@imageLabelBorderRadius: @borderRadius;
+@imageLabelBoxShadow: none;
+@imageLabelDetailBackground: @strongTransparentBlack;
 
+/* Computed Values */
 @imageLabelImageHeight: (1em + @verticalPadding * 2);
-@imageLabelBoxShadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1) inset;
-
+@imageLabelPadding: @imageLabelVerticalPadding @imageLabelHorizontalPadding @imageLabelVerticalPadding @imageLabelTextDistance;
+@imageLabelImageMargin: -@verticalPadding @imageLabelTextDistance -@verticalPadding -@imageLabelTextDistance;
+@imageLabelDetailPadding: @imageLabelVerticalPadding @imageLabelHorizontalPadding;
+@imageLabelDetailMargin: -@imageLabelVerticalPadding -@imageLabelHorizontalPadding -@imageLabelVerticalPadding @imageLabelDetailDistance;
 
 /*-------------------
         States
@@ -70,10 +79,9 @@
 @tagCircleSize: 0.5em;
 @tagHorizontalPadding: 1.5em;
 @tagCircleBoxShadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.3);
-
 @tagTriangleRightOffset: 100%;
 @tagTriangleTopOffset: 50%;
-@tagTriangleSize: 1.75em;
+@tagTriangleSize: 1.56em;
 
 /* Ribbon */
 @ribbonDistance: 2rem;
@@ -82,19 +90,21 @@
 @ribbonShadowColor: rgba(0, 0, 0, 0.15);
 
 /* Attached */
-@attachedSegmentPadding: 2.5em;
+@attachedSegmentPadding: 2rem;
 @attachedVerticalPadding: 0.75em;
 @attachedHorizontalPadding: 1em;
 
 /* Corner */
-@cornerTriangleSize: 3em;
-@cornerTextWidth: 2.5em;
+@cornerSizeRatio: 1;
+@cornerTriangleSize: 3.25em;
+@cornerIconSize: 1em;
+@cornerIconTopOffset: 0.4em;
+@cornerIconLeftOffset: 0.75em;
 
-@cornerTextSize: 0.7em;
-@cornerIconSize: 0.7em;
-
-@cornerTopOffset: 0.45em;
-@cornerLeftOffset: 0.75em;
+/* Corner Text */
+@cornerTextWidth: 3em;
+@cornerTextWeight: bold;
+@cornerTextSize: 1em;
 
 /* Horizontal */
 @horizontalLabelMinWidth: 3em;
@@ -118,8 +128,9 @@
 --------------------*/
 
 /* Sizing */
-@tiny: 0.6rem;
-@small: 0.75rem;
-@medium: 0.8125rem;
-@large: 0.875rem;
-@huge: 1rem;
+@mini: 0.7rem;
+@tiny: 0.75rem;
+@small: 0.8rem;
+@medium: 0.875rem;
+@large: 1rem;
+@huge: 1.25rem;

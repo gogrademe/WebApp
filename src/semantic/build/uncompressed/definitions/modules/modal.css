@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -46,23 +46,35 @@
      Load Default
 -------------------*/
 /*******************************
-        Global Variables
+         Site Settings
 *******************************/
 /*-------------------
         Paths
 --------------------*/
 /*-------------------
+       Fonts
+--------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---  Colors  ---*/
+/*-------------------
         Page
 --------------------*/
 /*-------------------
-         Grid
+  Background Colors
+--------------------*/
+/* Used for differentiating neutrals */
+/* Used for differentiating layers */
+/*-------------------
+        Grid
 --------------------*/
 /*-------------------
      Breakpoints
 --------------------*/
-/*-------------------
-       Fonts
---------------------*/
+/*******************************
+           Power-User
+*******************************/
 /*-------------------
        Icons
 --------------------*/
@@ -70,28 +82,26 @@
 /*-------------------
        Easing
 --------------------*/
-/*******************************
-           BG Colors
-*******************************/
-/*******************************
-             Colors
-*******************************/
-/*---  Colors  ---*/
-/*---  Neutrals  ---*/
-/*--- Text Colors ---*/
-/* Preserve */
-/* Adjust for Legibility */
-/*--- Backgrounds ---*/
+/*---  Light Variations  ---*/
+/*---   Neutrals  ---*/
+/*--- Colored Backgrounds ---*/
+/*--- Colored Text ---*/
+/*--- Colored Headers ---*/
 /*-------------------
     Emotive Colors
 --------------------*/
-/* Positive / Negative */
-/* Messages */
+/* Mood */
+/* Solid Background Color */
+/* Status */
+/* Darkened Headers */
 /*-------------------
-     Text Colors
+     Neutral Text
 --------------------*/
 /*-------------------
      Brand Colors
+--------------------*/
+/*-------------------
+    Grid Columns
 --------------------*/
 /*-------------------
       Borders
@@ -126,13 +136,13 @@
 /*---  Standard  ---*/
 /*---  Emotive  ---*/
 /*---  Neutrals  ---*/
-/*-------------------
-       Modal
---------------------*/
+/*******************************
+             Modal
+*******************************/
 /* Close Icon */
 /* Header */
 /* Content */
-/* Left / Right */
+/* Image / Description */
 /* Modal Actions */
 /* Mobile Positions */
 /* Inner Close Position (Responsive) */
@@ -145,7 +155,7 @@
 /*-------------------
       Variations
 --------------------*/
-/* Sizes */
+/* Size Widths */
 /* Derived Responsive Sizes */
 /*------------------
      Load Theme
@@ -174,17 +184,18 @@
   text-align: left;
   width: 90%;
   margin-left: -45%;
-  background: transparent;
+  background: #ffffff;
   border: none;
-  -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
-          box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
   border-radius: 0.25rem;
   -webkit-user-select: text;
      -moz-user-select: text;
       -ms-user-select: text;
           user-select: text;
+  will-change: top, left, margin, transform, opacity;
 }
-.ui.modal > :first-child {
+.ui.modal > :first-child:not(.icon),
+.ui.modal > .icon:first-child + * {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
@@ -219,20 +230,23 @@
 ---------------*/
 .ui.modal > .header {
   display: block;
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-  background: #ffffff;
+  font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05)) #ffffff;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.05)) #ffffff;
   margin: 0em;
   padding: 1.5rem 2rem;
+  box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.05);
   font-size: 1.6em;
   font-weight: bold;
+  color: rgba(0, 0, 0, 0.85);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 /*--------------
      Content
 ---------------*/
 .ui.modal > .content {
-  position: relative;
   display: table;
+  table-layout: fixed;
   width: 100%;
   font-size: 1em;
   line-height: 1.4;
@@ -241,20 +255,23 @@
 }
 .ui.modal > .content > .image {
   display: table-cell;
-  padding-right: 1em;
-  min-width: 25%;
+  width: '';
   vertical-align: top;
 }
 .ui.modal > .content > .description {
   display: table-cell;
-  padding-left: 1em;
   min-width: '';
   vertical-align: top;
+}
+.ui.modal > .content > .icon + .description,
+.ui.modal > .content > .image + .description {
+  padding-left: 1em;
 }
 /*rtl:ignore*/
 .ui.modal > .content > .image > i.icon {
   font-size: 8rem;
   margin: 0em;
+  opacity: 1;
 }
 /*--------------
      Actions
@@ -313,8 +330,7 @@
   .ui.modal .content > .description {
     display: block;
     padding: 0em 0em 1em;
-    -webkit-box-shadow: none;
-            box-shadow: none;
+    box-shadow: none;
   }
   .ui.modal .content .image {
     width: auto !important;
@@ -330,8 +346,11 @@
 }
 /* Tablet and Mobile */
 @media only screen and (max-width: 992px) {
+  .ui.modal > .header {
+    padding-right: 2.25em;
+  }
   .ui.modal > .close {
-    top: 1.5rem;
+    top: 1rem;
     right: 1rem;
     color: rgba(0, 0, 0, 0.8);
   }
@@ -342,14 +361,16 @@
 .ui.basic.modal {
   background-color: transparent;
   border: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   color: #ffffff;
 }
 .ui.basic.modal > .header,
 .ui.basic.modal > .content,
 .ui.basic.modal > .actions {
   background-color: transparent;
+}
+.ui.basic.modal > .header {
+  color: #ffffff;
 }
 .ui.basic.modal > .close {
   top: 1.5rem;
@@ -359,9 +380,25 @@
             Variations
 *******************************/
 /* A modal that cannot fit on the page */
-.ui.modal.scrolling {
-  position: absolute;
-  margin-top: 1rem;
+.ui.scrolling.dimmable.dimmed {
+  overflow: hidden;
+}
+.ui.scrolling.dimmable.dimmed > .dimmer {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.ui.scrolling.dimmable > .dimmer {
+  position: fixed;
+}
+.ui.scrolling.modal {
+  position: static;
+  margin: 3.5rem auto;
+}
+@media only screen and (max-width: 992px) {
+  .ui.scrolling.modal {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 }
 /*******************************
              States
@@ -376,15 +413,31 @@
    Full Screen
 ---------------*/
 .ui.fullscreen.modal {
-  width: 99% !important;
-  margin: 0em 0em 0em -49.5% !important;
+  width: 95% !important;
+  margin: 1em 0em 1em -47.5%;
+}
+.ui.fullscreen.modal > .header {
+  padding-right: 2.25em;
 }
 .ui.fullscreen.modal > .close {
-  right: 0em;
+  top: 1rem;
+  right: 1rem;
+  color: rgba(0, 0, 0, 0.8);
+}
+@media only screen and (max-width: 767px) {
+  .ui.fullscreen.modal {
+    width: auto !important;
+    margin: 1em !important;
+    top: 0% !important;
+    left: 0% !important;
+  }
 }
 /*--------------
       Size
 ---------------*/
+.ui.modal {
+  font-size: 1em;
+}
 /* Small */
 .ui.small.modal > .header {
   font-size: 1.3em;

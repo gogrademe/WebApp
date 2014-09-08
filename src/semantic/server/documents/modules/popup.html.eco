@@ -2,10 +2,16 @@
 layout      : 'default'
 css         : 'popup'
 
+element     : 'popup'
+elementType : 'module'
+
 title       : 'Popup'
 description : 'A popup displays additional information on top of a page element'
 type        : 'UI Module'
+
+themes      : ['Default']
 ---
+<link rel="stylesheet/less" type="text/css" href="/build/less/definitions/modules/popup.less" />
 <script src="/javascript/popup.js"></script>
 
 <%- @partial('header', { tabs: 'module' }) %>
@@ -35,7 +41,7 @@ type        : 'UI Module'
     <div class="example">
       <h3 class="ui header">Title</h3>
       <p>A popup can be formatted with a title</p>
-      <img src="/images/demo/photo.jpg" data-title="PonyDog22" data-content="Ponydog has been a member for 22 days" class="ui avatar image"> PonyDog22
+      <img src="/images/demo/avatar.jpg" data-title="PonyDog22" data-content="Ponydog has been a member for 22 days" class="ui avatar image"> PonyDog22
     </div>
 
     <div class="example">
@@ -47,10 +53,32 @@ type        : 'UI Module'
     <h2 class="ui dividing header">Variations</h2>
 
     <div class="example">
+      <h3 class="ui header">Width</h3>
+      <p>A popup can be extra wide to allow for longer content</p>
+      <i class="circular heart icon link" data-content="Hello. This is a wide pop-up which allows for lots of content with additional space. You can fit a lot of words here and the paragraphs will be pretty wide." data-variation="wide"></i>
+      <i class="circular heart icon link" data-content="Hello. This is a very wide pop-up which allows for lots of content with additional space. You can fit a lot of words here and the paragraphs will be pretty wide." data-variation="very wide"></i>
+    </div>
+
+    <div class="fluid example">
+      <h3 class="ui header">Fluid</h3>
+      <p>A fluid popup will take up the entire width of its offset container</p>
+      <div class="ui button">Show fluid popup</div>
+      <div class="ui fluid popup">
+        <div class="ui four column fitted divided center aligned grid">
+          <div class="column">1</div>
+          <div class="column">2</div>
+          <div class="column">3</div>
+          <div class="column">4</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="example">
       <h3 class="ui header">Size</h3>
-      <p>A popup can be large or small</p>
+      <p>A popup can vary in size</p>
       <i class="circular heart icon link" data-content="Hello. This is a small popup" data-variation="small"></i>
       <i class="circular heart icon link" data-content="Hello. This is a large popup" data-variation="large"></i>
+      <i class="circular heart icon link" data-content="Hello. This is a huge popup" data-variation="huge"></i>
     </div>
 
     <div class="example">
@@ -62,17 +90,51 @@ type        : 'UI Module'
 
   <div class="ui tab" data-tab="usage">
 
-    <h2 class="ui dividing header">Initializing</h2>
+    <h2 class="ui dividing header">Usage</h2>
 
-    <h3 class="ui header">Initializing an popup</h3>
+    <h3 class="ui header">Initializing A Popup</h3>
+    <p>A popup is initialized on an activating element</p>
     <div class="code">
-    $('.ui.popup')
+    $('.activating.element')
       .popup()
     ;
     </div>
 
     <div class="no example">
-      <h3 class="ui header">Including content with HTML Metadata</h3>
+      <h3 class="ui header">Using a Pre-existing Popup</h3>
+      <p>Using a pre-existing popup allows for you to include complex html inside your popup.<p>
+      <h4>As a sibling element</h4>
+      <p>If you include your popup on page load as an adjacent sibling element to your activating element it can be found automatically.</p>
+      <p>To instruct popup to look inline for your popup element you can initialize it with the <code>inline</code> parameter</p>
+      <div class="code" data-type="javascript">
+        $('.button')
+          .popup({
+            inline: true
+          })
+        ;
+      </div>
+      <div class="code" data-type="html">
+        <div class="ui button">Activator</div>
+        <div class="ui special popup">
+          <div class="header">Custom Header</div>
+          <div class="ui button">Click Me</div>
+        </div>
+      </div>
+    </div>
+    <div class="no example">
+      <h4>Anywhere on the page</h4>
+      <p>If you cannot include your popup element as a sibling element, you can specify a custom selector to retrieve your popup</p>
+      <div class="code" data-type="javascript">
+        $('.button')
+          .popup({
+            popup: '.special.popup'
+          })
+        ;
+      </div>
+    </div>
+
+    <div class="no example">
+      <h3 class="ui header">Specifying Content In Metadata</h3>
       <p>Frequently used settings like, title, content, html, or offset or variation, can be included in html metadata<p>
       <div class="ui info icon ignored message">
         <i class="info icon"></i>
@@ -94,16 +156,17 @@ type        : 'UI Module'
           </ul>
         </div>
       </div>
-      <h4 class="ui header">Initializing with metadata</h4>
       <div class="code" data-type="html">
         <i class="heart icon" title="Hello I am a popup"></i>
       </div>
-      <div class="ui horizontal divider">Or</div>
-      <h4 class="ui header">Initializing with javascript content</h4>
+    </div>
+    <div class="no example">
+      <h3 class="ui header">Specifying Content In Javascript</h3>
       <div class="code">
       $('.ui.popup')
         .popup({
-          content: 'Hello I am a popup'
+          title   : 'Popup Title',
+          content : 'Hello I am a popup'
         })
       ;
       </div>
@@ -167,6 +230,97 @@ type        : 'UI Module'
 
 
   <div class="ui tab" data-tab="examples">
+    <div class="example">
+      <h3 class="ui header">Wide Popup Menu</h3>
+      <div class="ignored">
+        <p>An easier way to display complex content, like a wide popup menu is to have the popup content as a pre-  existing part of your page's html.</p>
+        <p>Using the setting <code>inline: true</code> will let Semantic know to display the next sibling <code>ui  popup</code> element after the activator.</p>
+
+        <p>Tweaking settings like the delay for show, and hide, and making the menu hoverable will help it function   more like a dropdown menu</p>
+      </div>
+
+      <div class="evaluated code">
+      $('.example .menu .browse')
+        .popup({
+          inline   : true,
+          hoverable: true,
+          position : 'bottom left',
+          delay: {
+            show: 300,
+            hide: 800
+          }
+        })
+      ;
+      </div>
+      <div class="ui menu">
+        <a class="active item">
+          <i class="home icon"></i> Home
+        </a>
+        <a class="browse item">
+          <i class="dropdown icon"></i>
+          Browse
+        </a>
+        <div class="ui very wide popup">
+          <div class="ui four column fitted grid">
+            <div class="ui column">
+              <h5 class="ui header">Fabrics</h5>
+              <div class="ui link list">
+                <a class="item">Cashmere</a>
+                <a class="item">Linen</a>
+                <a class="item">Cotton</a>
+                <a class="item">Viscose</a>
+              </div>
+            </div>
+            <div class="ui column">
+              <h5 class="ui header">Sizes</h5>
+              <div class="ui link list">
+                <a class="item">Small</a>
+                <a class="item">Medium</a>
+                <a class="item">Large</a>
+                <a class="item">Plus Sizes</a>
+              </div>
+            </div>
+            <div class="ui column">
+              <h5 class="ui header">Colors</h5>
+              <div class="ui link list">
+                <a class="item">Neutrals</a>
+                <a class="item">Brights</a>
+                <a class="item">Pastels</a>
+              </div>
+            </div>
+            <div class="ui column">
+              <h5 class="ui header">Types</h5>
+              <div class="ui link list">
+                <a class="item">Knitwear</a>
+                <a class="item">Outerwear</a>
+                <a class="item">Pants</a>
+                <a class="item">Shoes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3 class="ui header">Specifying a selector for a popup</h3>
+      <p>If its not possible to include the popup content as the next sibling, you can also specify a custom selector to help link the popup contents to its activator.</p>
+      <div class="evaluated code">
+      $('.example .custom.button')
+        .popup({
+          popup : $('.custom.popup'),
+          on    : 'click'
+        })
+      ;
+      </div>
+      <div class="arbitrary container">
+        <div class="ui custom button">Show custom popup</div>
+      </div>
+      <div class="ui custom popup">
+        I'm not on the same level as the button, but i can still be found.
+      </div>
+    </div>
+
 
     <div class="example">
       <h3 class="ui header">Specifying a trigger event</h3>
@@ -196,17 +350,18 @@ type        : 'UI Module'
       <div class="evaluated code">
     $('.test.button')
       .popup({
-        position : 'top right',
+        position : 'right center',
         target   : '.test.image',
         title    : 'My favorite dog',
         content  : 'My favorite dog would like other dogs as much as themselves'
       })
     ;
       </div>
-      <div class="ui basic test button">Hover Me</div>
+      <div class="ui green test button">Hover Me</div>
       <div class="ui divider"></div>
       <img class="medium ui test image" src="/images/demo/photo.jpg">
-
+    </div>
+    <div class="inline example">
       <h3 class="ui header">Inline or relative to page</h3>
       <p>A popup can either be inserted directly after an element, or added as a child element to the page's <code>body</code>.</p>
       <div class="ui positive message">
@@ -222,11 +377,11 @@ type        : 'UI Module'
       }
       </div>
       <div class="evaluated code">
-    $('.inline.icon')
-      .popup({
-        inline: true
-      })
-    ;
+      $('.inline.icon')
+        .popup({
+          inline: true
+        })
+      ;
       </div>
       <i class="heart circular icon link" data-content="This is a child element to the page's body and will not be styled" ></i>
       <i class="mail inline circular icon link" data-content="This popup was inserted inline and will be styled" ></i>
@@ -328,12 +483,19 @@ type        : 'UI Module'
         <tr>
           <td>on</td>
           <td>hover</td>
-          <td>Event used to trigger popup. Can be either <b>focus, click or hover</b></td>
+          <td>Event used to trigger popup. Can be either <b>focus, click, hover, or manual</b>. Manul popups must be triggered with <code>$('.element').popup('show');</code></td>
         </tr>
         <tr>
           <td>delay</td>
-          <td>150</td>
-          <td>Delay in milliseconds before showing a popup when using hover or focus events.</td>
+          <td>
+            <div class="code">
+    delay: {
+      show: 50,
+      hide: 0
+    }
+            </div>
+          </td>
+          <td>Delay in milliseconds before showing or hiding a popup on hover or focus</td>
         </tr>
         <tr>
           <td>transition</td>

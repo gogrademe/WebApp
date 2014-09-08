@@ -1,3 +1,8 @@
+/*******************************
+             Menu
+*******************************/
+
+
 /*-------------------
     Globals Used
 --------------------*/
@@ -18,7 +23,10 @@
 @itemBackground: none;
 
 @fontWeight: normal;
-@boxShadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+@boxShadow:
+  0px 0px 0px 1px rgba(0, 0, 0, 0.1),
+  @subtleShadow
+;
 
 @borderSize: 0em;
 
@@ -62,14 +70,20 @@
 ---------------*/
 
 /* Icon */
-@iconMargin: 0.5em;
-@iconLabelMargin: 0.25em;
+@iconFloat: none;
+@iconMargin: 0em 0.25em 0em 0em;
+@iconOpacity: 0.75;
+
+@dropdownIconFloat: right;
+@dropdownIconDistance: 1em;
+
+@verticalIconFloat: right;
+@verticalIconMargin: 0em 0em 0em 0.5em;
 
 /* Header */
 @headerBackground: rgba(0, 0, 0, 0.04);
 @headerWeight: bold;
 @headerTextTransform: normal;
-@headerFontSize: 1rem;
 
 /*--------------
     Couplings
@@ -84,11 +98,11 @@
 @labeledButtonPadding: 0.6em;
 
 /* Input */
-@inputSize: 0.875em;
-@inputVerticalMargin: -0.8em;
-@inputOffset: -0.05em;
-@inputVerticalPadding: 0.5em;
-@inputIconOffset: -0.3em;
+@inputSize: 1em;
+@inputVerticalMargin: -0.6em;
+@inputOffset: 0em;
+@inputVerticalPadding: 0.35em;
+@inputIconOffset: -0.35em;
 
 @smallInputOffset: 0em;
 @smallInputVerticalPadding: 0.4em;
@@ -105,11 +119,18 @@
 @labelVerticalPadding: 0.3em;
 @labelHorizontalPadding: 0.8em;
 
+@labelAndIconFloat: none;
+@labelAndIconMargin: 0em 0.5em 0em 0em;
+
 /* Dropdown */
 @dropdownBackground: #FFFFFF;
 @dropdownMenuOffset: 1px;
 @dropdownPointingDistance: 0.75em;
+
 @dropdownTextColor: @textColor;
+@dropdownTextColorHover: @darkTextColor;
+@dropdownIconMargin: 0em 0em 0em 1em;
+
 @dropdownBoxShadow: 0 1px 1px 1px @solidBorderColor;
 @dropdownVerticalBoxShadow: 0 0px 1px 1px @solidBorderColor;
 
@@ -119,11 +140,10 @@
 @arrowBorder: 1px solid rgba(0, 0, 0, 0.1);
 
 @arrowHoverColor: #FAFAFA;
-@arrowActiveColor: #FCFCFC;
+@arrowActiveColor: #F6F6F6;
 
 @arrowVerticalHoverColor: #FAFAFA;
 @arrowVerticalActiveColor: #FCFCFC;
-
 
 /*--------------
      States
@@ -132,15 +152,17 @@
 @hoverBackground: @subtleTransparentBlack;
 @hoverColor: @textColor;
 
-@downBackground: @subtleTransparentBlack;
+@pressedBackground: @subtleTransparentBlack;
+@pressedColor: @selectedTextColor;
 
 @activeBackground: @subtleTransparentBlack;
 @activeColor: @darkTextColor;
-@activeBorderSize: 0.2em;
+@activeBorderSize: 2px;
 @activeFontWeight: normal;
+@activeIconOpacity: 1;
 
 @activeHoverBackground: @hoverBackground;
-@subMenuActiveColor: rgba(0, 0, 0, 0.03);
+@subMenuActiveBackground: transparent;
 
 @loadingBackgroundColor: rgba(255, 255, 255, 0.8);
 @loadingImage: "@{imagePath}/loader-large.gif";
@@ -243,11 +265,29 @@
 ---------------*/
 
 /* Inverted */
-@invertedBackground: none #333333;
+@invertedBackground: @black;
 @invertedBoxShadow: none;
-
 @invertedHeaderBackground: rgba(0, 0, 0, 0.3);
-@invertedSubMenuColor: @invertedLightTextColor;
+
+/* Inverted Sub Menu */
+@invertedSubMenuBackground: transparent;
+@invertedSubMenuColor: @invertedUnselectedTextColor;
+
+/* Inverted Hover */
+@invertedHoverBackground: rgba(255, 255, 255, 0.1);
+@invertedHoverColor: @white;
+@invertedSubMenuHoverBackground: transparent;
+@invertedSubMenuHoverColor: @white;
+
+/* Pressed */
+@invertedMenuPressedBackground: rgba(255, 255, 255, 0.15);
+@invertedMenuPressedColor: @white;
+
+/* Inverted Active */
+@invertedActiveBackground: rgba(255, 255, 255, 0.2);
+@invertedActiveColor: @white;
+@invertedSubMenuActiveBackground: transparent;
+@invertedSubMenuActiveColor: @white;
 
 /* Inverted Secondary */
 @secondaryInvertedColor: @invertedLightTextColor;

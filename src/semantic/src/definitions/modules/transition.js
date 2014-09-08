@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -283,6 +283,14 @@ $.fn.transition = function() {
               .addClass(className.transition)
               .addClass(className.hidden)
             ;
+            requestAnimationFrame(function() {
+              if($module.css('display') !== 'none') {
+                module.verbose('Overriding default display to hide element')
+                $module
+                  .css('display', 'none')
+                ;
+              }
+            })
           },
 
           visible: function() {

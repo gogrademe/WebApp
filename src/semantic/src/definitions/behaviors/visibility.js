@@ -3,7 +3,7 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -37,10 +37,10 @@ $.fn.visibility = function(parameters) {
         eventNamespace  = '.' + namespace,
         moduleNamespace = 'module-' + namespace,
 
-        $module         = $(this),
         $window         = $(window),
+        $module         = $(this),
+        $context        = $(settings.context),
         $container      = $module.offsetParent(),
-        $context,
 
         selector        = $module.selector || '',
         instance        = $module.data(moduleNamespace),
@@ -85,6 +85,9 @@ $.fn.visibility = function(parameters) {
           $window
             .off(eventNamespace)
           ;
+          $context
+            .off(eventNamespace)
+          ;
           $module
             .off(eventNamespace)
             .removeData(moduleNamespace)
@@ -94,8 +97,10 @@ $.fn.visibility = function(parameters) {
         bindEvents: function() {
           module.verbose('Binding visibility events to scroll and resize');
           $window
-            .on('resize', module.event.refresh)
-            .on('scroll', module.event.scroll)
+            .on('resize' + eventNamespace, module.event.refresh)
+          ;
+          $context
+            .on('scroll' + eventNamespace, module.event.scroll)
           ;
         },
 
@@ -149,7 +154,6 @@ $.fn.visibility = function(parameters) {
             ;
             if(src) {
               module.verbose('Lazy loading image', src);
-              settings.once = true;
               // show when top visible
               module.topVisible(function() {
                 module.precache(src, function() {
@@ -232,8 +236,8 @@ $.fn.visibility = function(parameters) {
               if(calculations.bottomVisible || calculations.pixelsPassed > module.get.pixelsPassed(amount)) {
                 module.execute(callback, amount);
               }
-              else {
-                module.remove.occurred(callback, amount);
+              else if(!settings.once) {
+                module.remove.occurred(callback);
               }
             });
           }
@@ -252,7 +256,7 @@ $.fn.visibility = function(parameters) {
           if(callback && calculations.passing) {
             module.execute(callback, callbackName);
           }
-          else {
+          else if(!settings.once) {
             module.remove.occurred(callbackName);
           }
           if(newCallback !== undefined) {
@@ -274,7 +278,7 @@ $.fn.visibility = function(parameters) {
           if(callback && calculations.topVisible) {
             module.execute(callback, callbackName);
           }
-          else {
+          else if(!settings.once) {
             module.remove.occurred(callbackName);
           }
           if(newCallback === undefined) {
@@ -295,7 +299,7 @@ $.fn.visibility = function(parameters) {
           if(callback && calculations.bottomVisible) {
             module.execute(callback, callbackName);
           }
-          else {
+          else if(!settings.once) {
             module.remove.occurred(callbackName);
           }
           if(newCallback === undefined) {
@@ -316,7 +320,7 @@ $.fn.visibility = function(parameters) {
           if(callback && calculations.topPassed) {
             module.execute(callback, callbackName);
           }
-          else {
+          else if(!settings.once) {
             module.remove.occurred(callbackName);
           }
           if(newCallback === undefined) {
@@ -332,12 +336,12 @@ $.fn.visibility = function(parameters) {
           ;
           if(newCallback) {
             module.debug('Adding callback for bottom passed', newCallback);
-            settings.bottomPassed = newCallback;
+            settings.onBottomPassed = newCallback;
           }
           if(callback && calculations.bottomPassed) {
             module.execute(callback, callbackName);
           }
-          else {
+          else if(!settings.once) {
             module.remove.occurred(callbackName);
           }
           if(newCallback === undefined) {
@@ -350,11 +354,12 @@ $.fn.visibility = function(parameters) {
             calculations = module.get.elementCalculations(),
             screen       = module.get.screenCalculations()
           ;
-          if(settings.once && module.get.occurred(callbackName)) {
-            // multiple callbacks are ignored when times == 'once'
+          if(settings.continuous) {
+            module.debug('Callback called continuously on valid', callbackName, calculations);
+            $.proxy(callback, element)(calculations, screen);
           }
-          else {
-            module.debug('Conditions met for callback', callbackName, calculations);
+          else if(!module.get.occurred(callbackName)) {
+            module.debug('Callback conditions met', callbackName, calculations);
             $.proxy(callback, element)(calculations, screen);
           }
           module.save.occurred(callbackName);
@@ -378,7 +383,7 @@ $.fn.visibility = function(parameters) {
             }
           },
           scroll: function() {
-            module.cache.scroll = $window.scrollTop() + settings.offset;
+            module.cache.scroll = $context.scrollTop() + settings.offset;
           },
           direction: function() {
             var
@@ -456,10 +461,10 @@ $.fn.visibility = function(parameters) {
           },
           screenCalculations: function() {
             var
-              scroll = $window.scrollTop()
+              scroll = $context.scrollTop()
             ;
             if(module.cache.scroll === undefined) {
-              module.cache.scroll = $window.scrollTop();
+              module.cache.scroll = $context.scrollTop();
             }
             module.save.direction();
             $.extend(module.cache.screen, {
@@ -471,7 +476,7 @@ $.fn.visibility = function(parameters) {
           screenSize: function() {
             module.verbose('Saving window position');
             module.cache.screen = {
-              height: $window.height()
+              height: $context.height()
             };
           },
           position: function() {
@@ -728,6 +733,8 @@ $.fn.visibility.settings = {
   offset            : 0,
   includeMargin     : false,
 
+  context           : window,
+
   // visibility check delay in ms
   throttle          : false,
 
@@ -746,7 +753,8 @@ $.fn.visibility.settings = {
   onTopPassed       : false,
   onBottomPassed    : false,
 
-  once              : false,
+  once              : true,
+  continuous        : false,
 
   // utility callbacks
   onRefresh         : function(){},

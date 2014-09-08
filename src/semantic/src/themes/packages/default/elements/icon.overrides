@@ -3,7 +3,7 @@
  * http://github.com/jlukic/semantic-ui/
  *
  *
- * Copyright 2013 Contributors
+ * Copyright 2014 Contributor
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -66,7 +66,7 @@ i.icon.comments:before { content: "\f086"; }
 i.icon.shop:before { content: "\f07a"; }
 i.icon.privacy:before { content: "\f084"; }
 i.icon.settings:before { content: "\f085"; }
-i.icon.top:before { content: "\f091"; }
+i.icon.trophy:before { content: "\f091"; }
 i.icon.payment:before { content: "\f09d"; }
 i.icon.feed:before { content: "\f09e"; }
 i.icon.alarm.outline:before { content: "\f0a2"; }
@@ -97,11 +97,10 @@ i.icon.download:before { content: "\f019"; }
 i.icon.repeat:before { content: "\f01e"; }
 i.icon.refresh:before { content: "\f021"; }
 i.icon.lock:before { content: "\f023"; }
-i.icon.flag:before { content: "\f024"; }
 i.icon.bookmark:before { content: "\f02e"; }
 i.icon.print:before { content: "\f02f"; }
 i.icon.write:before { content: "\f040"; }
-i.icon.tint:before { content: "\f043"; }
+i.icon.theme:before { content: "\f043"; }
 i.icon.adjust:before { content: "\f042"; }
 i.icon.edit:before { content: "\f044"; }
 i.icon.external.share:before { content: "\f045"; }
@@ -145,13 +144,13 @@ i.icon.write.square:before { content: "\f14b"; }
 i.icon.share.square:before { content: "\f14d"; }
 
 /* Messages */
-i.icon.help.square:before { content: "\f059"; }
-i.icon.info.square:before { content: "\f05a"; }
-i.icon.warning.square:before { content: "\f06a"; }
+i.icon.help.circle:before { content: "\f059"; }
+i.icon.info.circle:before { content: "\f05a"; }
+i.icon.warning:before { content: "\f12a"; }
+i.icon.warning.circle:before { content: "\f06a"; }
 i.icon.warning.sign:before { content: "\f071"; }
 i.icon.help:before { content: "\f128"; }
 i.icon.info:before { content: "\f129"; }
-i.icon.warning:before { content: "\f12a"; }
 i.icon.announcement:before { content: "\f0a1"; }
 
 /* Users */
@@ -178,6 +177,7 @@ i.icon.crop:before { content: "\f125"; }
 /* Literal Objects */
 i.icon.cocktail:before { content: "\f000"; }
 i.icon.road:before { content: "\f018"; }
+i.icon.flag:before { content: "\f024"; }
 i.icon.book:before { content: "\f02d"; }
 i.icon.gift:before { content: "\f06b"; }
 i.icon.leaf:before { content: "\f06c"; }
@@ -530,12 +530,14 @@ i.icon.wechat:before { content: "\f1d7"; }
             Aliases
 *******************************/
 
-
+i.icon.like:before { content: "\f004"; }
 i.icon.video:before { content: "\f008"; }
 i.icon.sidebar:before { content: "\f00b"; }
 i.icon.check:before { content: "\f00c"; }
 i.icon.remove:before { content: "\f00d"; }
 i.icon.close:before { content: "\f00d"; }
+i.icon.cancel:before { content: "\f00d"; }
+i.icon.delete:before { content: "\f00d"; }
 i.icon.x:before { content: "\f00d"; }
 i.icon.zoom.in:before { content: "\f00e"; }
 i.icon.magnify:before { content: "\f00e"; }
@@ -545,7 +547,6 @@ i.icon.clock:before { content: "\f017"; }
 i.icon.time:before { content: "\f017"; }
 i.icon.play.circle.outline:before { content: "\f01d"; }
 i.icon.clockwise:before { content: "\f01e"; }
-i.icon.warning:before { content: "\f024"; }
 i.icon.headphone:before { content: "\f025"; }
 i.icon.volume.off:before { content: "\f026"; }
 i.icon.camera:before { content: "\f030"; }
@@ -554,6 +555,8 @@ i.icon.picture:before { content: "\f03e"; }
 i.icon.pencil:before { content: "\f040"; }
 i.icon.compose:before { content: "\f040"; }
 i.icon.point:before { content: "\f041"; }
+i.icon.tint:before { content: "\f043"; }
+i.icon.signup:before { content: "\f044"; }
 i.icon.plus.circle:before { content: "\f055"; }
 i.icon.minus.circle:before { content: "\f056"; }
 i.icon.dont:before { content: "\f05e"; }
@@ -566,6 +569,7 @@ i.icon.shuffle:before { content: "\f074"; }
 i.icon.talk:before { content: "\f075"; }
 i.icon.chat:before { content: "\f075"; }
 i.icon.shopping.cart:before { content: "\f07a"; }
+i.icon.bar.graph:before { content: "\f080"; }
 i.icon.key:before { content: "\f084"; }
 i.icon.privacy:before { content: "\f084"; }
 i.icon.cogs:before { content: "\f085"; }
@@ -575,7 +579,6 @@ i.icon.dislike.outline:before { content: "\f088"; }
 i.icon.heart.outline:before { content: "\f08a"; }
 i.icon.log.out:before { content: "\f08b"; }
 i.icon.thumb.tack:before { content: "\f08d"; }
-i.icon.trophy:before { content: "\f091"; }
 i.icon.winner:before { content: "\f091"; }
 i.icon.bookmark.outline:before { content: "\f097"; }
 i.icon.phone.square:before { content: "\f098"; }
@@ -602,6 +605,7 @@ i.icon.magic:before { content: "\f0d0"; }
 i.icon.truck:before { content: "\f0d1"; }
 i.icon.currency:before { content: "\f0d6"; }
 i.icon.triangle.down:before { content: "\f0d7"; }
+i.icon.dropdown:before { content: "\f0d7"; }
 i.icon.triangle.up:before { content: "\f0d8"; }
 i.icon.triangle.left:before { content: "\f0d9"; }
 i.icon.triangle.right:before { content: "\f0da"; }
