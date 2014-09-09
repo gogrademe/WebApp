@@ -18,7 +18,7 @@ Sidebar = React.create-class do
     ]
 
   render: ->
-    div class-name: "ui sidebar vertical purple floating inverted thin menu active",
+    div class-name: "ui thin sidebar vertical purple floating inverted menu visible",
       div class-name: "header item",
         "Cunae Gradebook"
       Link class-name: "item" to: "dashboard",

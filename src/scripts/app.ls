@@ -18,9 +18,9 @@ App = React.create-class do
     if api.session.get! then Sidebar {}
 
   render: ->
-    div {},
+    div class-name: "pushed",
       @logged-in {}
-      div {},
+      div class-name: "page",
         @props.active-route-handler! || "Loading..."
 
 module.exports = App
