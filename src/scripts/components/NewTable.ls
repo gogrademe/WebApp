@@ -41,7 +41,7 @@ Grid = React.create-class do
     getRenderer = @getRenderer
 
     @transfer-props-to do
-      table class-name: "ui table",
+      table class-name: "ui striped table",
         thead null,
           tr null,
             cols.map(@renderHeader)
