@@ -19,14 +19,14 @@ Dom = React.DOM
 
 {Grid} = NewTable
 
-
-GridLinks = React.create-class do
+ClassName = React.create-class do
   render: ->
     term-id = @props.column.term?.value || "t"
-    lnk = @props.column.link-to
-    div class-name: "3 fluid ui icon buttons small",
-      Link to: "#lnk.detail", termId: term-id, resourceId: @props.row.id, class-name: "ui button",
-        i class-name:"icon info"
+    div null,
+      Link to: "class.detail", termId: term-id, resourceId: @props.row.id,
+        @props.value
+
+
 
 ClassList = React.create-class do
   displayName: "ClassList"
@@ -47,19 +47,15 @@ ClassList = React.create-class do
     return
       * key: 'name'
         display: 'Class Name'
+        renderer: ClassName
+        term: @state.term
 
       * key: 'gradeLevel'
         display: 'Grade Level'
 
-      * display: 'Actions'
-        renderer: GridLinks
-        link-to: 'class'
-        term: @state.term
-        class-name: 'col-md-3'
-
   update-select: ->
     @set-state term: it
-    
+
   select-render: (xs)->
     | !xs => "Loading..."
     | otherwise => select do
