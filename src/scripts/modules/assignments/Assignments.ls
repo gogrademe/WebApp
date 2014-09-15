@@ -12,7 +12,7 @@ require! {
 
   "../../api/api.ls"
 
-  Nav: './nav.ls'
+  Nav: '../classes/nav.ls'
 
   './AssignmentsModal.ls'
 
@@ -54,7 +54,8 @@ assignment-cols =
     class-name: 'col-md-1'
 
   * display: 'Actions'
-    renderer: AssignmentActions
+    resource-type: "assignment"
+    renderer: NewTable.CrudActions
 
 
 

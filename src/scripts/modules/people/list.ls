@@ -10,6 +10,8 @@ require! {
   './CreatePersonModal.ls'
 
   '../../components/Header.ls'
+
+  '../../components/SemanticModal.ls'
 }
 Dom = React.DOM
 {div, h3, span, a} = Dom
@@ -35,7 +37,8 @@ cols =
         "Student"
 
   * display: 'Actions'
-    renderer: ActionRenderer
+    resource-type: "person"
+    renderer: NewTable.CrudActions
     link-to: "people"
     class-name: 'col-md-3'
 
@@ -47,14 +50,18 @@ PeopleList = React.create-class do
     api.person.find!
     .then ~>
       @set-state people: it[0]
+  modal: ->
+    CreatePersonModal null
 
   render: ->
     div null,
       Header title: "All People"
       div class-name: "main",
         div class-name: "ui toolbar menu inverted black block header",
+          div null
           div class-name:"right menu",
-            a class-name: "item", "Create"
+            SemanticModal.ModalTrigger modal: @modal!,
+              a class-name: "item", "Create"
         Grid columns: cols, data: @state.people
 
 module.exports = PeopleList

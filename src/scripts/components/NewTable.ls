@@ -2,11 +2,13 @@ require! {
   React: 'react'
   #EventEmitter2.EventEmitter2
   p: 'prelude-ls'
+
+  "../api/api.ls"
   "../utils.ls"
 }
 
 Dom = React.DOM
-{div, table, thead, tr, tbody, td, th, span, input, button, pre} = Dom
+{div, a, i, table, thead, tr, tbody, td, th, span, input, button, pre} = Dom
 
 ## Get a nested key.
 get = (obj, prop) ->
@@ -59,7 +61,7 @@ Grid = React.create-class do
                   column: column
                   value: get row, column.key || ""
                 ## Row Cell
-                td key: "cell-#rowI-#columnI" class-name: "#{column.td-class-name}",
+                td key: "cell-#rowI-#columnI" class-name: "#{column.td-class-name || " "}",
                   result
 
   ## Responsible for getting the renderer set
@@ -96,12 +98,10 @@ StringRenderer = React.create-class do
     val = format-val(@props.value, @props.column.format)
     if @state.editing
       div null,
-        div class-name:"ui action input",
+        div class-name:"ui action input small",
           input type: "text", value: val, onChange: @handleChange
-          div class-name: "ui button", on-click: @toggle,
+          div class-name: "ui button tiny", on-click: @toggle,
             "x"
-        #button onClick: @toggle,
-        #  "x"
     else
       div onClick: @toggle,
         val
@@ -110,6 +110,21 @@ StringRenderer = React.create-class do
     #disable editing
     @setState editing: not @state.editing
 
+
+
+
+
+CrudActions = React.create-class do
+  display-name: "CrudActions"
+  delete: (e)->
+    e.prevent-default!
+    api.[@props.column.resource-type].del @props.row.id
+
+  render: ->
+    a class-name: "ui icon button tiny" on-click: @delete,
+      i class-name: "icon trash red"
+
 module.exports =
   Grid: Grid
+  CrudActions: CrudActions
   StringRenderer: StringRenderer

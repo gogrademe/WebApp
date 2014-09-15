@@ -22,7 +22,7 @@ AssignmentType = React.create-class do
   render-options: ->
     if @state.types
       @state.types.map (item, rId) ->
-        Option key: rId, value: item.id, label: "#{item.name} | Weight #{item.weight}"
+        Option key: rId, value: item.id, label: "#{item.name}"
     else
       div null,
         "Loading..."

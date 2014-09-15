@@ -7,12 +7,10 @@ require! {
   "../../api/api.ls"
   "../../utils.ls"
 
-  #"../../components/src/modules/Dropdown.ls"
   "../../components/autocomplete.ls"
 
   "../../components/AutocompleteFor.ls"
 
-  Nav: './nav.ls'
   Header: '../../components/Header.ls'
 
 }

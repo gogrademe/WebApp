@@ -179,6 +179,7 @@ ClassDetail = React.create-class do
       td-class-name: "positive"
       renderer: GradeAverage
 
+
     cols
 
   build-data: ->
