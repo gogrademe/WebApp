@@ -35,6 +35,7 @@ module.exports =
           Route name: "class.detail" title: "Grades" path: "class/:termId/:resourceId" handler: Classes.Detail
           Route name: "class.students" title: "Students" path: "class/:termId/:resourceId/students" handler: Classes.Students
           Route name: "class.assignments" title: "Assignments" path: "class/:termId/:resourceId/assignments" handler: Classes.Assignments
+          Route name: "class.assignments.grades" title: "Assignment Grades" path: "class/:termId/:resourceId/assignments/:assignmentID" handler: Classes.Assignments
           Route name: "class.settings" title: "Settings" path: "class/:termId/:resourceId/settings" handler: Classes.Settings
         Route name:"dashboard" title: "Dashboard" handler: DashboardModule
         Route name:"" path:"*" handler: NotFoundModule
