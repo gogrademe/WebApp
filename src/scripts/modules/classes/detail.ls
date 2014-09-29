@@ -62,70 +62,6 @@ GradeAverage = React.create-class do
     div {},
       "#{@calc-grade!} | #{@calc-ib-grade @calc-grade!} | #{@calc-us-letter-grade @calc-grade!}"
 
-GradeInput = React.create-class do
-  get-initial-state: ->
-    initial-value: @props.value
-    value: @props.value
-    grade-id: @props.row.assignments[@props.column.assignment-id].grade?.id
-    max-score: @props.row.assignments[@props.column.assignment-id].assignment.type.max-score
-    loading: false
-    error: false
-
-  on-change: ->
-    @set-state value: it
-
-  change-loading: (loading, error)->
-    set-timeout do
-      @set-state.bind @, loading: loading, error: error || false
-      300ms
-
-  save-change: ->
-    it.prevent-default!
-    if @state.initial-value !== @state.value
-      data =
-        student-id: @props.row.student.id
-        assignment-id: @props.column.assignment-id
-        grade: @state.value
-
-      @set-state loading: true
-
-      if !@state.grade-id
-        api.grade.create data
-          .then ~>
-            @change-loading false
-          .catch ~>
-            @refs.grade-input.get-inputDOM-Node!.focus!
-            @change-loading false, true
-      else
-        api.grade.update @state.grade-id, data
-          .then ~>
-            @change-loading false
-          .catch ~>
-            @refs.grade-input.getDOMNode!.focus!
-            @change-loading false, true
-
-  render: ->
-    render-icon = ~>
-      if @state.loading
-        i class-name: "spinner loading icon"
-      else if @state.error
-        i class-name: "red circular inverted attention sign icon"
-      else
-        i class-name: "icon",
-          " / #{@state.max-score}"
-
-    div class-name: "ui icon input #{'error' if @state.error}",
-      Form.Input do
-        ref: "gradeInput"
-        type: "text"
-        class-name: "grade"
-        placeholder: "Score"
-        on-blur: @save-change
-        value: @state.value
-        on-change: @on-change
-
-      render-icon!
-
 ClassDetail = React.create-class do
   displayName: "ClassDetail"
   get-initial-state: ->
@@ -167,11 +103,8 @@ ClassDetail = React.create-class do
     ]
     for x in @state.assignments
       cols.push do
-        assignment-id: x.id
         key: "assignments.#{x.id}.grade.grade"
         display: "#{x.name}"
-        renderer: GradeInput
-        change-handler: @handle-grade-change
 
     cols.push do
       display: "Avg - IB - US"
@@ -179,8 +112,7 @@ ClassDetail = React.create-class do
       td-class-name: "positive"
       renderer: GradeAverage
 
-
-    cols
+    return cols
 
   build-data: ->
     for x in @state.students

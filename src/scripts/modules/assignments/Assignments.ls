@@ -13,6 +13,7 @@ require! {
   "../../api/api.ls"
 
   Nav: '../classes/nav.ls'
+  Link: 'react-router'.Link
 
   './AssignmentsModal.ls'
 
@@ -23,20 +24,18 @@ Dom = React.DOM
 
 {Grid, StringRenderer} = NewTable
 
-
-AssignmentActions = React.create-class do
-  delete: (e)->
-    e.prevent-default!
-    api.assignment.del @props.row.id
-
+AssignmentLink = React.create-class do
+  display-name: "AssignmentLink"
   render: ->
-    button class-name: "ui button red tiny" on-click: @delete,
-      "Delete"
+    div null,
+      Link to: "class.assignments.grades", termId: @props.row.term-id, resourceId: "test", assignmentID: @props.row.id,
+        @props.value
 
 assignment-cols =
   * key: 'name'
     display: 'Name'
     class-name: 'assignment.student'
+    renderer: AssignmentLink
 
   * key: 'dueDate'
     display: 'Due Date'

@@ -124,7 +124,20 @@ CrudActions = React.create-class do
     a class-name: "ui icon button tiny" on-click: @delete,
       i class-name: "icon trash red"
 
+
+CellLink = React.create-class do
+  display-name: "CellLink"
+
+  render: ->
+    link-to = @props.column.link-to
+
+    div null,
+      Link to: link-to, termId: term-id, resourceId: @props.row.id,
+        @props.value
+
+
 module.exports =
   Grid: Grid
   CrudActions: CrudActions
   StringRenderer: StringRenderer
+  CellLink: CellLink
