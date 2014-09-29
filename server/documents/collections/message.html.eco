@@ -6,7 +6,7 @@ element     : 'message'
 elementType : 'collection'
 
 title       : 'Message'
-description : 'A message displays information a user must immediately consider before proceeding to the contents of a page.'
+description : 'A message displays information that should be read before proceeding to other nearby content.'
 type        : 'UI Collection'
 
 themes      : ['Default', 'GitHub', 'Google']
@@ -16,14 +16,6 @@ themes      : ['Default', 'GitHub', 'Google']
 
 <div class="main container">
 
-  <div class="peek">
-    <div class="ui vertical pointing secondary menu">
-      <a class="active item">Types</a>
-      <a class="item">States</a>
-      <a class="item">Variations</a>
-    </div>
-  </div>
-
   <h2 class="ui dividing header">Types</h2>
 
   <div class="example">
@@ -31,14 +23,9 @@ themes      : ['Default', 'GitHub', 'Google']
     <p>A basic message</p>
     <div class="ui message">
       <div class="header">
-        Welcome back!
+        Changes in Service
       </div>
-      <p>
-        It's good to see you again. I have had a lot to think about since our last visit, I've changed much as a person and I can see that you have too.
-      </p>
-      <p>
-        Perhaps we can talk about it if you have the time.
-      </p>
+      <p>We just updated our privacy policy here to better service our customers. We recommend reviewing the changes.</p>
     </div>
   </div>
 
@@ -290,6 +277,5 @@ themes      : ['Default', 'GitHub', 'Google']
     </div>
   </div>
 
-  </div>
-
 </div>
+

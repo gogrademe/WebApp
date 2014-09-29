@@ -4,19 +4,17 @@
 
 @sidebarWidth: 260px;
 @sidebarBackground: @black;
-@sidebarTransition: transform 0.5s linear;
 
 @dimmerColor: rgba(0, 0, 0, 0.4);
 
 @canvasBackground: @lightBlack;
-@pageBackground: @bodyBackground;
 @perspective: 1500px;
 
 @duration: 0.5s;
 @easing: ease;
 
-@bottomLayer: 1001;
-@middleLayer: 1002;
-@dimmerLayer: 1003;
-@topLayer: 1005;
-@fixedLayer: 1006;
+@bottomLayer: 900;
+@middleLayer: 901;
+@dimmerLayer: 902;
+@fixedLayer: 903;
+@topLayer: 904;

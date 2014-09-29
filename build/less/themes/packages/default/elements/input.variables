@@ -11,15 +11,15 @@
 @verticalPadding: 0.8em;
 @horizontalPadding: 1em;
 @lineHeight: 1.2em;
-@lineOffset: ((@lineHeight - 1em) / 2);
-@padding: (@verticalPadding - @lineOffset) @horizontalPadding;
+@padding: (@verticalPadding - @lineHeightOffset) @horizontalPadding;
 
+@textAlign: left;
 @background: #FFFFFF;
 @borderWidth: 1px;
 @border: @borderWidth solid rgba(0, 0, 0, 0.15);
 @boxShadow: none;
 
-@borderRadius: 0.3125em;
+@borderRadius: 0.325em;
 @transition:
   background-color 0.3s ease-out,
   box-shadow 0.2s ease,
@@ -36,15 +36,13 @@
 @glyphWidth: 1.25em;
 @iconWidth: (@verticalPadding * 2) + @glyphWidth;
 @iconOpacity: 0.5;
-@iconOffset: 0.9em;
 @iconFocusOpacity: 1;
-@iconSpacing: 0.5em;
+@iconSpacing: 0em;
 @iconMargin: @iconWidth + @iconSpacing;
-@iconTransition: opacity 0.3s ease-out;
+@iconTransition: opacity 0.3s @defaultEasing;
 
 @transparentIconWidth: @glyphWidth;
-@transparentIconOffset: @lineOffset;
-@transparentIconMargin: @transparentIconWidth + @iconSpacing;
+@transparentIconMargin: 1.75em;
 
 /* Circular Icon Input */
 @circularIconVerticalOffset: 0.35em;
@@ -79,7 +77,7 @@
 /* Focus */
 @focusBorderColor: @selectedBorderColor;
 @focusBackground: '';
-@focusColor: @selectedTextColor;
+@focusColor: @hoveredTextColor;
 @focusBoxShadow: none;
 
 /* Error */

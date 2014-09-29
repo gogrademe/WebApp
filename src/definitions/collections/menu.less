@@ -34,23 +34,20 @@
   box-shadow: @boxShadow;
   border-radius: @borderRadius;
 }
+
+.ui.menu:after {
+  content: '';
+  display: block;
+  height: 0px;
+  clear: both;
+  visibility: hidden;
+}
+
 .ui.menu:first-child {
   margin-top: 0rem;
 }
 .ui.menu:last-child {
   margin-bottom: 0rem;
-}
-
-.ui.menu:after {
-  content: ".";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-
-.ui.menu > .item:first-child {
-  border-radius: @borderRadius 0px 0px @borderRadius;
 }
 
 /*--------------
@@ -71,10 +68,6 @@
   color: @darkTextColor;
 }
 
-/* Active */
-.ui.menu .active.item {
-  color: @selectedTextColor;
-}
 
 /*--------------
       Items
@@ -102,6 +95,9 @@
 }
 
 /* Floated Content */
+.ui.menu > .item:first-child {
+  border-radius: @borderRadius 0px 0px @borderRadius;
+}
 .ui.menu:not(.vertical) .item.left,
 .ui.menu:not(.vertical) .menu.left {
   float: left;
@@ -174,11 +170,9 @@
 .ui.menu:not(.vertical) .item > .button {
   position: relative;
   top: @buttonOffset;
-
   margin: -@buttonVerticalPadding 0;
   padding-bottom: @buttonVerticalPadding;
   padding-top: @buttonVerticalPadding;
-
   font-size: @buttonSize;
 }
 
@@ -187,32 +181,18 @@
      Inputs
 ---------------*/
 
+.ui.menu .item > .input {
+  width: 100%;
+}
 .ui.menu:not(.vertical) .item > .input {
   position: relative;
   top: @inputOffset;
-
   margin: @inputVerticalMargin 0em;
-
-  padding-top: @inputIconOffset;
-  padding-bottom: @inputIconOffset;
-
-  width: 100%;
 }
-.ui.menu:not(.vertical) .item > .icon.input .icon {
-  top: @inputIconOffset;
-}
-.ui.menu:not(.vertical) .item > .transparent.icon.input .icon {
-  top: @inputVerticalPadding;
-}
-.ui.menu:not(.vertical) .item > .input input {
+.ui.menu .item > .input input {
   font-size: @inputSize;
   padding-top: @inputVerticalPadding;
   padding-bottom: @inputVerticalPadding;
-}
-
-/* Labeled Button */
-.ui.menu:not(.vertical) .item > .labeled.button > .icon {
-  padding-top: @labeledButtonPadding;
 }
 
 /* Action Input */
@@ -222,21 +202,21 @@
 }
 
 /* Resizes */
-.ui.small.menu:not(.vertical) .item > .input input {
+.ui.small.menu .item > .input input {
   top: @smallInputOffset;
   padding-top: @smallInputVerticalPadding;
   padding-bottom: @smallInputVerticalPadding;
 }
-.ui.large.menu:not(.vertical) .item > .input input {
+.ui.large.menu .item > .input input {
   top: @largeInputOffset;
   padding-bottom: @largeInputVerticalPadding;
   padding-top: @largeInputVerticalPadding;
 }
 
-.ui.large.menu:not(.vertical) .item .action.input > .button {
+.ui.large.menu .item .action.input > .button {
   padding: 0.9em;
 }
-.ui.large.menu:not(.vertical) .item .action.input > .button > .icon {
+.ui.large.menu .item .action.input > .button > .icon {
   padding-top: 0.8em;
 }
 
@@ -272,10 +252,10 @@
   background: @dropdownBackground;
   left: 0px;
   margin: @dropdownMenuOffset 0px 0px;
-  min-width: calc(100% - 1px);
+  min-width: ~"calc(100% - 1px)";
   box-shadow: @dropdownBoxShadow;
 }
-.ui.menu .pointing.dropdown.item .menu {
+.ui.menu:not(.secondary) .pointing.dropdown.item .menu {
   margin-top: @dropdownPointingDistance;
   border-top-left-radius: 0em;
   border-top-right-radius: 0em;
@@ -362,7 +342,7 @@
 
 .ui.menu .active.item  {
   background: @activeBackground;
-  color: @darkTextColor;
+  color: @selectedTextColor;
   font-weight: @activeFontWeight;
   box-shadow: 0em @activeBorderSize 0em inset;
 }
@@ -416,7 +396,7 @@
 
 
 /*--------------------
-     Loading
+       Loading
 ---------------------*/
 
 /* On Form */
@@ -524,10 +504,10 @@
 }
 
 /*--- Sub Menu ---*/
-.ui.vertical.menu .item > .menu {
+.ui.vertical.menu .item:not(.dropdown) > .menu {
   margin: @subMenuMargin -@horizontalPadding 0em;
 }
-.ui.vertical.menu .item > .menu > .item {
+.ui.vertical.menu .item:not(.dropdown) > .menu > .item {
   background: none;
   padding: @subMenuHorizontalPadding @subMenuVerticalPadding;
   font-size: @subMenuFontSize;
@@ -608,7 +588,7 @@
   color: @invertedLightTextColor;
 }
 .ui.inverted.tiered.menu > .menu > .item:hover {
-  color: @invertedSelectedTextColor;
+  color: @invertedHoveredTextColor;
 }
 .ui.inverted.tiered.menu .active.item:after {
   display: none;
@@ -657,7 +637,7 @@
 /* Hover */
 .ui.tabular.menu .item:hover {
   background-color: transparent;
-  color: @selectedTextColor;
+  color: @hoveredTextColor;
 }
 
 /* Active */
@@ -686,11 +666,6 @@
   margin: 0px 0px 0px 1px;
 }
 
-/* Coupling with accordion */
-.ui.accordion.menu .item .title > i.dropdown.icon {
-  float: @dropdownIconFloat;
-  margin-left: @dropdownIconDistance;
-}
 
 
 /*--------------

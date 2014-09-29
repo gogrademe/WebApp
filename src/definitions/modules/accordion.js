@@ -11,6 +11,8 @@
 
 ;(function ($, window, document, undefined) {
 
+"use strict";
+
 $.fn.accordion = function(parameters) {
   var
     $allModules     = $(this),
@@ -114,10 +116,12 @@ $.fn.accordion = function(parameters) {
           }
         },
 
-        toggle: function(index) {
+        toggle: function(query) {
           var
-            $activeTitle = (index)
-              ? $title.eq(index)
+            $activeTitle = (query !== undefined)
+              ? (typeof query === 'number')
+                ? $title.eq(query)
+                : $(query)
               : $(this),
             $activeContent = $activeTitle.next($content),
             contentIsOpen  = $activeContent.is(':visible')
@@ -136,15 +140,18 @@ $.fn.accordion = function(parameters) {
           }
         },
 
-        open: function(index) {
+        open: function(query) {
           var
-            $activeTitle = (index)
-              ? $title.eq(index)
+            $activeTitle = (query !== undefined)
+              ? (typeof query === 'number')
+                ? $title.eq(query)
+                : $(query)
               : $(this),
             $activeContent     = $activeTitle.next($content),
-            currentlyAnimating = $activeContent.is(':animated')
+            currentlyAnimating = $activeContent.is(':animated'),
+            currentlyActive    = $activeContent.hasClass(className.active)
           ;
-          if(!currentlyAnimating) {
+          if(!currentlyAnimating && !currentlyActive) {
             module.debug('Opening accordion content', $activeTitle);
             if(settings.exclusive) {
               $.proxy(module.closeOthers, $activeTitle)();
@@ -165,45 +172,50 @@ $.fn.accordion = function(parameters) {
                   .addClass(className.active)
                 ;
                 $.proxy(module.reset.display, this)();
-                $.proxy(settings.onOpen, $activeContent)();
-                $.proxy(settings.onChange, $activeContent)();
+                $.proxy(settings.onOpen, element)();
+                $.proxy(settings.onChange, element)();
               })
             ;
           }
         },
 
-        close: function(index) {
+        close: function(query) {
           var
-            $activeTitle = (index)
-              ? $title.eq(index)
+            $activeTitle = (query !== undefined)
+              ? (typeof query === 'number')
+                ? $title.eq(query)
+                : $(query)
               : $(this),
-            $activeContent = $activeTitle.next($content)
+            $activeContent = $activeTitle.next($content),
+            isActive       = $activeContent.hasClass(className.active)
           ;
-          module.debug('Closing accordion content', $activeContent);
-          $activeTitle
-            .removeClass(className.active)
-          ;
-          $activeContent
-            .removeClass(className.active)
-            .show()
-            .stop()
-            .children()
+          if(isActive) {
+            module.debug('Closing accordion content', $activeContent);
+            $activeTitle
+              .removeClass(className.active)
+            ;
+            $activeContent
+              .removeClass(className.active)
+              .show()
               .stop()
-              .animate({
-                opacity: 0
-              }, settings.duration, module.reset.opacity)
-              .end()
-            .slideUp(settings.duration, settings.easing, function() {
-              $.proxy(module.reset.display, this)();
-              $.proxy(settings.onClose, $activeContent)();
-              $.proxy(settings.onChange, $activeContent)();
-            })
-          ;
+              .children()
+                .stop()
+                .animate({
+                  opacity: 0
+                }, settings.duration, module.reset.opacity)
+                .end()
+              .slideUp(settings.duration, settings.easing, function() {
+                $.proxy(module.reset.display, this)();
+                $.proxy(settings.onClose, element)();
+                $.proxy(settings.onChange, element)();
+              })
+            ;
+          }
         },
 
         closeOthers: function(index) {
           var
-            $activeTitle = (index)
+            $activeTitle = (index !== undefined)
               ? $title.eq(index)
               : $(this),
             $parentTitles    = $activeTitle.parents(selector.content).prev(selector.title),
@@ -212,7 +224,6 @@ $.fn.accordion = function(parameters) {
             $openContents    = $openTitles.next($content),
             contentIsOpen    = ($openTitles.size() > 0)
           ;
-
           if(contentIsOpen) {
             module.debug('Exclusive enabled, closing other content', $openTitles);
             $openTitles

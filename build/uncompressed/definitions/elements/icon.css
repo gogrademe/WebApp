@@ -56,7 +56,7 @@
         Import Directives
 *******************************/
 /*------------------
-     Load Default
+    Load Defaults
 -------------------*/
 /*******************************
          Site Settings
@@ -71,9 +71,11 @@
       Site Colors
 --------------------*/
 /*---  Colors  ---*/
+/*---  Light Colors  ---*/
 /*-------------------
         Page
 --------------------*/
+/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -95,7 +97,6 @@
 /*-------------------
        Easing
 --------------------*/
-/*---  Light Variations  ---*/
 /*---   Neutrals  ---*/
 /*--- Colored Backgrounds ---*/
 /*--- Colored Text ---*/
@@ -104,7 +105,6 @@
     Emotive Colors
 --------------------*/
 /* Mood */
-/* Solid Background Color */
 /* Status */
 /* Darkened Headers */
 /*-------------------
@@ -168,7 +168,7 @@
     User Variable Overrides
 *******************************/
 /*------------------
- Override Mix-in
+   Override Loader
 -------------------*/
 /*******************************
              Icon
@@ -200,6 +200,9 @@ i.icon {
   -moz-osx-font-smoothing: grayscale;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
+}
+i.icon:before {
+  background: none !important;
 }
 /*******************************
              Types
@@ -256,8 +259,8 @@ i.icon.disabled {
 i.link.icon {
   cursor: pointer;
   opacity: 0.75;
-  -webkit-transition: opacity 0.25s ease;
-          transition: opacity 0.25s ease;
+  -webkit-transition: opacity 0.2s ease;
+          transition: opacity 0.2s ease;
 }
 i.link.icon:hover {
   opacity: 1 !important;
@@ -328,31 +331,31 @@ i.white.icon {
   color: #ffffff !important;
 }
 i.black.icon {
-  color: #191919 !important;
+  color: #1b1c1d !important;
 }
 i.blue.icon {
-  color: #0074d9 !important;
+  color: #3b83c0 !important;
 }
 i.green.icon {
-  color: #2ecc40 !important;
+  color: #5bbd72 !important;
 }
 i.orange.icon {
-  color: #ff851b !important;
+  color: #e07b53 !important;
 }
 i.pink.icon {
   color: #d9499a !important;
 }
 i.purple.icon {
-  color: #a24096 !important;
+  color: #564f8a !important;
 }
 i.red.icon {
-  color: #ff4136 !important;
+  color: #d95c5c !important;
 }
 i.teal.icon {
-  color: #39cccc !important;
+  color: #00b5ad !important;
 }
 i.yellow.icon {
-  color: #ffcb08 !important;
+  color: #f2c61f !important;
 }
 /*-------------------
       Inverted
@@ -393,19 +396,19 @@ i.inverted.circular.icon {
   color: #FFFFFF !important;
 }
 i.inverted.circular.black.icon {
-  background-color: #191919 !important;
+  background-color: #1b1c1d !important;
   color: #FFFFFF !important;
 }
 i.inverted.circular.blue.icon {
-  background-color: #0074d9 !important;
+  background-color: #3b83c0 !important;
   color: #FFFFFF !important;
 }
 i.inverted.circular.green.icon {
-  background-color: #2ecc40 !important;
+  background-color: #5bbd72 !important;
   color: #FFFFFF !important;
 }
 i.inverted.circular.orange.icon {
-  background-color: #ff851b !important;
+  background-color: #e07b53 !important;
   color: #FFFFFF !important;
 }
 i.inverted.circular.pink.icon {
@@ -413,19 +416,19 @@ i.inverted.circular.pink.icon {
   color: #FFFFFF !important;
 }
 i.inverted.circular.purple.icon {
-  background-color: #a24096 !important;
+  background-color: #564f8a !important;
   color: #FFFFFF !important;
 }
 i.inverted.circular.red.icon {
-  background-color: #ff4136 !important;
+  background-color: #d95c5c !important;
   color: #FFFFFF !important;
 }
 i.inverted.circular.teal.icon {
-  background-color: #39cccc !important;
+  background-color: #00b5ad !important;
   color: #FFFFFF !important;
 }
 i.inverted.circular.yellow.icon {
-  background-color: #ffcb08 !important;
+  background-color: #f2c61f !important;
   color: #FFFFFF !important;
 }
 /*-------------------
@@ -1835,11 +1838,11 @@ i.icon.wechat:before {
 i.icon.like:before {
   content: "\f004";
 }
+i.icon.favorite:before {
+  content: "\f005";
+}
 i.icon.video:before {
   content: "\f008";
-}
-i.icon.sidebar:before {
-  content: "\f00b";
 }
 i.icon.check:before {
   content: "\f00c";
@@ -2032,6 +2035,9 @@ i.icon.group:before {
 }
 i.icon.flask:before {
   content: "\f0c3";
+}
+i.icon.sidebar:before {
+  content: "\f0c9";
 }
 i.icon.bars:before {
   content: "\f0c9";

@@ -3,34 +3,58 @@ semantic.home = {};
 // ready event
 semantic.home.ready = function() {
 
-  // selector cache
   var
-    $navigationItem = $('.demo .menu .item'),
-    $oddballItem    = $navigationItem.filter('.oddball')
-  ;
-  $.fn.transition.settings.debug = true;
-  $('.kitten.image')
-    .transition('internal', 'debug', function() {
-      $('.console')
-        .append(arguments[0] + "\n")
-        // scroll to bottom
-        .prop('scrollTop', $('.console').prop('scrollHeight') )
-      ;
-    })
+    $themeDropdown = $('.theme.dropdown'),
+    $header        = $('.masthead'),
+    $ui            = $header.find('h1 b'),
+    $phrase        = $header.find('h1 span'),
+    $download      = $header.find('.download')
   ;
 
-  $navigationItem
-    .tab()
+  $themeDropdown
+    .dropdown('setting', 'transition', 'drop')
+    .dropdown('setting', 'duration', 350)
+    .dropdown('setting', 'action', 'activate')
   ;
-  $oddballItem
-    .on('click', function() {
-      $(this)
-        .tab('deactivate all')
-        .tab('activate tab', 'third')
-        .tab('activate navigation', 'third')
-      ;
-    })
+
+  // zoom out
+  $header
+    .removeClass('zoomed')
   ;
+
+  window.Transifex.live.onTranslatePage(function(name){
+    name = $('.language.dropdown .item[data-value=' + name + ']').text();
+    $('.language.dropdown > .text').html(name);
+  });
+
+  $ui.typed({
+    replaceBaseText : true,
+    strings         : [
+      $ui.data('text')
+    ],
+    showCursor      : false,
+    typeSpeed       : 120,
+    backSpeed       : 120,
+    backDelay       : 500
+  });
+  setTimeout(function() {
+    $('.masthead .library').transition('scale up', 1000);
+  }, 5000);
+
+  $('.demo .ui.accordion')
+    .accordion()
+  ;
+
+  $('.demo .ui.dropdown')
+    .dropdown()
+  ;
+  $('.demo .ui.checkbox')
+    .checkbox()
+  ;
+  $('.ui.sidebar')
+    .sidebar('setting', 'transition', 'scale down')
+  ;
+
 };
 
 

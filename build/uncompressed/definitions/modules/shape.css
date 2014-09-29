@@ -43,7 +43,7 @@
         Import Directives
 *******************************/
 /*------------------
-     Load Default
+    Load Defaults
 -------------------*/
 /*******************************
          Site Settings
@@ -58,9 +58,11 @@
       Site Colors
 --------------------*/
 /*---  Colors  ---*/
+/*---  Light Colors  ---*/
 /*-------------------
         Page
 --------------------*/
+/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -82,7 +84,6 @@
 /*-------------------
        Easing
 --------------------*/
-/*---  Light Variations  ---*/
 /*---   Neutrals  ---*/
 /*--- Colored Backgrounds ---*/
 /*--- Colored Text ---*/
@@ -91,7 +92,6 @@
     Emotive Colors
 --------------------*/
 /* Mood */
-/* Solid Background Color */
 /* Status */
 /* Darkened Headers */
 /*-------------------
@@ -158,7 +158,7 @@
     User Variable Overrides
 *******************************/
 /*------------------
- Override Mix-in
+   Override Loader
 -------------------*/
 /*******************************
               Shape

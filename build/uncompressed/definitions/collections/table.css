@@ -43,7 +43,7 @@
         Import Directives
 *******************************/
 /*------------------
-     Load Default
+    Load Defaults
 -------------------*/
 /*******************************
          Site Settings
@@ -58,9 +58,11 @@
       Site Colors
 --------------------*/
 /*---  Colors  ---*/
+/*---  Light Colors  ---*/
 /*-------------------
         Page
 --------------------*/
+/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -82,7 +84,6 @@
 /*-------------------
        Easing
 --------------------*/
-/*---  Light Variations  ---*/
 /*---   Neutrals  ---*/
 /*--- Colored Backgrounds ---*/
 /*--- Colored Text ---*/
@@ -91,7 +92,6 @@
     Emotive Colors
 --------------------*/
 /* Mood */
-/* Solid Background Color */
 /* Status */
 /* Darkened Headers */
 /*-------------------
@@ -186,7 +186,7 @@
     User Variable Overrides
 *******************************/
 /*------------------
- Override Mix-in
+   Override Loader
 -------------------*/
 /*******************************
              Table
@@ -460,19 +460,19 @@
        Colors
 --------------------*/
 .ui.black.table {
-  border-top: 0.2em solid #191919;
+  border-top: 0.2em solid #1b1c1d;
   border-radius: 0em 0em 0.25rem 0.25rem;
 }
 .ui.blue.table {
-  border-top: 0.2em solid #0074d9;
+  border-top: 0.2em solid #3b83c0;
   border-radius: 0em 0em 0.25rem 0.25rem;
 }
 .ui.green.table {
-  border-top: 0.2em solid #2ecc40;
+  border-top: 0.2em solid #5bbd72;
   border-radius: 0em 0em 0.25rem 0.25rem;
 }
 .ui.orange.table {
-  border-top: 0.2em solid #ff851b;
+  border-top: 0.2em solid #e07b53;
   border-radius: 0em 0em 0.25rem 0.25rem;
 }
 .ui.pink.table {
@@ -480,19 +480,19 @@
   border-radius: 0em 0em 0.25rem 0.25rem;
 }
 .ui.purple.table {
-  border-top: 0.2em solid #a24096;
+  border-top: 0.2em solid #564f8a;
   border-radius: 0em 0em 0.25rem 0.25rem;
 }
 .ui.red.table {
-  border-top: 0.2em solid #ff4136;
+  border-top: 0.2em solid #d95c5c;
   border-radius: 0em 0em 0.25rem 0.25rem;
 }
 .ui.teal.table {
-  border-top: 0.2em solid #39cccc;
+  border-top: 0.2em solid #00b5ad;
   border-radius: 0em 0em 0.25rem 0.25rem;
 }
 .ui.yellow.table {
-  border-top: 0.2em solid #ffcb08;
+  border-top: 0.2em solid #f2c61f;
   border-radius: 0em 0em 0.25rem 0.25rem;
 }
 /*-------------------
@@ -500,22 +500,22 @@
 --------------------*/
 .ui.inverted.table,
 .ui.inverted.black.table {
-  background-color: #191919 !important;
+  background-color: #1b1c1d !important;
   border-radius: 0.25rem;
   color: #ffffff !important;
 }
 .ui.inverted.blue.table {
-  background-color: #0074d9 !important;
+  background-color: #3b83c0 !important;
   border-radius: 0.25rem;
   color: #ffffff !important;
 }
 .ui.inverted.green.table {
-  background-color: #2ecc40 !important;
+  background-color: #5bbd72 !important;
   border-radius: 0.25rem;
   color: #ffffff !important;
 }
 .ui.inverted.orange.table {
-  background-color: #ff851b !important;
+  background-color: #e07b53 !important;
   border-radius: 0.25rem;
   color: #ffffff !important;
 }
@@ -525,22 +525,22 @@
   color: #ffffff !important;
 }
 .ui.inverted.purple.table {
-  background-color: #a24096 !important;
+  background-color: #564f8a !important;
   border-radius: 0.25rem;
   color: #ffffff !important;
 }
 .ui.inverted.red.table {
-  background-color: #ff4136 !important;
+  background-color: #d95c5c !important;
   border-radius: 0.25rem;
   color: #ffffff !important;
 }
 .ui.inverted.teal.table {
-  background-color: #39cccc !important;
+  background-color: #00b5ad !important;
   border-radius: 0.25rem;
   color: #ffffff !important;
 }
 .ui.inverted.yellow.table {
-  background-color: #ffcb08 !important;
+  background-color: #f2c61f !important;
   border-radius: 0.25rem;
   color: #ffffff !important;
 }
@@ -678,7 +678,7 @@
 .ui.sortable.table thead th {
   cursor: pointer;
   white-space: nowrap;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
 }
 .ui.sortable.table thead th:first-child {
   border-left: none;
@@ -694,6 +694,7 @@
   display: inline-block;
   content: '';
   width: 1em;
+  height: 1em;
   opacity: 0.8;
   margin: 0em 0em 0em 0.5em;
   font-family: 'Icons';
@@ -773,7 +774,7 @@
 ---------------*/
 .ui.basic.table {
   background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   box-shadow: none;
 }
 .ui.basic.table thead,
@@ -794,17 +795,17 @@
   background-color: rgba(0, 0, 0, 0.05) !important;
 }
 /* Very Basic */
-.ui.very.basic.table {
+.ui[class*="very basic"].table {
   border: none;
 }
-.ui.very.basic.table:not(.sortable):not(.striped) th,
-.ui.very.basic.table:not(.sortable):not(.striped) td {
+.ui[class*="very basic"].table:not(.sortable):not(.striped) th,
+.ui[class*="very basic"].table:not(.sortable):not(.striped) td {
   padding: 0.8em 0em;
 }
-.ui.very.basic.table:not(.sortable):not(.striped) thead th {
+.ui[class*="very basic"].table:not(.sortable):not(.striped) thead th {
   padding-top: 0em;
 }
-.ui.very.basic.table:not(.sortable):not(.striped) tbody tr:last-child td {
+.ui[class*="very basic"].table:not(.sortable):not(.striped) tbody tr:last-child td {
   padding-bottom: 0em;
 }
 /*--------------
@@ -819,11 +820,11 @@
   padding: 1em 1em;
 }
 /* Very */
-.ui.very.padded.table th {
+.ui[class*="very padded"].table th {
   padding-left: 1.5em;
   padding-right: 1.5em;
 }
-.ui.very.padded.table td {
+.ui[class*="very padded"].table td {
   padding: 1.5em 1.5em;
 }
 /*--------------
@@ -837,11 +838,11 @@
   padding: 0.5em 0.7em;
 }
 /* Very */
-.ui.very.compact.table th {
+.ui[class*="very compact"].table th {
   padding-left: 0.6em;
   padding-right: 0.6em;
 }
-.ui.very.compact.table td {
+.ui[class*="very compact"].table td {
   padding: 0.4em 0.6em;
 }
 /*--------------

@@ -26,16 +26,11 @@
 .ui.segment {
   position: relative;
   background-color: @background;
-
   box-shadow: @boxShadow;
-
   margin: @margin 0em;
   padding: @verticalPadding @horizontalPadding;
-
   border-radius: @borderRadius;
   border: @border;
-  box-sizing: border-box;
-
 }
 
 .ui.segment:first-child {
@@ -45,14 +40,13 @@
   margin-bottom: 0em;
 }
 
-/* Testing removal
 .ui.segment:after {
   content: '';
   display: block;
   height: 0px;
   clear: both;
   visibility: hidden;
-}*/
+}
 
 .ui.vertical.segment {
   margin: 0em;
@@ -66,6 +60,10 @@
 }
 .ui.vertical.segment:first-child {
   padding-top: 0em;
+}
+.ui.vertical.segment:last-child {
+  padding-bottom: 0em;
+  box-shadow: none;
 }
 
 .ui.horizontal.segment {
@@ -81,6 +79,9 @@
 .ui.horizontal.segment:first-child {
   padding-left: 0em;
 }
+.ui.horizontal.segment:last-child {
+  padding-right: 0em;
+}
 
 /*-------------------
     Loose Coupling
@@ -91,20 +92,25 @@
   top: 1px;
 }
 
+/* Header */
+.ui.inverted.segment > .ui.header {
+  color: @white;
+}
+
 /* Label */
-.ui.bottom.attached.segment > .top.attached.label {
+.ui[class*="bottom attached"].segment > [class*="top attached"].label {
   border-top-left-radius: 0em;
   border-top-right-radius: 0em;
 }
-.ui.top.attached.segment > .bottom.attached.label {
+.ui[class*="top attached"].segment > [class*="bottom attached"].label {
   border-bottom-left-radius: 0em;
   border-bottom-right-radius: 0em;
 }
-.ui.attached.segment:not(.top):not(.bottom) > .top.attached.label {
+.ui.attached.segment:not(.top):not(.bottom) > [class*="top attached"].label {
   border-top-left-radius: 0em;
   border-top-right-radius: 0em;
 }
-.ui.attached.segment:not(.top):not(.bottom) > .bottom.attached.label {
+.ui.attached.segment:not(.top):not(.bottom) > [class*="bottom attached"].label {
   border-bottom-left-radius: 0em;
   border-bottom-right-radius: 0em;
 }
@@ -129,7 +135,7 @@
   border: @border;
   box-shadow: @boxShadow;
 }
-.ui.very.basic.table.segment {
+.ui[class*="very basic"].table.segment {
   padding: @verticalPadding @horizontalPadding;
 }
 
@@ -144,7 +150,8 @@
 
 .ui.piled.segment {
   margin: @piledMargin 0em;
-  box-shadow: @piledBoxShadow
+  box-shadow: @piledBoxShadow;
+  z-index: @piledZIndex;
 }
 .ui.piled.segment:first-child {
   margin-top: 0em;
@@ -156,13 +163,13 @@
 .ui.piled.segment:before {
   background-color: @white;
   visibility: visible;
-  content: "";
+  content: '';
   display: block;
   height: 100%;
-  left: -1px;
+  left: 0px;
   position: absolute;
   width: 100%;
-  box-shadow: @piledBoxShadow
+  box-shadow: @piledBoxShadow;
 }
 .ui.piled.segment:after {
   transform: rotate(@piledDegrees);
@@ -186,17 +193,23 @@
 .ui.stacked.segment:before {
   content: '';
   position: absolute;
-  bottom: -3px;
+  bottom: -(@stackedHeight / 2);
   left: 0%;
 
   border-top: 1px solid @borderColor;
-  background-color: @subtleTransparentBlack;
+  background-color: @stackedPageBackground;
 
   width: 100%;
   height: @stackedHeight;
   visibility: visible;
 }
 .ui.stacked.segment:before {
+  display: none;
+}
+
+/* Add additional page */
+.ui.tall.stacked.segment:before {
+  display: block;
   bottom: 0px;
 }
 
@@ -357,13 +370,13 @@
        Aligned
 --------------------*/
 
-.ui.left.aligned.segment {
+.ui[class*="left aligned"].segment {
   text-align: left;
 }
-.ui.right.aligned.segment {
+.ui[class*="right aligned"].segment {
   text-align: right;
 }
-.ui.center.aligned.segment {
+.ui[class*="center aligned"].segment {
   text-align: center;
 }
 
@@ -372,10 +385,10 @@
 --------------------*/
 
 .ui.floated.segment,
-.ui.left.floated.segment {
+.ui[class*="left floated"].segment {
   float: left;
 }
-.ui.right.floated.segment {
+.ui[class*="right floated"].segment {
   float: right;
 }
 
@@ -443,7 +456,7 @@
   box-shadow: @attachedBoxShadow;
 }
 
-.ui.top.attached.segment {
+.ui[class*="top attached"].segment {
   top: @attachedTopOffset;
   bottom: 0px;
 
@@ -451,11 +464,11 @@
   margin-bottom: 0em;
   border-radius: @borderRadius @borderRadius 0em 0em;
 }
-.ui.segment.top.attached:first-child {
+.ui.segment[class*="top attached"]:first-child {
   margin-top: 0em;
 }
 
-.ui.segment.bottom.attached {
+.ui.segment[class*="bottom attached"] {
   top: @attachedBottomOffset;
   bottom: 0px;
   margin-top: 0em;
@@ -463,7 +476,7 @@
   box-shadow: @attachedBottomBoxShadow;
   border-radius: 0em 0em @borderRadius @borderRadius;
 }
-.ui.segment.bottom.attached:last-child {
+.ui.segment[class*="bottom attached"]:last-child {
   margin-bottom: 0em;
 }
 

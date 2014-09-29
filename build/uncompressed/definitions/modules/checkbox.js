@@ -11,6 +11,8 @@
 
 ;(function ( $, window, document, undefined ) {
 
+"use strict";
+
 $.fn.checkbox = function(parameters) {
   var
     $allModules    = $(this),
@@ -70,6 +72,15 @@ $.fn.checkbox = function(parameters) {
             $label
               .on('click' + eventNamespace, module.toggle)
             ;
+          }
+          if(settings.fireOnInit) {
+            $.proxy(settings.onChange, $input.get())();
+            if( module.is.checked() ) {
+              $.proxy(settings.onChecked, $input.get())();
+            }
+            else {
+              $.proxy(settings.onUnchecked, $input.get())();
+            }
           }
           module.instantiate();
         },
@@ -350,13 +361,15 @@ $.fn.checkbox.settings = {
   name        : 'Checkbox',
   namespace   : 'checkbox',
 
+  debug       : false,
   verbose     : true,
-  debug       : true,
   performance : true,
 
   // delegated event context
   context     : false,
   required    : 'auto',
+
+  fireOnInit  : true,
 
   onChange    : function(){},
   onChecked   : function(){},
