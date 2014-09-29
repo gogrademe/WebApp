@@ -11,7 +11,7 @@ require! {
 
   Link: 'react-router'.Link
 
-  Header: '../../components/Header.ls'
+  Header: '../../components/PageHeader.ls'
   select: '../../components/src/modules/Dropdown.ls'
 }
 Dom = React.DOM
@@ -67,9 +67,8 @@ ClassList = React.create-class do
 
   render: ->
     div null,
-      Header do
-        title: 'All Classes'
-      div class-name: "main",
+      Header primary: 'All Classes'
+      div class-name: "main container",
         div class-name: "ui toolbar menu inverted black block header",
           div class-name:"right menu",
             div class-name:"item",

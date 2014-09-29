@@ -1,5 +1,6 @@
 require! {
   React: 'react'
+  HeaderNav: './components/Header.ls'
   './components/Sidebar.ls'
   './api/api.ls'
   './api/auth.ls'
@@ -15,12 +16,13 @@ App = React.create-class do
   displayName: "App"
 
   logged-in: ->
-    if api.session.get! then Sidebar {}
+    if api.session.get! then HeaderNav {}
 
   render: ->
-    div class-name: "pushed",
+    div null,
       @logged-in {}
       div class-name: "page",
-        @props.active-route-handler! || "Loading..."
+        div class-name: "full height",
+          @props.active-route-handler! || "Loading..."
 
 module.exports = App
