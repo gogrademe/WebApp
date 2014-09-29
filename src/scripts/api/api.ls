@@ -165,7 +165,6 @@ types.session =
       | localStorage.token => localStorage.token
       | otherwise => null
     del: ->
-      console.log "deleted token"
       delete localStorage.token
     create: ({email, password}) ->
         new Promise (resolve, reject) ->
