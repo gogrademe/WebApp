@@ -9,7 +9,7 @@
 
 
 @verticalAlign: baseline;
-@verticalMargin: 0.25em;
+@verticalMargin: 0em;
 @horizontalMargin: 0.125em;
 @backgroundColor: #E8E8E8;
 @backgroundImage: none;
@@ -68,7 +68,7 @@
 
 @labelHoverBackgroundColor: #E0E0E0;
 @labelHoverBackgroundImage: none;
-@labelHoverTextColor: @selectedTextColor;
+@labelHoverTextColor: @hoveredTextColor;
 
 /*-------------------
       Variations
@@ -86,8 +86,18 @@
 /* Ribbon */
 @ribbonDistance: 2rem;
 @ribbonMargin: 1em;
-@ribbonTriangleSize: 1.3em;
+@ribbonTriangleSize: 1.2em;
 @ribbonShadowColor: rgba(0, 0, 0, 0.15);
+
+@blackRibbonShadow: darken(@black, 10);
+@blueRibbonShadow: darken(@blue, 10);
+@greenRibbonShadow: darken(@green, 10);
+@orangeRibbonShadow: darken(@orange, 10);
+@pinkRibbonShadow: darken(@pink, 10);
+@purpleRibbonShadow: darken(@purple, 10);
+@redRibbonShadow: darken(@red, 10);
+@tealRibbonShadow: darken(@teal, 10);
+@yellowRibbonShadow: darken(@yellow, 10);
 
 /* Attached */
 @attachedSegmentPadding: 2rem;
@@ -114,6 +124,7 @@
 /* Circular Padding */
 @circularPadding: 0.5em;
 @circularMinSize: 2em;
+@emptyCircleSize: 0.5em;
 
 /* Pointing */
 @pointingTriangleSize: 0.6em;

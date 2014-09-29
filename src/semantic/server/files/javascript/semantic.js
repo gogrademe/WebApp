@@ -39,10 +39,21 @@ semantic.ready = function() {
     $sortTable        = $('.sortable.table'),
     $demo             = $('.demo'),
 
+    $container        = $('.main.container'),
+    $allHeaders       = $('.main.container > h2, .main.container > .tab > h2, .main.container > .tab > .examples h2'),
+    $sectionHeaders   = $container.children('h2'),
+    $followMenu       = $container.find('.following.menu'),
+    $sectionExample   = $container.find('.example'),
+    $exampleHeaders   = $sectionExample.children('h4'),
+    $footer           = $('.page > .footer'),
+
     $menuPopup        = $('.ui.main.menu .popup.item'),
-    $menuDropdown     = $('.ui.main.menu .dropdown'),
+    $pageDropdown     = $('.ui.main.menu .page.dropdown'),
     $pageTabMenu      = $('.tab.header.segment .tabular.menu'),
     $pageTabs         = $('.tab.header.segment .menu .item'),
+
+    $languageDropdown = $('.language.dropdown'),
+    $languageModal    = $('.language.modal'),
 
     $downloadDropdown = $('.download.buttons .dropdown'),
 
@@ -51,13 +62,20 @@ semantic.ready = function() {
     $example          = $('.example'),
     $shownExample     = $example.filter('.shown'),
 
-    $developer        = $('.developer.item'),
-    $overview         = $('.overview.item, .overview.button'),
-    $designer         = $('.designer.item'),
+    $overview         = $('.overview.button'),
+    //$developer        = $('.header .developer.item'),
+    //$designer         = $('.header .designer.item'),
 
     $sidebarButton    = $('.fixed.launch.button'),
     $code             = $('div.code').not('.existing'),
     $existingCode     = $('.existing.code'),
+
+
+    requestAnimationFrame = window.requestAnimationFrame
+      || window.mozRequestAnimationFrame
+      || window.webkitRequestAnimationFrame
+      || window.msRequestAnimationFrame
+      || function(callback) { setTimeout(callback, 0); },
 
     // alias
     handler
@@ -72,25 +90,270 @@ semantic.ready = function() {
         .each(function(){
           $('<i/>')
             .addClass('icon code')
-            .prependTo( $(this) )
+            .insertAfter( $(this).children(':first-child') )
           ;
         })
       ;
     },
 
-    getSpecification: function(callback) {
-      var
-        url = $(this).data('url') || false
+    createWaypoints: function() {
+      $sectionHeaders
+        .visibility({
+          once: false,
+          offset: 70,
+          onTopVisible: handler.activate.accordion,
+          onTopPassed: handler.activate.section,
+          onBottomPassed: handler.activate.section,
+          onTopPassedReverse: handler.activate.previous
+        })
       ;
-      callback = callback || function(){};
-      if(url) {
-        $.ajax({
-          method: 'get',
-          url: url,
-          type: 'json',
-          complete: callback
+
+      $sectionExample
+        .visibility({
+          once: false,
+          offset: 70,
+          onTopPassed: handler.activate.example,
+          onBottomPassedReverse: handler.activate.example
+        })
+      ;
+      $footer
+        .visibility({
+          once: false,
+          onTopVisible: function() {
+            var
+              $title = $followMenu.find('> .item > .title').last()
+            ;
+            $followMenu
+              .accordion('open', $title)
+            ;
+          }
+        })
+      ;
+    },
+
+    activate: {
+      previous: function() {
+        var
+          $menuItems  = $followMenu.children('.item'),
+          $section    = $menuItems.filter('.active'),
+          index       = $menuItems.index($section)
+        ;
+        if($section.prev().size() > 0) {
+          $section
+            .removeClass('active')
+            .prev('.item')
+            .addClass('active')
+          ;
+          $followMenu
+            .accordion('open', index - 1)
+          ;
+        }
+      },
+      accordion: function() {
+        var
+          $section       = $(this),
+          index          = $sectionHeaders.index($section),
+          $followSection = $followMenu.children('.item'),
+          $activeSection = $followSection.eq(index)
+        ;
+        $followMenu
+          .accordion('open', index)
+        ;
+      },
+      section: function() {
+        var
+          $section       = $(this),
+          index          = $sectionHeaders.index($section),
+          $followSection = $followMenu.children('.item'),
+          $activeSection = $followSection.eq(index)
+        ;
+        $followSection
+          .removeClass('active')
+        ;
+        $activeSection
+          .addClass('active')
+        ;
+      },
+      example: function() {
+        var
+          $section       = $(this).children('h4').eq(0),
+          index          = $exampleHeaders.index($section),
+          $followSection = $followMenu.find('.menu > .item'),
+          $activeSection = $followSection.eq(index)
+        ;
+        if($(this).not('.another.example').size() > 0) {
+          $followSection
+            .removeClass('active')
+          ;
+          $activeSection
+            .addClass('active')
+          ;
+        }
+      }
+    },
+
+    showLanguageModal: function(value, text, $choice) {
+      var
+        percent = $choice.data('percent') || 0
+      ;
+      window.Transifex.live.translateTo(value, true);
+      if(percent < 100) {
+        $('.language.modal')
+          .find('.header .name')
+            .html(text)
+            .end()
+          .find('.complete')
+            .html(percent)
+            .end()
+        ;
+        requestAnimationFrame(function() {
+          $('.language.modal')
+            .modal('show', function() {
+              $('.language.modal .progress .bar').css('width', percent + '%');
+            })
+          ;
         });
       }
+    },
+
+    tryCreateMenu: function(event) {
+      if($(window).width() > 1000) {
+        if($container.find('.following.menu').size() === 0) {
+          handler.createMenu();
+          handler.createWaypoints();
+          $(window).off('resize.menu');
+        }
+      }
+    },
+
+    createAnchors: function() {
+      $allHeaders
+        .each(function() {
+          var
+            $section = $(this),
+            safeName = $section.text().trim().replace(/\s+/g, '-').replace(/[^-,'A-Za-z0-9]+/g, '').toLowerCase(),
+            id       = window.escape(safeName),
+            $anchor  = $('<a />').addClass('anchor').attr('id', id)
+          ;
+          $section
+            .append($anchor)
+          ;
+        })
+      ;
+      $example
+        .each(function() {
+          var
+            $title   = $(this).children('h4').eq(0),
+            safeName = $title.text().trim().replace(/\s+/g, '-').replace(/[^-,'A-Za-z0-9]+/g, '').toLowerCase(),
+            id       = window.escape(safeName),
+            $anchor  = $('<a />').addClass('anchor').attr('id', id)
+          ;
+          if($title.size() > 0) {
+            $title.after($anchor);
+          }
+        })
+      ;
+
+    },
+
+    createMenu: function() {
+      // grab each h3
+      var
+        html = '',
+        $sticky,
+        $rail
+      ;
+      $sectionHeaders
+        .each(function(index) {
+          var
+            $currentHeader = $(this),
+            $nextElements  = $currentHeader.nextUntil('h2'),
+            $examples      = $nextElements.find('.example').andSelf().filter('.example'),
+            activeClass    = (index === 0)
+              ? 'active '
+              : '',
+            safeName = $currentHeader.text().trim().replace(/\s+/g, '-').replace(/[^-,'A-Za-z0-9]+/g, '').toLowerCase(),
+            id       = window.escape(safeName),
+            $anchor  = $('<a />').addClass('anchor').attr('id', id)
+          ;
+          html += '<div class="item">';
+          if($examples.size() === 0) {
+            html += '<a class="'+activeClass+'title" href="'+id+'"><b>' + $(this).text() + '</b></a>';
+          }
+          else {
+            html += '<a class="'+activeClass+'title"><i class="dropdown icon"></i> <b>' + $(this).text() + '</b></a>';
+          }
+          if($examples.size() > 0) {
+            html += '<div class="'+activeClass+'content menu">';
+            $examples
+              .each(function() {
+                var
+                  $title   = $(this).children('h4').eq(0),
+                  safeName = $title.text().trim().replace(/\s+/g, '-').replace(/[^-,'A-Za-z0-9]+/g, '').toLowerCase(),
+                  id       = window.escape(safeName),
+                  $anchor  = $('<a />').addClass('anchor').attr('id', id)
+                ;
+                if($title.size() > 0) {
+                  html += '<a class="item" href="#'+id+'">' + $(this).children('h4').html() + '</a>';
+                }
+              })
+            ;
+            html += '</div>';
+          }
+          html += '</div>';
+        })
+      ;
+      $followMenu = $('<div />')
+        .addClass('ui secondary vertical following fluid accordion menu')
+        .html(html)
+      ;
+      $sticky = $('<div />')
+        .addClass('ui sticky hidden transition')
+        .html($followMenu)
+      ;
+      $rail = $('<div />')
+        .addClass('ui close right rail')
+        .html($sticky)
+        .appendTo($container)
+      ;
+      $followMenu
+        .accordion({
+          exclusive: false,
+          onChange: function() {
+            $sticky.sticky('refresh');
+          }
+        })
+        .find('.menu a[href], .title[href]')
+          .on('click', handler.scrollTo)
+      ;
+      $sticky
+        .transition('fade', function() {
+          $sticky.sticky({
+            context: $container,
+            offset: 50
+          });
+        })
+      ;
+    },
+
+    scrollTo: function(event) {
+      var
+        id       = $(this).attr('href').replace('#', ''),
+        $element = $('#'+id),
+        position = $element.offset().top
+      ;
+      $element
+        .addClass('active')
+      ;
+      $('html, body')
+        .animate({
+          scrollTop: position
+        }, 500)
+      ;
+      location.hash = '#' + id;
+      event.stopImmediatePropagation();
+      event.preventDefault();
+      return false;
     },
 
     less: {
@@ -102,26 +365,28 @@ semantic.ready = function() {
           name,
           value
         ;
-        $.each(lines, function(index, line) {
-          // clear whitespace
-          line = $.trim(line);
-          // match variables only
-          if(line[0] == '@') {
-            name = line.match(/^@(.+):/);
-            value = line.match(/:\s*([\s|\S]+?;)/);
-            if( ($.isArray(name) && name.length >= 2) && ($.isArray(value) && value.length >= 2) ) {
-              name = name[1];
-              value = value[1];
-              variables[name] = value;
+        if(lines) {
+          $.each(lines, function(index, line) {
+            // clear whitespace
+            line = $.trim(line);
+            // match variables only
+            if(line[0] == '@') {
+              name = line.match(/^@(.+):/);
+              value = line.match(/:\s*([\s|\S]+?;)/);
+              if( ($.isArray(name) && name.length >= 2) && ($.isArray(value) && value.length >= 2) ) {
+                name = name[1];
+                value = value[1];
+                variables[name] = value;
+              }
             }
-          }
-        });
-        console.log(variables);
+          });
+        }
         return variables;
       },
 
       changeTheme: function(theme) {
         var
+          $themeDropdown = $(this),
           variableURL = '/build/less/themes/packages/{$theme}/{$type}s/{$element}.variables',
           overrideURL = '/build/less/themes/packages/{$theme}/{$type}s/{$element}.overrides',
           urlData     = {
@@ -138,15 +403,25 @@ semantic.ready = function() {
             url      : variableURL,
             dataType : 'text',
             urlData  : urlData,
-            success: function(content) {
+            onSuccess: function(content) {
               less.modifyVars( handler.less.parseFile(content) );
+              /*if($('.less.column').size() > 0) {
+                var $code = $('<div />')
+                  .addClass('code')
+                  .attr('data-type', 'less')
+                  .attr('data-title', 'button.variables')
+                  .html(content)
+                ;
+                $('.less.column').html($code);
+                $.proxy(handler.initializeCode, $code)();
+              }*/
               $themeDropdown
                 .api({
                   on       : 'now',
                   url      : overrideURL,
                   dataType : 'text',
                   urlData  : urlData,
-                  success: function(content) {
+                  onSuccess: function(content) {
                     if( $('style.override').size() > 0 ) {
                       $('style.override').remove();
                     }
@@ -238,45 +513,48 @@ semantic.ready = function() {
       $body.toggleClass('overview');
       $button.toggleClass('active');
       if($body.hasClass('overview')) {
-        $developer.addClass('disabled').popup('destroy');
-        $designer.addClass('disabled').popup('destroy');
         $example.each(function() {
           $(this).children().not('.ui.header:eq(0), .example p:eq(0), .annotation').hide();
         });
         $example.filter('.another').hide();
       }
       else {
-        $developer.removeClass('disabled').popup();
-        $designer.removeClass('disabled').popup();
         $example.each(function() {
           $(this).children().not('.ui.header:eq(0), .example p:eq(0), .annotation').show();
         });
         $example.filter('.another').show();
       }
+      $('.sticky').sticky('refresh');
     },
     developerMode: function() {
       var
+        $body    = $('body'),
         $example = $('.example').not('.no')
       ;
-      $developer.addClass('active');
-      $designer.removeClass('active');
+      if($body.hasClass('overview')) {
+        handler.overviewMode();
+      }
       $example
         .each(function() {
           $.proxy(handler.createCode, $(this))('developer');
         })
       ;
+      $('.sticky').sticky('refresh');
     },
     designerMode: function() {
       var
+        $body    = $('body'),
         $example = $('.example').not('.no')
       ;
-      $designer.addClass('active');
-      $developer.removeClass('active');
+      if($body.hasClass('overview')) {
+        handler.overviewMode();
+      }
       $example
         .each(function() {
           $.proxy(handler.createCode, $(this))('designer');
         })
       ;
+      $('.sticky').sticky('refresh');
     },
 
     getIndent: function(text) {
@@ -311,7 +589,7 @@ semantic.ready = function() {
         $annotation = $example.find('.annotation'),
         $code       = $annotation.find('.code'),
         $header     = $example.not('.another').children('.ui.header:first-of-type').eq(0).add('p:first-of-type'),
-        $ignored    = $('i.code:first-child, .code, .existing, .instructive, .language.label, .annotation, br, .ignore, .ignored'),
+        $ignored    = $('i.code:last-child, .anchor, .code, .existing, .pointing.below.label, .instructive, .language.label, .annotation, br, .ignore, .ignored'),
         $demo       = $example.children().not($header).not($ignored),
         code        = ''
       ;
@@ -320,7 +598,13 @@ semantic.ready = function() {
           .each(function(){
             var $this = $(this).clone(false);
             if($this.not('br')) {
-              code += $this.removeAttr('style').get(0).outerHTML + "\n";
+              // allow inline styles only with this one class
+              if($this.is('.my-container')) {
+                code += $this.get(0).outerHTML + "\n";
+              }
+              else {
+                code += $this.removeAttr('style').get(0).outerHTML + "\n";
+              }
             }
           })
         ;
@@ -334,7 +618,7 @@ semantic.ready = function() {
         $header         = $example.children('.ui.header:first-of-type').eq(0).add('p:first-of-type'),
         $annotation     = $example.find('.annotation'),
         $code           = $annotation.find('.code'),
-        $ignoredContent = $('.ui.popup, i.code:first-child, .code, .existing.segment, .instructive, .language.label, .annotation, br, .ignore, .ignored'),
+        $ignoredContent = $('.ui.popup, i.code:last-child, .anchor, .code, .existing.segment, .instructive, .language.label, .annotation, br, .ignore, .ignored'),
         $demo           = $example.children().not($header).not($ignoredContent),
         code            = $example.data('code') || $.proxy(handler.generateCode, this)()
       ;
@@ -453,6 +737,7 @@ semantic.ready = function() {
         codeHeight
       ;
 
+
       // trim whitespace
       whiteSpace = new RegExp('\\n\\s{' + indent + '}', 'g');
       code = $.trim(code).replace(whiteSpace, '\n');
@@ -488,6 +773,7 @@ semantic.ready = function() {
         .height(codeHeight + 'px')
         .wrap('<div class="ui ' + name + ' segment">')
       ;
+
       // add label
       if(title) {
         $('<div>')
@@ -521,6 +807,9 @@ semantic.ready = function() {
         ;
       }
       editor.resize();
+
+      $code.removeClass('hidden');
+
     },
 
     swapStyle: function() {
@@ -547,21 +836,77 @@ semantic.ready = function() {
     }
   };
 
-  $('.masthead')
-    .visibility({
-      once: false
-    })
-    .visibility('bottom visible', function(){
-      $('.main.menu').removeClass('filled');
-    })
-    .visibility('bottom passed', function(){
-      $('.main.menu').addClass('filled');
-    })
-    .find('.button')
-      .popup({
-        position  : 'top center',
-        variation : 'inverted'
+
+  handler.createAnchors();
+
+  if( $pageTabs.size() > 0 ) {
+    $pageTabs
+      .tab({
+        context      : '.main.container',
+        childrenOnly : true,
+        history      : true,
+        onTabInit    : function() {
+          handler.makeCode();
+
+          $container = ($('.fixed.column').size() > 0 )
+            ? $(this).find('.examples')
+            : $(this)
+          ;
+          $sectionHeaders = $container.children('h2');
+          $sectionExample = $container.find('.example');
+          $exampleHeaders = $sectionExample.children('h4');
+          // create code
+          handler.tryCreateMenu();
+          $(window).on('resize.menu', function() {
+            handler.tryCreateMenu();
+          });
+        },
+        onTabLoad : function() {
+          $sticky.filter(':visible').sticky('refresh');
+        }
       })
+    ;
+  }
+  else {
+    handler.makeCode();
+    handler.tryCreateMenu();
+    $(window).on('resize.menu', function() {
+      handler.tryCreateMenu();
+    });
+  }
+
+
+  $sticky
+    .sticky({
+      context : '.main.container',
+      pushing : true
+    })
+  ;
+
+  $languageModal
+    .modal()
+  ;
+
+  $menu
+    .sidebar({
+      transition       : 'uncover',
+      mobileTransition : 'scale down'
+    })
+    .sidebar('attach events', '.launch.button, .view-ui, .launch.item')
+    .sidebar('attach events', $hideMenu, 'hide')
+  ;
+
+  handler.createIcon();
+  $example
+    .each(function() {
+      $.proxy(handler.generateCode, this)();
+    })
+    .find('i.code')
+      .on('click', handler.createCode)
+  ;
+
+  $shownExample
+    .each(handler.createCode)
   ;
 
   $(window)
@@ -578,50 +923,6 @@ semantic.ready = function() {
     })
   ;
 
-  // attach events
-  if($.fn.tablesort !== undefined) {
-    $sortTable
-      .tablesort()
-    ;
-  }
-
-
-  if( $pageTabs.size() > 0 ) {
-    $pageTabs
-      .tab({
-        context      : '.main.container',
-        childrenOnly : true,
-        history      : true,
-        onTabInit    : function() {
-          handler.makeCode();
-        },
-        onTabLoad    : function() {
-          $sticky.filter(':visible').sticky('refresh');
-        }
-      })
-    ;
-  }
-  else {
-    handler.makeCode();
-  }
-
-  $menu
-    .sidebar({
-      transition: 'reveal'
-    })
-    .sidebar('attach events', '.launch.button, .view-ui.button, .launch.item')
-    .sidebar('attach events', $hideMenu, 'hide')
-  ;
-
-
-  handler.createIcon();
-
-  $example
-    .one('mousemove', handler.generateCode)
-    .find('i.code')
-      .on('click', handler.createCode)
-  ;
-
   $themeDropdown
     .dropdown({
       action: 'select',
@@ -629,9 +930,11 @@ semantic.ready = function() {
     })
   ;
 
-  $shownExample
-    .each(handler.createCode)
-  ;
+  if($.fn.tablesort !== undefined && $sortTable.size() > 0) {
+    $sortTable
+      .tablesort()
+    ;
+  }
 
   $helpPopup
     .popup()
@@ -641,42 +944,37 @@ semantic.ready = function() {
     .on('click', handler.swapStyle)
   ;
 
-  $developer
-    .on('click', handler.developerMode)
-  ;
-  $designer
-    .on('click', handler.designerMode)
-  ;
   $overview
     .on('click', handler.overviewMode)
   ;
 
   $menuPopup
     .popup({
-      position   : 'bottom center',
-      className: {
+      position  : 'bottom center',
+      className : {
         popup: 'ui popup'
       }
     })
   ;
-  $sortableTables
-    .tablesort()
-  ;
 
-  $menuDropdown
+  $pageDropdown
     .dropdown({
-      on         : 'hover',
-      action     : 'nothing'
+      on       : 'hover',
+      action   : 'nothing',
+      allowTab : false
     })
   ;
-
-  $sticky
-    .sticky({
-      context : '.main.container',
-      pushing : true
+  $languageDropdown
+    .popup()
+    .dropdown({
+      on       : 'click',
+      onShow: function() {
+        $(this).popup('hide');
+      },
+      onChange: handler.showLanguageModal
     })
-  ;
 
+  ;
 
 };
 

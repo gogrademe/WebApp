@@ -43,7 +43,7 @@
         Import Directives
 *******************************/
 /*------------------
-     Load Default
+    Load Defaults
 -------------------*/
 /*******************************
          Site Settings
@@ -58,9 +58,11 @@
       Site Colors
 --------------------*/
 /*---  Colors  ---*/
+/*---  Light Colors  ---*/
 /*-------------------
         Page
 --------------------*/
+/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -82,7 +84,6 @@
 /*-------------------
        Easing
 --------------------*/
-/*---  Light Variations  ---*/
 /*---   Neutrals  ---*/
 /*--- Colored Backgrounds ---*/
 /*--- Colored Text ---*/
@@ -91,7 +92,6 @@
     Emotive Colors
 --------------------*/
 /* Mood */
-/* Solid Background Color */
 /* Status */
 /* Darkened Headers */
 /*-------------------
@@ -156,6 +156,9 @@
 /* Header */
 /* Description */
 /*-------------------
+        States
+--------------------*/
+/*-------------------
       Variations
 --------------------*/
 /* Float */
@@ -191,7 +194,7 @@
     User Variable Overrides
 *******************************/
 /*------------------
- Override Mix-in
+   Override Loader
 -------------------*/
 /*******************************
             List
@@ -266,7 +269,7 @@ ol.ui.list ol,
   -webkit-transition: color 0.2s ease;
           transition: color 0.2s ease;
 }
-.ui.list .item > .top.aligned.icon {
+.ui.list .item > [class*="top aligned"].icon {
   vertical-align: top;
 }
 .ui.list .item > .icon:only-child {
@@ -281,7 +284,7 @@ ol.ui.list ol,
   padding-right: 0.5em;
   vertical-align: middle;
 }
-.ui.list .item > .top.aligned.image {
+.ui.list .item > [class*="top aligned"].image {
   vertical-align: top;
 }
 .ui.list .item > .image img {
@@ -330,7 +333,7 @@ ol.ui.list ol,
 .ui.list .header {
   display: block;
   margin: 0em;
-  font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.8);
 }
@@ -397,6 +400,16 @@ ol.ui.list ol,
              States
 *******************************/
 /*-------------------
+       Disabled
+--------------------*/
+.ui.list .disabled.item {
+  pointer-events: none;
+  color: rgba(0, 0, 0, 0.2) !important;
+}
+.ui.inverted.list .disabled.item {
+  color: rgba(255, 255, 255, 0.2) !important;
+}
+/*-------------------
         Hover
 --------------------*/
 .ui.list a:hover .icon {
@@ -424,6 +437,8 @@ ol.ui.list ol,
 .ui.link.list a.item,
 .ui.link.list .item a {
   color: rgba(0, 0, 0, 0.4);
+  -webkit-transition: 0.2s color ease;
+          transition: 0.2s color ease;
 }
 .ui.link.list a.item:hover,
 .ui.link.list .item a:hover {
@@ -445,7 +460,7 @@ ol.ui.list ol,
 }
 .ui.inverted.link.list a.item:hover,
 .ui.inverted.link.list .item a:hover {
-  color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
 }
 .ui.inverted.link.list a.item:active,
 .ui.inverted.link.list .item a:active {
@@ -462,9 +477,14 @@ ol.ui.list ol,
   cursor: pointer;
   background: transparent;
   padding: 0.5em 0.5em;
+  margin: 0em;
   color: rgba(0, 0, 0, 0.4);
+  border-radius: 0.5em;
   -webkit-transition: 0.2s color ease, 0.2s padding-left ease, 0.2s background-color ease;
           transition: 0.2s color ease, 0.2s padding-left ease, 0.2s background-color ease;
+}
+.ui.selection.list .item:last-child {
+  margin-bottom: 0em;
 }
 .ui.selection.list .item:hover {
   background: rgba(0, 0, 0, 0.03);
@@ -481,7 +501,7 @@ ol.ui.list ol,
 /* Inverted */
 .ui.inverted.selection.list .item {
   background: transparent;
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.5);
 }
 .ui.inverted.selection.list .item:hover {
   background: rgba(255, 255, 255, 0.01);
@@ -614,7 +634,7 @@ ol.ui.horizontal.list li:before,
        Divided
 --------------------*/
 .ui.divided.list .item {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 .ui.divided.list .list .item {
   border-top: none;
@@ -659,13 +679,18 @@ ol.ui.horizontal.list li:before,
 .ui.divided.ordered.list .item .list .item {
   padding-left: 2em;
 }
+/* Divided Selection */
+.ui.divided.selection.list .item {
+  margin: 0em;
+  border-radius: 0em;
+}
 /* Divided horizontal */
 .ui.divided.horizontal.list {
   margin-left: 0em;
 }
 .ui.divided.horizontal.list > .item {
   border-top: none;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
   margin: 0em;
   padding-left: 0.5em;
   padding-right: 0.5em;
@@ -685,12 +710,12 @@ ol.ui.horizontal.list li:before,
 --------------------*/
 .ui.celled.list > .item,
 .ui.celled.list > .list {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
   padding-left: 0.5em;
   padding-right: 0.5em;
 }
 .ui.celled.list > .item:last-child {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 /* Padding on all elements */
 .ui.celled.list > .item:first-child,
@@ -744,7 +769,7 @@ ol.ui.horizontal.list li:before,
 }
 .ui.horizontal.celled.list .item {
   border-top: none;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
   margin: 0em;
   padding-left: 0.5em;
   padding-right: 0.5em;
@@ -752,7 +777,7 @@ ol.ui.horizontal.list li:before,
 }
 .ui.horizontal.celled.list .item:last-child {
   border-bottom: none;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
 }
 /* Inverted */
 .ui.celled.inverted.list > .item,
@@ -776,14 +801,14 @@ ol.ui.horizontal.list li:before,
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
-.ui.very.relaxed.list:not(.horizontal) .item {
+.ui[class*="very relaxed"].list:not(.horizontal) .item {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.ui.very.relaxed.list .header {
+.ui[class*="very relaxed"].list .header {
   /*margin-bottom: @veryRelaxedHeaderMargin;*/
 }
-.ui.horizontal.very.relaxed.list .item {
+.ui.horizontal[class*="very relaxed"].list .item {
   padding-left: 2rem;
   padding-right: 2rem;
 }

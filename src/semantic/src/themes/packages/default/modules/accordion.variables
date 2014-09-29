@@ -24,6 +24,8 @@
 ;
 @iconVerticalAlign: baseline;
 
+@iconTransform: rotate(0deg);
+
 /* Child Accordion */
 @childAccordionMargin: 1em 0em 0em;
 @childAccordionPadding: 0em;
@@ -31,6 +33,22 @@
 /* Content */
 @contentMargin: 0em;
 @contentPadding: 0.5em 0em 1em;
+
+/*-------------------
+       Coupling
+--------------------*/
+
+@menuTitlePadding: 0em;
+@menuIconFloat: right;
+@menuIconMargin: @lineHeightOffset 0em 0em 1em;
+@menuIconTransform: rotate(180deg);
+
+
+/*-------------------
+       States
+--------------------*/
+
+@activeIconTransform: rotate(90deg);
 
 /*-------------------
       Variations

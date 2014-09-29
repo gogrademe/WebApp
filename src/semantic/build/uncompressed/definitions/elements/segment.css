@@ -43,7 +43,7 @@
         Import Directives
 *******************************/
 /*------------------
-     Load Default
+    Load Defaults
 -------------------*/
 /*******************************
          Site Settings
@@ -58,9 +58,11 @@
       Site Colors
 --------------------*/
 /*---  Colors  ---*/
+/*---  Light Colors  ---*/
 /*-------------------
         Page
 --------------------*/
+/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -82,7 +84,6 @@
 /*-------------------
        Easing
 --------------------*/
-/*---  Light Variations  ---*/
 /*---   Neutrals  ---*/
 /*--- Colored Backgrounds ---*/
 /*--- Colored Text ---*/
@@ -91,7 +92,6 @@
     Emotive Colors
 --------------------*/
 /* Mood */
-/* Solid Background Color */
 /* Status */
 /* Darkened Headers */
 /*-------------------
@@ -169,7 +169,7 @@
     User Variable Overrides
 *******************************/
 /*------------------
- Override Mix-in
+   Override Loader
 -------------------*/
 /*******************************
             Segment
@@ -177,12 +177,11 @@
 .ui.segment {
   position: relative;
   background-color: #ffffff;
-  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0 rgba(0, 0, 0, 0.05);
   margin: 1em 0em;
   padding: 1em 1em;
   border-radius: 0.25em;
   border: none;
-  box-sizing: border-box;
 }
 .ui.segment:first-child {
   margin-top: 0em;
@@ -190,14 +189,13 @@
 .ui.segment:last-child {
   margin-bottom: 0em;
 }
-/* Testing removal
 .ui.segment:after {
   content: '';
   display: block;
   height: 0px;
   clear: both;
   visibility: hidden;
-}*/
+}
 .ui.vertical.segment {
   margin: 0em;
   padding-left: 0em;
@@ -205,10 +203,14 @@
   background-color: transparent;
   border-radius: 0px;
   border: none;
-  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.15);
 }
 .ui.vertical.segment:first-child {
   padding-top: 0em;
+}
+.ui.vertical.segment:last-child {
+  padding-bottom: 0em;
+  box-shadow: none;
 }
 .ui.horizontal.segment {
   margin: 0em;
@@ -217,10 +219,13 @@
   background-color: transparent;
   border-radius: 0px;
   border: none;
-  box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.15);
 }
 .ui.horizontal.segment:first-child {
   padding-left: 0em;
+}
+.ui.horizontal.segment:last-child {
+  padding-right: 0em;
 }
 /*-------------------
     Loose Coupling
@@ -229,20 +234,24 @@
 .ui.pointing.menu + .ui.attached.segment {
   top: 1px;
 }
+/* Header */
+.ui.inverted.segment > .ui.header {
+  color: #ffffff;
+}
 /* Label */
-.ui.bottom.attached.segment > .top.attached.label {
+.ui[class*="bottom attached"].segment > [class*="top attached"].label {
   border-top-left-radius: 0em;
   border-top-right-radius: 0em;
 }
-.ui.top.attached.segment > .bottom.attached.label {
+.ui[class*="top attached"].segment > [class*="bottom attached"].label {
   border-bottom-left-radius: 0em;
   border-bottom-right-radius: 0em;
 }
-.ui.attached.segment:not(.top):not(.bottom) > .top.attached.label {
+.ui.attached.segment:not(.top):not(.bottom) > [class*="top attached"].label {
   border-top-left-radius: 0em;
   border-top-right-radius: 0em;
 }
-.ui.attached.segment:not(.top):not(.bottom) > .bottom.attached.label {
+.ui.attached.segment:not(.top):not(.bottom) > [class*="bottom attached"].label {
   border-bottom-left-radius: 0em;
   border-bottom-right-radius: 0em;
 }
@@ -263,9 +272,9 @@
 .ui.basic.table.segment {
   background: #ffffff;
   border: none;
-  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
-.ui.very.basic.table.segment {
+.ui[class*="very basic"].table.segment {
   padding: 1em 1em;
 }
 /*******************************
@@ -276,7 +285,8 @@
 --------------------*/
 .ui.piled.segment {
   margin: 2em 0em;
-  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
+  z-index: 1;
 }
 .ui.piled.segment:first-child {
   margin-top: 0em;
@@ -288,13 +298,13 @@
 .ui.piled.segment:before {
   background-color: #ffffff;
   visibility: visible;
-  content: "";
+  content: '';
   display: block;
   height: 100%;
-  left: -1px;
+  left: 0px;
   position: absolute;
   width: 100%;
-  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
 }
 .ui.piled.segment:after {
   -webkit-transform: rotate(1.2deg);
@@ -314,7 +324,7 @@
        Stacked
 --------------------*/
 .ui.stacked.segment {
-  padding-bottom: 1.7em;
+  padding-bottom: 1.4em;
 }
 .ui.stacked.segment:after,
 .ui.stacked.segment:before {
@@ -322,13 +332,18 @@
   position: absolute;
   bottom: -3px;
   left: 0%;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
   background-color: rgba(0, 0, 0, 0.03);
   width: 100%;
-  height: 5px;
+  height: 6px;
   visibility: visible;
 }
 .ui.stacked.segment:before {
+  display: none;
+}
+/* Add additional page */
+.ui.tall.stacked.segment:before {
+  display: block;
   bottom: 0px;
 }
 /* Inverted */
@@ -351,7 +366,7 @@
        Raised
 --------------------*/
 .ui.raised.segment {
-  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1), 0px 1px 4px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.15), 0px 1px 4px 0px rgba(0, 0, 0, 0.15);
 }
 /*******************************
             States
@@ -388,19 +403,19 @@
        Colors
 --------------------*/
 .ui.black.segment:not(.inverted) {
-  border-top: 2px solid #191919;
+  border-top: 2px solid #1b1c1d;
   border-radius: 0em 0em 0.25em 0.25em !important;
 }
 .ui.blue.segment:not(.inverted) {
-  border-top: 2px solid #0074d9;
+  border-top: 2px solid #3b83c0;
   border-radius: 0em 0em 0.25em 0.25em !important;
 }
 .ui.green.segment:not(.inverted) {
-  border-top: 2px solid #2ecc40;
+  border-top: 2px solid #5bbd72;
   border-radius: 0em 0em 0.25em 0.25em !important;
 }
 .ui.orange.segment:not(.inverted) {
-  border-top: 2px solid #ff851b;
+  border-top: 2px solid #e07b53;
   border-radius: 0em 0em 0.25em 0.25em !important;
 }
 .ui.pink.segment:not(.inverted) {
@@ -408,19 +423,19 @@
   border-radius: 0em 0em 0.25em 0.25em !important;
 }
 .ui.purple.segment:not(.inverted) {
-  border-top: 2px solid #a24096;
+  border-top: 2px solid #564f8a;
   border-radius: 0em 0em 0.25em 0.25em !important;
 }
 .ui.red.segment:not(.inverted) {
-  border-top: 2px solid #ff4136;
+  border-top: 2px solid #d95c5c;
   border-radius: 0em 0em 0.25em 0.25em !important;
 }
 .ui.teal.segment:not(.inverted) {
-  border-top: 2px solid #39cccc;
+  border-top: 2px solid #00b5ad;
   border-radius: 0em 0em 0.25em 0.25em !important;
 }
 .ui.yellow.segment:not(.inverted) {
-  border-top: 2px solid #ffcb08;
+  border-top: 2px solid #f2c61f;
   border-radius: 0em 0em 0.25em 0.25em !important;
 }
 /*-------------------
@@ -428,19 +443,19 @@
 --------------------*/
 .ui.inverted.segment,
 .ui.inverted.black.segment {
-  background-color: #191919 !important;
+  background-color: #1b1c1d !important;
   color: #ffffff !important;
 }
 .ui.inverted.blue.segment {
-  background-color: #0074d9 !important;
+  background-color: #3b83c0 !important;
   color: #ffffff !important;
 }
 .ui.inverted.green.segment {
-  background-color: #2ecc40 !important;
+  background-color: #5bbd72 !important;
   color: #ffffff !important;
 }
 .ui.inverted.orange.segment {
-  background-color: #ff851b !important;
+  background-color: #e07b53 !important;
   color: #ffffff !important;
 }
 .ui.inverted.pink.segment {
@@ -448,41 +463,41 @@
   color: #ffffff !important;
 }
 .ui.inverted.purple.segment {
-  background-color: #a24096 !important;
+  background-color: #564f8a !important;
   color: #ffffff !important;
 }
 .ui.inverted.red.segment {
-  background-color: #ff4136 !important;
+  background-color: #d95c5c !important;
   color: #ffffff !important;
 }
 .ui.inverted.teal.segment {
-  background-color: #39cccc !important;
+  background-color: #00b5ad !important;
   color: #ffffff !important;
 }
 .ui.inverted.yellow.segment {
-  background-color: #ffcb08 !important;
+  background-color: #f2c61f !important;
   color: #ffffff !important;
 }
 /*-------------------
        Aligned
 --------------------*/
-.ui.left.aligned.segment {
+.ui[class*="left aligned"].segment {
   text-align: left;
 }
-.ui.right.aligned.segment {
+.ui[class*="right aligned"].segment {
   text-align: right;
 }
-.ui.center.aligned.segment {
+.ui[class*="center aligned"].segment {
   text-align: center;
 }
 /*-------------------
        Floated
 --------------------*/
 .ui.floated.segment,
-.ui.left.floated.segment {
+.ui[class*="left floated"].segment {
   float: left;
 }
-.ui.right.floated.segment {
+.ui[class*="right floated"].segment {
   float: right;
 }
 /*-------------------
@@ -500,7 +515,7 @@
 }
 .ui.inverted.segment,
 .ui.primary.inverted.segment {
-  background-color: #191919;
+  background-color: #1b1c1d;
   color: #ffffff;
 }
 .ui.inverted.block.segment,
@@ -538,17 +553,17 @@
   border-radius: 0px;
   box-shadow: 0px 0px 0px 1px #dddddd;
 }
-.ui.top.attached.segment {
+.ui[class*="top attached"].segment {
   top: 0px;
   bottom: 0px;
   margin-top: 1em;
   margin-bottom: 0em;
   border-radius: 0.25em 0.25em 0em 0em;
 }
-.ui.segment.top.attached:first-child {
+.ui.segment[class*="top attached"]:first-child {
   margin-top: 0em;
 }
-.ui.segment.bottom.attached {
+.ui.segment[class*="bottom attached"] {
   top: 0px;
   bottom: 0px;
   margin-top: 0em;
@@ -556,7 +571,7 @@
   box-shadow: 0px 0px 0px 1px #dddddd, 0px 1px 2px 0 rgba(0, 0, 0, 0.05);
   border-radius: 0em 0em 0.25em 0.25em;
 }
-.ui.segment.bottom.attached:last-child {
+.ui.segment[class*="bottom attached"]:last-child {
   margin-bottom: 0em;
 }
 /*******************************

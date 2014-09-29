@@ -1,3 +1,4 @@
+@import 'http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic';
 /*
  * # Semantic - Site
  * http://github.com/semantic-org/semantic-ui/
@@ -43,7 +44,7 @@
         Import Directives
 *******************************/
 /*------------------
-     Load Default
+    Load Defaults
 -------------------*/
 /*******************************
          Site Settings
@@ -58,9 +59,11 @@
       Site Colors
 --------------------*/
 /*---  Colors  ---*/
+/*---  Light Colors  ---*/
 /*-------------------
         Page
 --------------------*/
+/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -82,7 +85,6 @@
 /*-------------------
        Easing
 --------------------*/
-/*---  Light Variations  ---*/
 /*---   Neutrals  ---*/
 /*--- Colored Backgrounds ---*/
 /*--- Colored Text ---*/
@@ -91,7 +93,6 @@
     Emotive Colors
 --------------------*/
 /* Mood */
-/* Solid Background Color */
 /* Status */
 /* Darkened Headers */
 /*-------------------
@@ -146,8 +147,11 @@
      User Global Variables
 *******************************/
 /*------------------
- Override Mix-in
+   Override Loader
 -------------------*/
+/*******************************
+           Web Fonts
+*******************************/
 /*******************************
              Page
 *******************************/
@@ -159,17 +163,19 @@
 }
 html,
 body {
-  font-size: 14px;
   height: 100%;
   font-smoothing: antialiased;
 }
 body {
-  background: #fcfcfc;
-  font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
   margin: 0px;
   padding: 0px;
+  min-width: 278px;
+  background: #f7f7f7;
+  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.33;
   color: rgba(0, 0, 0, 0.8);
-  min-width: 320px;
+  overflow-x: hidden;
 }
 /*******************************
              Text

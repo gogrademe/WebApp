@@ -43,7 +43,7 @@
         Import Directives
 *******************************/
 /*------------------
-     Load Default
+    Load Defaults
 -------------------*/
 /*******************************
          Site Settings
@@ -58,9 +58,11 @@
       Site Colors
 --------------------*/
 /*---  Colors  ---*/
+/*---  Light Colors  ---*/
 /*-------------------
         Page
 --------------------*/
+/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -82,7 +84,6 @@
 /*-------------------
        Easing
 --------------------*/
-/*---  Light Variations  ---*/
 /*---   Neutrals  ---*/
 /*--- Colored Backgrounds ---*/
 /*--- Colored Text ---*/
@@ -91,7 +92,6 @@
     Emotive Colors
 --------------------*/
 /* Mood */
-/* Solid Background Color */
 /* Status */
 /* Darkened Headers */
 /*-------------------
@@ -163,7 +163,7 @@
            Overrides
 *******************************/
 /*------------------
- Override Mix-in
+   Override Loader
 -------------------*/
 /*******************************
            Rating
@@ -212,9 +212,9 @@
   color: #ffe623 !important;
   text-shadow: 0px -1px 0px #cfa300, -1px 0px 0px #cfa300, 0px 1px 0px #cfa300, 1px 0px 0px #cfa300;
 }
-/* Hovered Star */
-.ui.star.rating .icon.hover,
-.ui.star.rating .icon.hover.active {
+/* Selected Star */
+.ui.star.rating .icon.selected,
+.ui.star.rating .icon.selected.active {
   color: #ffb70a !important;
 }
 .ui.star.rating.partial {
@@ -229,17 +229,17 @@
         Heart
 --------------------*/
 .ui.heart.rating .icon {
-  width: 1.2em;
+  width: 1.25em;
   color: rgba(0, 0, 0, 0.15);
 }
 /* Active Heart */
 .ui.heart.rating .active.icon {
-  color: #ef404a !important;
-  text-shadow: 0px -1px 0px #ef404a, -1px 0px 0px #ef404a, 0px 1px 0px #ef404a, 1px 0px 0px #ef404a;
+  color: #ff2733 !important;
+  text-shadow: 0px -1px 0px #9e0000, -1px 0px 0px #9e0000, 0px 1px 0px #9e0000, 1px 0px 0px #9e0000;
 }
-/* Hovered Heart */
-.ui.heart.rating .icon.hover,
-.ui.heart.rating .icon.hover.active {
+/* Selected Heart */
+.ui.heart.rating .icon.selected,
+.ui.heart.rating .icon.selected.active {
   color: #ff2733 !important;
 }
 /*******************************
@@ -253,9 +253,9 @@
 .ui.rating .active.icon {
   color: rgba(0, 0, 0, 0.85);
 }
-/* Hovered Icon */
-.ui.rating .icon.hover,
-.ui.rating .icon.hover.active {
+/* Selected Icon */
+.ui.rating .icon.selected,
+.ui.rating .icon.selected.active {
   color: rgba(0, 0, 0, 0.8);
 }
 /*-------------------
@@ -266,14 +266,14 @@
   cursor: default;
 }
 /*-------------------
-     Interacting
+     Interacting (Active)
 --------------------*/
 /* Selected Rating */
-.ui.rating.hover .active.icon {
+.ui.rating.selected .active.icon {
   opacity: 0.5;
 }
-.ui.rating.hover .icon.hover,
-.ui.rating .icon.hover {
+.ui.rating.selected .icon.selected,
+.ui.rating .icon.selected {
   opacity: 1;
 }
 /*******************************
@@ -336,9 +336,9 @@
 /*-------------------
         Star
 --------------------*/
-/* Empty Star */
+/* Unfilled Star */
 .ui.star.rating .icon:before {
-  content: '\f006';
+  content: '\f005';
 }
 /* Active Star */
 .ui.star.rating .active.icon:before {
@@ -354,9 +354,13 @@
 /*-------------------
         Heart
 --------------------*/
-/* Empty Heart */
+/* Empty Heart
 .ui.heart.rating .icon:before {
   content: '\f08a';
+}
+*/
+.ui.heart.rating .icon:before {
+  content: '\f004';
 }
 /* Active */
 .ui.heart.rating .active.icon:before {

@@ -11,6 +11,8 @@
 
 ;(function ( $, window, document, undefined ) {
 
+"use strict";
+
 $.fn.modal = function(parameters) {
   var
     $allModules    = $(this),
@@ -488,6 +490,16 @@ $.fn.modal = function(parameters) {
                 .on('click' + eventNamespace, module.event.click)
               ;
             }
+            if(settings.autofocus) {
+              var
+                $inputs    = $module.find(':input:visible'),
+                $autofocus = $inputs.filter('[autofocus]'),
+                $input     = ($autofocus.size() > 0)
+                  ? $autofocus
+                  : $inputs
+              ;
+              $input.first().focus();
+            }
           },
           scrolling: function() {
             $dimmable.addClass(className.scrolling);
@@ -709,9 +721,11 @@ $.fn.modal.settings = {
   verbose       : true,
   performance   : true,
 
-  allowMultiple : true,
+  allowMultiple : false,
   detachable    : true,
   closable      : true,
+  autofocus     : true,
+
   context       : 'body',
 
   duration      : 500,

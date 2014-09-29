@@ -1,0 +1,37 @@
+---
+layout      : 'default'
+css         : 'reset-page'
+element     : 'reset'
+elementType : 'global'
+
+title       : 'Reset'
+description : 'A reset is a set of normalized values for CSS properties that correct for abberations in browser defaults'
+status      : 'Undocumented'
+type        : 'UI Global'
+
+---
+<link rel="stylesheet/less" type="text/css" href="/build/less/definitions/globals/reset.less" />
+
+<%- @partial('header') %>
+
+<div class="main container">
+
+  <h2 class="ui dividing header">Current Progress</h2>
+  <div class="ui indicating progress">
+    <div class="bar" style="width: 90%;">
+      <div class="progress">95%</div>
+    </div>
+    <div class="label">Needs Documentation</div>
+  </div>
+
+  <h2 class="ui dividing header">Usage</h2>
+  <div class="no example">
+    <p>Semantic's default theme includes the latest Normalize css to provide a base line. In addition somewhat uniquely, Semantic UI requires a <b>Box-sizing</b> reset, to make sure that all elements handle width definitions in the same way.</p>
+  </div>
+
+  <h2 class="ui dividing header">Development Progress</h2>
+  <div class="no example">
+    <p>This is an undocumented component, but will be included in 1.0.</p>
+    <p>Stay tuned the next couple weeks for documentation.</p>
+  </div>
+</div>

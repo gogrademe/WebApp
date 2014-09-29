@@ -60,7 +60,7 @@
 /* Sub Menu */
 @subMenuMargin: 0.5em;
 @subMenuFontSize: 0.875rem;
-@subMenuTextColor: @textColor;
+@subMenuTextColor: rgba(0, 0, 0, 0.5);
 
 @subMenuHorizontalPadding: 0.5rem;
 @subMenuVerticalPadding: 1.5rem;
@@ -95,14 +95,11 @@
 @buttonSize: 0.875em;
 @actionButtonHorizontalPadding: 0.8em;
 
-@labeledButtonPadding: 0.6em;
-
 /* Input */
 @inputSize: 1em;
 @inputVerticalMargin: -0.6em;
 @inputOffset: 0em;
-@inputVerticalPadding: 0.35em;
-@inputIconOffset: -0.35em;
+@inputVerticalPadding: 0.4em;
 
 @smallInputOffset: 0em;
 @smallInputVerticalPadding: 0.4em;
@@ -124,15 +121,15 @@
 
 /* Dropdown */
 @dropdownBackground: #FFFFFF;
-@dropdownMenuOffset: 1px;
-@dropdownPointingDistance: 1px;
+@dropdownMenuOffset: 0px;
+@dropdownPointingDistance: 0px;
 
 @dropdownTextColor: @textColor;
 @dropdownTextColorHover: @darkTextColor;
 @dropdownIconMargin: 0em 0em 0em 1em;
 
-@dropdownBoxShadow: 0px 1px 0px 1px @borderColor;
-@dropdownVerticalBoxShadow: 0 0px 1px 1px @solidBorderColor;
+@dropdownBoxShadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+@dropdownVerticalBoxShadow: 0 1px 3px 0px rgba(0, 0, 0, 0.08);
 
 /* Pointing Arrow */
 @arrowSize: 0.6em;
@@ -153,7 +150,7 @@
 @hoverColor: @textColor;
 
 @pressedBackground: @subtleTransparentBlack;
-@pressedColor: @selectedTextColor;
+@pressedColor: @pressedTextColor;
 
 @activeBackground: @subtleTransparentBlack;
 @activeColor: @darkTextColor;
@@ -216,7 +213,7 @@
 @secondaryPointingActiveBorderColor: rgba(0, 0, 0, 0.4);
 @secondaryPointingActiveTextColor: @selectedTextColor;
 
-@secondaryPointingHeaderColor: @selectedTextColor;
+@secondaryPointingHeaderColor: @darkTextColor;
 
 /* Tiered */
 @tieredActiveItemBackground: #FCFCFC;
@@ -228,7 +225,7 @@
 @tieredSubMenuColor: @lightTextColor;
 
 @tieredSubMenuHoverBackground: none transparent;
-@tieredSubMenuHoverColor: @selectedTextColor;
+@tieredSubMenuHoverColor: @hoveredTextColor;
 
 @tieredSubMenuActiveBackground: none transparent;
 @tieredSubMenuActiveColor: @selectedTextColor;

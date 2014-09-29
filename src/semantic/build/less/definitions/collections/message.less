@@ -53,7 +53,7 @@
   font-family: @headerFont;
   font-size: @headerFontSize;
   font-weight: @headerFontWeight;
-  margin: 0em @headerHorizontalDistance 0em 0em;
+  margin: 0em 0em 0em @headerDistance;
 }
 
 /* Paragraph */
@@ -103,7 +103,7 @@
 
 
 /* Icon */
-.ui.message .icon {
+.ui.message > .icon {
   margin-right: @iconDistance;
 }
 
@@ -111,6 +111,7 @@
 .ui.message > .close.icon {
   cursor: pointer;
   position: absolute;
+  margin: 0em;
   top: @closeTopDistance;
   right: @closeRightDistance;
   opacity: @closeOpacity;
@@ -201,6 +202,7 @@
   vertical-align: @iconVerticalAlign;
   font-size: @iconSize;
   opacity: @iconOpacity;
+  width: 1em;
 }
 .ui.icon.message > .content {
   display: table-cell;

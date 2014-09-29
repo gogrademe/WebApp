@@ -61,6 +61,12 @@
 /* Description */
 @itemDescriptionColor: @textColor;
 
+/*-------------------
+        States
+--------------------*/
+
+@disabledColor: @disabledTextColor;
+@invertedDisabledColor: @invertedDisabledTextColor;
 
 /*-------------------
       Variations
@@ -80,31 +86,36 @@
 
 /* Link List */
 @linkListItemColor: @unselectedTextColor;
-@linkListItemHoverColor: @selectedTextColor;
-@linkListItemDownColor: @selectedTextColor;
+@linkListItemHoverColor: @hoveredTextColor;
+@linkListItemDownColor: @pressedTextColor;
 @linkListItemActiveColor: @selectedTextColor;
+@linkListTransition:
+  0.2s color @defaultEasing
+;
 
 /* Inverted Link List */
 @invertedLinkListItemColor: @invertedUnselectedTextColor;
-@invertedLinkListItemHoverColor: @invertedUnselectedTextColor;
-@invertedLinkListItemDownColor: @invertedTextColor;
+@invertedLinkListItemHoverColor: @invertedHoveredTextColor;
+@invertedLinkListItemDownColor: @invertedPressedTextColor;
 @invertedLinkListItemActiveColor: @invertedSelectedTextColor;
 
 /* Selection List */
+@selectionListItemMargin: 0em;
+@selectionListItemBorderRadius: 0.5em;
 @selectionListItemVerticalPadding: 0.5em;
 @selectionListItemHorizontalPadding: 0.5em;
 @selectionListTransition:
-  0.2s color ease,
-  0.2s padding-left ease,
-  0.2s background-color ease
+  0.2s color @defaultEasing,
+  0.2s padding-left @defaultEasing,
+  0.2s background-color @defaultEasing
 ;
 /* Selection List States */
 @selectionListBackground: transparent;
 @selectionListColor: @unselectedTextColor;
 @selectionListHoverBackground: @subtleTransparentBlack;
-@selectionListHoverColor: @selectedTextColor;
+@selectionListHoverColor: @hoveredTextColor;
 @selectionListDownBackground: @transparentBlack;
-@selectionListDownColor: @selectedTextColor;
+@selectionListDownColor: @pressedTextColor;
 @selectionListActiveBackground: @transparentBlack;
 @selectionListActiveColor: @selectedTextColor;
 
@@ -112,9 +123,9 @@
 @invertedSelectionListBackground: transparent;
 @invertedSelectionListColor: @invertedUnselectedTextColor;
 @invertedSelectionListHoverBackground: @subtleTransparentWhite;
-@invertedSelectionListHoverColor: @invertedSelectedTextColor;
+@invertedSelectionListHoverColor: @invertedHoveredTextColor;
 @invertedSelectionListDownBackground: @transparentWhite;
-@invertedSelectionListDownColor: @invertedSelectedTextColor;
+@invertedSelectionListDownColor: @invertedPressedTextColor;
 @invertedSelectionListActiveBackground: @transparentWhite;
 @invertedSelectionListActiveColor: @invertedSelectedTextColor;
 

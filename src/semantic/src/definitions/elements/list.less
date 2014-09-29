@@ -100,7 +100,7 @@ ol.ui.list ol,
   vertical-align: @iconContentVerticalAlign;
   transition: @iconTransition;
 }
-.ui.list .item > .top.aligned.icon {
+.ui.list .item > [class*="top aligned"].icon {
   vertical-align: top;
 }
 .ui.list .item > .icon:only-child {
@@ -117,7 +117,7 @@ ol.ui.list ol,
   padding-right: @imageDistance;
   vertical-align: @imageAlign;
 }
-.ui.list .item > .top.aligned.image {
+.ui.list .item > [class*="top aligned"].image {
   vertical-align: top;
 }
 .ui.list .item > .image img {
@@ -248,6 +248,18 @@ ol.ui.list ol,
 *******************************/
 
 /*-------------------
+       Disabled
+--------------------*/
+
+.ui.list .disabled.item {
+  pointer-events: none;
+  color: @disabledColor !important;
+}
+.ui.inverted.list .disabled.item {
+  color: @invertedDisabledColor !important;
+}
+
+/*-------------------
         Hover
 --------------------*/
 
@@ -282,14 +294,15 @@ ol.ui.list ol,
 .ui.link.list a.item,
 .ui.link.list .item a {
   color: @linkListItemColor;
+  transition: @linkListTransition;
 }
 .ui.link.list a.item:hover,
 .ui.link.list .item a:hover {
-  color:@linkListItemHoverColor;
+  color: @linkListItemHoverColor;
 }
 .ui.link.list a.item:active,
 .ui.link.list .item a:active {
-  color:@linkListItemDownColor;
+  color: @linkListItemDownColor;
 }
 .ui.link.list .active.item,
 .ui.link.list .active.item a {
@@ -323,8 +336,13 @@ ol.ui.list ol,
   cursor: pointer;
   background: @selectionListBackground;
   padding: @selectionListItemVerticalPadding @selectionListItemHorizontalPadding;
+  margin: @selectionListItemMargin;
   color: @selectionListColor;
+  border-radius: @selectionListItemBorderRadius;
   transition: @selectionListTransition;
+}
+.ui.selection.list .item:last-child {
+  margin-bottom: 0em;
 }
 .ui.selection.list .item:hover {
   background: @selectionListHoverBackground;
@@ -343,7 +361,7 @@ ol.ui.list ol,
 
 .ui.inverted.selection.list .item {
   background: @invertedSelectionListBackground;
-  color: @selectionListColor;
+  color: @invertedSelectionListColor;
 }
 .ui.inverted.selection.list .item:hover {
   background: @invertedSelectionListHoverBackground;
@@ -542,6 +560,11 @@ ol.ui.horizontal.list li:before,
   padding-left: @orderedChildCountDistance;
 }
 
+/* Divided Selection */
+.ui.divided.selection.list .item {
+  margin: 0em;
+  border-radius: 0em;
+}
 
 /* Divided horizontal */
 .ui.divided.horizontal.list {
@@ -672,14 +695,14 @@ ol.ui.horizontal.list li:before,
   padding-left: @relaxedHorizontalPadding;
   padding-right: @relaxedHorizontalPadding;
 }
-.ui.very.relaxed.list:not(.horizontal) .item {
+.ui[class*="very relaxed"].list:not(.horizontal) .item {
   padding-top: @veryRelaxedVerticalPadding;
   padding-bottom: @veryRelaxedVerticalPadding;
 }
-.ui.very.relaxed.list .header {
+.ui[class*="very relaxed"].list .header {
   /*margin-bottom: @veryRelaxedHeaderMargin;*/
 }
-.ui.horizontal.very.relaxed.list .item {
+.ui.horizontal[class*="very relaxed"].list .item {
   padding-left: @veryRelaxedHorizontalPadding;
   padding-right: @veryRelaxedHorizontalPadding;
 }

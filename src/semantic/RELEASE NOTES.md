@@ -3,6 +3,8 @@
 ### Version 1.0.0 - XX XX, 2014
 
 **Breaking Changes**
+- **Word Order** - Many multi word variations now require proper word order, for example ``left aligned`` or ``right floated`` classnames must be adjacent. This is to prevent conflicts with other multiple word variations
+- **Form** - Date field has been removed, use a ``ui icon input`` with a ``calendar icon`` instead
 - **Label** - Corner labels no longer support text, only icons.
 - **Form** - Standard grids now have gutters on left and right of first and last column. ``ui fitted grid`` can be used to remove these margins
 - **Checkbox** - Checkbox "enable" and "disable" have been replaced with "check" and "uncheck"
@@ -10,6 +12,7 @@
 - **Accordion** - Accordions are not unstyled by default allowing for more compatability with other modules without having to override styles. Styled accordions are now included as a variation ``ui styled accordion``
 - **Item** - Items have now been renamed "card" to allow for a more generic item list that does not use a "card" style. Some 'card' view content has been slightly adjusted. Please refer to documentation
 - **Header / Icon** - Inverted headers and icons no longer invert background colors, but instead use a lighter version of colors more legible on dark backgrounds. Inverted circular icons, still however invert the color of the circle.
+- **Modal** - AllowMultiple (allowing multiple modals at once) is now set to **false** by default.
 - **Table** - Tables are no longer striped by default, instead you must specify the 'striped' variation
 
 **Enhancements**
@@ -17,7 +20,11 @@
 - **Accordion** - Accordion now includes all icons in an embedded font instead of requiring icons
 - **Button** - Now has compact form, used for fitting into tight spaces
 - **Checkbox** - All styles have been redone. Standard checkboxes are now based around PX and not EM making sure there are no unusual circles or rounding issues. Checkboxes also now use a custom font for glyphs instead of CSS tricks.
+- **Checkbox** - Checkbox now have a ``fireOnInit`` setting for firing callbacks on page load
+- **Dropdown** - New dropdown type, searchable selection for large lists of choices
+- **Dropdown** - Dropdowns can now be initialized directly on a ``<select>`` element without any html
 - **Dropdown** - New action combo will change text of adjacent button, select will select element but not change text
+- **Dropdown** - Many new content types now work inside dropdowns, headers, dividers, images, inputs, labels and more
 - **Form** - Form now has a success state which will automatically display success messages
 - **Form** - Grouped fields and inline fields can now have labels
 - **Form** - Forms in 'success' state will now show success messages inside
@@ -25,6 +32,8 @@
 - **Form** - Inverted form now properly styles loader
 - **Form** - New field type ``required`` formats labels to show filling out field is mandatory
 - **Grid** - ``ui divider`` can now be used inside of row columns as well as ``vertically divided grid`` variation
+- **Grid** - Grid rows and columns now support color variations
+- **Grid** - Grid has been rewritten to automatically create row flow without row wrappers
 - **Grid** - Divided and celled grids can now be inverted for dark backgrounds
 - **Grid** - Elements inside a grid that are not rows or columns will now align properly
 - **Grid** - Fixed page grid allows for fixed pixel size containers used with a grid instead of percentage
@@ -42,9 +51,12 @@
 - **Popup** - A popup element can now be specified on initialization.
 - **Popup** - Positioned popups will now extend in the opposite direction to fit better with floated content
 - **Rating** - Rating now uses an embedded icon font to maximize compatibility
+- **Rating** - Rating can now automatically generate icons without including them
+- **Rating** - Rating can use data attributes to specify individual ratings
 - **Sidebar** - Sidebar now has tall / very tall variations for resizing top/bottom sidebars
 - **Steps** - Steps can now have icons, descriptions and titles. Step default theme has been modified significantly to be more flexible.
 - **Table** - Tables now have 'basic' and 'very' basic variations
+- **Transition** - Transition will now keep block position of elements hidden with visibility hidden
 
 ** Bug Fixes **
 - **Rating** - Vertical alignment has been improved
