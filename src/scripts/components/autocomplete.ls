@@ -128,6 +128,7 @@ Autocomplete = React.create-class do
 
   toggle-list: ->
     if @state.is-open then @hide-list! else @show-list!
+    
   render-input: ->
     input do
       ref: "input"
@@ -137,6 +138,7 @@ Autocomplete = React.create-class do
       onKeyUp: @handle-key-up
       on-focus: @handle-input-focus
       onBlur: @handle-input-blur
+
   render: ->
     @transfer-props-to do
       div class-name: "ui search",

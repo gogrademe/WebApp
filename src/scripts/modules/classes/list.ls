@@ -26,8 +26,6 @@ ClassName = React.create-class do
       Link to: "class.detail", termId: term-id, resourceId: @props.row.id,
         @props.value
 
-
-
 ClassList = React.create-class do
   displayName: "ClassList"
   getInitialState: ->
