@@ -31,7 +31,8 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('less', function () {
-  gulp.src(['./src/less/**/*.less', './src/semantic/src/**/*.less'])
+  //gulp.src(['./src/less/**/*.less', './src/semantic/src/**/*.less'])
+  gulp.src(['./src/less/main.less', './src/semantic/src/**/*.less'])
     .pipe(plumber())
     .pipe(less({
       compress: !production,
