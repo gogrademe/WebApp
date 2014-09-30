@@ -1,6 +1,6 @@
 ---
 layout      : 'default'
-css         : 'button'
+css         : 'button-page'
 element     : 'button'
 elementType : 'element'
 
@@ -8,7 +8,7 @@ title       : 'Button'
 description : 'Buttons indicate a possible user action.'
 type        : 'UI Element'
 
-themes      : ['Default', 'Basic', 'Chubby', 'Flat', 'Amazon', 'GitHub']
+themes      : ['Default', 'Classic', 'Basic', 'Raised', 'Chubby', 'Round', 'Amazon', 'GitHub']
 ---
 <link rel="stylesheet/less" type="text/css" href="/build/less/definitions/elements/button.less" />
 <script src="/javascript/button.js"></script>
@@ -17,14 +17,6 @@ themes      : ['Default', 'Basic', 'Chubby', 'Flat', 'Amazon', 'GitHub']
 
 <div class="main container">
 
-  <div class="peek">
-    <div class="ui vertical pointing secondary menu">
-      <a class="active item">Types</a>
-      <a class="item">Groups</a>
-      <a class="item">States</a>
-      <a class="item">Variations</a>
-    </div>
-  </div>
   <h2 class="ui dividing header">Types</h2>
 
   <div class="follow example">
@@ -267,7 +259,7 @@ themes      : ['Default', 'Basic', 'Chubby', 'Flat', 'Amazon', 'GitHub']
 
   <div class="spaced example">
     <h4 class="ui header">Sizes</h4>
-    <p>A button can have different sizes:</p>
+    <p>A button can have different sizes</p>
     <div class="mini ui button">
       Mini
     </div>
@@ -296,7 +288,7 @@ themes      : ['Default', 'Basic', 'Chubby', 'Flat', 'Amazon', 'GitHub']
 
   <div class="spaced example">
     <h4 class="ui header">Colors</h4>
-    <p>A button can have different colors:</p>
+    <p>A button can have different colors</p>
     <div class="ui black button">Black</div>
     <div class="ui yellow button">Yellow</div>
     <div class="ui green button">Green</div>
@@ -357,7 +349,7 @@ themes      : ['Default', 'Basic', 'Chubby', 'Flat', 'Amazon', 'GitHub']
     <p>A button can be attached to the top or bottom of other content</p>
     <div class="ui top attached button">Top</div>
     <div class="ui attached segment"></div>
-    <div class="bottom attached ui button">Bottom</div>
+    <div class="ui bottom attached button">Bottom</div>
   </div>
 
   <div class="example">
@@ -368,10 +360,10 @@ themes      : ['Default', 'Basic', 'Chubby', 'Flat', 'Amazon', 'GitHub']
   </div>
 
 
-  <h3 class="ui dividing header">Group Variations</h3>
+  <h2 class="ui dividing header">Groups</h2>
 
   <div class="example">
-    <h4 class="ui header">Vertical</h4>
+    <h4 class="ui header">Vertical Group</h4>
     <p>Groups can be formatted to appear vertically</p>
     <div class="ui vertical buttons">
       <div class="ui button">Feed</div>
@@ -382,7 +374,7 @@ themes      : ['Default', 'Basic', 'Chubby', 'Flat', 'Amazon', 'GitHub']
   </div>
 
   <div class="example">
-    <h4 class="ui header">Icon</h4>
+    <h4 class="ui header">Icon Group</h4>
     <p>Groups can be formatted as icons</p>
     <div class="ui icon buttons">
       <div class="ui button">
@@ -398,7 +390,7 @@ themes      : ['Default', 'Basic', 'Chubby', 'Flat', 'Amazon', 'GitHub']
   </div>
 
   <div class="example">
-    <h4 class="ui header">Labeled Icon</h4>
+    <h4 class="ui header">Labeled Icon Group</h4>
     <p>Groups can be formatted as labeled icons</p>
     <div class="ui vertical labeled icon buttons">
       <div class="ui button">
@@ -418,9 +410,9 @@ themes      : ['Default', 'Basic', 'Chubby', 'Flat', 'Amazon', 'GitHub']
 
 
   <div class="example">
-    <h4 class="ui header">Fluid</h4>
+    <h4 class="ui header">Evenly Divided</h4>
     <p>Groups can be divided evenly to fit parent</p>
-    <div class="ui message">Evenly divided elements can either use the number or the word, i.e. 2 or "two"</div>
+    <div class="ui ignored info message">Evenly divided elements can either use the number or the word, i.e. 2 or "two"</div>
     <div class="3 fluid ui buttons">
       <div class="ui button">Overview</div>
       <div class="ui button">Specs</div>
@@ -450,7 +442,7 @@ themes      : ['Default', 'Basic', 'Chubby', 'Flat', 'Amazon', 'GitHub']
 
 
   <div class="example">
-    <h4 class="ui header">Colors</h4>
+    <h4 class="ui header">Colored Group</h4>
     <p>Groups can have a shared color</p>
     <div class="blue ui buttons">
       <div class="ui button">One</div>
@@ -460,7 +452,7 @@ themes      : ['Default', 'Basic', 'Chubby', 'Flat', 'Amazon', 'GitHub']
   </div>
 
   <div class="example">
-    <h4 class="ui header">Basic</h4>
+    <h4 class="ui header">Basic Group</h4>
     <p>A button group can be formatted to remove extra formatting</p>
     <div class="ui basic buttons">
       <div class="ui button">One</div>
@@ -470,7 +462,7 @@ themes      : ['Default', 'Basic', 'Chubby', 'Flat', 'Amazon', 'GitHub']
   </div>
 
   <div class="example">
-    <h4 class="ui header">Sizes</h4>
+    <h4 class="ui header">Group Sizes</h4>
     <p>Groups can have a shared size</p>
     <div class="huge ui buttons">
       <div class="ui button">One</div>

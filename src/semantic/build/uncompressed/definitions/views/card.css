@@ -43,7 +43,7 @@
         Import Directives
 *******************************/
 /*------------------
-     Load Default
+    Load Defaults
 -------------------*/
 /*******************************
          Site Settings
@@ -58,9 +58,11 @@
       Site Colors
 --------------------*/
 /*---  Colors  ---*/
+/*---  Light Colors  ---*/
 /*-------------------
         Page
 --------------------*/
+/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -82,7 +84,6 @@
 /*-------------------
        Easing
 --------------------*/
-/*---  Light Variations  ---*/
 /*---   Neutrals  ---*/
 /*--- Colored Backgrounds ---*/
 /*--- Colored Text ---*/
@@ -91,7 +92,6 @@
     Emotive Colors
 --------------------*/
 /* Mood */
-/* Solid Background Color */
 /* Status */
 /* Darkened Headers */
 /*-------------------
@@ -180,7 +180,7 @@
     User Variable Overrides
 *******************************/
 /*------------------
- Override Mix-in
+   Override Loader
 -------------------*/
 /*******************************
             Standard
@@ -219,17 +219,18 @@
 ---------------*/
 .ui.cards > .card,
 .ui.card {
+  max-width: 100%;
   position: relative;
   display: block;
-  width: 300px;
+  width: 290px;
   min-height: 0px;
   background: #ffffff;
-  padding: 0em;
+  padding: 0.5em;
   border: none;
   border-radius: 0.325rem;
-  box-shadow: 0px 0em 0px 0px #dddddd, 0px 0px 0px 1px #dddddd;
-  -webkit-transition: box-shadow 0.25s ease;
-          transition: box-shadow 0.25s ease;
+  box-shadow: 0px 0.2em 0px 0px #dddddd, 0px 0px 0px 1px #dddddd;
+  -webkit-transition: box-shadow 0.2s ease;
+          transition: box-shadow 0.2s ease;
   z-index: '';
 }
 .ui.card {
@@ -298,7 +299,7 @@
 .ui.card > .content > .header {
   display: block;
   margin: 0em;
-  font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 1.2em;
   color: rgba(0, 0, 0, 0.85);
@@ -312,12 +313,12 @@
 /*--------------
      Floated
 ---------------*/
-.ui.cards > .card .left.floated,
-.ui.card .left.floated {
+.ui.cards > .card [class*="left floated"],
+.ui.card [class*="left floated"] {
   float: left;
 }
-.ui.cards > .card .right.floated,
-.ui.card .right.floated {
+.ui.cards > .card [class*="right floated"],
+.ui.card [class*="right floated"] {
   float: right;
 }
 /*--------------
@@ -372,8 +373,8 @@
 .ui.card .meta :last-child {
   margin-right: 0em;
 }
-.ui.cards > .card .meta .right.floated,
-.ui.card .meta .right.floated {
+.ui.cards > .card .meta [class*="right floated"],
+.ui.card .meta [class*="right floated"] {
   margin-right: 0em;
   margin-left: 0.3em;
 }
@@ -384,8 +385,8 @@
 .ui.cards > .card > .content a,
 .ui.card > .content a {
   color: #009fda;
-  -webkit-transition: color 0.25s ease;
-          transition: color 0.25s ease;
+  -webkit-transition: color 0.2s ease;
+          transition: color 0.2s ease;
 }
 .ui.cards > .card > .content a:hover,
 .ui.card > .content a:hover {
@@ -410,6 +411,15 @@
   color: rgba(0, 0, 0, 0.8);
 }
 /*--------------
+     Buttons
+---------------*/
+.ui.cards > .card > .buttons:last-child,
+.ui.card > .buttons:last-child,
+.ui.cards > .card > .button:last-child,
+.ui.card > .button:last-child {
+  margin-bottom: -1px;
+}
+/*--------------
      Labels
 ---------------*/
 /*-----Star----- */
@@ -418,8 +428,8 @@
 .ui.card > .content .star.icon {
   cursor: pointer;
   opacity: 0.75;
-  -webkit-transition: color 0.25s ease;
-          transition: color 0.25s ease;
+  -webkit-transition: color 0.2s ease;
+          transition: color 0.2s ease;
 }
 .ui.cards > .card > .content .star.icon:hover,
 .ui.card > .content .star.icon:hover {
@@ -436,8 +446,8 @@
 .ui.card > .content .like.icon {
   cursor: pointer;
   opacity: 0.75;
-  -webkit-transition: color 0.25s ease;
-          transition: color 0.25s ease;
+  -webkit-transition: color 0.2s ease;
+          transition: color 0.2s ease;
 }
 .ui.cards > .card > .content .like.icon:hover,
 .ui.card > .content .like.icon:hover {
@@ -453,18 +463,19 @@
 -----------------*/
 .ui.cards > .card > .extra,
 .ui.card > .extra {
-  min-height: 0px !important;
+  max-width: 100%;
+  min-height: 0em !important;
   position: static;
-  background: #fafafa -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05));
-  background: #fafafa linear-gradient(transparent, rgba(0, 0, 0, 0.05));
-  width: 100%;
-  padding: 0.75em 1em;
+  background: none;
+  width: auto;
+  margin: 0em 1em;
+  padding: 0.75em 0em;
   top: 0em;
   left: 0em;
   color: rgba(0, 0, 0, 0.4);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-  -webkit-transition: color 0.25s ease;
-          transition: color 0.25s ease;
+  box-shadow: none;
+  -webkit-transition: color 0.2s ease;
+          transition: color 0.2s ease;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 .ui.cards > .card > .extra a,
@@ -479,6 +490,13 @@
            Variations
 *******************************/
 /*-------------------
+        Fluid
+--------------------*/
+.ui.fluid.card {
+  width: 100%;
+  max-width: 9999px;
+}
+/*-------------------
         Link
 --------------------*/
 .ui.cards a.card:hover,
@@ -489,7 +507,7 @@ a.ui.card:hover,
   z-index: 5;
   background: '';
   border: none;
-  box-shadow: 0px 0em 0px 0px #b0b0b0, 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0.2em 0px 0px #b0b0b0, 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
 }
 /*--------------
    Card Count
@@ -810,7 +828,7 @@ a.ui.card:hover,
 /*-------------------
       Stackable
 --------------------*/
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
   .ui.stackable.cards {
     display: block !important;
   }

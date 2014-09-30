@@ -11,7 +11,6 @@ semantic.popup.ready = function() {
   ;
   $popup
     .popup({
-      preserve: true,
       className: {
         popup: 'ignored ui popup'
       }
@@ -19,8 +18,23 @@ semantic.popup.ready = function() {
   ;
 
   $('.fluid.example .button')
+    .popup()
+  ;
+  $('.fitted.example .button')
     .popup({
-      inline: true
+      on: 'click'
+    })
+  ;
+
+  $('.existing.example .rating')
+    .rating()
+  ;
+
+  $('.existing.example .card')
+    .popup({
+      className: {
+        popup: 'ignored ui popup'
+      }
     })
   ;
 

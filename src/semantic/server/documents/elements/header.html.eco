@@ -18,13 +18,6 @@ themes      : ['Default', 'Bookish', 'Chubby']
 
 <div class="main container">
 
-  <div class="peek">
-    <div class="ui vertical pointing secondary menu">
-      <a class="active item">Types</a>
-    <a class="item">States</a>
-      <a class="item">Variations</a>
-    </div>
-  </div>
   <h2 class="ui dividing header">Types</h2>
 
   <div class="example">
@@ -56,10 +49,13 @@ themes      : ['Default', 'Bookish', 'Chubby']
   <div class="example">
     <h4 class="ui header">Icon</h4>
     <p>A header can be formatted to emphasize an icon</p>
-    <div class="ui icon header">
-      <i class="circular question icon"></i>Questions
-      <div class="sub header">Have any questions? Contact Us</div>
-    </div>
+    <h2 class="ui icon header">
+      <i class="settings icon"></i>
+      <div class="content">
+        Account Settings
+        <div class="sub header">Manage your account settings and set e-mail preferences.</div>
+      </div>
+    </h2>
   </div>
 
 

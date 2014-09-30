@@ -82,12 +82,6 @@ $.fn.visibility = function(parameters) {
 
         destroy: function() {
           module.verbose('Destroying previous module');
-          $window
-            .off(eventNamespace)
-          ;
-          $context
-            .off(eventNamespace)
-          ;
           $module
             .off(eventNamespace)
             .removeData(moduleNamespace)
@@ -112,7 +106,7 @@ $.fn.visibility = function(parameters) {
             module.verbose('Scroll position changed');
             if(settings.throttle) {
               clearTimeout(module.timer);
-              module.timer = setTimeout(module.checkVisibility, 200);
+              module.timer = setTimeout(module.checkVisibility, settings.throttle);
             }
             else {
               requestAnimationFrame(module.checkVisibility);
@@ -168,7 +162,7 @@ $.fn.visibility = function(parameters) {
         set: {
           image: function(src) {
             var
-              offScreen = (module.cache.screen.bottom + settings.offset < module.cache.element.top)
+              offScreen = (module.cache.screen.bottom < module.cache.element.top)
             ;
             $module
               .attr('src', src)
@@ -210,8 +204,17 @@ $.fn.visibility = function(parameters) {
           module.save.direction();
           module.save.screenCalculations();
           module.save.elementCalculations();
-
+          // percentage
           module.passed();
+
+          // reverse (must be first)
+          module.passingReverse();
+          module.topVisibleReverse();
+          module.bottomVisibleReverse();
+          module.topPassedReverse();
+          module.bottomPassedReverse();
+
+          // one time
           module.passing();
           module.topVisible();
           module.bottomVisible();
@@ -253,7 +256,7 @@ $.fn.visibility = function(parameters) {
             module.debug('Adding callback for passing', newCallback);
             settings.onPassing = newCallback;
           }
-          if(callback && calculations.passing) {
+          if(calculations.passing) {
             module.execute(callback, callbackName);
           }
           else if(!settings.once) {
@@ -275,7 +278,7 @@ $.fn.visibility = function(parameters) {
             module.debug('Adding callback for top visible', newCallback);
             settings.onTopVisible = newCallback;
           }
-          if(callback && calculations.topVisible) {
+          if(calculations.topVisible) {
             module.execute(callback, callbackName);
           }
           else if(!settings.once) {
@@ -296,7 +299,7 @@ $.fn.visibility = function(parameters) {
             module.debug('Adding callback for bottom visible', newCallback);
             settings.onBottomVisible = newCallback;
           }
-          if(callback && calculations.bottomVisible) {
+          if(calculations.bottomVisible) {
             module.execute(callback, callbackName);
           }
           else if(!settings.once) {
@@ -317,14 +320,14 @@ $.fn.visibility = function(parameters) {
             module.debug('Adding callback for top passed', newCallback);
             settings.onTopPassed = newCallback;
           }
-          if(callback && calculations.topPassed) {
+          if(calculations.topPassed) {
             module.execute(callback, callbackName);
           }
           else if(!settings.once) {
             module.remove.occurred(callbackName);
           }
           if(newCallback === undefined) {
-            return calculations.topPassed;
+            return calculations.onTopPassed;
           }
         },
 
@@ -338,7 +341,7 @@ $.fn.visibility = function(parameters) {
             module.debug('Adding callback for bottom passed', newCallback);
             settings.onBottomPassed = newCallback;
           }
-          if(callback && calculations.bottomPassed) {
+          if(calculations.bottomPassed) {
             module.execute(callback, callbackName);
           }
           else if(!settings.once) {
@@ -349,18 +352,137 @@ $.fn.visibility = function(parameters) {
           }
         },
 
+        passingReverse: function(newCallback) {
+          var
+            calculations = module.get.elementCalculations(),
+            callback     = newCallback || settings.onPassingReverse,
+            callbackName = 'passingReverse'
+          ;
+          if(newCallback) {
+            module.debug('Adding callback for passing reverse', newCallback);
+            settings.onPassingReverse = newCallback;
+          }
+          if(!calculations.passing) {
+            if(module.get.occurred('passing')) {
+              module.execute(callback, callbackName);
+            }
+          }
+          else if(!settings.once) {
+            module.remove.occurred(callbackName);
+          }
+          if(newCallback !== undefined) {
+            return !calculations.passing;
+          }
+        },
+
+
+        topVisibleReverse: function(newCallback) {
+          var
+            calculations = module.get.elementCalculations(),
+            callback     = newCallback || settings.onTopVisibleReverse,
+            callbackName = 'topVisibleReverse'
+          ;
+          if(newCallback) {
+            module.debug('Adding callback for top visible reverse', newCallback);
+            settings.onTopVisibleReverse = newCallback;
+          }
+          if(!calculations.topVisible) {
+            if(module.get.occurred('topVisible')) {
+              module.execute(callback, callbackName);
+            }
+          }
+          else if(!settings.once) {
+            module.remove.occurred(callbackName);
+          }
+          if(newCallback === undefined) {
+            return !calculations.topVisible;
+          }
+        },
+
+        bottomVisibleReverse: function(newCallback) {
+          var
+            calculations = module.get.elementCalculations(),
+            callback     = newCallback || settings.onBottomVisibleReverse,
+            callbackName = 'bottomVisibleReverse'
+          ;
+          if(newCallback) {
+            module.debug('Adding callback for bottom visible reverse', newCallback);
+            settings.onBottomVisibleReverse = newCallback;
+          }
+          if(!calculations.bottomVisible) {
+            if(module.get.occurred('bottomVisible')) {
+              module.execute(callback, callbackName);
+            }
+          }
+          else if(!settings.once) {
+            module.remove.occurred(callbackName);
+          }
+          if(newCallback === undefined) {
+            return !calculations.bottomVisible;
+          }
+        },
+
+        topPassedReverse: function(newCallback) {
+          var
+            calculations = module.get.elementCalculations(),
+            callback     = newCallback || settings.onTopPassedReverse,
+            callbackName = 'topPassedReverse'
+          ;
+          if(newCallback) {
+            module.debug('Adding callback for top passed reverse', newCallback);
+            settings.onTopPassedReverse = newCallback;
+          }
+          if(!calculations.topPassed) {
+            if(module.get.occurred('topPassed')) {
+              module.execute(callback, callbackName);
+            }
+          }
+          else if(!settings.once) {
+            module.remove.occurred(callbackName);
+          }
+          if(newCallback === undefined) {
+            return !calculations.onTopPassed;
+          }
+        },
+
+        bottomPassedReverse: function(newCallback) {
+          var
+            calculations = module.get.elementCalculations(),
+            callback     = newCallback || settings.onBottomPassedReverse,
+            callbackName = 'bottomPassedReverse'
+          ;
+          if(newCallback) {
+            module.debug('Adding callback for bottom passed reverse', newCallback);
+            settings.onBottomPassedReverse = newCallback;
+          }
+          if(!calculations.bottomPassed) {
+            if(module.get.occurred('bottomPassed')) {
+              module.execute(callback, callbackName);
+            }
+          }
+          else if(!settings.once) {
+            module.remove.occurred(callbackName);
+          }
+          if(newCallback === undefined) {
+            return !calculations.bottomPassed;
+          }
+        },
+
         execute: function(callback, callbackName) {
           var
             calculations = module.get.elementCalculations(),
             screen       = module.get.screenCalculations()
           ;
-          if(settings.continuous) {
-            module.debug('Callback called continuously on valid', callbackName, calculations);
-            $.proxy(callback, element)(calculations, screen);
-          }
-          else if(!module.get.occurred(callbackName)) {
-            module.debug('Callback conditions met', callbackName, calculations);
-            $.proxy(callback, element)(calculations, screen);
+          callback     = callback || false;
+          if(callback) {
+            if(settings.continuous) {
+              module.debug('Callback being called continuously', callbackName, calculations);
+              $.proxy(callback, element)(calculations, screen);
+            }
+            else if(!module.get.occurred(callbackName)) {
+              module.debug('Conditions met', callbackName, calculations);
+              $.proxy(callback, element)(calculations, screen);
+            }
           }
           module.save.occurred(callbackName);
         },
@@ -368,7 +490,10 @@ $.fn.visibility = function(parameters) {
         remove: {
           occurred: function(callback) {
             if(callback) {
-              module.cache.occurred[callback] = false;
+              if(module.cache.occurred[callback] !== undefined && module.cache.occurred[callback] === true) {
+                module.debug('Callback can now be called again', callback);
+                module.cache.occurred[callback] = false;
+              }
             }
             else {
               module.cache.occurred = {};
@@ -379,7 +504,10 @@ $.fn.visibility = function(parameters) {
         save: {
           occurred: function(callback) {
             if(callback) {
-              module.cache.occurred[callback] = true;
+              if(module.cache.occurred[callback] === undefined || (module.cache.occurred[callback] !== true)) {
+                module.verbose('Saving callback occurred', callback);
+                module.cache.occurred[callback] = true;
+              }
             }
           },
           scroll: function() {
@@ -440,10 +568,10 @@ $.fn.visibility = function(parameters) {
             }
             // visibility
             $.extend(module.cache.element, {
-              topVisible       : (screen.bottom > element.top),
-              topPassed        : (screen.top > element.top),
-              bottomVisible    : (screen.bottom > element.bottom),
-              bottomPassed     : (screen.top > element.bottom),
+              topVisible       : (screen.bottom >= element.top),
+              topPassed        : (screen.top >= element.top),
+              bottomVisible    : (screen.bottom >= element.bottom),
+              bottomPassed     : (screen.top >= element.bottom),
               pixelsPassed     : 0,
               percentagePassed : 0
             });
@@ -461,15 +589,15 @@ $.fn.visibility = function(parameters) {
           },
           screenCalculations: function() {
             var
-              scroll = $context.scrollTop()
+              scroll = $context.scrollTop() + settings.offset
             ;
             if(module.cache.scroll === undefined) {
-              module.cache.scroll = $context.scrollTop();
+              module.cache.scroll = $context.scrollTop() + settings.offset;
             }
             module.save.direction();
             $.extend(module.cache.screen, {
-              top    : scroll - settings.offset,
-              bottom : scroll - settings.offset + module.cache.screen.height
+              top    : scroll,
+              bottom : scroll + module.cache.screen.height
             });
             return module.cache.screen;
           },
@@ -723,52 +851,49 @@ $.fn.visibility = function(parameters) {
 
 $.fn.visibility.settings = {
 
-  name              : 'Visibility',
-  namespace         : 'visibility',
+  name                   : 'Visibility',
+  namespace              : 'visibility',
 
-  debug             : false,
-  verbose           : false,
-  performance       : true,
+  debug                  : false,
+  verbose                : false,
+  performance            : true,
 
-  offset            : 0,
-  includeMargin     : false,
+  offset                 : 0,
+  includeMargin          : false,
 
-  context           : window,
+  context                : window,
 
   // visibility check delay in ms
-  throttle          : false,
+  throttle               : false,
 
   // special visibility type
-  type              : false,
-  transition        : 'fade in',
-  duration          : 500,
+  type                   : false,
+  transition             : 'fade in',
+  duration               : 500,
 
-  // array of callbacks
-  onPassed          : {},
+  // array of callbacks for percentage
+  onPassed               : {},
 
   // standard callbacks
-  onPassing         : false,
-  onTopVisible      : false,
-  onBottomVisible   : false,
-  onTopPassed       : false,
-  onBottomPassed    : false,
+  onPassing              : false,
+  onTopVisible           : false,
+  onBottomVisible        : false,
+  onTopPassed            : false,
+  onBottomPassed         : false,
 
-  once              : true,
-  continuous        : false,
+  // reverse callbacks
+  onPassingReverse       : false,
+  onTopVisibleReverse    : false,
+  onBottomVisibleReverse : false,
+  onTopPassedReverse     : false,
+  onBottomPassedReverse  : false,
+
+  once                   : true,
+  continuous             : false,
 
   // utility callbacks
-  onRefresh         : function(){},
-  onScroll          : function(){},
-
-  // not used currently waiting for (DOM Mutations API adoption)
-  // https://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html#mutation-observers
-  watch             : true,
-  watchedProperties : [
-    'offsetWidth',
-    'offsetHeight',
-    'top',
-    'left'
-  ],
+  onRefresh              : function(){},
+  onScroll               : function(){},
 
   error : {
     method   : 'The method you called is not defined.'

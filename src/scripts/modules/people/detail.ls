@@ -28,7 +28,7 @@ PersonDetail = React.create-class do
   render: ->
     div null,
       Header title: @title @state.person
-      div class-name: "main",
+      div class-name: "main container",
         "Detail page!"
 
 module.exports = PersonDetail

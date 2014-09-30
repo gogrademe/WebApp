@@ -146,8 +146,8 @@ ClassDetail = React.create-class do
     api.grade.events.remove-listener "change", @get-grades
 
   render: ->
-    div {},
-      Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id
+    div null,
+      #Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id
       Grid columns: @build-cols!, data: @build-data!
 
 module.exports = ClassDetail

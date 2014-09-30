@@ -2,15 +2,19 @@ require! {
   React: 'react'
 
   select: '../../components/src/modules/Dropdown.ls'
-  Header: '../../components/Header.ls'
+  Header: '../../components/PageHeader.ls'
+
+
   Nav: './nav.ls'
 
   '../../api/api.ls'
 
   'react/lib/cloneWithProps'
 }
+
+Link = require '../../components/HighlightedLink.ls'
 Dom = React.DOM
-{h4, div} = Dom
+{div} = Dom
 
 
 {find} = require 'prelude-ls'
@@ -35,13 +39,28 @@ View = React.create-class do
 
   render-title: ->
     | !@state.class or !@state.terms or !@state.term => "Loading..."
-    | otherwise => "#{@state.class.name} - #{@state.class.gradeLevel} | Year #{@state.term.schoolYear} - #{@state.term.name} "
+    | otherwise => "#{@state.class.name} - #{@state.class.gradeLevel} / Year #{@state.term.schoolYear} - #{@state.term.name} "
+  render-primary: ->
+    | !@state.class => "Loading..."
+    | otherwise => "#{@state.class.name} - #{@state.class.gradeLevel}"
+
+  render-secondary: ->
+    | !@state.term => ""
+    | otherwise => "Year #{@state.term.schoolYear} - #{@state.term.name} "
 
   render: ->
     div null,
-      Header title: @render-title!
-      div class-name: "main",
-        @props.active-route-handler class: @state.class, terms: @state.terms, term: @state.term
+      Header primary: @render-primary!, secondary: @render-secondary!
+      div class-name: "main container",
+        div class-name: "ui stackable grid",
+          div class-name: "thirteen wide column",
+            @props.active-route-handler class: @state.class, terms: @state.terms, term: @state.term
+          div class-name: "right floated three wide column",
+            div class-name: "ui fluid vertical menu sunken",
+              Link class-name: "item" to: "class.detail" term-id: @props.params.term-id, resource-id: @props.params.resource-id, "Grades"
+              Link class-name: "item" to: "class.students" term-id: @props.params.term-id, resource-id: @props.params.resource-id, "Students"
+              Link class-name: "item" to: "class.assignments" term-id: @props.params.term-id, resource-id: @props.params.resource-id, "Assignments"
+              Link class-name: "item" to: "class.settings" term-id: @props.params.term-id, resource-id: @props.params.resource-id, "Settings"
 
 module.exports =
   View:       View

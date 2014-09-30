@@ -9,7 +9,6 @@ DashboardModule = React.create-class do
   displayName: "DashboardModule"
   render: ->
     div null,
-      Header title: "Dashboard"
       div class-name: "main",
         div class-name: "ui grid",
           div class-name: "column",

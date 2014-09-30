@@ -43,7 +43,7 @@
         Import Directives
 *******************************/
 /*------------------
-     Load Default
+    Load Defaults
 -------------------*/
 /*******************************
          Site Settings
@@ -58,9 +58,11 @@
       Site Colors
 --------------------*/
 /*---  Colors  ---*/
+/*---  Light Colors  ---*/
 /*-------------------
         Page
 --------------------*/
+/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -82,7 +84,6 @@
 /*-------------------
        Easing
 --------------------*/
-/*---  Light Variations  ---*/
 /*---   Neutrals  ---*/
 /*--- Colored Backgrounds ---*/
 /*--- Colored Text ---*/
@@ -91,7 +92,6 @@
     Emotive Colors
 --------------------*/
 /* Mood */
-/* Solid Background Color */
 /* Status */
 /* Darkened Headers */
 /*-------------------
@@ -155,6 +155,7 @@
 /* Icon Header */
 /* Divided */
 /* Block */
+/* Divided */
 /* Attached */
 /* Inverted */
 /* Floated */
@@ -171,7 +172,7 @@
     User Variable Overrides
 *******************************/
 /*------------------
- Override Mix-in
+   Override Loader
 -------------------*/
 /*******************************
             Header
@@ -179,8 +180,8 @@
 /* Standard */
 .ui.header {
   border: none;
-  font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
-  margin: 1em 0em 1rem;
+  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  margin: 2rem 0em 1rem;
   padding: 0em 0em;
   font-weight: bold;
   line-height: 1.33em;
@@ -280,7 +281,7 @@ h5.ui.header {
         Icon
 --------------------*/
 .ui.icon.header {
-  display: inline-block;
+  display: block;
   text-align: center;
 }
 .ui.icon.header .icon {
@@ -321,85 +322,85 @@ h5.ui.header {
        Colors
 --------------------*/
 .ui.black.header {
-  color: #191919 !important;
+  color: #1b1c1d !important;
 }
 a.ui.black.header:hover {
-  color: #2b2b2b;
+  color: #2c2e2f !important;
 }
 .ui.blue.header {
-  color: #0074d9 !important;
+  color: #3b83c0 !important;
 }
 a.ui.blue.header:hover {
-  color: #0087fd;
+  color: #5494cb !important;
 }
 .ui.green.header {
-  color: #2ecc40 !important;
+  color: #5bbd72 !important;
 }
 a.ui.green.header:hover {
-  color: #48d658;
+  color: #74c788 !important;
 }
 .ui.orange.header {
-  color: #ff851b !important;
+  color: #e07b53 !important;
 }
 a.ui.orange.header:hover {
-  color: #ff983f;
+  color: #e59271 !important;
 }
 .ui.pink.header {
   color: #d9499a !important;
 }
 a.ui.pink.header:hover {
-  color: #df67aa;
+  color: #df67aa !important;
 }
 .ui.purple.header {
-  color: #a24096 !important;
+  color: #564f8a !important;
 }
 a.ui.purple.header:hover {
-  color: #b94dac;
+  color: #645ca1 !important;
 }
 .ui.red.header {
-  color: #ff4136 !important;
+  color: #d95c5c !important;
 }
 a.ui.red.header:hover {
-  color: #ff635a;
+  color: #e07979 !important;
 }
 .ui.teal.header {
-  color: #39cccc !important;
+  color: #00b5ad !important;
 }
 a.ui.teal.header:hover {
-  color: #55d3d3;
+  color: #00d9cf !important;
 }
 .ui.yellow.header {
-  color: #ffcb08 !important;
+  color: #f2c61f !important;
 }
 a.ui.yellow.header:hover {
-  color: #ffd32c;
+  color: #f4cf41 !important;
 }
 .ui.black.dividing.header {
-  border-bottom: 3px solid #191919;
+  border-bottom: 2px solid #1b1c1d;
 }
 .ui.blue.dividing.header {
-  border-bottom: 3px solid #0074d9;
+  border-bottom: 2px solid #3b83c0;
 }
 .ui.green.dividing.header {
-  border-bottom: 3px solid #2ecc40;
+  border-bottom: 2px solid #5bbd72;
 }
 .ui.orange.dividing.header {
-  border-bottom: 3px solid #ff851b;
+  border-bottom: 2px solid #e07b53;
 }
 .ui.pink.dividing.header {
-  border-bottom: 3px solid #d9499a;
+  border-bottom: 2px solid #d9499a;
 }
 .ui.purple.dividing.header {
-  border-bottom: 3px solid #a24096;
+  border-bottom: 2px solid #564f8a;
 }
 .ui.red.dividing.header {
-  border-bottom: 3px solid #ff4136;
+  border-bottom: 2px solid #d95c5c;
 }
 .ui.teal.dividing.header {
-  border-bottom: 3px solid #39cccc;
+  border-bottom: 2px solid #00b5ad;
 }
 .ui.yellow.dividing.header {
-  border-bottom: 3px solid #ffcb08;
+  border-bottom: 2px solid #f2c61f;
 }
 /*-------------------
       Inverted
@@ -549,19 +550,19 @@ a.ui.inverted.yellow.header:hover {
   border-radius: 0.3125rem;
 }
 .ui.tiny.block.header {
-  font-size: 0.9em;
+  font-size: 0.875em;
 }
 .ui.small.block.header {
-  font-size: 1em;
+  font-size: 0.9em;
 }
 .ui.block.header {
-  font-size: 1.1em;
+  font-size: 1em;
 }
 .ui.large.block.header {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 .ui.huge.block.header {
-  font-size: 1.33em;
+  font-size: 1.2em;
 }
 /*-------------------
        Attached
@@ -576,7 +577,7 @@ a.ui.inverted.yellow.header:hover {
   margin-left: 0px;
   margin-right: 0px;
 }
-.ui.attached:not(.top):not(.bottom) {
+.ui.attached:not(.top):not(.bottom).header {
   margin-top: 0em;
   margin-bottom: 0em;
   border-top: none;
@@ -594,19 +595,19 @@ a.ui.inverted.yellow.header:hover {
 }
 /* Attached Sizes */
 .ui.tiny.attached.header {
-  font-size: 0.9em;
+  font-size: 0.875em;
 }
 .ui.small.attached.header {
-  font-size: 1em;
+  font-size: 0.9em;
 }
 .ui.attached.header {
-  font-size: 1.1em;
+  font-size: 1em;
 }
 .ui.large.attached.header {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 .ui.huge.attached.header {
-  font-size: 1.33em;
+  font-size: 1.2em;
 }
 /*-------------------
         Sizing

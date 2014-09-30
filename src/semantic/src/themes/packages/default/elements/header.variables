@@ -10,7 +10,7 @@
 @fontWeight: bold;
 @textTransform: none;
 
-@topMargin: 1em;
+@topMargin: 2rem;
 @bottomMargin: 1rem;
 
 @horizontalPadding: 0em;
@@ -38,7 +38,7 @@
 
 /* Icon */
 @iconSize: 1em;
-@iconOffset: ( (@lineHeight - 1em) / 2);
+@iconOffset: @lineHeightOffset;
 @iconMargin: 1em;
 @iconAlignment: middle;
 
@@ -65,7 +65,7 @@
 
 /* Divided */
 @dividedBorder: 1px solid rgba(0, 0, 0, 0.1);
-@dividedColoredBorderWidth: 3px;
+@dividedColoredBorderWidth: 2px;
 
 @dividedBorderPadding: 0.2rem;
 @dividedSubHeaderPadding: 0.5rem;
@@ -79,11 +79,22 @@
 @blockVerticalPadding: 0.75rem;
 @blockBorderRadius: 0.3125rem;
 
-@tinyBlock: 0.9em;
-@smallBlock: 1em;
-@mediumBlock: 1.1em;
-@largeBlock: 1.2em;
-@hugeBlock: 1.33em;
+@tinyBlock: 0.875em;
+@smallBlock: 0.9em;
+@mediumBlock: 1em;
+@largeBlock: 1.1em;
+@hugeBlock: 1.2em;
+
+/* Divided */
+@blackDividedBorderColor: @black;
+@blueDividedBorderColor: @blue;
+@greenDividedBorderColor: @green;
+@orangeDividedBorderColor: @orange;
+@pinkDividedBorderColor: @pink;
+@purpleDividedBorderColor: @purple;
+@redDividedBorderColor: @red;
+@tealDividedBorderColor: @teal;
+@yellowDividedBorderColor: @yellow;
 
 /* Attached */
 @attachedOffset: 0px;

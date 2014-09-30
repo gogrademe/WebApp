@@ -43,7 +43,7 @@
         Import Directives
 *******************************/
 /*------------------
-     Load Default
+    Load Defaults
 -------------------*/
 /*******************************
          Site Settings
@@ -58,9 +58,11 @@
       Site Colors
 --------------------*/
 /*---  Colors  ---*/
+/*---  Light Colors  ---*/
 /*-------------------
         Page
 --------------------*/
+/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -82,7 +84,6 @@
 /*-------------------
        Easing
 --------------------*/
-/*---  Light Variations  ---*/
 /*---   Neutrals  ---*/
 /*--- Colored Backgrounds ---*/
 /*--- Colored Text ---*/
@@ -91,7 +92,6 @@
     Emotive Colors
 --------------------*/
 /* Mood */
-/* Solid Background Color */
 /* Status */
 /* Darkened Headers */
 /*-------------------
@@ -166,7 +166,7 @@
     User Variable Overrides
 *******************************/
 /*------------------
- Override Mix-in
+   Override Loader
 -------------------*/
 /*******************************
             Loader
@@ -225,13 +225,13 @@
           backface-visibility: hidden;
 }
 .ui.flipping.loader .shape:before {
-  background-color: #0074d9;
+  background-color: #3b83c0;
   -webkit-transform: rotateY(0deg);
           transform: rotateY(0deg);
   z-index: 2;
 }
 .ui.flipping.loader .shape:after {
-  background-color: #191919;
+  background-color: #1b1c1d;
   -webkit-transform: rotateY(180deg);
           transform: rotateY(180deg);
 }

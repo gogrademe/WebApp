@@ -11,6 +11,8 @@
 
 ;(function ($, window, document, undefined) {
 
+"use strict";
+
 $.fn.video = function(parameters) {
 
   var
@@ -99,6 +101,7 @@ $.fn.video = function(parameters) {
 
         destroy: function() {
           module.verbose('Destroying previous instance of video');
+          module.reset();
           $module
             .removeData(moduleNamespace)
             .off(eventNamespace)
@@ -523,7 +526,7 @@ $.fn.video.settings.templates = {
     ;
     if(image) {
       html += ''
-        + '<i class="play sign icon"></i>'
+        + '<i class="video play icon"></i>'
         + '<img class="placeholder" src="' + image + '">'
       ;
     }
