@@ -168,7 +168,7 @@ AssignmentGrades = React.create-class do
 
   render: ->
     div {},
-      Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id
+      #Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id
       Grid columns: @build-cols!, data: @build-data!
 
 module.exports = AssignmentGrades

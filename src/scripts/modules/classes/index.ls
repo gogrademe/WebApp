@@ -3,12 +3,16 @@ require! {
 
   select: '../../components/src/modules/Dropdown.ls'
   Header: '../../components/PageHeader.ls'
+
+
   Nav: './nav.ls'
 
   '../../api/api.ls'
 
   'react/lib/cloneWithProps'
 }
+
+Link = require '../../components/HighlightedLink.ls'
 Dom = React.DOM
 {div} = Dom
 
@@ -43,16 +47,20 @@ View = React.create-class do
   render-secondary: ->
     | !@state.term => ""
     | otherwise => "Year #{@state.term.schoolYear} - #{@state.term.name} "
+
   render: ->
     div null,
       Header primary: @render-primary!, secondary: @render-secondary!
       div class-name: "main container",
-          div null,
+        div class-name: "ui stackable grid",
+          div class-name: "thirteen wide column",
             @props.active-route-handler class: @state.class, terms: @state.terms, term: @state.term
-          div class-name: "ui close right rail",
-            div class-name: "ui vertical fluid menu",
-              div class-name: "item",
-                "Test One"
+          div class-name: "right floated three wide column",
+            div class-name: "ui fluid vertical menu sunken",
+              Link class-name: "item" to: "class.detail" term-id: @props.params.term-id, resource-id: @props.params.resource-id, "Grades"
+              Link class-name: "item" to: "class.students" term-id: @props.params.term-id, resource-id: @props.params.resource-id, "Students"
+              Link class-name: "item" to: "class.assignments" term-id: @props.params.term-id, resource-id: @props.params.resource-id, "Assignments"
+              Link class-name: "item" to: "class.settings" term-id: @props.params.term-id, resource-id: @props.params.resource-id, "Settings"
 
 module.exports =
   View:       View

@@ -79,7 +79,7 @@ ClassStudents = React.create-class do
 
   render: ->
     div null,
-      Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id
+      #Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id
       Panel has-body: true title: "Enroll",
         div class-name: "ui search form",
           div class-name: "ui fluid action input",

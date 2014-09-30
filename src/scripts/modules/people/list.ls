@@ -9,7 +9,7 @@ require! {
 
   './CreatePersonModal.ls'
 
-  '../../components/Header.ls'
+  Header: '../../components/PageHeader.ls'
 
   '../../components/SemanticModal.ls'
 }
@@ -40,7 +40,7 @@ cols =
     resource-type: "person"
     renderer: NewTable.CrudActions
     link-to: "people"
-    class-name: 'col-md-3'
+    #class-name: 'col-md-3'
 
 PeopleList = React.create-class do
   displayName: "PeopleList"
@@ -53,15 +53,19 @@ PeopleList = React.create-class do
   modal: ->
     CreatePersonModal null
 
+  right-menu: ->
+    SemanticModal.ModalTrigger modal: @modal!,
+      a class-name: "ui button", "Create"
+
   render: ->
     div null,
-      Header title: "All People"
-      div class-name: "main",
-        div class-name: "ui toolbar menu inverted black block header",
-          div null
-          div class-name:"right menu",
-            SemanticModal.ModalTrigger modal: @modal!,
-              a class-name: "item", "Create"
+      Header primary: "All People", right: @right-menu!
+      div class-name: "main container",
+        #div class-name: "ui toolbar menu inverted black block header",
+        #  div null
+        #  div class-name:"right menu",
+        #    SemanticModal.ModalTrigger modal: @modal!,
+        #      a class-name: "item", "Create"
         Grid columns: cols, data: @state.people
 
 module.exports = PeopleList

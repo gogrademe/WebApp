@@ -6,7 +6,7 @@ require! {
   "../api/auth.ls"
 }
 Dom = React.DOM
-{form, div, span, i, input, button, h2, li, ul} = Dom
+{form, div, span, i, input, button, h2, li, ul, h4} = Dom
 
 LoginPage = React.create-class do
   displayName: "LoginPage"
@@ -40,42 +40,44 @@ LoginPage = React.create-class do
         "#{@state.error.status-code}: #{@state.error.message}"
 
   render: ->
-    div class-name:"ui centered grid login form",
-      h2 class-name:"ui header",
+    div class-name:"login container",
+      h2 class-name:"ui centered header",
         "Cunae Gradebook"
-      div class-name: "row",
-        Panel class-name: "five wide column" title: "Login" hasBody: true,
+      #Panel class-name: "five wide column" title: "Login" hasBody: true,
+      div class-name: "",
+        form className: "ui fluid form segment" onSubmit: @handleSubmit,
+          h4 class-name: "ui header",
+            "Login"
           @render-messages!
-          form className: "ui fluid form" onSubmit: @handleSubmit,
-            div className: "field",
-              div class-name: "ui left labeled icon input",
-                input do
-                  type: "text"
-                  placeholder: "Email Address"
-                  ref: "email"
-                  required: true
-                i class-name: "user icon"
-                div class-name: "ui corner label",
-                  i class-name: "icon asterisk"
-            div className: "field",
-              div class-name: "ui left labeled icon input",
-                input do
-                  type: "password"
-                  placeholder: "Password"
-                  ref: "password"
-                  required: true
-                i class-name: "lock icon"
-                div class-name: "ui corner label",
-                  i class-name: "icon asterisk"
-            div className: "field",
-              button do
-                type: "submit"
-                disabled: @state.isLoggingIn
-                role: "button"
-                className: "ui teal fluid submit button"
-                value: "Post",
-                LoginLoading isLoggingIn: @state.isLoggingIn
-                "Log in"
+          div className: "field",
+            div class-name: "ui left labeled icon input",
+              input do
+                type: "text"
+                placeholder: "Email Address"
+                ref: "email"
+                required: true
+              i class-name: "user icon"
+              div class-name: "ui corner label",
+                i class-name: "icon asterisk"
+          div className: "field",
+            div class-name: "ui left labeled icon input",
+              input do
+                type: "password"
+                placeholder: "Password"
+                ref: "password"
+                required: true
+              i class-name: "lock icon"
+              div class-name: "ui corner label",
+                i class-name: "icon asterisk"
+          div className: "field",
+            button do
+              type: "submit"
+              disabled: @state.isLoggingIn
+              role: "button"
+              className: "ui teal fluid submit button"
+              value: "Post",
+              LoginLoading isLoggingIn: @state.isLoggingIn
+              "Log in"
 
 LoginLoading = React.create-class do
   displayName: "LoginLoading"

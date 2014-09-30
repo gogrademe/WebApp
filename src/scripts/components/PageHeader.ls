@@ -16,6 +16,8 @@ PageHeader = React.create-class do
             @props.primary
           span class-name: "sub header",
             @props.secondary
+        div class-name: "right actions",
+          @props.right
 
 
 module.exports = PageHeader

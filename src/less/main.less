@@ -1,6 +1,13 @@
 @import "grid";
 @import "datepicker";
 
+
+// This is required to make 'rem' work properly.
+html, body {
+ font-size: 14px;
+}
+
+
 body {
   background: #FFF !important;
 }
@@ -10,19 +17,29 @@ body {
 }
 
 .page {
-  padding-top: 2.65em;
+  padding-top: 2.5em;
 }
 
-
+.login.container {
+  max-width: 320px;
+  width: auto;
+}
 
 .container {
-  width: 980px;
-  margin-right: auto;
-  margin-left: auto;
+  max-width: 980px;
+  //width: 915px;
+  margin: 0px auto;
+  position: relative;
+  // @media (min-width: 1355px) {
+  //   width: 850px;
+  // }
+
 }
 
+
+
 .header.segment {
-  position: relative;
+  //position: relative;
   margin: 0em;
   padding-top: 1em;
   padding-bottom: 1em;
@@ -31,13 +48,27 @@ body {
   border-bottom: 1px solid #DDD;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
 
+
+  .ui.header {
+    //margin-top: .5em;
+    //padding-top: .5em;
+    //margin: 0;
+  }
   h3 {
     span {
       padding-right: .5em;
     }
   }
+  .right.actions {
+    margin-left: 0;
+    margin-right: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 
 }
+
 .ui.modal.top {
   top: 5rem;
 
@@ -46,43 +77,6 @@ body {
 .ui.menu .item.title {
   padding-left: 0;
 }
-.ui.header.brand {
-  margin-bottom: -1em;
-  > img {
-    height: 3em;
-  }
-  > h4 {
-    font-weight: normal;
-    margin: 0 0 0 .5em;
-  }
-}
-.ui.block.header.toolbar {
-  border: 0;
-  margin: 0;
-  padding: 0;
-  font-weight: normal;
-}
-
-.ui.inverted.menu,
-.ui.block.header.toolbar {
-  border-radius: 0;
-}
-
-.login.form {
-  margin-left: -100px !important;
-  padding-top: 3rem !important;
-}
-
-
-.ui.sidebar {
-  &.thin {
-    width: 200px !important;
-  }
-  &.visible {
-    visibility: visible;
-  }
-}
-
 
 .ui.search .results {
   max-height: 6em;

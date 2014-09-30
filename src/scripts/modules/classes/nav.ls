@@ -47,9 +47,3 @@ Nav = React.create-class do
         @props.children
 
 module.exports = Nav
-
-
-/*div class-name: "ui toolbar small menu inverted black block header",
-  Nav resource-id: @props.params.resource-id
-  div class-name: "right menu",
-    @props.children*/
