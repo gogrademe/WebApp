@@ -30,7 +30,7 @@ HeaderNav = React.create-class do
     div class-name: "ui fixed teal inverted main menu",
       div class-name: "container",
         div class-name: "title item",
-          "Cunae Gradebook"
+          "GoGradeMe"
         Link class-name: "item" to: "dashboard",
           i class-name:"home icon"
           " Home"

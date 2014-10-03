@@ -1,7 +1,7 @@
 require! {
   React: 'react'
 
-  Header: '../components/Header.ls'
+  Header: '../components/PageHeader.ls'
 
   Form: '../components/Form.ls'
 
@@ -21,17 +21,14 @@ Settings = React.create-class do
 
   render: ->
     div null,
-      Header title: "School / Settings"
-      div class-name: "main",
-        div class-name: "ui toolbar menu inverted black block header"
-        div class-name: "ui centered grid",
-          div class-name: "six wide column",
-            div class-name: "ui form segment",
-              Form.Input type: "text" label: "School Name" on-change: @handle-change . "name"
-              Form.Input type: "text" label: "Address"
-              Form.Input type: "text" label: "Phone Number"
-              Form.Input type: "text" label: "Fax Number"
-              div class-name: "ui submit button", "Save"
+      Header primary: "School / Settings"
+      div class-name: "main container",
+        div class-name: "ui form segment",
+          Form.Input type: "text" label: "School Name" on-change: @handle-change . "name"
+          Form.Input type: "text" label: "Address"
+          Form.Input type: "text" label: "Phone Number"
+          Form.Input type: "text" label: "Fax Number"
+          div class-name: "ui submit button", "Save"
 
 module.exports =
   Settings: Settings

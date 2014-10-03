@@ -86,10 +86,7 @@ ClassAssignments = React.create-class do
 
   render: ->
     div null,
-      #Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id,
-      #  SemanticModal.ModalTrigger modal: @modal!,
-      #    a class-name: "item", "Create"
-      div class-name: "ui right floated fitted basic segment",
+      div class-name: "ui right floated fitted segment",
         SemanticModal.ModalTrigger modal: @modal!,
           a class-name: "ui button", "New Assignment"
       Grid columns: assignment-cols, data: @state.assignments
