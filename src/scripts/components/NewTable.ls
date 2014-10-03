@@ -134,7 +134,7 @@ CellLink = React.create-class do
     link-to = @props.column.link-to
 
     div null,
-      Link to: link-to, termId: term-id, resourceId: @props.row.id,
+      Link to: link-to, params: {termId: term-id, resourceId: @props.row.id},
         @props.value
 
 

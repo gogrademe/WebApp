@@ -1,5 +1,16 @@
 require! {
   React: 'react'
+  Router: 'react-router'
+}
+
+
+module.exports = Router.Link
+
+
+
+
+/*require! {
+  React: 'react'
 
   'react-router/modules/stores/ActiveStore'
   'react-router/modules/helpers/withoutProperties'
@@ -83,4 +94,4 @@ Link = React.create-class do
 
     a props, @props.children
 
-module.exports = Link
+module.exports = Link*/
