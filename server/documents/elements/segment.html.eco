@@ -6,7 +6,7 @@ element     : 'segment'
 elementType : 'element'
 
 title       : 'Segment'
-description : 'A segment is used to create a grouping of related content.'
+description : 'A segment is used to create a grouping of related content'
 type        : 'UI Element'
 themes      : ['default', 'GitHub']
 ---
@@ -45,7 +45,7 @@ themes      : ['default', 'GitHub']
     <h4 class="ui header">Horizontal Segment</h4>
     <p>A vertical segment formats content to be aligned as part of a horizontal group</p>
     <div class="ui ignored info message">
-      <h3 class="ui header">When to Use Horizontal Segments</h3>
+      <div class="header">When to Use Horizontal Segments</div>
       <p>Horizontal segments are most effectively used with grids, to allow for text groups that are aligned across grid rows.</p>
       <p>A <code>horizontal segment</code> adds horizontal padding and a horizontal border, while a <code>basic horizontal segment</code> adds only the padding <b>but not the border</b>.</p>
     </div>
@@ -273,6 +273,12 @@ themes      : ['default', 'GitHub']
     <p>A segment cant sit to the left or right of other content</p>
     <div class="ui right floated segment">
       <p>This segment will appear to the right
+    </div>
+    <div class="ui right floated segment">
+      <p>This segment will appear to the right
+    </div>
+    <div class="ui left floated segment">
+      This segment will appear to the left
     </div>
     <div class="ui left floated segment">
       This segment will appear to the left

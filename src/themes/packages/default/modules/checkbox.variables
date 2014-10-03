@@ -52,8 +52,8 @@
 @labelSelectedColor: @selectedTextColor;
 
 /* Disabled */
-@disabledCheckboxOpacity: @disabledOpacity;
-@disabledCheckboxLabelColor: rgba(0, 0, 0, 0.3);
+@disabledCheckboxOpacity: 0.5;
+@disabledCheckboxLabelColor: rgba(0, 0, 0, 1);
 
 /*-------------------
         Types
@@ -77,10 +77,12 @@
 ;
 
 /* Slider */
-@sliderSize: 1.5rem;
-@sliderHandleSize: @sliderSize;
-
+@sliderHandleSize: 1.5rem;
 @sliderLineWidth: 3.5rem;
+
+@sliderWidth: @sliderLineWidth;
+@sliderHeight: 1rem;
+
 @sliderLineHeight: 0.25rem;
 @sliderLineVerticalOffset: 0.4rem;
 @sliderLineColor: @neutralCheckbox;
@@ -101,8 +103,12 @@
 
 
 /* Toggle */
-@toggleSize: 1.5rem;
-@toggleHandleSize: @toggleSize;
+@toggleLaneWidth: 3.5rem;
+@toggleHandleSize: 1.5rem;
+
+@toggleWidth: @toggleLaneWidth;
+@toggleHeight: @toggleHandleSize;
+
 @toggleHandleRadius: @circularRadius;
 @toggleHandleOffset: 0rem;
 @toggleHandleTransition:
@@ -110,8 +116,7 @@
   left 0.3s ease 0s
 ;
 
-@toggleLaneWidth: 3.5rem;
-@toggleLaneHeight: @toggleSize;
+@toggleLaneHeight: @toggleHandleSize;
 @toggleLaneVerticalOffset: 0rem;
 @toggleOffOffset: -0.05rem;
 @toggleOnOffset: (@toggleLaneWidth - @toggleHandleSize) + 0.05rem;

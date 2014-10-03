@@ -32,7 +32,7 @@
 @huge: 2em;
 
 /* Sub Header */
-@subHeaderFontSize: 1rem;
+@subHeaderFontSize: 1.1rem;
 @subHeaderLineHeight: 1.2em;
 @subHeaderColor: rgba(0, 0, 0, 0.5);
 
@@ -72,18 +72,18 @@
 @dividedIconPadding: 0.2em;
 
 /* Block */
-@blockBackground: @offWhite @subtleGradient;
-@blockBoxShadow: @subtleShadow;
+@blockBackground: @darkWhite;
+@blockBoxShadow: none;
 @blockBorder: 1px solid @solidBorderColor;
 @blockHorizontalPadding: 1rem;
 @blockVerticalPadding: 0.75rem;
 @blockBorderRadius: 0.3125rem;
 
-@tinyBlock: 0.875em;
-@smallBlock: 0.9em;
-@mediumBlock: 1em;
-@largeBlock: 1.1em;
-@hugeBlock: 1.2em;
+@tinyBlock: @tiny;
+@smallBlock: @small;
+@mediumBlock: @medium;
+@largeBlock: @large;
+@hugeBlock: @huge;
 
 /* Divided */
 @blackDividedBorderColor: @black;
@@ -97,19 +97,19 @@
 @yellowDividedBorderColor: @yellow;
 
 /* Attached */
-@attachedOffset: 0px;
-@attachedBoxShadow: 0px 0px 0px 1px @solidBorderColor;
+@attachedOffset: -1px;
+@attachedBoxShadow: none;
+@attachedBorder: 1px solid @solidBorderColor;
 @attachedVerticalPadding: @blockVerticalPadding;
 @attachedHorizontalPadding: @blockHorizontalPadding;
-@attachedBackground: @blockBackground;
-@attachedBorder: none;
+@attachedBackground: @white;
 @attachedBorderRadius: @blockBorderRadius;
 
-@tinyAttached: @tinyBlock;
-@smallAttached: @smallBlock;
-@mediumAttached: @mediumBlock;
-@largeAttached: @largeBlock;
-@hugeAttached: @hugeBlock;
+@tinyAttached: 0.875em;
+@smallAttached: 0.9em;
+@mediumAttached: 1em;
+@largeAttached: 1.1em;
+@hugeAttached: 1.2em;
 
 /* Inverted */
 @invertedColor: @white;

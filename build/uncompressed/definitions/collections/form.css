@@ -62,7 +62,6 @@
 /*-------------------
         Page
 --------------------*/
-/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -93,15 +92,11 @@
 --------------------*/
 /* Mood */
 /* Status */
-/* Darkened Headers */
 /*-------------------
      Neutral Text
 --------------------*/
 /*-------------------
      Brand Colors
---------------------*/
-/*-------------------
-    Grid Columns
 --------------------*/
 /*-------------------
       Borders
@@ -112,6 +107,15 @@
 /*-------------------
      Transitions
 --------------------*/
+/*-------------------
+    Derived Values
+--------------------*/
+/* Makes sure padded grid can fit at 320px */
+/* Used to match floats with text */
+/* Positive / Negative Dupes */
+/* Header Colors */
+/* Responsive */
+/* Columns */
 /*******************************
            States
 *******************************/
@@ -182,6 +186,144 @@
 /*------------------
      Load Theme
 -------------------*/
+/*******************************
+         Site Settings
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/*-------------------
+       Fonts
+--------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*-------------------
+        Page
+--------------------*/
+/*-------------------
+  Background Colors
+--------------------*/
+/* Used for differentiating neutrals */
+/* Used for differentiating layers */
+/*-------------------
+        Grid
+--------------------*/
+/*-------------------
+     Breakpoints
+--------------------*/
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+       Icons
+--------------------*/
+/* Max Width of Icon */
+/*-------------------
+       Easing
+--------------------*/
+/*---   Neutrals  ---*/
+/*--- Colored Backgrounds ---*/
+/*--- Colored Text ---*/
+/*--- Colored Headers ---*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Mood */
+/* Status */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------
+    Derived Values
+--------------------*/
+/* Makes sure padded grid can fit at 320px */
+/* Used to match floats with text */
+/* Positive / Negative Dupes */
+/* Header Colors */
+/* Responsive */
+/* Columns */
+/*******************************
+           States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*---  Colors  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*---  Colors  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+        Active
+--------------------*/
+/*---  Standard  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*******************************
+             Form
+*******************************/
+/*-------------------
+       Elements
+--------------------*/
+/* Form */
+/* Text */
+/* Field */
+/* Form Label */
+/* Grouped / Inline Labels */
+/* Input */
+/* Text Area */
+/* Checkbox */
+/* Divider */
+/* Validation Prompt */
+/*-------------------
+        States
+--------------------*/
+/* Disabled */
+/* Focus */
+/* Input Focus */
+/* Text Area Focus */
+/* Error */
+/* Input Error */
+/* Dropdown Error */
+/* Focused Error */
+/* Placeholder */
+/* Loading */
+/*-------------------
+        Types
+--------------------*/
+/* Required */
+/* Inverted */
+/*-------------------
+      Variations
+--------------------*/
+/* Grouped Fields */
+/* Inline */
+/* Sizes */
+/*-------------------
+       Groups
+--------------------*/
 /*------------------
      Load Site
 -------------------*/
@@ -217,6 +359,7 @@
   clear: both;
   margin: 0em 0em 1em;
 }
+.ui.form .fields:last-child .field,
 .ui.form :not(.fields) .field:last-child {
   margin-bottom: 0em;
 }
@@ -480,9 +623,9 @@
 .ui.form .field.error input[type="tel"]:focus {
   background: #fae8e8;
   border-color: #dbb1b1;
-  color: #e07979;
+  color: #dc6868;
   -webkit-appearance: none;
-  box-shadow: 2px 0em 0em 0em #e07979 inset;
+  box-shadow: 2px 0em 0em 0em #dc6868 inset;
 }
 /*------------------
     Dropdown Error
@@ -659,6 +802,26 @@
 .ui.form .five.fields > .fields,
 .ui.form .five.fields > .field {
   width: 20%;
+}
+.ui.form .six.fields > .fields,
+.ui.form .six.fields > .field {
+  width: 16.66666667%;
+}
+.ui.form .seven.fields > .fields,
+.ui.form .seven.fields > .field {
+  width: 14.28571429%;
+}
+.ui.form .eight.fields > .fields,
+.ui.form .eight.fields > .field {
+  width: 12.5%;
+}
+.ui.form .nine.fields > .fields,
+.ui.form .nine.fields > .field {
+  width: 11.11111111%;
+}
+.ui.form .ten.fields > .fields,
+.ui.form .ten.fields > .field {
+  width: 10%;
 }
 /* Swap to full width on mobile */
 @media only screen and (max-width: 767px) {

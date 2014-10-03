@@ -612,9 +612,9 @@ $.api = $.fn.api = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -1598,9 +1598,9 @@ $.fn.form = function(fields, parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -2321,9 +2321,9 @@ $.fn.state = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -2613,7 +2613,7 @@ $.fn.visibility = function(parameters) {
         initialize: function() {
           module.verbose('Initializing visibility', settings);
 
-          module.reset();
+          module.setup.cache();
           module.save.position();
           module.bindEvents();
           module.instantiate();
@@ -2695,6 +2695,13 @@ $.fn.visibility = function(parameters) {
         },
 
         setup: {
+          cache: function() {
+            module.cache = {
+              occurred : {},
+              screen   : {},
+              element  : {},
+            };
+          },
           image: function() {
             var
               src = $module.data('src')
@@ -2744,11 +2751,16 @@ $.fn.visibility = function(parameters) {
 
         reset: function() {
           module.verbose('Reseting all cached values');
-          module.cache = {
-            occurred: {},
-            screen  : {},
-            element : {}
-          };
+          if( $.isPlainObject(module.cache) ) {
+            module.cache.screen = {};
+            module.cache.element = {};
+            if(!settings.once) {
+              module.cache.occurred = {};
+            }
+          }
+          else {
+
+          }
         },
 
         checkVisibility: function() {
@@ -3288,9 +3300,9 @@ $.fn.visibility = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -3814,9 +3826,9 @@ $.visit = $.fn.visit = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -4515,6 +4527,7 @@ $.fn.accordion = function(parameters) {
 
         element  = this,
         instance = $module.data(moduleNamespace),
+        observer,
         module
       ;
 
@@ -4522,9 +4535,10 @@ $.fn.accordion = function(parameters) {
 
         initialize: function() {
           module.debug('Initializing accordion with bound events', $module);
-          $title
-            .on('click' + eventNamespace, module.event.click)
+          $module
+            .on('click' + eventNamespace, selector.title, module.event.click)
           ;
+          module.observeChanges();
           module.instantiate();
         },
 
@@ -4545,31 +4559,25 @@ $.fn.accordion = function(parameters) {
           ;
         },
 
-        reset: {
-
-          display: function() {
-            module.verbose('Removing inline display from element', this);
-            $(this).css('display', '');
-            if( $(this).attr('style') === '') {
-              $(this)
-                .attr('style', '')
-                .removeAttr('style')
-              ;
-            }
-          },
-
-          opacity: function() {
-            module.verbose('Removing inline opacity from element', this);
-            $(this).css('opacity', '');
-            if( $(this).attr('style') === '') {
-              $(this)
-                .attr('style', '')
-                .removeAttr('style')
-              ;
-            }
-          },
-
+        refresh: function() {
+          $title   = $module.find(selector.title);
+          $content = $module.find(selector.content);
         },
+
+        observeChanges: function() {
+          if(MutationObserver !== undefined) {
+            observer = new MutationObserver(function(mutations) {
+              module.debug('DOM tree modified, updating selector cache');
+              module.refresh();
+            });
+            observer.observe(element, {
+              childList : true,
+              subtree   : true
+            });
+            module.debug('Setting up mutation observer', observer);
+          }
+        },
+
 
         event: {
           click: function() {
@@ -4633,8 +4641,8 @@ $.fn.accordion = function(parameters) {
                   .addClass(className.active)
                 ;
                 $.proxy(module.reset.display, this)();
-                $.proxy(settings.onOpen, element)();
-                $.proxy(settings.onChange, element)();
+                $.proxy(settings.onOpen, this)();
+                $.proxy(settings.onChange, this)();
               })
             ;
           }
@@ -4667,8 +4675,8 @@ $.fn.accordion = function(parameters) {
                 .end()
               .slideUp(settings.duration, settings.easing, function() {
                 $.proxy(module.reset.display, this)();
-                $.proxy(settings.onClose, element)();
-                $.proxy(settings.onChange, element)();
+                $.proxy(settings.onClose, this)();
+                $.proxy(settings.onChange, this)();
               })
             ;
           }
@@ -4681,11 +4689,23 @@ $.fn.accordion = function(parameters) {
               : $(this),
             $parentTitles    = $activeTitle.parents(selector.content).prev(selector.title),
             $activeAccordion = $activeTitle.closest(selector.accordion),
-            $openTitles      = $activeAccordion.find(selector.title + '.' + className.active + ':visible').not($parentTitles),
-            $openContents    = $openTitles.next($content),
-            contentIsOpen    = ($openTitles.size() > 0)
+            activeSelector   = selector.title + '.' + className.active + ':visible',
+            activeContent    = selector.content + '.' + className.active + ':visible',
+            $openTitles,
+            $nestedTitles,
+            $openContents
           ;
-          if(contentIsOpen) {
+          if(settings.closeNested) {
+            $openTitles   = $activeAccordion.find(activeSelector).not($parentTitles);
+            $openContents = $openTitles.next($content);
+          }
+          else {
+            $openTitles   = $activeAccordion.find(activeSelector).not($parentTitles);
+            $nestedTitles = $activeAccordion.find(activeContent).find(activeSelector).not($parentTitles);
+            $openTitles = $openTitles.not($nestedTitles);
+            $openContents = $openTitles.next($content);
+          }
+          if( ($openTitles.size() > 0) ) {
             module.debug('Exclusive enabled, closing other content', $openTitles);
             $openTitles
               .removeClass(className.active)
@@ -4704,6 +4724,32 @@ $.fn.accordion = function(parameters) {
               })
             ;
           }
+        },
+
+        reset: {
+
+          display: function() {
+            module.verbose('Removing inline display from element', this);
+            $(this).css('display', '');
+            if( $(this).attr('style') === '') {
+              $(this)
+                .attr('style', '')
+                .removeAttr('style')
+              ;
+            }
+          },
+
+          opacity: function() {
+            module.verbose('Removing inline opacity from element', this);
+            $(this).css('opacity', '');
+            if( $(this).attr('style') === '') {
+              $(this)
+                .attr('style', '')
+                .removeAttr('style')
+              ;
+            }
+          },
+
         },
 
         setting: function(name, value) {
@@ -4771,9 +4817,9 @@ $.fn.accordion = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -4884,6 +4930,7 @@ $.fn.accordion = function(parameters) {
 };
 
 $.fn.accordion.settings = {
+
   name        : 'Accordion',
   namespace   : 'accordion',
 
@@ -4893,8 +4940,8 @@ $.fn.accordion.settings = {
 
   exclusive   : true,
   collapsible : true,
+  closeNested : false,
 
-  closeNested : true,
   duration    : 500,
   easing      : 'easeInOutQuint',
 
@@ -4915,7 +4962,6 @@ $.fn.accordion.settings = {
     title     : '.title',
     content   : '.content'
   }
-
 
 };
 
@@ -5743,18 +5789,19 @@ $.fn.checkbox = function(parameters) {
 
         className       = settings.className,
         namespace       = settings.namespace,
+        selector        = settings.selector,
         error           = settings.error,
 
         eventNamespace  = '.' + namespace,
         moduleNamespace = 'module-' + namespace,
 
         $module         = $(this),
-        $label          = $(this).next(settings.selector.label).first(),
-        $input          = $(this).find(settings.selector.input),
+        $label          = $(this).next(selector.label).first(),
+        $input          = $(this).find(selector.input),
 
-        selector        = $module.selector || '',
         instance        = $module.data(moduleNamespace),
 
+        observer,
         element         = this,
         module
       ;
@@ -5763,34 +5810,24 @@ $.fn.checkbox = function(parameters) {
 
         initialize: function() {
           module.verbose('Initializing checkbox', settings);
-          if(settings.context && selector !== '') {
-            module.verbose('Adding delegated events');
-            $(element, settings.context)
-              .on(selector, 'click' + eventNamespace, module.toggle)
-              .on(selector + ' + ' + settings.selector.label, 'click' + eventNamespace, module.toggle)
-            ;
-          }
-          else {
-            $module
-              .on('click' + eventNamespace, module.toggle)
-              .data(moduleNamespace, module)
-            ;
-            $input
-              .on('keydown' + eventNamespace, module.event.keydown)
-            ;
-            $label
-              .on('click' + eventNamespace, module.toggle)
-            ;
-          }
-          if(settings.fireOnInit) {
-            $.proxy(settings.onChange, $input.get())();
-            if( module.is.checked() ) {
+          $module
+            .on('click'   + eventNamespace, module.toggle)
+            .on('keydown' + eventNamespace, selector.input, module.event.keydown)
+          ;
+          if( module.is.checked() ) {
+            module.set.checked();
+            if(settings.fireOnInit) {
               $.proxy(settings.onChecked, $input.get())();
             }
-            else {
+          }
+          else {
+            module.remove.checked();
+            if(settings.fireOnInit) {
               $.proxy(settings.onUnchecked, $input.get())();
             }
           }
+          module.observeChanges();
+
           module.instantiate();
         },
 
@@ -5814,6 +5851,45 @@ $.fn.checkbox = function(parameters) {
           $label
             .off(eventNamespace)
           ;
+        },
+
+        refresh: function() {
+          $module = $(this);
+          $label  = $(this).next(selector.label).first();
+          $input  = $(this).find(selector.input);
+        },
+
+        observeChanges: function() {
+          if(MutationObserver !== undefined) {
+            observer = new MutationObserver(function(mutations) {
+              module.debug('DOM tree modified, updating selector cache');
+              module.refresh();
+            });
+            observer.observe(element, {
+              childList : true,
+              subtree   : true
+            });
+            module.debug('Setting up mutation observer', observer);
+          }
+        },
+
+        attachEvents: function(selector, event) {
+          var
+            $toggle = $(selector)
+          ;
+          event = $.isFunction(module[event])
+            ? module[event]
+            : module.toggle
+          ;
+          if($toggle.size() > 0) {
+            module.debug('Attaching checkbox events to element', selector, event);
+            $toggle
+              .on('click' + eventNamespace, event)
+            ;
+          }
+          else {
+            module.error(error.notFound);
+          }
         },
 
         event: {
@@ -5852,12 +5928,41 @@ $.fn.checkbox = function(parameters) {
         },
 
         can: {
+          change: function() {
+            return !( $module.hasClass(className.disabled) || $module.hasClass(className.readOnly) || $input.prop('disabled') );
+          },
           uncheck: function() {
-            return (typeof settings.required === 'boolean')
-              ? settings.required
+            return (typeof settings.uncheckable === 'boolean')
+              ? settings.uncheckable
               : !module.is.radio()
             ;
           }
+        },
+
+        set: {
+          checked: function() {
+            $module.addClass(className.checked);
+          }
+        },
+
+        remove: {
+          checked: function() {
+            $module.removeClass(className.checked);
+          }
+        },
+
+        disable: function() {
+          module.debug('Enabling checkbox functionality');
+          $module.addClass(className.disabled);
+          $input.removeProp('disabled');
+          $.proxy(settings.onDisabled, $input.get())();
+        },
+
+        enable: function() {
+          module.debug('Disabling checkbox functionality');
+          $module.removeClass(className.disabled);
+          $input.prop('disabled', 'disabled');
+          $.proxy(settings.onEnabled, $input.get())();
         },
 
         check: function() {
@@ -5866,6 +5971,7 @@ $.fn.checkbox = function(parameters) {
             .prop('checked', true)
             .trigger('change')
           ;
+          module.set.checked();
           $.proxy(settings.onChange, $input.get())();
           $.proxy(settings.onChecked, $input.get())();
         },
@@ -5876,11 +5982,17 @@ $.fn.checkbox = function(parameters) {
             .prop('checked', false)
             .trigger('change')
           ;
+          module.remove.checked();
           $.proxy(settings.onChange, $input.get())();
           $.proxy(settings.onUnchecked, $input.get())();
         },
 
         toggle: function(event) {
+          if( !module.can.change() ) {
+            console.log(module.can.change());
+            module.debug('Checkbox is read-only or disabled, ignoring toggle');
+            return;
+          }
           module.verbose('Determining new checkbox state');
           if( module.is.unchecked() ) {
             module.check();
@@ -5951,9 +6063,9 @@ $.fn.checkbox = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -6075,14 +6187,21 @@ $.fn.checkbox.settings = {
   performance : true,
 
   // delegated event context
-  context     : false,
-  required    : 'auto',
-
+  uncheckable : 'auto',
   fireOnInit  : true,
 
   onChange    : function(){},
   onChecked   : function(){},
   onUnchecked : function(){},
+  onEnabled   : function(){},
+  onDisabled  : function(){},
+
+  className   : {
+    checked  : 'checked',
+    disabled : 'disabled',
+    radio    : 'radio',
+    readOnly : 'read-only'
+  },
 
   error     : {
     method   : 'The method you called is not defined.'
@@ -6091,10 +6210,6 @@ $.fn.checkbox.settings = {
   selector : {
     input  : 'input[type=checkbox], input[type=radio]',
     label  : 'label'
-  },
-
-  className : {
-    radio  : 'radio'
   }
 
 };
@@ -6193,7 +6308,7 @@ $.fn.dimmer = function(parameters) {
             module.set.pageDimmer();
           }
 
-          if(settings.closable) {
+          if(settings.on == 'click' && settings.closable) {
             module.verbose('Adding dimmer close event', $dimmer);
             $dimmer
               .on(clickEvent + eventNamespace, module.event.click)
@@ -6522,9 +6637,9 @@ $.fn.dimmer = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -6758,6 +6873,7 @@ $.fn.dropdown = function(parameters) {
         selectionCache  = false,
         element         = this,
         instance        = $module.data(moduleNamespace),
+        observer,
         module
       ;
 
@@ -6772,7 +6888,7 @@ $.fn.dropdown = function(parameters) {
           if(hasTouch) {
             module.bind.touchEvents();
           }
-
+          module.observeChanges();
           module.bind.mouseEvents();
           module.bind.keyboardEvents();
           module.instantiate();
@@ -6788,16 +6904,24 @@ $.fn.dropdown = function(parameters) {
 
         destroy: function() {
           module.verbose('Destroying previous dropdown for', $module);
-          $item
-            .off(eventNamespace)
-          ;
-          $search
-            .off(eventNamespace)
-          ;
           $module
             .off(eventNamespace)
             .removeData(moduleNamespace)
           ;
+        },
+
+        observeChanges: function() {
+          if(MutationObserver !== undefined) {
+            observer = new MutationObserver(function(mutations) {
+              module.debug('DOM tree modified, updating selector cache');
+              module.refresh();
+            });
+            observer.observe(element, {
+              childList : true,
+              subtree   : true
+            });
+            module.debug('Setting up mutation observer', observer);
+          }
         },
 
         setup: {
@@ -6887,14 +7011,14 @@ $.fn.dropdown = function(parameters) {
               .on('keydown' + eventNamespace, module.event.keydown)
             ;
             if( module.is.searchable() ) {
-              $search
-                .on( module.get.inputEvent(), module.event.input)
+              $module
+                .on(module.get.inputEvent(), selector.search, module.event.input)
               ;
             }
             if( module.is.searchSelection() ) {
-              $search
-                .on('focus' + eventNamespace, module.event.searchFocus)
-                .on('blur' + eventNamespace, module.event.blur)
+              $module
+                .on('focus' + eventNamespace, selector.search, module.event.searchFocus)
+                .on('blur' + eventNamespace, selector.search, module.event.blur)
               ;
             }
             else {
@@ -6913,9 +7037,9 @@ $.fn.dropdown = function(parameters) {
                 .on('touchstart' + eventNamespace, module.event.test.toggle)
               ;
             }
-            $item
-              .on('touchstart' + eventNamespace, module.event.item.mouseenter)
-              .on('touchstart' + eventNamespace, module.event.item.click)
+            $module
+              .on('touchstart' + eventNamespace, selector.item, module.event.item.mouseenter)
+              .on('touchstart' + eventNamespace, selector.item, module.event.item.click)
             ;
           },
           mouseEvents: function() {
@@ -6938,10 +7062,10 @@ $.fn.dropdown = function(parameters) {
                 ;
               }
             }
-            $item
-              .on('mouseenter' + eventNamespace, module.event.item.mouseenter)
-              .on('mouseleave' + eventNamespace, module.event.item.mouseleave)
-              .on('click'      + eventNamespace, module.event.item.click)
+            $module
+              .on('mouseenter' + eventNamespace, selector.item, module.event.item.mouseenter)
+              .on('mouseleave' + eventNamespace, selector.item, module.event.item.mouseleave)
+              .on('click'      + eventNamespace, selector.item, module.event.item.click)
             ;
           },
           intent: function() {
@@ -6980,7 +7104,6 @@ $.fn.dropdown = function(parameters) {
             fullTextRegExp = new RegExp(searchTerm, 'i'),
             $filteredItems
           ;
-          console.log(query);
           $item
             .each(function(){
               var
@@ -7047,7 +7170,6 @@ $.fn.dropdown = function(parameters) {
             var
               query = $search.val()
             ;
-            console.log($search, query);
             $text.addClass(className.filtered);
             module.filter(query);
           },
@@ -7368,7 +7490,7 @@ $.fn.dropdown = function(parameters) {
                 ? module.get.value()
                 : module.get.text()
             ;
-            strict = (value === '')
+            strict = (value === '' || value === 0)
               ? true
               : strict || false
             ;
@@ -7848,9 +7970,9 @@ $.fn.dropdown = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -8124,7 +8246,6 @@ $.fn.modal = function(parameters) {
     returnedValue
   ;
 
-
   $allModules
     .each(function() {
       var
@@ -8154,7 +8275,6 @@ $.fn.modal = function(parameters) {
         instance     = $module.data(moduleNamespace),
         module
       ;
-
       module  = {
 
         initialize: function() {
@@ -8309,7 +8429,7 @@ $.fn.modal = function(parameters) {
         },
 
         toggle: function() {
-          if( module.is.active() ) {
+          if( module.is.active() || module.is.animating() ) {
             module.hide();
           }
           else {
@@ -8346,10 +8466,14 @@ $.fn.modal = function(parameters) {
               if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
                 module.debug('Showing modal with css animations');
                 $module
-                  .transition(settings.transition + ' in', settings.duration, function() {
-                    $.proxy(settings.onVisible, element)();
-                    module.set.active();
-                    callback();
+                  .transition({
+                    animation : settings.transition + ' in',
+                    duration  : settings.duration,
+                    complete  : function() {
+                      $.proxy(settings.onVisible, element)();
+                      module.set.active();
+                      callback();
+                    }
                   })
                 ;
               }
@@ -8392,7 +8516,7 @@ $.fn.modal = function(parameters) {
         },
 
         hideDimmer: function() {
-          if( !module.is.active() ) {
+          if( !($dimmable.dimmer('is active') || $dimmable.dimmer('is animating')) ) {
             module.debug('Dimmer is not visible cannot hide');
             return;
           }
@@ -8404,9 +8528,6 @@ $.fn.modal = function(parameters) {
           }
           $dimmable.dimmer('hide', function() {
             if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
-              $module
-                .transition('reset')
-              ;
               module.remove.screenHeight();
             }
             module.remove.active();
@@ -8418,7 +8539,7 @@ $.fn.modal = function(parameters) {
             ? callback
             : function(){}
           ;
-          if( !module.is.active() ) {
+          if( !(module.is.active() || module.is.animating()) ) {
             module.debug('Cannot hide modal it is not active');
             return;
           }
@@ -8427,11 +8548,15 @@ $.fn.modal = function(parameters) {
           $.proxy(settings.onHide, element)();
           if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
             $module
-              .transition(settings.transition + ' out', settings.duration, function() {
-                $.proxy(settings.onHidden, element)();
-                module.remove.active();
-                module.restore.focus();
-                callback();
+              .transition({
+                animation : settings.transition + ' out',
+                duration  : settings.duration,
+                complete  : function() {
+                  $.proxy(settings.onHidden, element)();
+                  module.remove.active();
+                  module.restore.focus();
+                  callback();
+                }
               })
             ;
           }
@@ -8548,6 +8673,12 @@ $.fn.modal = function(parameters) {
         is: {
           active: function() {
             return $module.hasClass(className.active);
+          },
+          animating: function() {
+            return $module.transition('is supported')
+              ? $module.transition('is animating')
+              : $module.is(':visible')
+            ;
           },
           modernBrowser: function() {
             // appName for IE11 reports 'Netscape' can no longer use
@@ -8684,9 +8815,9 @@ $.fn.modal = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -9155,9 +9286,9 @@ $.fn.nag = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -9545,7 +9676,7 @@ $.fn.popup = function(parameters) {
             module.refresh();
           }
           else {
-            module.error(error.content, element);
+            module.debug('No content specified skipping display', element);
           }
         },
 
@@ -9657,9 +9788,13 @@ $.fn.popup = function(parameters) {
             ;
             if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
               $popup
-                .transition(settings.transition + ' in', settings.duration, function() {
-                  module.bind.close();
-                  $.proxy(callback, element)();
+                .transition({
+                  animation : settings.transition + ' in',
+                  duration  : settings.duration,
+                  complete  : function() {
+                    module.bind.close();
+                    $.proxy(callback, element)();
+                  }
                 })
               ;
             }
@@ -9679,9 +9814,13 @@ $.fn.popup = function(parameters) {
             module.debug('Hiding pop-up');
             if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
               $popup
-                .transition(settings.transition + ' out', settings.duration, function() {
-                  module.reset();
-                  callback();
+                .transition({
+                  animation : settings.transition + ' out',
+                  duration  : settings.duration,
+                  complete  : function() {
+                    module.reset();
+                    callback();
+                  }
                 })
               ;
             }
@@ -10073,9 +10212,9 @@ $.fn.popup = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -10231,7 +10370,6 @@ $.fn.popup.settings = {
   maxSearchDepth : 10,
 
   error: {
-    content         : 'Your popup has no content specified',
     invalidPosition : 'The position you specified is not a valid position',
     method          : 'The method you called is not defined.',
     recursion       : 'Popup attempted to reposition element to fit, but could not find an adequate position.'
@@ -10771,9 +10909,9 @@ $.fn.progress = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -11234,9 +11372,9 @@ $.fn.rating = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -11920,9 +12058,9 @@ $.fn.search = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -12884,9 +13022,9 @@ $.fn.shape = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -13246,7 +13384,6 @@ $.fn.sidebar = function(parameters) {
           if($toggle.size() > 0) {
             module.debug('Attaching sidebar events to element', selector, event);
             $toggle
-              .off(eventNamespace)
               .on('click' + eventNamespace, event)
             ;
           }
@@ -13265,7 +13402,7 @@ $.fn.sidebar = function(parameters) {
             ? callback
             : function(){}
           ;
-          if(module.is.closed()) {
+          if(module.is.closed() || module.is.outward()) {
             if(settings.overlay)  {
               module.error(error.overlay);
               settings.transition = 'overlay';
@@ -13295,7 +13432,7 @@ $.fn.sidebar = function(parameters) {
             ? callback
             : function(){}
           ;
-          if(module.is.visible()) {
+          if(module.is.visible() || module.is.inward()) {
             module.debug('Hiding sidebar', callback);
             animateMethod(function() {
               $.proxy(callback, element)();
@@ -13317,7 +13454,7 @@ $.fn.sidebar = function(parameters) {
 
         toggle: function() {
           module.verbose('Determining toggled direction');
-          if(module.is.closed()) {
+          if(module.is.closed() || module.is.outward()) {
             module.show();
           }
           else {
@@ -13340,6 +13477,7 @@ $.fn.sidebar = function(parameters) {
             : function(){}
           ;
           animate = function() {
+            module.remove.outward();
             module.set.visible();
             module.set.transition();
             module.set.direction();
@@ -13349,9 +13487,10 @@ $.fn.sidebar = function(parameters) {
             });
           };
           $transition
-            .on(transitionEnd, function(event) {
+            .off(transitionEnd + eventNamespace)
+            .on(transitionEnd + eventNamespace, function(event) {
               if( event.target == $transition[0] ) {
-                $transition.off(transitionEnd);
+                $transition.off(transitionEnd + eventNamespace);
                 module.remove.inward();
                 module.bind.clickaway();
                 module.set.active();
@@ -13364,7 +13503,7 @@ $.fn.sidebar = function(parameters) {
             requestAnimationFrame(animate);
           }
           else {
-            if(module.is.mobile()) {
+            if(settings.transition == 'scale down' || module.is.mobile()) {
               $module.scrollTop(0);
               currentScroll = $(window).scrollTop();
               window.scrollTo(0, 0);
@@ -13391,14 +13530,15 @@ $.fn.sidebar = function(parameters) {
           module.unbind.clickaway();
 
           $transition
-            .on(transitionEnd, function(event) {
+            .off(transitionEnd + eventNamespace)
+            .on(transitionEnd + eventNamespace, function(event) {
               if( event.target == $transition[0] ) {
-                $transition.off(transitionEnd);
+                $transition.off(transitionEnd + eventNamespace);
                 module.remove.transition();
                 module.remove.direction();
                 module.remove.outward();
                 module.remove.visible();
-                if(module.is.mobile() && settings.returnScroll) {
+                if(transition == 'scale down' || (settings.returnScroll && transition !== 'overlay' && module.is.mobile()) ) {
                   window.scrollTo(0, currentScroll);
                 }
                 $.proxy(callback, element)();
@@ -13406,6 +13546,7 @@ $.fn.sidebar = function(parameters) {
             })
           ;
           requestAnimationFrame(function() {
+            module.remove.inward();
             module.set.outward();
             module.remove.active();
             module.remove.pushed();
@@ -13698,9 +13839,9 @@ $.fn.sidebar = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -13846,7 +13987,7 @@ $.fn.sidebar.settings = {
 
   dimPage           : true,
   scrollLock        : false,
-  returnScroll      : false,
+  returnScroll      : true,
 
   useLegacy         : false,
   duration          : 500,
@@ -13875,7 +14016,7 @@ $.fn.sidebar.settings = {
 
   selector: {
     fixed   : '.ui.fixed',
-    omitted : 'script, link, style, .ui.modal, .ui.nag, .ui.fixed',
+    omitted : 'script, link, style, .ui.modal, .ui.dimmer, .ui.nag, .ui.fixed',
     page    : '.page',
     pusher  : '.pusher',
     sidebar : '.ui.sidebar'
@@ -14200,7 +14341,8 @@ $.fn.sticky = function(parameters) {
               tagName = $container.get(0).tagName
             ;
             if(tagName === 'HTML' || tagName == 'body') {
-              module.error(error.container, tagName, $module);
+              // this can trigger for too many reasons
+              //module.error(error.container, tagName, $module);
               $container = $module.offsetParent();
             }
             else {
@@ -14512,9 +14654,9 @@ $.fn.sticky = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -15268,9 +15410,9 @@ $.tab = $.fn.tab = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -15517,26 +15659,25 @@ $.fn.transition = function() {
 
         namespace,
         moduleNamespace,
+        eventNamespace,
         module
       ;
 
       module = {
 
         initialize: function() {
-          // get settings
-          settings        = module.get.settings.apply(element, moduleArguments);
-          module.verbose('Converted arguments into settings object', settings);
 
-          // set shortcuts
-          error           = settings.error;
-          className       = settings.className;
-          namespace       = settings.namespace;
-          metadata        = settings.metadata;
+          // get full settings
           moduleNamespace = 'module-' + namespace;
+          settings        = module.get.settings.apply(element, moduleArguments);
+          className       = settings.className;
+          metadata        = settings.metadata;
 
           animationEnd    = module.get.animationEvent();
           animationName   = module.get.animationName();
-
+          error           = settings.error;
+          namespace       = settings.namespace;
+          eventNamespace  = '.' + settings.namespace;
           instance        = $module.data(moduleNamespace) || module;
 
           if(methodInvoked) {
@@ -15544,6 +15685,7 @@ $.fn.transition = function() {
           }
           // no internal method was found matching query or query not made
           if(methodInvoked === false) {
+            module.verbose('Converted arguments into settings object', settings);
             module.animate();
             module.instantiate();
           }
@@ -15615,7 +15757,7 @@ $.fn.transition = function() {
 
         reset: function() {
           module.debug('Resetting animation to beginning conditions');
-          $module.off(animationEnd);
+          $module.off(animationEnd + eventNamespace);
           module.restore.conditions();
           module.hide();
           module.remove.animating();
@@ -15625,7 +15767,7 @@ $.fn.transition = function() {
           module.debug('Queueing animation of', animation);
           module.queuing = true;
           $module
-            .one(animationEnd, function() {
+            .one(animationEnd + eventNamespace, function() {
               module.queuing = false;
               module.repaint();
               module.animate.apply(this, settings);
@@ -15646,6 +15788,7 @@ $.fn.transition = function() {
             else if( module.is.inward() ) {
               module.verbose('Animation is outward, showing element');
               module.restore.conditions();
+              module.set.display();
               module.show();
               $.proxy(settings.onShow, this)();
             }
@@ -15670,7 +15813,6 @@ $.fn.transition = function() {
         },
 
         set: {
-
           animating: function(animation) {
             animation = animation || settings.animation;
             module.save.conditions();
@@ -15683,24 +15825,24 @@ $.fn.transition = function() {
               .addClass(className.animating)
               .addClass(className.transition)
               .addClass(animation)
-              .one(animationEnd, module.complete)
+              .one(animationEnd + eventNamespace, module.complete)
             ;
             module.set.duration(settings.duration);
             module.debug('Starting tween', settings.animation, $module.attr('class'));
           },
-
           display: function() {
             var
               style         = $module.attr('style') || '',
               displayType   = module.get.displayType(),
               overrideStyle = style + ';display: ' + displayType + ' !important;'
             ;
-            module.verbose('Setting final visibility to', displayType);
-            $module
-              .attr('style', overrideStyle)
-            ;
+            if( $module.css('display') !== displayType ) {
+              module.verbose('Setting inline visibility to', displayType);
+              $module
+                .attr('style', overrideStyle)
+              ;
+            }
           },
-
           direction: function() {
             if($module.is(':visible') && !module.is.hidden()) {
               module.debug('Automatically determining the direction of animation', 'Outward');
@@ -15717,14 +15859,12 @@ $.fn.transition = function() {
               ;
             }
           },
-
           looping: function() {
             module.debug('Transition set to loop');
             $module
               .addClass(className.looping)
             ;
           },
-
           duration: function(duration) {
             duration = duration || settings.duration;
             duration = (typeof duration == 'number')
@@ -15742,24 +15882,20 @@ $.fn.transition = function() {
               })
             ;
           },
-
           hidden: function() {
             if(!module.is.hidden()) {
               $module
                 .addClass(className.transition)
                 .addClass(className.hidden)
               ;
-              requestAnimationFrame(function() {
-                if($module.css('display') !== 'none') {
-                  module.verbose('Overriding default display to hide element');
-                  $module
-                    .css('display', 'none')
-                  ;
-                }
-              });
+              if($module.css('display') !== 'none') {
+                module.verbose('Overriding default display to hide element');
+                $module
+                  .css('display', 'none')
+                ;
+              }
             }
           },
-
           visible: function() {
             $module
               .addClass(className.transition)
@@ -15802,7 +15938,7 @@ $.fn.transition = function() {
             }
             else {
               if(module.get.displayType() === 'block') {
-                module.verbose('Removing inline block style, element defaults to block');
+                module.verbose('Removing inline style override, element defaults to block');
                 $module.removeAttr('style');
               }
             }
@@ -15814,17 +15950,14 @@ $.fn.transition = function() {
         },
 
         remove: {
-
           animating: function() {
             $module.removeClass(className.animating);
           },
-
           display: function() {
             if(module.displayType !== undefined) {
               $module.css('display', '');
             }
           },
-
           duration: function() {
             $module
               .css({
@@ -15836,15 +15969,12 @@ $.fn.transition = function() {
               })
             ;
           },
-
           hidden: function() {
             $module.removeClass(className.hidden);
           },
-
           visible: function() {
             $module.removeClass(className.visible);
           },
-
           looping: function() {
             module.debug('Transitions are no longer looping');
             $module
@@ -15852,18 +15982,14 @@ $.fn.transition = function() {
             ;
             module.forceRepaint();
           },
-
           transition: function() {
             $module
               .removeClass(className.visible)
               .removeClass(className.hidden)
             ;
           }
-
         },
-
         get: {
-
           settings: function(animation, duration, complete) {
             // single settings object
             if(typeof animation == 'object') {
@@ -15905,7 +16031,6 @@ $.fn.transition = function() {
             }
             return $.fn.transition.settings;
           },
-
           displayType: function() {
             if(module.displayType === undefined) {
               // create fake element to determine display state
@@ -15913,11 +16038,9 @@ $.fn.transition = function() {
             }
             return module.displayType;
           },
-
           transitionExists: function(animation) {
             return $.fn.transition.exists[animation];
           },
-
           animationName: function() {
             var
               element     = document.createElement('div'),
@@ -15931,13 +16054,11 @@ $.fn.transition = function() {
             ;
             for(animation in animations){
               if( element.style[animation] !== undefined ){
-                module.verbose('Determined animation vendor name property', animations[animation]);
                 return animations[animation];
               }
             }
             return false;
           },
-
           animationEvent: function() {
             var
               element     = document.createElement('div'),
@@ -15951,7 +16072,6 @@ $.fn.transition = function() {
             ;
             for(animation in animations){
               if( element.style[animation] !== undefined ){
-                module.verbose('Determined animation vendor end event', animations[animation]);
                 return animations[animation];
               }
             }
@@ -16015,7 +16135,9 @@ $.fn.transition = function() {
               }
               $clone.remove();
               module.save.displayType(displayType);
-              module.save.transitionExists(animation, transitionExists);
+              if(transitionExists === undefined) {
+                module.save.transitionExists(animation, transitionExists);
+              }
             }
             return transitionExists;
           }
@@ -16140,14 +16262,14 @@ $.fn.transition = function() {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
             clearTimeout(module.performance.timer);
-            module.performance.timer = setTimeout(module.performance.display, 100);
+            module.performance.timer = setTimeout(module.performance.display, 600);
           },
           display: function() {
             var
@@ -16181,6 +16303,7 @@ $.fn.transition = function() {
             performance = [];
           }
         },
+        // modified for transition to return invoke success
         invoke: function(query, passedArguments, context) {
           var
             object = instance,
@@ -16223,6 +16346,7 @@ $.fn.transition = function() {
           else if(found !== undefined) {
             response = found;
           }
+
           if($.isArray(returnedValue)) {
             returnedValue.push(response);
           }
@@ -16232,7 +16356,10 @@ $.fn.transition = function() {
           else if(response !== undefined) {
             returnedValue = response;
           }
-          return found || false;
+          return (found !== undefined)
+            ? found
+            : false
+          ;
         }
       };
       module.initialize();
@@ -16244,6 +16371,7 @@ $.fn.transition = function() {
   ;
 };
 
+// Records if CSS transition is available
 $.fn.transition.exists = {};
 
 $.fn.transition.settings = {
@@ -16255,10 +16383,10 @@ $.fn.transition.settings = {
   debug       : false,
 
   // verbose debug output
-  verbose     : false,
+  verbose     : true,
 
   // performance data output
-  performance : false,
+  performance : true,
 
   // event namespace
   namespace   : 'transition',
@@ -16268,7 +16396,7 @@ $.fn.transition.settings = {
   onShow      : function() {},
   onHide      : function() {},
 
-  // whether animation can occur twice in a row
+  // whether EXACT animation can occur twice in a row
   allowRepeats : false,
 
   // animation duration
@@ -16648,9 +16776,9 @@ $.fn.video = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
