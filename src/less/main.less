@@ -12,24 +12,40 @@ body {
   background: #FFF;
 }
 
-.main .ui.segment {
-  box-shadow: 0 0 3px #dadada;
-  border-radius: 4px;
-}
 
-.main .ui.table {
-  box-shadow: 0 0 3px #dadada;
-  border-radius: 4px;
+.main .ui.table,
+.main .ui.segment,
+.main .ui.table.attached,
+.main .ui.attached.segment,
+.main .ui.attached.header, {
   border: none;
+  box-shadow: 0 0 3px #dadada;
+  border-radius: 4px;
 }
 
-.main .ui.menu {
+.ui.top.attached.segment, {
+  border-radius: 4px 4px 0 0;
+}
+.main .ui.segment.fitted {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+
+.full.height {
+  padding-bottom: 2rem;
+}
+
+
+.main .ui.menu:not(.main) {
   box-shadow: 0 0 3px #dadada;
   border-radius: 4px;
 }
 
 .main.menu {
   top: 0px;
+
+  // height: 50px;
 }
 
 .page {

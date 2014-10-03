@@ -21,7 +21,7 @@ Dom = React.DOM
 
 custom-actions = (props)->
   SemanticModal.ModalTrigger modal: CreateAccountModal({person-id: props.row.id}),
-    a class-name: "ui button tiny", "Create Account"
+    a class-name: "ui primary button tiny", "Create Account"
 
 
 cols =
@@ -53,6 +53,7 @@ cols =
 PeopleList = React.create-class do
   displayName: "PeopleList"
   getInitialState: ->
+    current-filter: 'All'
     people: []
   componentWillMount: ->
     api.person.find!
@@ -63,12 +64,39 @@ PeopleList = React.create-class do
 
   right-menu: ->
     SemanticModal.ModalTrigger modal: @modal!,
-      a class-name: "ui button", "Create"
+      a class-name: "ui primary tiny button", "Create"
+        
+  render-filter-button: (name) ->
+    is-active = @state.current-filter is name
+    if is-active then btn-class-name = "ui active button" else btn-class-name ="ui button"
+
+    set-active = ~>
+      @set-state current-filter: name
+
+    div class-name: btn-class-name, on-click: set-active,
+      name
+
+
+
+  render-filter-buttons: ->
+    div class-name: "ui basic tiny buttons",
+      @render-filter-button "All"
+      @render-filter-button "Students"
+      @render-filter-button "Teachers"
+      @render-filter-button "Parents"
+
+  filtered-data: ->
+    if @state.current-filter is 'All'
+      return @state.people
+    else
+      return []
 
   render: ->
     div null,
       Header primary: "All People", right: @right-menu!
       div class-name: "main container",
-        Grid class-name: "five column" columns: cols, data: @state.people
+        div class-name: "ui top attached segment",
+          @render-filter-buttons!
+        Grid class-name: "bottom attached five column" columns: cols, data: @filtered-data!
 
 module.exports = PeopleList

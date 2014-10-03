@@ -86,10 +86,10 @@ ClassAssignments = React.create-class do
 
   render: ->
     div null,
-      div class-name: "ui right floated fitted segment",
+      div class-name: "ui top attached right aligned segment",
         SemanticModal.ModalTrigger modal: @modal!,
-          a class-name: "ui button", "New Assignment"
-      Grid columns: assignment-cols, data: @state.assignments
+          a class-name: "ui primary tiny button", "New Assignment"
+      Grid class-name: "bottom attached" columns: assignment-cols, data: @state.assignments
 
 
 module.exports = ClassAssignments

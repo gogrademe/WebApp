@@ -43,7 +43,7 @@ Grid = React.create-class do
     getRenderer = @getRenderer
 
     @transfer-props-to do
-      table class-name: "ui compact striped table",
+      table class-name: "ui compact table",
         thead null,
           tr null,
             cols.map(@renderHeader)

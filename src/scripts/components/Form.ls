@@ -2,7 +2,7 @@ require! {
   React: 'react'
 }
 Dom = React.DOM
-{div, label, input, form, button} = Dom
+{div, label, input, form, button, i} = Dom
 
 Input = React.create-class do
   prop-types:
@@ -36,7 +36,7 @@ Form = React.create-class do
     on-submit: React.PropTypes.func.isRequired
 
   get-default-props: ->
-    submit-button: "Submit"
+    submit-button: "Save"
 
   handle-submit: (e) ->
     e.prevent-default!
@@ -46,7 +46,8 @@ Form = React.create-class do
       form class-name: "ui form" on-submit: @handle-submit,
         @props.children
       div null,
-        button class-name: "ui button" type: "submit",
+        button class-name: "ui primary submit labeled icon button" type: "submit",
+          i class-name: "save icon"
           @props.submit-button
 
 module.exports =
