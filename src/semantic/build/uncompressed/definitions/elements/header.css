@@ -62,7 +62,6 @@
 /*-------------------
         Page
 --------------------*/
-/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -93,15 +92,11 @@
 --------------------*/
 /* Mood */
 /* Status */
-/* Darkened Headers */
 /*-------------------
      Neutral Text
 --------------------*/
 /*-------------------
      Brand Colors
---------------------*/
-/*-------------------
-    Grid Columns
 --------------------*/
 /*-------------------
       Borders
@@ -112,6 +107,15 @@
 /*-------------------
      Transitions
 --------------------*/
+/*-------------------
+    Derived Values
+--------------------*/
+/* Makes sure padded grid can fit at 320px */
+/* Used to match floats with text */
+/* Positive / Negative Dupes */
+/* Header Colors */
+/* Responsive */
+/* Columns */
 /*******************************
            States
 *******************************/
@@ -162,6 +166,124 @@
 /*------------------
      Load Theme
 -------------------*/
+/*******************************
+         Site Settings
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/*-------------------
+       Fonts
+--------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*-------------------
+        Page
+--------------------*/
+/*-------------------
+  Background Colors
+--------------------*/
+/* Used for differentiating neutrals */
+/* Used for differentiating layers */
+/*-------------------
+        Grid
+--------------------*/
+/*-------------------
+     Breakpoints
+--------------------*/
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+       Icons
+--------------------*/
+/* Max Width of Icon */
+/*-------------------
+       Easing
+--------------------*/
+/*---   Neutrals  ---*/
+/*--- Colored Backgrounds ---*/
+/*--- Colored Text ---*/
+/*--- Colored Headers ---*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Mood */
+/* Status */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------
+    Derived Values
+--------------------*/
+/* Makes sure padded grid can fit at 320px */
+/* Used to match floats with text */
+/* Positive / Negative Dupes */
+/* Header Colors */
+/* Responsive */
+/* Columns */
+/*******************************
+           States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*---  Colors  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*---  Colors  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+        Active
+--------------------*/
+/*---  Standard  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*******************************
+            Header
+*******************************/
+/*-------------------
+       Element
+--------------------*/
+/* HTML Headings */
+/* Sizing */
+/* Sub Header */
+/* Icon */
+/* Label */
+/* Content */
+/* Paragraph after Header */
+/*-------------------
+      Variations
+--------------------*/
+/* Icon Header */
+/* Divided */
+/* Block */
+/* Divided */
+/* Attached */
+/* Inverted */
+/* Floated */
 /*------------------
      Load Site
 -------------------*/
@@ -189,7 +311,7 @@
   color: rgba(0, 0, 0, 0.8);
 }
 .ui.header .sub.header {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: normal;
   margin: 0em;
   padding: 0em;
@@ -325,55 +447,55 @@ h5.ui.header {
   color: #1b1c1d !important;
 }
 a.ui.black.header:hover {
-  color: #2c2e2f !important;
+  color: #222425 !important;
 }
 .ui.blue.header {
   color: #3b83c0 !important;
 }
 a.ui.blue.header:hover {
-  color: #5494cb !important;
+  color: #458ac6 !important;
 }
 .ui.green.header {
   color: #5bbd72 !important;
 }
 a.ui.green.header:hover {
-  color: #74c788 !important;
+  color: #66c17b !important;
 }
 .ui.orange.header {
   color: #e07b53 !important;
 }
 a.ui.orange.header:hover {
-  color: #e59271 !important;
+  color: #e28560 !important;
 }
 .ui.pink.header {
   color: #d9499a !important;
 }
 a.ui.pink.header:hover {
-  color: #df67aa !important;
+  color: #dc56a1 !important;
 }
 .ui.purple.header {
   color: #564f8a !important;
 }
 a.ui.purple.header:hover {
-  color: #645ca1 !important;
+  color: #5c5594 !important;
 }
 .ui.red.header {
   color: #d95c5c !important;
 }
 a.ui.red.header:hover {
-  color: #e07979 !important;
+  color: #dc6868 !important;
 }
 .ui.teal.header {
   color: #00b5ad !important;
 }
 a.ui.teal.header:hover {
-  color: #00d9cf !important;
+  color: #00c4bc !important;
 }
 .ui.yellow.header {
   color: #f2c61f !important;
 }
 a.ui.yellow.header:hover {
-  color: #f4cf41 !important;
+  color: #f3ca2d !important;
 }
 .ui.black.dividing.header {
   border-bottom: 2px solid #1b1c1d;
@@ -428,55 +550,55 @@ a.ui.yellow.header:hover {
   color: #aaaaaa !important;
 }
 a.ui.inverted.black.header:hover {
-  color: #bcbcbc !important;
+  color: #b2b2b2 !important;
 }
 .ui.inverted.blue.header {
   color: #54c8ff !important;
 }
 a.ui.inverted.blue.header:hover {
-  color: #78d3ff !important;
+  color: #63cdff !important;
 }
 .ui.inverted.green.header {
   color: #2ecc40 !important;
 }
 a.ui.inverted.green.header:hover {
-  color: #48d658 !important;
+  color: #37d249 !important;
 }
 .ui.inverted.orange.header {
   color: #ff851b !important;
 }
 a.ui.inverted.orange.header:hover {
-  color: #ff983f !important;
+  color: #ff8d2a !important;
 }
 .ui.inverted.pink.header {
   color: #ff8edf !important;
 }
 a.ui.inverted.pink.header:hover {
-  color: #ffb2e9 !important;
+  color: #ff9de3 !important;
 }
 .ui.inverted.purple.header {
   color: #cdc6ff !important;
 }
 a.ui.inverted.purple.header:hover {
-  color: #eceaff !important;
+  color: #dad5ff !important;
 }
 .ui.inverted.red.header {
   color: #ff695e !important;
 }
 a.ui.inverted.red.header:hover {
-  color: #ff8a82 !important;
+  color: #ff776d !important;
 }
 .ui.inverted.teal.header {
   color: #6dffff !important;
 }
 a.ui.inverted.teal.header:hover {
-  color: #91ffff !important;
+  color: #7cffff !important;
 }
 .ui.inverted.yellow.header {
   color: #ffe21f !important;
 }
 a.ui.inverted.yellow.header:hover {
-  color: #ffe743 !important;
+  color: #ffe42e !important;
 }
 .ui.inverted.block.header {
   border-bottom: none;
@@ -539,43 +661,18 @@ a.ui.inverted.yellow.header:hover {
   border-bottom-color: rgba(255, 255, 255, 0.2);
 }
 /*-------------------
-        Block
---------------------*/
-.ui.block.header {
-  background: #fafafa -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05));
-  background: #fafafa linear-gradient(transparent, rgba(0, 0, 0, 0.05));
-  padding: 0.75rem 1rem;
-  box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.05);
-  border: 1px solid #dddddd;
-  border-radius: 0.3125rem;
-}
-.ui.tiny.block.header {
-  font-size: 0.875em;
-}
-.ui.small.block.header {
-  font-size: 0.9em;
-}
-.ui.block.header {
-  font-size: 1em;
-}
-.ui.large.block.header {
-  font-size: 1.1em;
-}
-.ui.huge.block.header {
-  font-size: 1.2em;
-}
-/*-------------------
        Attached
 --------------------*/
 .ui.attached.header {
-  background: #fafafa -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05));
-  background: #fafafa linear-gradient(transparent, rgba(0, 0, 0, 0.05));
-  margin: 0em;
+  background: #ffffff;
   padding: 0.75rem 1rem;
-  box-shadow: 0px 0px 0px 1px #dddddd;
-  border: none;
-  margin-left: 0px;
-  margin-right: 0px;
+  margin-left: -1px;
+  margin-right: -1px;
+}
+.ui.attached.header,
+.ui.attached.block.header {
+  box-shadow: none;
+  border: 1px solid #dddddd;
 }
 .ui.attached:not(.top):not(.bottom).header {
   margin-top: 0em;
@@ -600,7 +697,7 @@ a.ui.inverted.yellow.header:hover {
 .ui.small.attached.header {
   font-size: 0.9em;
 }
-.ui.attached.header {
+.ui.attached.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
   font-size: 1em;
 }
 .ui.large.attached.header {
@@ -608,6 +705,31 @@ a.ui.inverted.yellow.header:hover {
 }
 .ui.huge.attached.header {
   font-size: 1.2em;
+}
+/*-------------------
+        Block
+--------------------*/
+.ui.block.header {
+  background: #f0f0f0;
+  padding: 0.75rem 1rem;
+  box-shadow: none;
+  border: 1px solid #dddddd;
+  border-radius: 0.3125rem;
+}
+.ui.tiny.block.header {
+  font-size: 1em;
+}
+.ui.small.block.header {
+  font-size: 1.1em;
+}
+.ui.block.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+  font-size: 1.3em;
+}
+.ui.large.block.header {
+  font-size: 1.5em;
+}
+.ui.huge.block.header {
+  font-size: 2em;
 }
 /*-------------------
         Sizing

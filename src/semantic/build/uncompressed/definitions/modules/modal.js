@@ -38,7 +38,6 @@ $.fn.modal = function(parameters) {
     returnedValue
   ;
 
-
   $allModules
     .each(function() {
       var
@@ -68,7 +67,6 @@ $.fn.modal = function(parameters) {
         instance     = $module.data(moduleNamespace),
         module
       ;
-
       module  = {
 
         initialize: function() {
@@ -223,7 +221,7 @@ $.fn.modal = function(parameters) {
         },
 
         toggle: function() {
-          if( module.is.active() ) {
+          if( module.is.active() || module.is.animating() ) {
             module.hide();
           }
           else {
@@ -260,10 +258,14 @@ $.fn.modal = function(parameters) {
               if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
                 module.debug('Showing modal with css animations');
                 $module
-                  .transition(settings.transition + ' in', settings.duration, function() {
-                    $.proxy(settings.onVisible, element)();
-                    module.set.active();
-                    callback();
+                  .transition({
+                    animation : settings.transition + ' in',
+                    duration  : settings.duration,
+                    complete  : function() {
+                      $.proxy(settings.onVisible, element)();
+                      module.set.active();
+                      callback();
+                    }
                   })
                 ;
               }
@@ -306,7 +308,7 @@ $.fn.modal = function(parameters) {
         },
 
         hideDimmer: function() {
-          if( !module.is.active() ) {
+          if( !($dimmable.dimmer('is active') || $dimmable.dimmer('is animating')) ) {
             module.debug('Dimmer is not visible cannot hide');
             return;
           }
@@ -318,9 +320,6 @@ $.fn.modal = function(parameters) {
           }
           $dimmable.dimmer('hide', function() {
             if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
-              $module
-                .transition('reset')
-              ;
               module.remove.screenHeight();
             }
             module.remove.active();
@@ -332,7 +331,7 @@ $.fn.modal = function(parameters) {
             ? callback
             : function(){}
           ;
-          if( !module.is.active() ) {
+          if( !(module.is.active() || module.is.animating()) ) {
             module.debug('Cannot hide modal it is not active');
             return;
           }
@@ -341,11 +340,15 @@ $.fn.modal = function(parameters) {
           $.proxy(settings.onHide, element)();
           if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
             $module
-              .transition(settings.transition + ' out', settings.duration, function() {
-                $.proxy(settings.onHidden, element)();
-                module.remove.active();
-                module.restore.focus();
-                callback();
+              .transition({
+                animation : settings.transition + ' out',
+                duration  : settings.duration,
+                complete  : function() {
+                  $.proxy(settings.onHidden, element)();
+                  module.remove.active();
+                  module.restore.focus();
+                  callback();
+                }
               })
             ;
           }
@@ -462,6 +465,12 @@ $.fn.modal = function(parameters) {
         is: {
           active: function() {
             return $module.hasClass(className.active);
+          },
+          animating: function() {
+            return $module.transition('is supported')
+              ? $module.transition('is animating')
+              : $module.is(':visible')
+            ;
           },
           modernBrowser: function() {
             // appName for IE11 reports 'Netscape' can no longer use
@@ -598,9 +607,9 @@ $.fn.modal = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }

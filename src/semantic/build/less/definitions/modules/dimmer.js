@@ -90,7 +90,7 @@ $.fn.dimmer = function(parameters) {
             module.set.pageDimmer();
           }
 
-          if(settings.closable) {
+          if(settings.on == 'click' && settings.closable) {
             module.verbose('Adding dimmer close event', $dimmer);
             $dimmer
               .on(clickEvent + eventNamespace, module.event.click)
@@ -419,9 +419,9 @@ $.fn.dimmer = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }

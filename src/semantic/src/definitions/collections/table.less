@@ -77,6 +77,9 @@
 .ui.table thead th:last-child {
   border-radius: 0em @borderRadius 0em 0em;
 }
+.ui.table thead th:only-child {
+  border-radius: @borderRadius @borderRadius 0em 0em;
+}
 
 /* Footer */
 .ui.table tfoot {
@@ -99,6 +102,9 @@
 }
 .ui.table tfoot th:last-child {
   border-radius: 0em 0em @borderRadius 0em;
+}
+.ui.table tfoot th:only-child {
+  border-radius: 0em 0em @borderRadius @borderRadius;
 }
 
 /* Table Row */
@@ -184,6 +190,56 @@
   }
 }
 
+
+/*******************************
+             Types
+*******************************/
+
+/*--------------
+   Definition
+---------------*/
+
+.ui.definition.table thead:not(.full-width) th:first-child {
+  pointer-events: none;
+  background: @definitionHeaderBackground;
+  font-weight: @definitionHeaderFontWeight;
+  color: @definitionHeaderColor;
+  box-shadow: -@borderWidth -@borderWidth 0px @borderWidth @definitionPageBackground;
+}
+
+.ui.definition.table tfoot:not(.full-width) th:first-child {
+  pointer-events: none;
+  background: @definitionFooterBackground;
+  font-weight: @definitionFooterColor;
+  color: @definitionFooterFontWeight;
+  box-shadow: @borderWidth @borderWidth 0px @borderWidth @definitionPageBackground;
+}
+
+/* Remove Border */
+.ui.celled.definition.table thead:not(.full-width) th:first-child {
+  box-shadow: 0px -@borderWidth 0px @borderWidth @definitionPageBackground;
+}
+.ui.celled.definition.table tfoot:not(.full-width) th:first-child {
+  box-shadow: 0px @borderWidth 0px @borderWidth @definitionPageBackground;
+}
+
+/* Highlight Defining Column */
+.ui.definition.table tr td:first-child {
+  background: @definitionColumnBackground;
+  font-weight: @definitionColumnFontWeight;
+  color: @definitionColumnColor;
+}
+
+/* Fix 2nd Column */
+.ui.definition.table thead:not(.full-width) th:nth-child(2) {
+  border-left: @borderWidth solid @borderColor;
+}
+.ui.definition.table tfoot:not(.full-width) th:nth-child(2) {
+  border-left: @borderWidth solid @borderColor;
+}
+.ui.definition.table td:nth-child(2) {
+  border-left: @borderWidth solid @borderColor;
+}
 
 
 /*******************************
@@ -297,12 +353,73 @@
 .ui.table tr td.disabled,
 .ui.table tr.disabled:hover td,
 .ui.table tr:hover td.disabled {
-  color: rgba(150, 150, 150, 0.3);
+  pointer-events: none;
+  color: @disabledTextColor;
 }
 
 /*******************************
           Variations
 *******************************/
+
+/*--------------
+     Aligned
+---------------*/
+
+.ui.table[class*="left aligned"],
+.ui.table [class*="left aligned"] {
+  text-align: left;
+}
+.ui.table[class*="center aligned"],
+.ui.table [class*="center aligned"] {
+  text-align: center;
+}
+.ui.table[class*="right aligned"],
+.ui.table [class*="right aligned"] {
+  text-align: right;
+}
+
+/*--------------
+    Collapsing
+---------------*/
+
+.ui.table th.collapsing,
+.ui.table td.collapsing {
+  width: 1px;
+  white-space: nowrap;
+}
+
+
+/*--------------
+     Attached
+---------------*/
+
+
+/* All */
+.ui.attached.table {
+  width: @attachedTableWidth;
+  margin: 0em @attachedHorizontalOffset;
+  border-radius: 0px;
+  box-shadow: @attachedBoxShadow;
+}
+
+/* Top */
+.ui[class*="top attached"].table {
+  margin-top: @margin;
+  border-radius: @borderRadius @borderRadius 0em 0em;
+}
+.ui.table[class*="top attached"]:first-child {
+  margin-top: 0em;
+}
+
+/* Bottom */
+.ui.table[class*="bottom attached"] {
+  margin-top: 0em;
+  margin-bottom: @margin;
+  border-radius: 0em 0em @borderRadius @borderRadius;
+}
+.ui.table[class*="bottom attached"]:last-child {
+  margin-bottom: 0em;
+}
 
 /*--------------
      Striped
@@ -327,39 +444,30 @@
 
 .ui.black.table {
   border-top: @coloredBorderSize solid @black;
-  border-radius: @coloredBorderRadius;
 }
 .ui.blue.table {
   border-top: @coloredBorderSize solid @blue;
-  border-radius: @coloredBorderRadius;
 }
 .ui.green.table {
   border-top: @coloredBorderSize solid @green;
-  border-radius: @coloredBorderRadius;
 }
 .ui.orange.table {
   border-top: @coloredBorderSize solid @orange;
-  border-radius: @coloredBorderRadius;
 }
 .ui.pink.table {
   border-top: @coloredBorderSize solid @pink;
-  border-radius: @coloredBorderRadius;
 }
 .ui.purple.table {
   border-top: @coloredBorderSize solid @purple;
-  border-radius: @coloredBorderRadius;
 }
 .ui.red.table {
   border-top: @coloredBorderSize solid @red;
-  border-radius: @coloredBorderRadius;
 }
 .ui.teal.table {
   border-top: @coloredBorderSize solid @teal;
-  border-radius: @coloredBorderRadius;
 }
 .ui.yellow.table {
   border-top: @coloredBorderSize solid @yellow;
-  border-radius: @coloredBorderRadius;
 }
 
 /*-------------------
@@ -369,47 +477,38 @@
 .ui.inverted.table,
 .ui.inverted.black.table {
   background-color: @black !important;
-  border-radius: @borderRadius;
   color: @white !important;
 }
 .ui.inverted.blue.table {
   background-color: @blue !important;
-  border-radius: @borderRadius;
   color: @white !important;
 }
 .ui.inverted.green.table {
   background-color: @green !important;
-  border-radius: @borderRadius;
   color: @white !important;
 }
 .ui.inverted.orange.table {
   background-color: @orange !important;
-  border-radius: @borderRadius;
   color: @white !important;
 }
 .ui.inverted.pink.table {
   background-color: @pink !important;
-  border-radius: @borderRadius;
   color: @white !important;
 }
 .ui.inverted.purple.table {
   background-color: @purple !important;
-  border-radius: @borderRadius;
   color: @white !important;
 }
 .ui.inverted.red.table {
   background-color: @red !important;
-  border-radius: @borderRadius;
   color: @white !important;
 }
 .ui.inverted.teal.table {
   background-color: @teal !important;
-  border-radius: @borderRadius;
   color: @white !important;
 }
 .ui.inverted.yellow.table {
   background-color: @yellow !important;
-  border-radius: @borderRadius;
   color: @white !important;
 }
 
@@ -535,19 +634,6 @@
 }
 
 /*--------------
-     Celled
----------------*/
-
-.ui.celled.table th,
-.ui.celled.table td {
-  border-left: @cellBorder;
-}
-.ui.celled.table th:first-child,
-.ui.celled.table td:first-child {
-  border-left: none;
-}
-
-/*--------------
     Sortable
 ---------------*/
 
@@ -555,6 +641,7 @@
   cursor: pointer;
   white-space: nowrap;
   border-left: @sortableBorder;
+  color: @sortableColor;
 }
 .ui.sortable.table thead th:first-child {
   border-left: none;
@@ -585,12 +672,6 @@
   content: @sortableIconDescending;
 }
 
-/* Sorted */
-.ui.sortable.table thead th.sorted {
-  background: @sortableActiveBackground;
-  color: @sortableActiveColor;
-}
-
 /* Hover */
 .ui.sortable.table th.disabled:hover {
   cursor: auto;
@@ -599,6 +680,18 @@
 .ui.sortable.table thead th:hover {
   background: @sortableHoverBackground;
   color: @sortableHoverColor;
+}
+
+/* Sorted */
+.ui.sortable.table thead th.sorted {
+  background: @sortableActiveBackground;
+  color: @sortableActiveColor;
+}
+
+/* Sorted Hover */
+.ui.sortable.table thead th.sorted:hover {
+  background: @sortableActiveHoverBackground;
+  color: @sortableActiveHoverColor;
 }
 
 /* Inverted */
@@ -627,24 +720,30 @@
 }
 .ui.inverted.table th {
   background-color: @invertedHeaderBackground;
-  border-color: @invertedCellBorderColor;
+  border-color: @invertedCellBorderColor !important;
   color: @invertedHeaderColor;
 }
 .ui.inverted.table tr td {
-  border-color: @invertedCellBorderColor;
+  border-color: @invertedCellBorderColor !important;
 }
 
-
-/*--------------
-   Definition
----------------*/
-
-.ui.definition.table td:first-child {
-  background: @definitionBackground;
-  font-weight: @definitionFontWeight;
-  color: @definitionColor;
+.ui.inverted.table tr.disabled td,
+.ui.inverted.table tr td.disabled,
+.ui.inverted.table tr.disabled:hover td,
+.ui.inverted.table tr:hover td.disabled {
+  pointer-events: none;
+  color: @invertedDisabledTextColor;
 }
 
+/* Definition */
+.ui.inverted.definition.table tfoot:not(.full-width) th:first-child,
+.ui.inverted.definition.table thead:not(.full-width) th:first-child {
+  background: @definitionPageBackground;
+}
+.ui.inverted.definition.table tr td:first-child {
+  background: @invertedDefinitionColumnBackground;
+  color: @invertedDefinitionColumnColor;
+}
 
 /*--------------
    Collapsing
@@ -694,6 +793,19 @@
 }
 .ui[class*="very basic"].table:not(.sortable):not(.striped) tbody tr:last-child td {
   padding-bottom: 0em;
+}
+
+/*--------------
+     Celled
+---------------*/
+
+.ui.celled.table th,
+.ui.celled.table td {
+  border-left: @cellBorder;
+}
+.ui.celled.table th:first-child,
+.ui.celled.table td:first-child {
+  border-left: none;
 }
 
 /*--------------

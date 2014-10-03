@@ -213,7 +213,7 @@ $.fn.popup = function(parameters) {
             module.refresh();
           }
           else {
-            module.error(error.content, element);
+            module.debug('No content specified skipping display', element);
           }
         },
 
@@ -325,9 +325,13 @@ $.fn.popup = function(parameters) {
             ;
             if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
               $popup
-                .transition(settings.transition + ' in', settings.duration, function() {
-                  module.bind.close();
-                  $.proxy(callback, element)();
+                .transition({
+                  animation : settings.transition + ' in',
+                  duration  : settings.duration,
+                  complete  : function() {
+                    module.bind.close();
+                    $.proxy(callback, element)();
+                  }
                 })
               ;
             }
@@ -347,9 +351,13 @@ $.fn.popup = function(parameters) {
             module.debug('Hiding pop-up');
             if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
               $popup
-                .transition(settings.transition + ' out', settings.duration, function() {
-                  module.reset();
-                  callback();
+                .transition({
+                  animation : settings.transition + ' out',
+                  duration  : settings.duration,
+                  complete  : function() {
+                    module.reset();
+                    callback();
+                  }
                 })
               ;
             }
@@ -741,9 +749,9 @@ $.fn.popup = function(parameters) {
               executionTime = currentTime - previousTime;
               time          = currentTime;
               performance.push({
-                'Element'        : element,
                 'Name'           : message[0],
                 'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
                 'Execution Time' : executionTime
               });
             }
@@ -899,7 +907,6 @@ $.fn.popup.settings = {
   maxSearchDepth : 10,
 
   error: {
-    content         : 'Your popup has no content specified',
     invalidPosition : 'The position you specified is not a valid position',
     method          : 'The method you called is not defined.',
     recursion       : 'Popup attempted to reposition element to fit, but could not find an adequate position.'

@@ -6,7 +6,7 @@ element     : 'modal'
 elementType : 'module'
 
 title       : 'Modal'
-description : 'A modal displays content that temporarily blocks interactions with other content'
+description : 'A modal displays content that temporarily blocks interactions with the main view of a site'
 type        : 'UI Module'
 
 themes      : ['Default', 'Fixed-width']
@@ -303,9 +303,10 @@ themes      : ['Default', 'Fixed-width']
       </div>
       <div class="ui clearing divider"></div>
       <div class="code">
-      $('.selection')
+      $('.selection.dropdown')
         .dropdown({
           onChange: function(value) {
+            alert($('.standard.test.modal').size());
             $('.standard.test.modal')
               .modal('setting', 'transition', value)
               .modal('show')

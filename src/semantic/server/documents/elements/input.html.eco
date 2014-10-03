@@ -6,7 +6,7 @@ element     : 'input'
 elementType : 'element'
 
 title       : 'Input'
-description : 'An input allows a site to elicit user input'
+description : 'An input is a field used to elicit a response from a user'
 type        : 'UI Element'
 
 themes      : ['Default']
@@ -103,9 +103,21 @@ themes      : ['Default']
     </div>
   </div>
   <div class="another example">
+    <div class="ui left action input">
+      <div class="ui teal labeled icon button">
+        <i class="cart icon"></i>
+        Checkout
+      </div>
+      <input type="text" value="$52.03">
+    </div>
+  </div>
+  <div class="another example">
     <div class="ui action input">
       <input type="text" value="http://ww.short.url/c0opq">
-      <div class="ui teal right labeled icon button"><i class="copy icon"></i> Copy</div>
+      <div class="ui teal right labeled icon button">
+        <i class="copy icon"></i>
+        Copy
+      </div>
     </div>
   </div>
   <div class="another example">

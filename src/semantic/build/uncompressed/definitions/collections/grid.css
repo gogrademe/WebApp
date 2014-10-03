@@ -62,7 +62,6 @@
 /*-------------------
         Page
 --------------------*/
-/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -93,15 +92,11 @@
 --------------------*/
 /* Mood */
 /* Status */
-/* Darkened Headers */
 /*-------------------
      Neutral Text
 --------------------*/
 /*-------------------
      Brand Colors
---------------------*/
-/*-------------------
-    Grid Columns
 --------------------*/
 /*-------------------
       Borders
@@ -112,6 +107,15 @@
 /*-------------------
      Transitions
 --------------------*/
+/*-------------------
+    Derived Values
+--------------------*/
+/* Makes sure padded grid can fit at 320px */
+/* Used to match floats with text */
+/* Positive / Negative Dupes */
+/* Header Colors */
+/* Responsive */
+/* Columns */
 /*******************************
            States
 *******************************/
@@ -165,6 +169,127 @@
 /*------------------
      Load Theme
 -------------------*/
+/*******************************
+         Site Settings
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/*-------------------
+       Fonts
+--------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*-------------------
+        Page
+--------------------*/
+/*-------------------
+  Background Colors
+--------------------*/
+/* Used for differentiating neutrals */
+/* Used for differentiating layers */
+/*-------------------
+        Grid
+--------------------*/
+/*-------------------
+     Breakpoints
+--------------------*/
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+       Icons
+--------------------*/
+/* Max Width of Icon */
+/*-------------------
+       Easing
+--------------------*/
+/*---   Neutrals  ---*/
+/*--- Colored Backgrounds ---*/
+/*--- Colored Text ---*/
+/*--- Colored Headers ---*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Mood */
+/* Status */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------
+    Derived Values
+--------------------*/
+/* Makes sure padded grid can fit at 320px */
+/* Used to match floats with text */
+/* Positive / Negative Dupes */
+/* Header Colors */
+/* Responsive */
+/* Columns */
+/*******************************
+           States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*---  Colors  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*---  Colors  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+        Active
+--------------------*/
+/*---  Standard  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*******************************
+             Grid
+*******************************/
+/* Inherited From Site */
+/*******************************
+            Grid
+*******************************/
+/*******************************
+           Variations
+*******************************/
+/*--------------
+     Page
+---------------*/
+/* Column Gutters */
+/*--------------
+     Relaxed
+---------------*/
+/*--------------
+     Divided
+---------------*/
+/*--------------
+    Celled
+---------------*/
+/*--------------
+    Stackable
+---------------*/
 /*------------------
      Load Site
 -------------------*/
@@ -625,16 +750,18 @@
   box-shadow: -1px 0px 0px 0px rgba(0, 0, 0, 0.1);
 }
 /* Swap from padding to margin on columns to have dividers align */
-.ui.divided.grid:not(.vertically) > .column:not(.row),
-.ui.divided.grid:not(.vertically) > .row > .column {
+.ui[class*="vertically divided"].grid > .column:not(.row),
+.ui[class*="vertically divided"].grid > .row > .column {
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding-top: 0rem;
   padding-bottom: 0rem;
 }
-.ui.divided.grid:not(.vertically) > .row {
+.ui[class*="vertically divided"].grid > .row {
   margin-top: 0em;
   margin-bottom: 0em;
+  padding-top: 0em;
+  padding-bottom: 0em;
 }
 /* No divider on first column on row */
 .ui.divided.grid:not(.vertically) > .column:first-child,
@@ -663,6 +790,12 @@
   margin: 0% 1rem;
   box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1);
 }
+/* Padded Horizontally Divided */
+[class*="horizontally padded"].ui.divided.grid,
+.ui.padded.divided.grid:not(.vertically):not(.horizontally) {
+  width: 100%;
+}
+/* First Row Vertically Divided */
 .ui[class*="vertically divided"].grid > .row:first-child:before {
   box-shadow: none;
 }
@@ -1145,7 +1278,8 @@
     padding-right: 1.5em !important;
   }
   .ui[class*="equal height"].stackable.page.grid {
-    width: 100%;
+    display: block !important;
+    width: 100% !important;
   }
   /* Remove pointers from vertical menus */
   .ui.stackable.grid .vertical.pointing.menu .item:after {

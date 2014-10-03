@@ -62,7 +62,6 @@
 /*-------------------
         Page
 --------------------*/
-/* Used to match floats with text */
 /*-------------------
   Background Colors
 --------------------*/
@@ -93,15 +92,11 @@
 --------------------*/
 /* Mood */
 /* Status */
-/* Darkened Headers */
 /*-------------------
      Neutral Text
 --------------------*/
 /*-------------------
      Brand Colors
---------------------*/
-/*-------------------
-    Grid Columns
 --------------------*/
 /*-------------------
       Borders
@@ -112,6 +107,15 @@
 /*-------------------
      Transitions
 --------------------*/
+/*-------------------
+    Derived Values
+--------------------*/
+/* Makes sure padded grid can fit at 320px */
+/* Used to match floats with text */
+/* Positive / Negative Dupes */
+/* Header Colors */
+/* Responsive */
+/* Columns */
 /*******************************
            States
 *******************************/
@@ -163,11 +167,137 @@
 /*-------------------
       Variations
 --------------------*/
+/* Relaxed */
 /* Divided */
 /* Sizes */
 /*------------------
      Load Theme
 -------------------*/
+/*******************************
+         Site Settings
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/*-------------------
+       Fonts
+--------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*-------------------
+        Page
+--------------------*/
+/*-------------------
+  Background Colors
+--------------------*/
+/* Used for differentiating neutrals */
+/* Used for differentiating layers */
+/*-------------------
+        Grid
+--------------------*/
+/*-------------------
+     Breakpoints
+--------------------*/
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+       Icons
+--------------------*/
+/* Max Width of Icon */
+/*-------------------
+       Easing
+--------------------*/
+/*---   Neutrals  ---*/
+/*--- Colored Backgrounds ---*/
+/*--- Colored Text ---*/
+/*--- Colored Headers ---*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Mood */
+/* Status */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------
+    Derived Values
+--------------------*/
+/* Makes sure padded grid can fit at 320px */
+/* Used to match floats with text */
+/* Positive / Negative Dupes */
+/* Header Colors */
+/* Responsive */
+/* Columns */
+/*******************************
+           States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*---  Colors  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*---  Colors  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+        Active
+--------------------*/
+/*---  Standard  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*******************************
+             Item
+*******************************/
+/*-------------------
+         View
+--------------------*/
+/* Group */
+/* Item */
+/* Responsive */
+/*-------------------
+       Content
+--------------------*/
+/* Image */
+/* Content */
+/* Header */
+/* Metadata */
+/* Icons */
+/* Actions */
+/* Links */
+/* Description */
+/* Content Image */
+/* Avatar Image */
+/* Paragraph */
+/* Additional Content */
+/*-------------------
+      Variations
+--------------------*/
+/* Relaxed */
+/* Divided */
+/* Sizes */
 /*------------------
      Load Site
 -------------------*/
@@ -506,6 +636,15 @@
 .ui.items > .item > .image + [class*="bottom aligned"].content {
   vertical-align: bottom;
 }
+/*--------------
+     Relaxed
+---------------*/
+.ui.relaxed.items > .item {
+  margin: 1.5em 0em;
+}
+.ui[class*="very relaxed"].items > .item {
+  margin: 2em 0em;
+}
 /*-------------------
       Divided
 --------------------*/
@@ -516,12 +655,21 @@
 }
 .ui.divided.items > .item:first-child {
   border-top: none;
-  margin-top: 0em;
-  padding-top: 0em;
+  margin-top: 0em !important;
+  padding-top: 0em !important;
 }
 .ui.divided.items > .item:last-child {
-  margin-bottom: 0em;
-  padding-bottom: 0em;
+  margin-bottom: 0em !important;
+  padding-bottom: 0em !important;
+}
+/* Relaxed Divided */
+.ui.relaxed.divided.items > .item {
+  margin: 0em;
+  padding: 1.5em 0em;
+}
+.ui[class*="very relaxed"].divided.items > .item {
+  margin: 0em;
+  padding: 2em 0em;
 }
 /*-------------------
         Link
