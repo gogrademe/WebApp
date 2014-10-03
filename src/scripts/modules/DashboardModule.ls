@@ -1,6 +1,6 @@
 require! {
   React: 'react'
-  "../components/Header.ls"
+  Header: "../components/PageHeader.ls"
   "../components/SemanticModal.ls"
 }
 
@@ -9,11 +9,10 @@ DashboardModule = React.create-class do
   displayName: "DashboardModule"
   render: ->
     div null,
-      div class-name: "main",
-        div class-name: "ui grid",
-          div class-name: "column",
-            div class-name: "ui segment",
-              h2 class-name:"ui center aligned header",
-                "Welcome to the test version of Cuane Gradebook."
+      Header primary: 'Dashboard'
+      div class-name: "main container",
+        div class-name: "ui center aligned segment",
+          h2 class-name:"ui header",
+            "Welcome to the test version of Cunae Gradebook."
 
 module.exports = DashboardModule
