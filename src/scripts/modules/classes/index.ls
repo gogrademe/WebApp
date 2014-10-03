@@ -57,10 +57,10 @@ View = React.create-class do
             @props.active-route-handler class: @state.class, terms: @state.terms, term: @state.term
           div class-name: "right floated three wide column",
             div class-name: "ui fluid vertical menu sunken",
-              Link class-name: "item" to: "class.detail" term-id: @props.params.term-id, resource-id: @props.params.resource-id, "Grades"
-              Link class-name: "item" to: "class.students" term-id: @props.params.term-id, resource-id: @props.params.resource-id, "Students"
-              Link class-name: "item" to: "class.assignments" term-id: @props.params.term-id, resource-id: @props.params.resource-id, "Assignments"
-              Link class-name: "item" to: "class.settings" term-id: @props.params.term-id, resource-id: @props.params.resource-id, "Settings"
+              Link class-name: "item" to: "class.detail" params:{term-id: @props.params.term-id, resource-id: @props.params.resource-id}, "Grades"
+              Link class-name: "item" to: "class.students" params:{term-id: @props.params.term-id, resource-id: @props.params.resource-id}, "Students"
+              Link class-name: "item" to: "class.assignments" params:{term-id: @props.params.term-id, resource-id: @props.params.resource-id}, "Assignments"
+              Link class-name: "item" to: "class.settings" params:{term-id: @props.params.term-id, resource-id: @props.params.resource-id}, "Settings"
 
 module.exports =
   View:       View

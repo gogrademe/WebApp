@@ -28,7 +28,7 @@ AssignmentLink = React.create-class do
   display-name: "AssignmentLink"
   render: ->
     div null,
-      Link to: "assignments.grades", assignment-id: @props.row.id,
+      Link to: "assignments.grades", params: {assignment-id: @props.row.id},
         @props.value
 
 assignment-cols =

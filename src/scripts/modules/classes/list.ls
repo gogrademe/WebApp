@@ -23,7 +23,7 @@ ClassName = React.create-class do
   render: ->
     term-id = @props.column.term?.value || "t"
     div null,
-      Link to: "class.detail", termId: term-id, resourceId: @props.row.id,
+      Link to: "class.detail", params: {termId: term-id, resourceId: @props.row.id},
         @props.value
 
 ClassList = React.create-class do
@@ -64,7 +64,7 @@ ClassList = React.create-class do
                     options: xs.map (x) ->
                       text: "Year #{x?.schoolYear} - #{x?.name}"
                       value: x?.id
-                      
+
   right-buttons: ->
     @select-render @state.terms
 
