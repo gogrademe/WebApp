@@ -1,25 +1,27 @@
 require! {
   React: 'react'
-  updates: 'react/lib/ReactUpdates'
+  updates: 'react/lib/update'
+
+  './Form/Input/Name.ls'
 }
 
 
-path-reduce = (path, obj, fn) -> path.split('.').reduce(fn, obj)
-
-# path-to-obj('a.b', 'foo') => {a: {b: 'foo'}}
 path-to-obj = (path, value) ->
-  path-reduce path, {}, (obj, part, i, xs) ->
+  o = {}
+  path-reduce path, o, (obj, part, i, xs) ->
     if i is xs.length - 1
       obj[part] = value
+      return obj
     else
-      obj[part] = {}
-    return obj
+      return obj[part] = {}
+  return o
+
+path-reduce = (path, obj, fn) -> path.split('.').reduce(fn, obj)
 
 
 # value-from-path('a.b', {a: {b: 'foo'}}) => 'foo'
 value-from-path = (path, obj) ->
   path-reduce path, obj, (obj, part) -> obj[part]
-
 
 
 
@@ -31,18 +33,20 @@ form-mixin = (state-key) ->
   get-props = (path) ->
     value: value-from-path("#state-key.#path", this.state)
     on-change: (event) ~>
-      value = switch event?.target
+
+      /*value = switch event?.target
         # input like
         | that.value? => that.value
         # plain value, allowed for greater compatibility
-        | otherwise => event
+        | otherwise => event*/
 
-      #data = updates this[state-key], path-to-obj path, {$set: value}
-      #data = updates this[state-key], path-to-obj path, {$set: value}
-      this.set-state {"#state-key": value}
-      console.log @state
+      value = event.target.value
 
-  make-updatable = (component, path, extra-props={}) -->
+      data = updates @state[state-key], path-to-obj("#path", {$set: value})
+      @set-state {"#state-key": data}
+
+
+  make-updatable = (component, path, extra-props = {type: "text"}) -->
     props = get-props.call(this, path) <<< extra-props
     component props
 
