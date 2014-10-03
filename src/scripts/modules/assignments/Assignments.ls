@@ -28,7 +28,7 @@ AssignmentLink = React.create-class do
   display-name: "AssignmentLink"
   render: ->
     div null,
-      Link to: "class.assignments.grades", termId: @props.row.term-id, resourceId: "test", assignmentID: @props.row.id,
+      Link to: "assignments.grades", assignment-id: @props.row.id,
         @props.value
 
 assignment-cols =
@@ -89,6 +89,9 @@ ClassAssignments = React.create-class do
       #Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id,
       #  SemanticModal.ModalTrigger modal: @modal!,
       #    a class-name: "item", "Create"
+      div class-name: "ui right floated fitted basic segment",
+        SemanticModal.ModalTrigger modal: @modal!,
+          a class-name: "ui button", "New Assignment"
       Grid columns: assignment-cols, data: @state.assignments
 
 

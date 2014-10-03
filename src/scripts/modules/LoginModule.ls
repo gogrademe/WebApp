@@ -20,13 +20,10 @@ LoginPage = React.create-class do
     email = @refs.email.getDOMNode().value.trim!
     password = @refs.password.getDOMNode().value.trim!
 
-    # AuthActions.login(email, password);
     auth.login email: email, password: password
       .then ->
-        console.log it
         Router.transitionTo('dashboard')
       .error ~>
-        console.log it
         @set-state do
           is-logging-in: false
           error: it

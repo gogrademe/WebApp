@@ -68,8 +68,9 @@ Dropdown = React.create-class do
         div class-name: "text", @state.selected.text
         i class-name: "dropdown icon"
         div class-name: "menu #{@get-menu-class!}",
-          if @props.option then
+          if @props.options then
             @props.options.map (i, k) ~>
-              div key: k, class-name: "item" on-click: @events!.item.click.bind(@, i), i.text
+              div key: k, class-name: "item" on-click: @events!.item.click.bind(@, i),
+                i.text
 
 module.exports = Dropdown

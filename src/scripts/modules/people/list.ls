@@ -8,6 +8,7 @@ require! {
   "../../api/api.ls"
 
   './CreatePersonModal.ls'
+  './CreateAccountModal.ls'
 
   Header: '../../components/PageHeader.ls'
 
@@ -17,6 +18,11 @@ Dom = React.DOM
 {div, h3, span, a} = Dom
 
 {Grid, StringRenderer} = NewTable
+
+custom-actions = (props)->
+  SemanticModal.ModalTrigger modal: CreateAccountModal({person-id: props.row.id}),
+    a class-name: "ui button tiny", "Create Account"
+
 
 cols =
   * key: 'firstName'
@@ -40,7 +46,9 @@ cols =
     resource-type: "person"
     renderer: NewTable.CrudActions
     link-to: "people"
-    #class-name: 'col-md-3'
+
+    custom-actions: custom-actions
+
 
 PeopleList = React.create-class do
   displayName: "PeopleList"
@@ -61,11 +69,6 @@ PeopleList = React.create-class do
     div null,
       Header primary: "All People", right: @right-menu!
       div class-name: "main container",
-        #div class-name: "ui toolbar menu inverted black block header",
-        #  div null
-        #  div class-name:"right menu",
-        #    SemanticModal.ModalTrigger modal: @modal!,
-        #      a class-name: "item", "Create"
-        Grid columns: cols, data: @state.people
+        Grid class-name: "five column" columns: cols, data: @state.people
 
 module.exports = PeopleList

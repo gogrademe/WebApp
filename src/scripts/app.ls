@@ -14,9 +14,9 @@ Dom = React.DOM
 
 App = React.create-class do
   displayName: "App"
-
   logged-in: ->
-    if api.session.get! then HeaderNav {}
+    if api.session.get! then
+      HeaderNav {}
 
   render: ->
     div null,

@@ -1,31 +1,32 @@
 require! {
   React: 'react'
 
-  "../../components/Panel.ls"
   '../../components/NewTable.ls'
 
   "../../api/api.ls"
 
-  Nav: './nav.ls'
-  '../../components/Header.ls'
-  '../../components/Form.ls'
+  Header: '../../components/PageHeader.ls'
+
 }
 Dom = React.DOM
 {div, input, i} = Dom
 
 {Grid} = NewTable
 
+
+{find} = require 'prelude-ls'
+
 GradeInput = React.create-class do
   get-initial-state: ->
     initial-value: @props.value
     value: @props.value
-    grade-id: @props.row.assignments[@props.column.assignment-id].grade?.id
-    max-score: @props.row.assignments[@props.column.assignment-id].assignment.type.max-score
+    grade-id: @props.row.grade?.id
+    max-score: @props.column.max-score
     loading: false
     error: false
 
   on-change: ->
-    @set-state value: it
+    @set-state value: it.target.value
 
   change-loading: (loading, error)->
     set-timeout do
@@ -68,8 +69,7 @@ GradeInput = React.create-class do
           " / #{@state.max-score}"
 
     div class-name: "ui icon input #{'error' if @state.error}",
-      Form.Input do
-        ref: "gradeInput"
+      input do
         type: "text"
         class-name: "grade"
         placeholder: "Score"
@@ -79,59 +79,45 @@ GradeInput = React.create-class do
 
       render-icon!
 
+
 AssignmentGrades = React.create-class do
   displayName: "AssignmentGrades"
   get-initial-state: ->
     students: []
     grades: []
-    assignments: []
+    assignment: {}
 
   get-grades: ->
-    api.grade.find!
+    api.grade.find {assignment-id: @props.params.assignment-id}
       .then ~>
         @set-state grades: it[0]
 
   get-students: ->
-    api.enrollment.find {class-id: @props.params.resource-id, term-id: @props.params.term-id}
+    api.enrollment.find {class-id: @state.assignment.class-id, term-id: @state.assignment.term-id}
       .then ~>
         @set-state students: it[0]
 
-  get-assignments: ->
-    api.assignment.find {class-id: @props.params.resource-id, term-id: @props.params.term-id}
+  get-assignment: ->
+    api.assignment.get @props.params.assignment-id
       .then ~>
-        @set-state assignments: it[0]
-
-  handle-grade-change: ({grade, assignment, student, value})->
-    data =
-      student-id: student
-      assignment-id: assignment
-      grade: value
-
-    if !grade
-      api.grade.create data
-    else
-      api.grade.update grade, data
+        @set-state assignment: it
+      .then ~>
+        @get-grades!
+        @get-students!
 
   build-cols: ->
     cols = [
       * key: "student.name"
         display: "Student"
-        class-name: "two wide"
-    ]
-    for x in @state.assignments
-      cols.push do
-        assignment-id: x.id
-        key: "assignments.#{x.id}.grade.grade"
-        display: "#{x.name}"
+        class-name: "three wide"
+      * key: "grade.comment"
+        display: "Comments"
+      * key: "grade.grade"
+        display: "Grade"
+        assignment-id: @props.params.assignment-id
+        max-score: @state.assignment?.type?.max-score
         renderer: GradeInput
-        change-handler: @handle-grade-change
-
-    cols.push do
-      display: "Avg - IB - US"
-      class-name: "two wide"
-      td-class-name: "positive"
-      renderer: GradeAverage
-
+    ]
 
     cols
 
@@ -141,34 +127,23 @@ AssignmentGrades = React.create-class do
         student:
           id: x.student.id
           name: "#{x.person.firstName} #{x.person.lastName}"
-        assignments: {}
-
-      for a in @state.assignments
-        grade =
-          @state.grades
-            |> filter (.assignment-id is a.id)
-            |> find (.student-id is x.student-id)
-
-        result.assignments[a.id] = {
-          grade: grade
-          assignment: a
-        }
+        grade: find (.student-id is x.student-id), @state.grades
 
       result
 
   component-will-mount: ->
     api.grade.events.add-listener "change", @get-grades
 
-    @get-grades!
-    @get-assignments!
-    @get-students!
+    @get-assignment!
+
 
   component-will-unmount: ->
     api.grade.events.remove-listener "change", @get-grades
 
   render: ->
-    div {},
-      #Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id
-      Grid columns: @build-cols!, data: @build-data!
+    div null,
+      Header primary: @state.assignment?.name, secondary: @state.assignment?.type?.name
+      div class-name: "main container",
+        Grid columns: @build-cols!, data: @build-data!
 
 module.exports = AssignmentGrades

@@ -43,7 +43,7 @@ Grid = React.create-class do
     getRenderer = @getRenderer
 
     @transfer-props-to do
-      table class-name: "ui striped table",
+      table class-name: "ui compact striped table",
         thead null,
           tr null,
             cols.map(@renderHeader)
@@ -121,8 +121,10 @@ CrudActions = React.create-class do
     api.[@props.column.resource-type].del @props.row.id
 
   render: ->
-    a class-name: "ui icon button tiny" on-click: @delete,
-      i class-name: "icon trash red"
+    div null,
+      a class-name: "ui icon button tiny" on-click: @delete,
+        i class-name: "icon trash red"
+      @props.column.custom-actions? @props
 
 
 CellLink = React.create-class do

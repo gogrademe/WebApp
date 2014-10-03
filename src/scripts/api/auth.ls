@@ -6,7 +6,8 @@ require! {
 
 Auth =
   is-logged-in: ->
-    !!localStorage.token
+    | localStorage.token => localStorage.token
+    | otherwise => null
 
   login: ({email, password}) ->
     email = email.trim!
@@ -32,7 +33,7 @@ Auth =
         reject "token not valid"
 
   current-user: ->
-    if @isLoggedIn
+    if @isLoggedIn! then
       tokenInfo = localStorage.token.split(".")[1]
       return JSON.parse(window.atob(tokenInfo))
     {}

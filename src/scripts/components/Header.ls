@@ -3,6 +3,9 @@ require! {
   Link: './HighlightedLink.ls'
   Router: "react-router"
   select: "./src/modules/Dropdown.ls"
+
+  '../api/api.ls'
+  '../api/auth.ls'
 }
 
 Dom = React.DOM
@@ -10,6 +13,19 @@ Dom = React.DOM
 
 HeaderNav = React.create-class do
   displayName: "HeaderNav"
+  user-display-name: ->
+    "#{@state.person.firstName} #{@state.person.lastName}"
+
+  component-will-mount: ->
+    person-id = auth.current-user!.person-id
+    if person-id then
+      api.person.get person-id
+        .then ~>
+          @set-state person: it
+
+  get-initial-state: ->
+    person: {}
+
   render: ->
     div class-name: "ui fixed teal inverted main menu",
       div class-name: "container",
@@ -22,15 +38,11 @@ HeaderNav = React.create-class do
           "Classes"
         Link class-name: "item" to: "people",
           "People"
-        div class-name: "item",
-          "School"
         Link class-name: "item" to: "school.settings",
-          "Settings"
+          "School Settings"
         div class-name: "right menu",
           div class-name: "item",
-            "Matt Aitchison"
-          div class-name: "item",
-            "Settings"
+            @user-display-name!
           Link class-name:"item" to: "logout",
             "Logout"
 

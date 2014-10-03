@@ -67,5 +67,6 @@ module.exports =
   List:        require './list.ls'
   Detail:      require './detail.ls'
   Assignments: require '../assignments/Assignments.ls'
+  AssignmentGrades: require '../assignments/AssignmentGrades.ls'
   Students:    require './students.ls'
   Settings:    require './Settings.ls'

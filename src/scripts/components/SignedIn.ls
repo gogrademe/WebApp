@@ -4,6 +4,7 @@ require! {
   Router: "react-router"
 
   '../api/api.ls'
+  '../api/auth.ls'
 }
 
 Dom = React.DOM
@@ -18,6 +19,9 @@ SignedIn = React.create-class do
         transition.redirect('/login')
 
   mixins: [ActiveState]
+  get-initial-state: ->
+    person: {}
+
   updateActiveState: ->
     if !api.session.get!
       Router.replace-with('/login')

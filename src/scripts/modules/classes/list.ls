@@ -64,16 +64,14 @@ ClassList = React.create-class do
                     options: xs.map (x) ->
                       text: "Year #{x?.schoolYear} - #{x?.name}"
                       value: x?.id
+                      
+  right-buttons: ->
+    @select-render @state.terms
 
   render: ->
     div null,
-      Header primary: 'All Classes'
+      Header primary: 'All Classes' right: @right-buttons!
       div class-name: "main container",
-        div class-name: "ui toolbar menu inverted black block header",
-          div class-name:"right menu",
-            div class-name:"item",
-              strong {}, "Term: "
-              @select-render @state.terms
         Grid columns: @cols!, data: @state.classes
 
 module.exports = ClassList

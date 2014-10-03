@@ -9,7 +9,6 @@ require! {
   LogoutModule: "./modules/Logout.ls"
   DashboardModule: "./modules/DashboardModule.ls"
   NotFoundModule: "./modules/NotFoundModule.ls"
-  RootRedirect: "./modules/RootRedirect.ls"
 
   # Mountable
   Classes: "./modules/classes/index.ls"
@@ -29,13 +28,14 @@ module.exports =
         Route name:"school.settings"  path: "school/settings" handler: School.Settings
         Route name:"people" handler: People.List
         Route name:"people.detail" path:"people/:resourceId" handler: People.Detail
+        Route name: "assignments.grades" title: "Assignment Grades" path: "assignments/:assignmentId" handler: Classes.AssignmentGrades
         Route name: "class" path: "class" handler: Classes.List
         Route path: "class/:resourceId" handler: Classes.View
         Route path: "class/:termId/:resourceId" handler: Classes.View,
           Route name: "class.detail" title: "Grades" path: "class/:termId/:resourceId" handler: Classes.Detail
           Route name: "class.students" title: "Students" path: "class/:termId/:resourceId/students" handler: Classes.Students
           Route name: "class.assignments" title: "Assignments" path: "class/:termId/:resourceId/assignments" handler: Classes.Assignments
-          Route name: "class.assignments.grades" title: "Assignment Grades" path: "class/:termId/:resourceId/assignments/:assignmentID" handler: Classes.Assignments
+
           Route name: "class.settings" title: "Settings" path: "class/:termId/:resourceId/settings" handler: Classes.Settings
         Route name:"dashboard" title: "Dashboard" handler: DashboardModule
         Route name:"" path:"*" handler: NotFoundModule

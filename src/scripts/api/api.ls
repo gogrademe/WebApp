@@ -110,6 +110,7 @@ types =
     assignment: {}
     grade: {}
     school: {}
+    user: {}
 
 # update the cache
 cache-set = (cache, data) ->
