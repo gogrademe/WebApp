@@ -73,7 +73,11 @@ PeopleList = React.create-class do
 
   render-filter-button: (name) ->
     is-active = @state.current-filter is name
-    if is-active then btn-class-name = "ui active button" else btn-class-name ="ui button"
+
+    btn-class-name =
+      switch is-active
+        | true => "ui active button"
+        | _    => "ui button"
 
     set-active = ~>
       @set-state current-filter: name
@@ -93,10 +97,10 @@ PeopleList = React.create-class do
 
   filtered-data: ->
     format = ~>
-      term = @state.current-filter.to-lower-case!
-      term = term.slice 0, -1
-
-      "#{term}Id"
+      @state.current-filter
+        |> (. to-lower-case!)
+        |> (. slice 0, -1)
+        |> (+ "Id")
 
     if @state.current-filter is 'All'
       return @state.people
