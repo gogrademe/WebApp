@@ -28,7 +28,9 @@ Settings = React.create-class do
           Form.Input type: "text" label: "Address"
           Form.Input type: "text" label: "Phone Number"
           Form.Input type: "text" label: "Fax Number"
-          div class-name: "ui submit button", "Save"
+          div class-name: "actions",
+            div class-name: "ui submit button",
+              "Save"
 
 module.exports =
   Settings: Settings

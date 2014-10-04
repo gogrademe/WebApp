@@ -5,6 +5,9 @@ require! {
   './Form/Input/Name.ls'
 }
 
+Dom = React.DOM
+{div, button, h4, label, form, input} = Dom
+
 
 path-to-obj = (path, value) ->
   o = {}
@@ -22,6 +25,30 @@ path-reduce = (path, obj, fn) -> path.split('.').reduce(fn, obj)
 # value-from-path('a.b', {a: {b: 'foo'}}) => 'foo'
 value-from-path = (path, obj) ->
   path-reduce path, obj, (obj, part) -> obj[part]
+
+
+Input = React.create-class do
+  prop-types:
+    type: React.PropTypes.string.isRequired
+
+  get-default-props: ->
+    label: ""
+    placeholder: ""
+
+  render: ->
+    placeholder = @props.placeholder || @props.label
+    div class-name: "#{@props.class-name} field",
+      label null, @props.label if @props.label
+      @transfer-props-to do
+        input do
+          ref: "input"
+          placeholder: placeholder
+          type: @props.type
+          on-change: @props.on-change
+          value: @props.value
+          on-blur: @props.on-blur
+
+
 
 
 
@@ -50,7 +77,7 @@ form-mixin = (state-key) ->
     props = get-props.call(this, path) <<< extra-props
     component props
 
-  input-for: make-updatable React.DOM.input
+  input-for: make-updatable Input
 
   updatable-for: make-updatable
 

@@ -16,7 +16,7 @@ require! {
 }
 
 
-{filter, sort-by} = require 'prelude-ls'
+{filter} = require 'prelude-ls'
 
 
 Dom = React.DOM
@@ -51,7 +51,6 @@ cols =
     resource-type: "person"
     renderer: NewTable.CrudActions
     link-to: "people"
-
     custom-actions: custom-actions
 
 
@@ -60,10 +59,12 @@ PeopleList = React.create-class do
   getInitialState: ->
     current-filter: 'All'
     people: []
+
   componentWillMount: ->
     api.person.find!
     .then ~>
       @set-state people: it[0]
+
   modal: ->
     CreatePersonModal null
 
@@ -82,10 +83,9 @@ PeopleList = React.create-class do
     set-active = ~>
       @set-state current-filter: name
 
-    div class-name: btn-class-name, on-click: set-active,
-      name
-
-
+    return
+      div class-name: btn-class-name, on-click: set-active,
+        name
 
   render-filter-buttons: ->
     div class-name: "ui basic tiny buttons",
@@ -93,7 +93,6 @@ PeopleList = React.create-class do
       @render-filter-button "Students"
       @render-filter-button "Teachers"
       @render-filter-button "Parents"
-
 
   filtered-data: ->
     format = ~>
@@ -113,6 +112,6 @@ PeopleList = React.create-class do
       div class-name: "main container",
         div class-name: "ui top attached segment",
           @render-filter-buttons!
-        Grid class-name: "bottom attached five column" columns: cols, data: @filtered-data!
+        Grid class-name: "bottom attached five column" columns: cols, data: @state.people
 
 module.exports = PeopleList

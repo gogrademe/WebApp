@@ -12,6 +12,7 @@ require! {
 
   # Mountable
   Classes: "./modules/classes/index.ls"
+  Setup: "./modules/setup/container.ls"
   People: "./modules/people/index.ls"
   School: "./modules/SchoolSettings.ls"
 }
@@ -35,6 +36,8 @@ module.exports =
           Route name: "class.students" title: "Students" path: "students" handler: Classes.Students
           Route name: "class.assignments" title: "Assignments" path: "assignments" handler: Classes.Assignments
           Route name: "class.settings" title: "Settings" path: "settings" handler: Classes.Settings
+        Route name: "setup" handler: Setup.Container,
+          Route name: "setup.assignment-types", path: "assignment-types" handler: Setup.AssignmentTypes
         Route name:"dashboard" path: "dashboard" title: "Dashboard" handler: DashboardModule
         Redirect path: "/" to: "dashboard"
       NotFoundRoute handler: NotFoundModule

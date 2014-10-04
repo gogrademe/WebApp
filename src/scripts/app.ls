@@ -1,13 +1,15 @@
 require! {
   React: 'react'
   HeaderNav: './components/Header.ls'
-  './components/Sidebar.ls'
   './api/api.ls'
   './api/auth.ls'
 }
 
 if process.env.NODE_ENV is not "production"
-  api.base-url = 'http://localhost:5005/api'
+  api.base-url = 'http://192.168.1.68:5005/api'
+
+if process.env.NODE_ENV is "production"
+  api.base-url = 'http://192.168.1.68:5005/api'
 
 Dom = React.DOM
 {div} = Dom

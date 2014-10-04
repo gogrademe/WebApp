@@ -128,7 +128,7 @@ Autocomplete = React.create-class do
 
   toggle-list: ->
     if @state.is-open then @hide-list! else @show-list!
-    
+
   render-input: ->
     input do
       ref: "input"

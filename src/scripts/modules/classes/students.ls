@@ -79,19 +79,17 @@ ClassStudents = React.create-class do
 
   render: ->
     div null,
-      Panel has-body: true title: "Enroll",
+      div class-name: "ui top attached segment",
         div class-name: "ui search form",
           div class-name: "ui fluid action input",
             Autocomplete on-select: @student-selected, placeholder: "Student...",
               if @state.people
                 @state.people.map (p, key)->
                   Option key: key, value: p.profiles.studentId, label: "#{p.first-name} #{p.last-name}"
-
               else
                 "Loading..."
-            div class-name:"ui teal button" on-click: @enroll-student,
+            div class-name:"ui primary button" on-click: @enroll-student,
               "Enroll"
-      Panel has-body: false title: "Students" class-name: "content-area",
-        Grid columns: cols, data: @state.students
+      Grid class-name: "bottom attached" columns: cols, data: @state.students
 
 module.exports = ClassStudents

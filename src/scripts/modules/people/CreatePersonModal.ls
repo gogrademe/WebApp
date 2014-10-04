@@ -26,6 +26,10 @@ PersonModal = React.create-class do
   on-select: ->
     console.log it
 
+  handle-submit: ->
+    
+  handle-cancel: ->
+
   get-initial-state: ->
     data:
       person:
@@ -37,8 +41,7 @@ PersonModal = React.create-class do
   render: ->
     @transfer-props-to do
       Modal title: "Create Person",
-        div class-name: "content",
-        Form.Form is-modal: true,
+        Form.Form on-submit: @handle-submit, on-cancel: @handle-cancel, is-modal: true,
           h4 class-name: "ui dividing header",
             "Personal Info"
           div class-name: "field",
@@ -57,7 +60,7 @@ PersonModal = React.create-class do
           div class-name: "field",
             label null, "Grade Level"
             AutocompleteFor.GradeLevel on-select: @on-select
-              #FormFor.Input label: "Grade Level" obj-id: "student.gradeLevel"
+            #FormFor.Input label: "Grade Level" obj-id: "student.gradeLevel"
 
 
 module.exports = PersonModal

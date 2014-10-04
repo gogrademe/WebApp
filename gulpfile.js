@@ -1,152 +1,212 @@
+/*!
+ * Facebook React Starter Kit | https://github.com/kriasoft/react-starter-kit
+ * Copyright (c) KriaSoft, LLC. All rights reserved. See LICENSE.txt
+ */
+
+'use strict';
+
+// Include Gulp and other build automation tools and utilities
+// See: https://github.com/gulpjs/gulp/blob/master/docs/API.md
 var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
+var del = require('del');
 var path = require('path');
-var source = require('vinyl-source-stream');
-var reactify = require('reactify');
-var browserify = require('browserify');
-var liveify = require('liveify');
-var watchify = require('watchify');
-var util = require('gulp-util');
-var less = require('gulp-less');
-var plumber = require('gulp-plumber');
+var merge = require('merge-stream');
+var runSequence = require('run-sequence');
+var webpack = require('webpack');
 var browserSync = require('browser-sync');
-var modRewrite = require('connect-modrewrite');
-var sourcemaps = require('gulp-sourcemaps');
-var concat = require('gulp-concat');
-var rename     = require('gulp-rename');
-var streamify  = require('gulp-streamify');
-var uglify     = require('gulp-uglify');
-var envify = require('envify/custom');
-var cssmin = require('gulp-minify-css');
-var prefixer = require('gulp-autoprefixer');
-var rimraf = require('rimraf');
+var pagespeed = require('psi');
+var argv = require('minimist')(process.argv.slice(2));
 
+// Settings
+var DEST = './build';                         // The build output folder
+var RELEASE = !!argv.release;                 // Minimize and optimize during a build?
+var GOOGLE_ANALYTICS_ID = 'UA-XXXXX-X';       // https://www.google.com/analytics/web/
+var AUTOPREFIXER_BROWSERS = [                 // https://github.com/ai/autoprefixer
+  'ie >= 10',
+  'ie_mob >= 10',
+  'ff >= 30',
+  'chrome >= 34',
+  'safari >= 7',
+  'opera >= 23',
+  'ios >= 7',
+  'android >= 4.4',
+  'bb >= 10'
+];
 
-var build = 'build';
-var src = './src';
-
-var production = process.env.NODE_ENV === 'production';
-
-gulp.task('clean', function(cb) {
-    rimraf(build + '/', cb);
-});
-
-gulp.task('less', function () {
-  //gulp.src(['./src/less/**/*.less', './src/semantic/src/**/*.less'])
-  gulp.src(['./src/less/main.less', './src/semantic/src/**/*.less'])
-    .pipe(plumber())
-    .pipe(less({
-      compress: !production,
-      paths: [ path.join(__dirname, src, '/less')]
-    }))
-    .pipe(prefixer("last 2 versions", "ie 10", "ie 9", "ie 11"))
-    .pipe(concat('styles.css'))
-    .pipe(gulp.dest(build + '/assets'))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
-    .pipe(cssmin())
-    .pipe(rename('styles.min.css'))
-    .pipe(gulp.dest(build + '/assets'));
-});
-
-
-
-gulp.task('browser-sync', function () {
-  browserSync.init([build + '/index.html'], {
-    notify: false,
-    ghostMode: false,
-    open: false,
-    server: {
-      baseDir: build,
-      middleware: [
-        modRewrite(['!\.html|\.woff|\.js|\.ttf|\.svg|\.css|\.png$ /index.html [L]'])
-      ]
+var src = {};
+var watch = false;
+var pkgs = (function () {
+  var temp = {};
+  var map = function (source) {
+    for (var key in source) {
+      temp[key.replace(/[^a-z0-9]/gi, '')] = source[key].substring(1);
     }
+  };
+  map(require('./package.json').dependencies);
+  return temp;
+}());
+
+// The default task
+gulp.task('default', ['serve']);
+
+// Clean up
+gulp.task('clean', del.bind(null, [DEST]));
+
+// 3rd party libraries
+gulp.task('vendor', function () {
+  return merge(
+    gulp.src('./src/semantic/build/packaged/themes/**/*.*')
+      .pipe(gulp.dest(DEST + '/themes'))
+  );
+});
+
+// Static files
+gulp.task('assets', function () {
+  src.assets = 'src/assets/**';
+  return gulp.src(src.assets)
+    .pipe($.changed(DEST))
+    .pipe(gulp.dest(DEST))
+    .pipe($.size({title: 'assets'}));
+});
+
+
+// Images
+gulp.task('images', function () {
+  src.images = 'src/images/**';
+  return gulp.src(src.images)
+    .pipe($.changed(DEST + '/assets/images'))
+    .pipe($.imagemin({
+      progressive: true,
+      interlaced: true
+    }))
+    .pipe(gulp.dest(DEST + '/assets/images'))
+    .pipe($.size({title: 'images'}));
+});
+
+// HTML pages
+gulp.task('pages', function () {
+  src.pages = 'src/pages/**/*.html';
+  return gulp.src(src.pages)
+    .pipe($.changed(DEST))
+    .pipe($.if(RELEASE, $.htmlmin({
+      removeComments: true,
+      collapseWhitespace: true,
+      minifyJS: true
+    })))
+    .pipe(gulp.dest(DEST))
+    .pipe($.size({title: 'pages'}));
+});
+
+
+
+// CSS style sheets
+gulp.task('styles', function () {
+  src.styles = 'src/less/main.less';
+  return gulp.src(['./src/semantic/src/**/*.less', './src/less/main.less'])
+    .pipe($.plumber())
+    .pipe($.less({
+      paths: [ path.join(__dirname, '/src', '/less')],
+      sourceMap: !RELEASE,
+      sourceMapBasepath: __dirname
+    }))
+    .on('error', console.error.bind(console))
+    .pipe($.concat('styles.css'))
+    .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
+    .pipe($.csscomb())
+    .pipe($.if(RELEASE, $.minifyCss()))
+    .pipe(gulp.dest(DEST + '/css'))
+    .pipe($.size({title: 'styles'}));
+});
+
+// Bundle
+gulp.task('bundle', function (cb) {
+  var started = false;
+  var config = require('./config/webpack.js')(RELEASE);
+  var bundler = webpack(config);
+
+  function bundle(err, stats) {
+    if (err) {
+      throw new $.util.PluginError('webpack', err);
+    }
+
+    !!argv.verbose && $.util.log('[webpack]', stats.toString({colors: true}));
+
+    if (!started) {
+      started = true;
+      return cb();
+    }
+  }
+
+  if (watch) {
+    bundler.watch(200, bundle);
+  } else {
+    bundler.run(bundle);
+  }
+});
+
+// Build the app from source code
+gulp.task('build', ['clean'], function (cb) {
+  runSequence(['vendor', 'assets', 'images', 'pages', 'styles', 'bundle'], cb);
+});
+
+
+// Launch a lightweight HTTP Server
+gulp.task('serve', function (cb) {
+
+  watch = true;
+
+  runSequence('build', function () {
+    browserSync({
+      notify: false,
+      ghostMode: false,
+      open: false,
+      // Customize the BrowserSync console logging prefix
+      logPrefix: 'RSK',
+      // Run as an https by uncommenting 'https: true'
+      // Note: this uses an unsigned certificate which on first access
+      //       will present a certificate warning in the browser.
+      // https: true,
+      server: DEST
+    });
+
+    gulp.watch(src.assets, ['assets']);
+    gulp.watch(src.images, ['images']);
+    gulp.watch(src.pages, ['pages']);
+    gulp.watch(src.styles, ['styles']);
+    gulp.watch(DEST + '/**/*.*', function (file) {
+      browserSync.reload(path.relative(__dirname, file.path));
+    });
+    cb();
   });
 });
 
-gulp.task('copy', function () {
- // Copy html
-  gulp.src(src + '/index.html').pipe(gulp.dest(build));
-  gulp.src(src + '/img/*.*').pipe(gulp.dest(build + '/assets/img'));
-  // gulp.src(src + '/bower/fontawesome/fonts/*.*').pipe(gulp.dest(build + '/assets/fonts'));
-  gulp.src(src + '/semantic/build/packaged/themes/**/*.*').pipe(gulp.dest(build + '/themes'));
-});
+// Deploy to GitHub Pages
+gulp.task('deploy', function () {
 
-gulp.task('browserify-watch', function() {
-    var bundler = watchify(browserify('./src/scripts/index.ls', watchify.args));
-    bundler
-      .transform(reactify)
-      .transform(liveify)
-      .transform(envify({
-      NODE_ENV: "development"
-    }));
-    bundler.on('update', rebundle);
-
-  function rebundle () {
-    return bundler
-      .bundle()
-      .on('error', util.log)
-      .pipe(source('app.js'))
-      .pipe(gulp.dest('./build'))
-      .pipe(browserSync.reload({
-        stream: true
-    }));
+  // Remove temp folder
+  if (argv.clean) {
+    var os = require('os');
+    var path = require('path');
+    var repoPath = path.join(os.tmpdir(), 'tmpRepo');
+    $.util.log('Delete ' + $.util.colors.magenta(repoPath));
+    del.sync(repoPath, {force: true});
   }
-  return rebundle();
+
+  return gulp.src(DEST + '/**/*')
+    .pipe($.ghPages({
+      remoteUrl: 'https://github.com/GoGradeMe/gogrademe.github.io.git',
+      branch: 'master'
+    }));
 });
 
-gulp.task('browserify', function() {
-	var bundleMethod = global.isWatching ? watchify : browserify;
-	var bundler = bundleMethod({
-		// Specify the entry point of your app
-		entries: ['./src/scripts/index.ls'],
-		// Add file extentions to make optional in your requires
-		extensions: ['.ls'],
-    debug: false
-	});
-
-	var bundle = function() {
-		return bundler
-      .transform(reactify)
-      .transform(liveify)
-			.transform(envify({
-        NODE_ENV: "production"
-      }))
-			.bundle()
-			// Report compile errors
-			.on('error', util.log)
-			.pipe(source('app.js'))
-			// Specify the output destination
-			.pipe(gulp.dest(build))
-      .pipe(rename('app.min.js'))
-      .pipe(streamify(uglify()))
-      .pipe(gulp.dest(build));
-	};
-
-	if(global.isWatching) {
-		bundler.on('update', bundle);
-	}
-
-	return bundle();
-});
-
-gulp.task('watch', function() {
-  global.isWatching = true;
-  gulp.start('browserify-watch');
-  gulp.watch('src/index.html', ['copy']);
-  gulp.watch('src/less/**/*.*', ['less']);
-});
-
-// Default Task
-// gulp.task('default', function() {
-//   gulp.start('copy', 'less', 'watch','browser-sync');
-// });
-
-gulp.task('default', ['copy', 'less', 'watch','browser-sync']);
-
-// gulp.task('build', function() {
-//   gulp.start('copy', 'less', 'browserify');
-// });
-
-gulp.task('build', ['copy', 'less', 'browserify']);
+// Run PageSpeed Insights
+// Update `url` below to the public URL for your site
+gulp.task('pagespeed', pagespeed.bind(null, {
+  // By default, we use the PageSpeed Insights
+  // free (no API key) tier. You can use a Google
+  // Developer API key if you have one. See
+  // http://goo.gl/RkN0vE for info key: 'YOUR_API_KEY'
+  url: 'https://example.com',
+  strategy: 'mobile'
+}));

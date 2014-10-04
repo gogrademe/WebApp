@@ -11,8 +11,8 @@ require! {
 Dom = React.DOM
 {div, span, input, a} = Dom
 
-Link = require '../../components/HighlightedLink.ls'
 
+Link = Router.Link
 select = Semantic
 
 Nav = React.create-class do

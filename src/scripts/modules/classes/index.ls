@@ -4,6 +4,7 @@ require! {
   select: '../../components/src/modules/Dropdown.ls'
   Header: '../../components/PageHeader.ls'
 
+  Link: 'react-router'.Link
 
   Nav: './nav.ls'
 
@@ -11,8 +12,6 @@ require! {
 
   'react/lib/cloneWithProps'
 }
-
-Link = require '../../components/HighlightedLink.ls'
 Dom = React.DOM
 {div} = Dom
 

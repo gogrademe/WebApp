@@ -36,16 +36,10 @@ CreateAccountModal = React.create-class do
       Modal title:"Create User Account",
         div class-name: "content",
           form class-name: "ui form" on-submit: @handle-submit,
-            div class-name: "field",
-              label null,
-                "Email"
-              @input-for 'email' placeholder: 'Email' type: "text"
-            div class-name: "field",
-              label null,
-                "Password"
-              @input-for 'password' placeholder: 'Password' type: "password"
-            div className: "field",
-              button class-name:"ui button" type: "submit",
-                "Save"
+            @input-for 'email' label: 'Email' type: "text"
+            @input-for 'password' label: 'Password' type: "password"
+        div className: "actions",
+          button class-name:"ui primary button" type: "submit",
+            "Save"
 
 module.exports = CreateAccountModal

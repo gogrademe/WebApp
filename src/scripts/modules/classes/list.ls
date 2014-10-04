@@ -11,11 +11,13 @@ require! {
 
   Link: 'react-router'.Link
 
+  '../../components/SemanticModal.ls'
+
   Header: '../../components/PageHeader.ls'
   select: '../../components/src/modules/Dropdown.ls'
 }
 Dom = React.DOM
-{div, i, strong} = Dom
+{div, i, strong, a} = Dom
 
 {Grid} = NewTable
 
@@ -72,6 +74,9 @@ ClassList = React.create-class do
     div null,
       Header primary: 'All Classes' right: @right-buttons!
       div class-name: "main container",
-        Grid columns: @cols!, data: @state.classes
+        div class-name: "ui top attached right aligned segment",
+          SemanticModal.ModalTrigger modal: CreateClassModal!,
+            a class-name: "ui primary tiny button", "New Class"
+        Grid class-name: "bottom attached" columns: @cols!, data: @state.classes
 
 module.exports = ClassList

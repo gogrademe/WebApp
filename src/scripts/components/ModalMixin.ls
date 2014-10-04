@@ -1,7 +1,7 @@
 require! {
   React: 'react'
 
-  Link: './HighlightedLink.ls'
+  Link: 'react-router'.Link
   '../utils.ls'
 }
 

@@ -1,6 +1,5 @@
 require! {
   React: 'react'
-  Link: './HighlightedLink.ls'
   Router: "react-router"
   select: "./src/modules/Dropdown.ls"
 
@@ -10,6 +9,15 @@ require! {
 
 Dom = React.DOM
 {div, i, a} = Dom
+
+
+Link = Router.Link
+
+
+/*MenuLink = ({to} ...children) ->
+  Link class-name: "item", to: to,
+    children
+    #Put Children Here?*/
 
 HeaderNav = React.create-class do
   displayName: "HeaderNav"
@@ -27,19 +35,22 @@ HeaderNav = React.create-class do
     person: {}
 
   render: ->
-    div class-name: "ui fixed teal inverted main menu",
+    div class-name: "ui fixed blue inverted main menu",
       div class-name: "container",
         div class-name: "title item",
           "GoGradeMe"
         Link class-name: "item" to: "dashboard",
-          i class-name:"home icon"
-          " Home"
+          i class-name:"dashboard icon"
+          " Dashboard"
         Link class-name: "item" to: "class",
           "Classes"
         Link class-name: "item" to: "people",
+          i class-name:"users icon"
           "People"
         Link class-name: "item" to: "school.settings",
           "School Settings"
+        Link class-name: "item" to: "setup",
+          "App Setup"
         div class-name: "right menu",
           div class-name: "item",
             @user-display-name!

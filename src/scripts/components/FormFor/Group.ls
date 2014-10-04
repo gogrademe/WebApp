@@ -8,13 +8,13 @@ Input = React.create-class do
   display-name: "Input"
   prop-types:
     label: React.PropTypes.string
-    field-count: React.PropTypes.string
+    fields: React.PropTypes.string
 
   render: ->
     div class-name: "field",
       if @props.label
         label null, @props.label
-      div class-name: "#{@props.field-count} fields",
+      div class-name: "#{@props.fields} fields",
         @props.children
 
 module.exports = Input

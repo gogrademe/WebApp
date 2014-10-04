@@ -2,7 +2,7 @@ require! {
   React: 'react'
 }
 Dom = React.DOM
-{div, label, input, form, button, i} = Dom
+{div, label, input, form, button, i, a} = Dom
 
 Input = React.create-class do
   prop-types:
@@ -33,19 +33,28 @@ Input = React.create-class do
 Form = React.create-class do
   display-name: "Form"
   prop-types:
+    is-modal: React.PropTypes.bool
     on-submit: React.PropTypes.func.isRequired
+    on-cancel: React.PropTypes.func.isRequired
 
   get-default-props: ->
     submit-button: "Save"
+    cancel-button: "Cancel"
+
+  handle-cancel-click: (e) ->
+    e.prevent-default!
 
   handle-submit: (e) ->
     e.prevent-default!
 
   render: ->
-    div null,
+    div class-name: "content",
       form class-name: "ui form" on-submit: @handle-submit,
         @props.children
-      div null,
+      div class-name: "actions",
+        a class-name: "ui labeled icon button" on-click: @handle-cancel-click,
+          i class-name: "cancel icon"
+          @props.cancel-button
         button class-name: "ui primary submit labeled icon button" type: "submit",
           i class-name: "save icon"
           @props.submit-button

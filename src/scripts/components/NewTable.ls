@@ -103,7 +103,8 @@ StringRenderer = React.create-class do
           div class-name: "ui button tiny", on-click: @toggle,
             "x"
     else
-      div onClick: @toggle,
+      #div onClick: @toggle,
+      div null,
         val
 
   toggle: !->
@@ -122,7 +123,7 @@ CrudActions = React.create-class do
 
   render: ->
     div null,
-      a class-name: "ui icon button tiny" on-click: @delete,
+      a class-name: "ui icon basic button tiny" on-click: @delete,
         i class-name: "icon trash red"
       @props.column.custom-actions? @props
 

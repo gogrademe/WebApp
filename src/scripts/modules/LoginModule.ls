@@ -47,7 +47,7 @@ LoginPage = React.create-class do
             "Login"
           @render-messages!
           div className: "field",
-            div class-name: "ui left labeled icon input",
+            div class-name: "ui right labeled left icon input",
               input do
                 type: "text"
                 placeholder: "Email Address"
@@ -57,7 +57,7 @@ LoginPage = React.create-class do
               div class-name: "ui corner label",
                 i class-name: "icon asterisk"
           div className: "field",
-            div class-name: "ui left labeled icon input",
+            div class-name: "ui right labeled left icon input",
               input do
                 type: "password"
                 placeholder: "Password"
@@ -71,7 +71,7 @@ LoginPage = React.create-class do
               type: "submit"
               disabled: @state.isLoggingIn
               role: "button"
-              className: "ui teal fluid submit button"
+              className: "ui primary fluid submit button"
               value: "Post",
               LoginLoading isLoggingIn: @state.isLoggingIn
               "Log in"
