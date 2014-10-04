@@ -14,6 +14,11 @@ require! {
 
   '../../components/SemanticModal.ls'
 }
+
+
+{filter, sort-by} = require 'prelude-ls'
+
+
 Dom = React.DOM
 {div, h3, span, a} = Dom
 
@@ -65,7 +70,7 @@ PeopleList = React.create-class do
   right-menu: ->
     SemanticModal.ModalTrigger modal: @modal!,
       a class-name: "ui primary tiny button", "Create"
-        
+
   render-filter-button: (name) ->
     is-active = @state.current-filter is name
     if is-active then btn-class-name = "ui active button" else btn-class-name ="ui button"
@@ -85,11 +90,18 @@ PeopleList = React.create-class do
       @render-filter-button "Teachers"
       @render-filter-button "Parents"
 
+
   filtered-data: ->
+    format = ~>
+      term = @state.current-filter.to-lower-case!
+      term = term.slice 0, -1
+
+      "#{term}Id"
+
     if @state.current-filter is 'All'
       return @state.people
     else
-      return []
+      return filter (.profiles[format!] is not undefined), @state.people
 
   render: ->
     div null,
