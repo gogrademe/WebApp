@@ -1,4 +1,4 @@
-FROM nodejs
+FROM dockerfile/nodejs
 
 ADD . /tmp/src
 WORKDIR /tmp/src
