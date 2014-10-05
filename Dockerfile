@@ -1,26 +1,15 @@
-FROM busybox
+FROM nodejs
 
-ADD build /opt/app/build
+ADD . /tmp/src
+WORKDIR /tmp/src
+
+RUN npm install -g gulp
+RUN npm install
+
+RUN gulp build --release
+
+RUN mkdir -p /opt/app && cp -r /tmp/src/build /opt/app
+
+RUN rm -fr /tmp/src
+
 WORKDIR /opt/app
-
-
-# FROM lanciv/nodejs
-#
-# ADD package.json /tmp/package.json
-# RUN cd /tmp && npm install
-# RUN mkdir -p /opt/app-src && cp -a /tmp/node_modules /opt/app-src/
-#
-#
-# ADD . /opt/app-src
-# WORKDIR /opt/app-src
-#
-# RUN rm -fr node_modules && rm -fr build
-#
-# RUN npm install -g gulp
-# RUN npm install
-# #
-# RUN NODE_ENV=production gulp build
-#
-# RUN mkdir -p /opt/app/build && cp -a /opt/app-src/build /opt/app/build
-#
-# RUN rm -fr /opt/app-src

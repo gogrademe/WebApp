@@ -21,3 +21,7 @@ build:
         name: gulp build
         code: |
           gulp build --release
+    - script:
+        name: copy to output dir
+        code: |
+          cp -r build $WERCKER_OUTPUT_DIR
