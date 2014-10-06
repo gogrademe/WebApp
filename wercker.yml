@@ -1,27 +1,40 @@
-box: wercker/nodejs
-# Build definition
-build:
-  # The steps that will be executed on build
-  steps:
-    # A step that executes `npm install` command
-    - wercker/npm-install
+box: wercker-labs/docker
 
-    # A custom script step, name value is used in the UI
-    # and the code value contains the command that get executed
-    - script:
-        name: echo nodejs information
-        code: |
-          echo "node version $(node -v) running"
-          echo "npm version $(npm -v) running"
-    - script:
-        name: install gulp
-        code: |
-          sudo npm install gulp -g
-    - script:
-        name: gulp build
-        code: |
-          gulp build --release
-    - script:
-        name: copy to output dir
-        code: |
-          cp -r build $WERCKER_OUTPUT_DIR
+build:
+    steps:
+        - script:
+            name: Build docker image
+            code: |
+                docker build -t "lanciv/gogradeweb:latest" .
+        - script:
+            name: Push docker image
+            code: |
+                docker push "lanciv/gogradeweb:latest"
+
+# box: wercker/nodejs
+# # Build definition
+# build:
+#   # The steps that will be executed on build
+#   steps:
+#     # A step that executes `npm install` command
+#     - wercker/npm-install
+#
+#     # A custom script step, name value is used in the UI
+#     # and the code value contains the command that get executed
+#     - script:
+#         name: echo nodejs information
+#         code: |
+#           echo "node version $(node -v) running"
+#           echo "npm version $(npm -v) running"
+#     - script:
+#         name: install gulp
+#         code: |
+#           sudo npm install gulp -g
+#     - script:
+#         name: gulp build
+#         code: |
+#           gulp build --release
+#     - script:
+#         name: copy to output dir
+#         code: |
+#           cp -r build $WERCKER_OUTPUT_DIR
