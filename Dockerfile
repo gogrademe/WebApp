@@ -7,7 +7,7 @@ RUN npm install -g gulp && npm install
 
 RUN gulp build --release
 
-RUN mkdir -p /opt/app && mv -r /tmp/src/build/* /opt/app
+RUN mkdir -p /opt/app && mv /tmp/src/build/* /opt/app
 
 RUN rm -fr /tmp/src
 
