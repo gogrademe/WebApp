@@ -13,6 +13,8 @@ require! {
 
   Header: '../../components/Header.ls'
 
+  "../../components/FormMixin.ls"
+
 }
 
 Dom = React.DOM
@@ -21,6 +23,7 @@ Dom = React.DOM
 {Autocomplete, Option} = autocomplete
 
 AssignmentsModal = React.create-class do
+  mixins: [FormMixin 'assignment']
   displayName: "AssignmentsModal"
   prop-types:
     class-id: React.PropTypes.string.isRequired
@@ -31,6 +34,8 @@ AssignmentsModal = React.create-class do
       class-id: @props.class-id
       term-id: @props.term-id
       type-id: null
+      name: null
+      due-date: null
       terms: []
 
   handle-save: ->
@@ -66,9 +71,9 @@ AssignmentsModal = React.create-class do
       Modal title:"Create Assignment",
         div class-name: "content",
           div class-name: "ui form",
-            @render-input type: "text" label:"Name" key: "name"
+            @input-for "name" label: 'Name'
+            @date-for "dueDate" label: "Due Date"
             div class-name: "ui two fields",
-              @render-input type: "date" label:"Due Date" key: "dueDate"
               div class-name: "field",
                 label null, "Type"
                 AutocompleteFor.AssignmentType on-select: @on-select

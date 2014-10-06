@@ -3,6 +3,8 @@ require! {
   updates: 'react/lib/update'
 
   './Form/Input/Name.ls'
+
+  Pikaday: 'react-pikaday'
 }
 
 Dom = React.DOM
@@ -33,11 +35,12 @@ Input = React.create-class do
 
   get-default-props: ->
     label: ""
+    type: "text"
     placeholder: ""
 
   render: ->
     placeholder = @props.placeholder || @props.label
-    div class-name: "#{@props.class-name} field",
+    div class-name: "field",
       label null, @props.label if @props.label
       @transfer-props-to do
         input do
@@ -49,8 +52,18 @@ Input = React.create-class do
           on-blur: @props.on-blur
 
 
+PikadayInput = React.create-class do
+  get-default-props: ->
+    label: ""
+    placeholder: ""
 
-
+  render: ->
+    placeholder = @props.placeholder || @props.label
+    div class-name: "field",
+      label null, @props.label if @props.label
+      @transfer-props-to do
+        Pikaday do
+          placeholder: placeholder
 
 form-mixin = (state-key) ->
   # get the on-change and value props
@@ -60,8 +73,8 @@ form-mixin = (state-key) ->
   get-props = (path) ->
     value: value-from-path("#state-key.#path", this.state)
     on-change: (event) ~>
-
-      /*value = switch event?.target
+      /*console.log event
+      value = switch event?.target
         # input like
         | that.value? => that.value
         # plain value, allowed for greater compatibility
@@ -78,6 +91,7 @@ form-mixin = (state-key) ->
     component props
 
   input-for: make-updatable Input
+  date-for: make-updatable PikadayInput
 
   updatable-for: make-updatable
 

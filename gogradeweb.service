@@ -9,3 +9,8 @@ ExecStop=/usr/bin/docker stop gogradeweb-1
 
 [X-Fleet]
 X-Conflicts=gogradeweb.service
+
+
+
+
+docker run -v / --name gogradeweb-1 lanciv/gogradeweb /bin/sh -c "while true; do echo Hello World; sleep 1; done"
