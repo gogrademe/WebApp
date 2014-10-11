@@ -72,17 +72,17 @@ ClassDetail = React.create-class do
   get-grades: ->
     api.grade.find!
       .then ~>
-        @set-state grades: it[0]
+        @set-state grades: it
 
   get-students: ->
     api.enrollment.find {class-id: @props.params.resource-id, term-id: @props.params.term-id}
       .then ~>
-        @set-state students: it[0]
+        @set-state students: it
 
   get-assignments: ->
     api.assignment.find {class-id: @props.params.resource-id, term-id: @props.params.term-id}
       .then ~>
-        @set-state assignments: it[0]
+        @set-state assignments: it
 
   handle-grade-change: ({grade, assignment, student, value})->
     data =

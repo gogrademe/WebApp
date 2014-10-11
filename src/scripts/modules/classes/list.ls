@@ -38,10 +38,10 @@ ClassList = React.create-class do
   componentWillMount: ->
     api.class.find!
       .then ~>
-        @set-state classes: it[0]
+        @set-state classes: it
     api.term.find!
       .then ~>
-        @set-state terms: it[0]
+        @set-state terms: it
 
   cols: ->
     return

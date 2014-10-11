@@ -6,7 +6,7 @@ require! {
 
   "../../components/FormMixin.ls"
 
-  '../../components/SemanticModal.ls': {Modal}
+  '../../components/SemanticModal.ls': Modal
 
 }
 
@@ -24,7 +24,7 @@ CreateClassModal = React.create-class do
     class: {}
   render: ->
     @transferPropsTo do
-      Modal title: "Create Class" animation: true,
+      Modal.SemanticModal title: "Create Class" animation: true,
         div class-name: "content",
           form class-name: "ui form" on-submit: @handle-submit,
             @input-for 'name' label: 'Name' type: "text"

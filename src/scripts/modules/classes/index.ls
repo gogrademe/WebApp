@@ -32,7 +32,7 @@ View = React.create-class do
     api.term.find!
       .then !~>
         term-id = @props.params.term-id
-        term = find (.id is term-id), it[0]
+        term = find (.id is term-id), it
         @set-state terms: it[0]
         @set-state term: term
 

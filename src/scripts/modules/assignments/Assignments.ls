@@ -75,7 +75,7 @@ ClassAssignments = React.create-class do
     api.assignment.find classId: @props.params.resource-id, term-id: @props.params.term-id
       .then !~>
         @set-state do
-          assignments: it[0]
+          assignments: it
 
   render-assignments: (xs) ->
     | !xs       => 'Loading...'

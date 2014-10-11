@@ -61,7 +61,7 @@ Grid = React.create-class do
                   column: column
                   value: get row, column.key || ""
                 ## Row Cell
-                td key: "cell-#rowI-#columnI" class-name: "#{column.td-class-name || " "}",
+                td key: "cell-#rowI-#columnI" class-name: "#{column.td-class-name || ""}",
                   result
 
   ## Responsible for getting the renderer set
@@ -123,8 +123,8 @@ CrudActions = React.create-class do
 
   render: ->
     div null,
-      a class-name: "ui icon basic button tiny" on-click: @delete,
-        i class-name: "icon trash red"
+      a class-name: "ui icon red button tiny" on-click: @delete,
+        i class-name: "icon trash"
       @props.column.custom-actions? @props
 
 

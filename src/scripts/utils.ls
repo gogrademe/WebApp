@@ -1,4 +1,6 @@
-moment = require 'moment'
+require!{
+  moment
+}
 
 decode64 = (input) ->
   false

@@ -67,7 +67,7 @@ base-api =
         (http-get (url @type, id), opts)
           #.get 'body'
           .then response-to-caches
-          #.then ->
+          #.then ~>
           #  @get id
 
     do-post: (type, data) ->
@@ -78,10 +78,10 @@ base-api =
                       status-code: status
                       status: status-by-number[status]
                       message: it.body?.message or status-by-name[status]
-                  console.log data
                   throw (data `merge-into` it)
               .then response-to-caches
-              .then ~> @get data.id
+              #TODO: EWWWWW
+              .then ~> @get it.0.id
 
     do-put: (type, id, data) ->
         (http-put (url @type, id), data)
@@ -112,16 +112,21 @@ types =
     school: {}
     user: {}
 
+
 # update the cache
 cache-set = (cache, data) ->
     | cache[data.id] => data `merge-into` cache[data.id]
     | data.id        => cache[data.id] = data
     | otherwise      => throw new Error 'cannot set item without id .' + JSON.stringify data
 
+# takes in data then updates caches then returns items.
+# May not work since we put all types together instead
+# of keeping them seperate.
 response-to-caches = (data) ->
-    for type, items of data
-        for item in items
-            cache-set types[type].cache, item
+  for type, items of data
+    for item in items
+      cache-set types[type].cache, item
+  items
 
 merge-into = (source, target) ->
     for key, value of source
@@ -146,6 +151,7 @@ for let key, thing of types
         base-api.create.call this, data
             .then ~>
                 @events.emit "change" @cache
+                return it
     thing.update = (id, data) ->
         base-api.update.call this, id, data
             .then ~>

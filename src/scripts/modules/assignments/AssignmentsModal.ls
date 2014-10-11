@@ -1,7 +1,7 @@
 require! {
   'react': React
 
-  '../../components/SemanticModal.ls': {Modal}
+  '../../components/SemanticModal.ls': Modal
   '../../components/Form.ls'
 
   "../../api/api.ls"
@@ -68,7 +68,7 @@ AssignmentsModal = React.create-class do
 
   render: ->
     @transfer-props-to do
-      Modal title:"Create Assignment",
+      Modal.SemanticModal title:"Create Assignment",
         div class-name: "content",
           div class-name: "ui form",
             @input-for "name" label: 'Name'

@@ -55,7 +55,7 @@ ClassStudents = React.create-class do
     api.enrollment.find {classId: @props.params.resource-id, term-id: @props.params.term-id}
       .then ~>
         @set-state do
-          students: it[0]
+          students: it
 
   component-will-mount: !->
     api.enrollment.events.add-listener "change", @get-enrollments
@@ -63,7 +63,7 @@ ClassStudents = React.create-class do
 
     api.person.find!
       .then ~>
-        @set-state people: it[0]
+        @set-state people: it
 
   component-will-unmount: ->
     api.enrollment.events.remove-listener "change", @get-enrollments

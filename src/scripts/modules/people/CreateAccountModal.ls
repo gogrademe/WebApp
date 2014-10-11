@@ -1,7 +1,7 @@
 require! {
   'react': React
 
-  '../../components/SemanticModal.ls': {Modal}
+  '../../components/SemanticModal.ls'
 
   "../../api/api.ls"
 
@@ -33,13 +33,11 @@ CreateAccountModal = React.create-class do
 
   render: ->
     @transfer-props-to do
-      Modal title:"Create User Account",
+      SemanticModal.SemanticModal title:"Create User Account",
         div class-name: "content",
           form class-name: "ui form" on-submit: @handle-submit,
             @input-for 'email' label: 'Email' type: "text"
             @input-for 'password' label: 'Password' type: "password"
-        div className: "actions",
-          button class-name:"ui primary button" type: "submit",
-            "Save"
+        @actions on-submit: @handle-submit, on-cancel: @props.on-request-hide
 
 module.exports = CreateAccountModal

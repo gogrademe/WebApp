@@ -90,12 +90,12 @@ AssignmentGrades = React.create-class do
   get-grades: ->
     api.grade.find {assignment-id: @props.params.assignment-id}
       .then ~>
-        @set-state grades: it[0]
+        @set-state grades: it
 
   get-students: ->
     api.enrollment.find {class-id: @state.assignment.class-id, term-id: @state.assignment.term-id}
       .then ~>
-        @set-state students: it[0]
+        @set-state students: it
 
   get-assignment: ->
     api.assignment.get @props.params.assignment-id

@@ -8,7 +8,7 @@ require! {
 }
 
 Dom = React.DOM
-{div, button, h4, label, form, input} = Dom
+{div, button, h4, label, form, input, a} = Dom
 
 
 path-to-obj = (path, value) ->
@@ -28,6 +28,13 @@ path-reduce = (path, obj, fn) -> path.split('.').reduce(fn, obj)
 value-from-path = (path, obj) ->
   path-reduce path, obj, (obj, part) -> obj[part]
 
+FormActions = React.create-class do
+  render: ->
+    div class-name:"actions",
+      a class-name: "ui button" on-click: @props.on-cancel,
+        "Cancel"
+      a class-name: "ui button primary" on-click: @props.on-submit,
+        "Save"
 
 Input = React.create-class do
   prop-types:
@@ -92,6 +99,8 @@ form-mixin = (state-key) ->
 
   input-for: make-updatable Input
   date-for: make-updatable PikadayInput
+
+  actions: FormActions
 
   updatable-for: make-updatable
 

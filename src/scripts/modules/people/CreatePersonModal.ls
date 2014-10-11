@@ -1,7 +1,7 @@
 require! {
   'react': React
 
-  '../../components/SemanticModal.ls': {Modal}
+  '../../components/SemanticModal.ls': Modal
   '../../components/FormFor/FormFor.ls'
 
   '../../components/DatePicker'
@@ -40,7 +40,7 @@ PersonModal = React.create-class do
 
   render: ->
     @transfer-props-to do
-      Modal title: "Create Person",
+      Modal.SemanticModal title: "Create Person",
         Form.Form on-submit: @handle-submit, on-cancel: @handle-cancel, is-modal: true,
           h4 class-name: "ui dividing header",
             "Personal Info"

@@ -21,14 +21,14 @@ require! {
 
 
 Dom = React.DOM
-{div, h3, span, a} = Dom
+{div, h3, span, a, i} = Dom
 
-{Grid} = NewTable
+{Grid, CrudActions} = NewTable
 
 custom-actions = (props)->
   SemanticModal.ModalTrigger modal: CreateAccountModal({person-id: props.row.id}),
-    a class-name: "ui primary button tiny", "Create Account"
-
+    a class-name: "ui icon primary button tiny",
+      i class-name: "user icon"
 
 cols =
   * key: 'firstName'
@@ -48,10 +48,12 @@ cols =
       else
         "Student"
 
-  * display: 'Actions'
+  * display: ''
     resource-type: "person"
-    renderer: Grid.CrudActions
+    renderer: CrudActions
     link-to: "people"
+    class-name: "right aligned"
+    td-class-name: "right aligned"
     custom-actions: custom-actions
 
 
@@ -64,14 +66,10 @@ PeopleList = React.create-class do
   componentWillMount: ->
     api.person.find!
     .then ~>
-      @set-state people: it[0]
+      @set-state people: it
 
   modal: ->
     CreatePersonModal null
-
-  right-menu: ->
-    SemanticModal.ModalTrigger modal: @modal!,
-      a class-name: "ui primary tiny button", "Create"
 
   render-filter-button: (name) ->
     is-active = @state.current-filter is name
@@ -88,12 +86,15 @@ PeopleList = React.create-class do
       div class-name: btn-class-name, on-click: set-active,
         name
 
-  render-filter-buttons: ->
-    div class-name: "ui basic tiny buttons",
-      @render-filter-button "All"
-      @render-filter-button "Students"
-      @render-filter-button "Teachers"
-      @render-filter-button "Parents"
+  render-grid-top: ->
+    div null,
+      div class-name: "ui basic tiny buttons",
+        @render-filter-button "All"
+        @render-filter-button "Students"
+        @render-filter-button "Teachers"
+        @render-filter-button "Parents"
+      SemanticModal.ModalTrigger modal: @modal!,
+        a class-name: "ui right floated primary tiny button", "New Person"
 
   filtered-data: ->
     format = ~>
@@ -109,10 +110,10 @@ PeopleList = React.create-class do
 
   render: ->
     div null,
-      Header primary: "All People", right: @right-menu!
+      Header primary: "All People"
       div class-name: "main container",
         div class-name: "ui top attached segment",
-          @render-filter-buttons!
-        Grid class-name: "bottom attached five column" columns: cols, data: @state.people
+          @render-grid-top!
+        Grid class-name: "bottom attached five column" columns: cols, data: @filtered-data!
 
 module.exports = PeopleList
