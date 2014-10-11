@@ -38,7 +38,7 @@ cols =
   * key: 'person.lastName'
     display: 'Last Name'
 
-  * key: 'student.gradeLevel'
+  * key: 'person.gradeLevel'
     display: 'Grade Level'
 
   * display: 'Actions'
@@ -73,7 +73,7 @@ ClassStudents = React.create-class do
 
   enroll-student: ->
     api.enrollment.create do
-      student-id: @state.selected-student
+      person-id: @state.selected-student
       class-id: @props.params.resource-id
       term-id: @props.params.term-id
 
@@ -85,7 +85,7 @@ ClassStudents = React.create-class do
             Autocomplete on-select: @student-selected, placeholder: "Student...",
               if @state.people
                 @state.people.map (p, key)->
-                  Option key: key, value: p.profiles.studentId, label: "#{p.first-name} #{p.last-name}"
+                  Option key: key, value: p.id, label: "#{p.first-name} #{p.last-name}"
               else
                 "Loading..."
             div class-name:"ui primary button" on-click: @enroll-student,

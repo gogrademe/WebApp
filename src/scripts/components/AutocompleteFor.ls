@@ -49,12 +49,8 @@ GradeLevel = React.create-class do
       "12th"
 
   render-options: ->
-    if @state.grades
-      @state.grades.map (item, rId) ->
-        Option key: rId, value: item, label: "#{item}"
-    else
-      div null,
-        "Loading..."
+    @state.grades.map (item, rId) ->
+      Option key: rId, value: item, label: "#{item}"
 
   render: ->
     @transfer-props-to do
