@@ -1,7 +1,7 @@
 require! {
-  React: 'react'
+  'react': React
   #EventEmitter2.EventEmitter2
-  p: 'prelude-ls'
+  'prelude-ls': p
 
   "../api/api.ls"
   "../utils.ls"

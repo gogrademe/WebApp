@@ -1,12 +1,12 @@
 require! {
-  React: 'react'
+  'react': React
 
-  select: '../../components/src/modules/Dropdown.ls'
-  Header: '../../components/PageHeader.ls'
+  '../../components/src/modules/Dropdown.ls': select
+  '../../components/PageHeader.ls': Header
 
-  Link: 'react-router'.Link
+  'react-router': {Link}
 
-  Nav: './nav.ls'
+  './nav.ls': Nav
 
   '../../api/api.ls'
 

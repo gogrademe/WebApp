@@ -1,6 +1,6 @@
 require! {
-  React: 'react'
-  AppRoutes: './routes.ls'
+  'react': React
+  './routes.ls': AppRoutes
 }
 
 window.React = React

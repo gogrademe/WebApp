@@ -1,12 +1,12 @@
 require! {
-  React: 'react'
+  'react': React
 
   "../../components/Panel.ls"
   '../../components/NewTable.ls'
 
   "../../api/api.ls"
 
-  Nav: './nav.ls'
+  './nav.ls': Nav
   '../../components/Header.ls'
   '../../components/Form.ls'
 }

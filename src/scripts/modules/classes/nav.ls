@@ -1,11 +1,11 @@
 require! {
-  React: 'react'
+  'react': React
 
   "../../components/Panel.ls"
   "../../api/api.ls"
 
-  Router: "react-router"
-  Semantic: "../../components/src/modules/Dropdown.ls"
+  "react-router": Router
+  "../../components/src/modules/Dropdown.ls": Semantic
 }
 
 Dom = React.DOM

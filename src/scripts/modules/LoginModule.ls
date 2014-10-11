@@ -1,6 +1,6 @@
 require! {
-  React: 'react'
-  Router: "react-router"
+  'react': React
+  "react-router": Router
 
   "../components/Panel.ls"
   "../api/auth.ls"

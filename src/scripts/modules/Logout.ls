@@ -1,6 +1,6 @@
 require! {
-  React: 'react'
-  Router: "react-router"
+  'react': React
+  "react-router": Router
 
   "../api/api.ls"
   "../components/Header.ls"
@@ -11,7 +11,7 @@ LogoutModule = React.create-class do
   displayName: "LogoutModule"
   component-did-mount: ->
     api.session.del!
-    
+
   render: ->
     div null,
       Header title: "Logging Out..."

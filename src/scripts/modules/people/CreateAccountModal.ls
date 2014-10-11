@@ -1,7 +1,7 @@
 require! {
-  React: 'react'
+  'react': React
 
-  Modal: '../../components/SemanticModal.ls'.SemanticModal
+  '../../components/SemanticModal.ls': {Modal}
 
   "../../api/api.ls"
 

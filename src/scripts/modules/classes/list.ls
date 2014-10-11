@@ -1,5 +1,5 @@
 require! {
-  React: 'react'
+  'react': React
   moment
 
   "../../components/Panel.ls"
@@ -9,12 +9,12 @@ require! {
 
   './CreateClassModal.ls'
 
-  Link: 'react-router'.Link
+  'react-router': {Link}
 
   '../../components/SemanticModal.ls'
 
-  Header: '../../components/PageHeader.ls'
-  select: '../../components/src/modules/Dropdown.ls'
+  '../../components/PageHeader.ls': Header
+  '../../components/src/modules/Dropdown.ls': select
 }
 Dom = React.DOM
 {div, i, strong, a} = Dom

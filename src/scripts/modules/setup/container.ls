@@ -1,9 +1,9 @@
 require! {
-  React: 'react'
+  'react': React
 
-  Header: '../../components/PageHeader.ls'
+  '../../components/PageHeader.ls': Header
 
-  Link: 'react-router'.Link
+  'react-router': {Link}
 }
 Dom = React.DOM
 {div} = Dom

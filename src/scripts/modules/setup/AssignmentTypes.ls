@@ -1,5 +1,5 @@
 require! {
-  React: 'react'
+  'react': React
 
   "../../components/CrudTable.ls"
 }

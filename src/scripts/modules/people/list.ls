@@ -1,6 +1,5 @@
 require! {
-  React: 'react'
-  Grid: 'react-grid'
+  'react': React
 
   "../../components/Panel.ls"
   '../../components/ActionRenderer.ls'
@@ -10,7 +9,9 @@ require! {
   './CreatePersonModal.ls'
   './CreateAccountModal.ls'
 
-  Header: '../../components/PageHeader.ls'
+  '../../components/NewTable.ls'
+
+  '../../components/PageHeader.ls': Header
 
   '../../components/SemanticModal.ls'
 }
@@ -22,7 +23,7 @@ require! {
 Dom = React.DOM
 {div, h3, span, a} = Dom
 
-{Grid} = Grid
+{Grid} = NewTable
 
 custom-actions = (props)->
   SemanticModal.ModalTrigger modal: CreateAccountModal({person-id: props.row.id}),

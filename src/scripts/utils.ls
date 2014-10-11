@@ -1,7 +1,4 @@
-require! {
-  React: 'react'
-  moment
-}
+moment = require 'moment'
 
 decode64 = (input) ->
   false

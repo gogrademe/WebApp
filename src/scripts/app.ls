@@ -1,6 +1,6 @@
 require! {
-  React: 'react'
-  HeaderNav: './components/Header.ls'
+  'react': React
+  './components/Header.ls': HeaderNav
   './api/api.ls'
   './api/auth.ls'
 }

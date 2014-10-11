@@ -1,5 +1,5 @@
 require! {
-  React: 'react'
+  'react': React
 }
 
 {div, label, input} = React.DOM

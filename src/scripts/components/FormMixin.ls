@@ -1,10 +1,10 @@
 require! {
-  React: 'react'
-  updates: 'react/lib/update'
+  'react': React
+  'react/lib/update': updates
 
   './Form/Input/Name.ls'
 
-  Pikaday: 'react-pikaday'
+  'react-pikaday': Pikaday
 }
 
 Dom = React.DOM

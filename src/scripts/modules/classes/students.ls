@@ -1,5 +1,5 @@
 require! {
-  React: 'react'
+  'react': React
 
   "../../components/Panel.ls"
   '../../components/NewTable.ls'
@@ -7,8 +7,8 @@ require! {
   '../../components/autocomplete.ls'
 
   "../../api/api.ls"
-  Nav: './nav.ls'
-  Header: '../../components/Header.ls'
+  './nav.ls': Nav
+  '../../components/Header.ls': Header
 }
 
 Dom = React.DOM
