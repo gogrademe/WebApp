@@ -74,7 +74,9 @@ Autocomplete = React.create-class do
   handle-option-on-select: ->
     @refs.input.getDOMNode().value = it.props.label
 
-    @set-state value: it.props.value
+    @set-state do
+      value: it.props.value
+      term: it.props.label
 
     @props.on-select it.props.value
 
@@ -88,12 +90,21 @@ Autocomplete = React.create-class do
 
 
   render-options: ->
+    includes = (str, needle) ->
+      return true if needle is null
+      return false unless str?
+      String(str.to-lower-case!).indexOf(needle.to-lower-case!) isnt -1
+
     if @props.children
       #filtered = @filter-options @props.children
       React.Children.map @props.children, (child, index)~>
         if child.type is not Option.type then return
 
         props = child.props
+
+        # Don't show if option doesn't match filter.
+        if not includes props.label, @state.term
+          return
 
         props.on-click = @handle-option-on-select.bind @, child
         props.on-mouse-enter = @handle-option-mouse-enter.bind @, index: index
