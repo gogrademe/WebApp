@@ -1,8 +1,8 @@
 require! {
   React: 'react'
+  Grid: 'react-grid'
 
   "../../components/Panel.ls"
-  '../../components/NewTable.ls'
   '../../components/ActionRenderer.ls'
 
   "../../api/api.ls"
@@ -22,7 +22,7 @@ require! {
 Dom = React.DOM
 {div, h3, span, a} = Dom
 
-{Grid, StringRenderer} = NewTable
+{Grid} = Grid
 
 custom-actions = (props)->
   SemanticModal.ModalTrigger modal: CreateAccountModal({person-id: props.row.id}),
@@ -49,7 +49,7 @@ cols =
 
   * display: 'Actions'
     resource-type: "person"
-    renderer: NewTable.CrudActions
+    renderer: Grid.CrudActions
     link-to: "people"
     custom-actions: custom-actions
 

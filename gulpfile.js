@@ -120,10 +120,15 @@ gulp.task('styles', function () {
 });
 
 // Bundle
-gulp.task('bundle', function (cb) {
+gulp.task('bundle', function(cb) {
   var started = false;
   var config = require('./config/webpack.js')(RELEASE);
-  var bundler = webpack(config);
+  var bundler =  webpack(config, function(err, stats) {
+        if(err) throw new $.util.PluginError("webpack", err);
+        $.util.log("[webpack]", stats.toString({
+            // output options
+        }));
+    });
 
   function bundle(err, stats) {
     if (err) {
