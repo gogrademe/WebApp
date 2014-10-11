@@ -149,6 +149,7 @@ Autocomplete = React.create-class do
       onKeyUp: @handle-key-up
       on-focus: @handle-input-focus
       onBlur: @handle-input-blur
+      auto-complete: "off"
 
   render: ->
     @transfer-props-to do

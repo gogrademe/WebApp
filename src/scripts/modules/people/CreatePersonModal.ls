@@ -24,43 +24,49 @@ PersonModal = React.create-class do
   mixins: [FormMixin 'data']
 
   on-select: ->
-    console.log it
+    @state.data.gradeLevel = it
+    @set-state data: @state.data
 
   handle-submit: ->
+    api.person.create @state.data
+      .then ~>
+        @props.on-request-hide!
 
   handle-cancel: ->
 
   get-initial-state: ->
     data:
-      person:
-        firstName: ''
-        middleName: ''
-        lastName: ''
+      firstName: ''
+      middleName: ''
+      lastName: ''
+      gradeLevel: ''
 
 
   render: ->
     @transfer-props-to do
       Modal.SemanticModal title: "Create Person",
-        Form.Form on-submit: @handle-submit, on-cancel: @handle-cancel, is-modal: true,
-          h4 class-name: "ui dividing header",
-            "Personal Info"
-          div class-name: "field",
-            label null,
-              "Name"
-            div class-name: "three fields",
-              div class-name: "field",
-                @input-for 'person.firstName' placeholder: 'First' type: "text"
-              div class-name: "field",
-                @input-for 'person.middleName' placeholder: 'Middle' type: "text"
-              div class-name: "field",
-                @input-for 'person.lastName' placeholder: 'Last' type: "text"
+        div class-name: "content",
+          form class-name: "ui form" on-submit: @handle-submit,
+            h4 class-name: "ui dividing header",
+              "Personal Info"
+            div class-name: "field",
+              label null,
+                "Name"
+              div class-name: "three fields",
+                div class-name: "field",
+                  @input-for 'firstName' placeholder: 'First' type: "text"
+                div class-name: "field",
+                  @input-for 'middleName' placeholder: 'Middle' type: "text"
+                div class-name: "field",
+                  @input-for 'lastName' placeholder: 'Last' type: "text"
 
-          h4 class-name: "ui dividing header",
-            "Student Info"
-          div class-name: "field",
-            label null, "Grade Level"
-            AutocompleteFor.GradeLevel on-select: @on-select
-            #FormFor.Input label: "Grade Level" obj-id: "student.gradeLevel"
+            h4 class-name: "ui dividing header",
+              "Student Info"
+            div class-name: "field",
+              label null, "Grade Level"
+              AutocompleteFor.GradeLevel on-select: @on-select
+            @actions on-submit: @handle-submit, on-cancel: @props.on-request-hide
+              #FormFor.Input label: "Grade Level" obj-id: "student.gradeLevel"
 
 
 module.exports = PersonModal

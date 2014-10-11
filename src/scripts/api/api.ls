@@ -81,6 +81,7 @@ base-api =
                   throw (data `merge-into` it)
               .then response-to-caches
               #TODO: EWWWWW
+              # [..name for list-of-obj]
               .then ~> @get it.0.id
 
     do-put: (type, id, data) ->

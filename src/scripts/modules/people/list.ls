@@ -17,7 +17,7 @@ require! {
 }
 
 
-{filter} = require 'prelude-ls'
+{filter, any} = require 'prelude-ls'
 
 
 Dom = React.DOM
@@ -40,13 +40,8 @@ cols =
   * key: 'lastName'
     display: 'Last Name'
 
-  * key: 'profiles'
+  * key: 'types'
     display: 'Types'
-    format: (v) ->
-      if v.teacherId
-        "Teacher"
-      else
-        "Student"
 
   * display: ''
     resource-type: "person"
@@ -63,10 +58,19 @@ PeopleList = React.create-class do
     current-filter: 'All'
     people: []
 
-  componentWillMount: ->
+  component-did-mount: ->
+    api.person.events.add-listener "change", @get-people
+
+  component-will-unmount: ->
+    api.person.events.remove-listener "change", @get-people
+
+  get-people: ->
     api.person.find!
     .then ~>
       @set-state people: it
+
+  componentWillMount: ->
+    @get-people!
 
   modal: ->
     CreatePersonModal null
@@ -99,14 +103,12 @@ PeopleList = React.create-class do
   filtered-data: ->
     format = ~>
       @state.current-filter
-        |> (. to-lower-case!)
         |> (. slice 0, -1)
-        |> (+ "Id")
-
     if @state.current-filter is 'All'
       return @state.people
     else
-      return filter (.profiles[format!] is not undefined), @state.people
+      @state.people
+       |> filter (~> format(@state.current-filter) in it.types)
 
   render: ->
     div null,

@@ -37,7 +37,7 @@ GradeInput = React.create-class do
     it.prevent-default!
     if @state.initial-value !== @state.value
       data =
-        student-id: @props.row.student.id
+        person-id: @props.row.person-id
         assignment-id: @props.column.assignment-id
         grade: @state.value
 
@@ -107,7 +107,7 @@ AssignmentGrades = React.create-class do
 
   build-cols: ->
     cols = [
-      * key: "student.name"
+      * key: "fullName"
         display: "Student"
         class-name: "three wide"
       * key: "grade.comment"
@@ -124,10 +124,9 @@ AssignmentGrades = React.create-class do
   build-data: ->
     for x in @state.students
       result =
-        student:
-          id: x.student.id
-          name: "#{x.person.firstName} #{x.person.lastName}"
-        grade: find (.student-id is x.student-id), @state.grades
+        personId: x.person-id
+        fullName: "#{x.person.firstName} #{x.person.lastName}"
+        grade: find (.person-id is x.person-id), @state.grades
 
       result
 

@@ -86,7 +86,7 @@ ClassDetail = React.create-class do
 
   handle-grade-change: ({grade, assignment, student, value})->
     data =
-      student-id: student
+      person-id: student
       assignment-id: assignment
       grade: value
 
@@ -118,7 +118,7 @@ ClassDetail = React.create-class do
     for x in @state.students
       result =
         student:
-          id: x.student.id
+          id: x.person.id
           name: "#{x.person.firstName} #{x.person.lastName}"
         assignments: {}
 
@@ -126,7 +126,7 @@ ClassDetail = React.create-class do
         grade =
           @state.grades
             |> filter (.assignment-id is a.id)
-            |> find (.student-id is x.student-id)
+            |> find (.person-id is x.person-id)
 
         result.assignments[a.id] = {
           grade: grade
