@@ -1,8 +1,8 @@
 require! {
-  React: 'react'
+  'react': React
   '../../api/api.ls'
 
-  FormInput: './Input.ls'
+  './Input.ls': FormInput
 }
 Dom = React.DOM
 {div, a, form, button} = Dom

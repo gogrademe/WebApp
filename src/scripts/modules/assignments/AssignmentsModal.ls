@@ -1,7 +1,7 @@
 require! {
-  React: 'react'
+  'react': React
 
-  Modal: '../../components/SemanticModal.ls'.SemanticModal
+  '../../components/SemanticModal.ls': {Modal}
   '../../components/Form.ls'
 
   "../../api/api.ls"
@@ -11,7 +11,7 @@ require! {
 
   "../../components/AutocompleteFor.ls"
 
-  Header: '../../components/Header.ls'
+  '../../components/Header.ls': Header
 
   "../../components/FormMixin.ls"
 

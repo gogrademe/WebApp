@@ -1,7 +1,7 @@
 require! {
-  React: 'react'
+  'react': React
 
-  Router: "react-router"
+  "react-router": Router
 
   '../api/api.ls'
   '../api/auth.ls'

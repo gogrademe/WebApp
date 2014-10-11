@@ -1,6 +1,6 @@
 require! {
-  React: 'react'
-  Header: "../components/PageHeader.ls"
+  'react': React
+  "../components/PageHeader.ls": Header
   "../components/SemanticModal.ls"
 }
 

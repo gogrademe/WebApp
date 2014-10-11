@@ -1,12 +1,12 @@
 require! {
-  React: 'react'
-  Header: "../../components/Header.ls"
-  Link: "react-router".Link
-  ModalMixin: "../../components/ModalMixin.ls"
+  'react': React
+  "../../components/Header.ls": Header
+  "react-router": {Link}
+  "../../components/ModalMixin.ls": ModalMixin
 
   "../../components/FormMixin.ls"
 
-  Modal: '../../components/SemanticModal.ls'.SemanticModal
+  '../../components/SemanticModal.ls': {Modal}
 
 }
 

@@ -1,11 +1,11 @@
 require! {
-  React: 'react'
+  'react': React
 
   '../../components/NewTable.ls'
 
   "../../api/api.ls"
 
-  Header: '../../components/PageHeader.ls'
+  '../../components/PageHeader.ls': Header
 
 }
 Dom = React.DOM

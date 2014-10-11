@@ -1,7 +1,7 @@
 require! {
-  React: 'react'
+  'react': React
 
-  Modal: '../../components/SemanticModal.ls'.SemanticModal
+  '../../components/SemanticModal.ls': {Modal}
   '../../components/FormFor/FormFor.ls'
 
   '../../components/DatePicker'
@@ -27,7 +27,7 @@ PersonModal = React.create-class do
     console.log it
 
   handle-submit: ->
-    
+
   handle-cancel: ->
 
   get-initial-state: ->

@@ -1,7 +1,7 @@
 require! {
-  React: 'react'
-  Router: "react-router"
-  select: "./src/modules/Dropdown.ls"
+  'react': React
+  "react-router": Router
+  "./src/modules/Dropdown.ls": select
 
   '../api/api.ls'
   '../api/auth.ls'

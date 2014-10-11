@@ -1,9 +1,9 @@
 require! {
-  React: 'react'
+  'react': React
 
-  Header: '../components/PageHeader.ls'
+  '../components/PageHeader.ls': Header
 
-  Form: '../components/Form.ls'
+  '../components/Form.ls': Form
 
   "../api/api.ls"
 }

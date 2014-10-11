@@ -1,5 +1,5 @@
 require! {
-  React: 'react'
+  'react': React
 
 
   "../../components/Panel.ls"
@@ -12,8 +12,8 @@ require! {
 
   "../../api/api.ls"
 
-  Nav: '../classes/nav.ls'
-  Link: 'react-router'.Link
+  '../classes/nav.ls': Nav
+  'react-router': {Link}
 
   './AssignmentsModal.ls'
 

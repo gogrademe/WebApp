@@ -1,6 +1,6 @@
 require! {
-  React: 'react'
-  clone-with-props: 'react/addons'.addons.clone-with-props
+  'react': React
+  'react/lib/cloneWithProps'
 }
 
 Dom = React.DOM

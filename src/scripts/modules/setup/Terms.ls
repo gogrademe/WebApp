@@ -1,7 +1,7 @@
 require! {
-  React: 'react'
-  Header: '../components/Header.ls'
-  Form: '../components/Form.ls'
+  'react': React
+  '../components/Header.ls': Header
+  '../components/Form.ls': Form
 }
 
 Dom = React.DOM

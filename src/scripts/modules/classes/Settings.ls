@@ -1,9 +1,9 @@
 require! {
-  React: 'react'
+  'react': React
   "../../components/Panel.ls"
 
-  Nav: './nav.ls'
-  Header: '../../components/Header.ls'
+  './nav.ls': Nav
+  '../../components/Header.ls': Header
   '../../components/Form.ls'
 }
 

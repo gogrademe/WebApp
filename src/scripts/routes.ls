@@ -1,20 +1,20 @@
 require! {
-  Router: "react-router"
+  "react-router": Router
 
-  App: "./app.ls"
+  "./app.ls": App
 
-  SignedIn: "./components/SignedIn.ls"
+  "./components/SignedIn.ls": SignedIn
   # Single pages
-  LoginModule: "./modules/LoginModule.ls"
-  LogoutModule: "./modules/Logout.ls"
-  DashboardModule: "./modules/DashboardModule.ls"
-  NotFoundModule: "./modules/NotFoundModule.ls"
+  "./modules/LoginModule.ls": LoginModule
+  "./modules/Logout.ls": LogoutModule
+  "./modules/DashboardModule.ls": DashboardModule
+  "./modules/NotFoundModule.ls": NotFoundModule
 
   # Mountable
-  Classes: "./modules/classes/index.ls"
-  Setup: "./modules/setup/container.ls"
-  People: "./modules/people/index.ls"
-  School: "./modules/SchoolSettings.ls"
+  "./modules/classes/index.ls": Classes
+  "./modules/setup/container.ls": Setup
+  "./modules/people/index.ls": People
+  "./modules/SchoolSettings.ls": School
 }
 
 {Route,Routes,DefaultRoute, NotFoundRoute, Redirect} = Router
@@ -26,7 +26,7 @@ module.exports =
       Route path: "login" name: "login" handler: LoginModule
       Route handler: SignedIn,
         Route path: "logout" name: "logout" handler: LogoutModule
-        Route name:"school.settings"  path: "school/settings" handler: School.Settings
+        Route name:"school.settings" path: "school/settings" handler: School.Settings
         Route name:"people" handler: People.List
         Route name:"people.detail" path:"people/:resourceId" handler: People.Detail
         Route name: "assignments.grades" title: "Assignment Grades" path: "assignments/:assignmentId" handler: Classes.AssignmentGrades
