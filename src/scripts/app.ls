@@ -6,7 +6,7 @@ require! {
 }
 
 if process.env.NODE_ENV is not "production"
-  api.base-url = 'http://104.131.120.148:5005/api'
+  api.base-url = 'http://localhost:5005/api'
   #api.base-url = 'http://10.55.206.122:5005/api'
 
 if process.env.NODE_ENV is "production"
