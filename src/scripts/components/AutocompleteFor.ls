@@ -17,7 +17,7 @@ AssignmentType = React.create-class do
   component-will-mount: ->
     api.type.find!
       .then ~>
-        @set-state types: it[0]
+        @set-state types: it
 
   render-options: ->
     if @state.types
@@ -32,7 +32,35 @@ AssignmentType = React.create-class do
       Autocomplete placeholder: "Type" dropdown: true,
         @render-options!
 
+SchoolTerms = React.create-class do
+  display-name: "SchoolTerms"
+  get-initial-state: ->
+    terms: null
+
+  component-will-mount: ->
+    api.term.find!
+      .then ~>
+        @set-state terms: it
+
+  handle-change: ->
+    @props.on-change target: value: [it.target.value]
+
+  render-options: ->
+    if @state.terms
+      @state.terms.map (item, rId) ->
+        Option key: rId, value: item.id, label: "#{item.name} - #{item.schoolYear}"
+    else
+      div null,
+        "Loading..."
+
+  render: ->
+    div null,
+      Autocomplete on-change: @handle-change, placeholder: "Term" dropdown: true,
+        @render-options!
+
 GradeLevel = React.create-class do
+  display-name: "GradeLevel"
+
   get-initial-state: ->
     grades:
       "1st"
@@ -57,6 +85,30 @@ GradeLevel = React.create-class do
       Autocomplete placeholder: "Grade Level" dropdown: true,
         @render-options!
 
+ProfileTypes = React.create-class do
+  display-name: "ProfileTypes"
+
+  get-initial-state: ->
+    types:
+      "Student"
+      "Teacher"
+      "Parent"
+      "Other"
+
+  handle-change: ->
+    @props.on-change target: value: [it.target.value]
+
+  render-options: ->
+    @state.types.map (item, rId) ->
+      Option key: rId, value: item, label: "#{item}"
+
+  render: ->
+    @transfer-props-to do
+      Autocomplete on-change: @handle-change, placeholder: "Type" dropdown: true,
+        @render-options!
+
 module.exports =
   AssignmentType: AssignmentType
   GradeLevel: GradeLevel
+  ProfileTypes: ProfileTypes
+  SchoolTerms: SchoolTerms

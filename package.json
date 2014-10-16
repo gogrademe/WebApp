@@ -14,12 +14,13 @@
     "prelude-ls": "^1.1.1",
     "pushstate-server": "^1.1.0",
     "react": "^0.11.2",
-    "react-datepicker": "^0.2.8",
+    "react-datepicker": "^0.2.9",
     "react-grid": "git://github.com/MattAitchison/react-grid",
     "react-pikaday": "^0.1.0",
     "react-router": "^0.7.0",
     "superagent": "^0.19.1",
-    "tcomb-form": "^0.1.3"
+    "tcomb-form": "^0.1.3",
+    "tether": "^0.6.5"
   },
   "devDependencies": {
     "browser-sync": "^1.5.2",

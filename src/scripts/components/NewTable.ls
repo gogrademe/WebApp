@@ -103,7 +103,7 @@ StringRenderer = React.create-class do
           div class-name: "ui button tiny", on-click: @toggle,
             "x"
     else
-      #div onClick: @toggle,
+      div onClick: @toggle,
       div null,
         val
 

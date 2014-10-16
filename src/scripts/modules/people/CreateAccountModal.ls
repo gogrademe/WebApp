@@ -29,14 +29,14 @@ CreateAccountModal = React.create-class do
     e.prevent-default!
     api.user.create @state.account
       .then ~>
-        console.log it
+        @props.on-request-hide!
 
   render: ->
     @transfer-props-to do
       SemanticModal.SemanticModal title:"Create User Account",
         div class-name: "content",
           form class-name: "ui form" on-submit: @handle-submit,
-            @input-for 'email' label: 'Email' type: "text"
+            @input-for 'email' label: 'Email' type: "email"
             @input-for 'password' label: 'Password' type: "password"
         @actions on-submit: @handle-submit, on-cancel: @props.on-request-hide
 

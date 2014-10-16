@@ -1,7 +1,6 @@
 require! {
   'react': React
   '../components/Header.ls': Header
-  '../components/Form.ls': Form
 }
 
 Dom = React.DOM
@@ -21,9 +20,9 @@ Settings = React.create-class do
         div class-name: "ui centered grid",
           div class-name: "six wide column",
             div class-name: "ui form segment",
-              Form.Input type: "text" label: "Class Name" on-change: @handle-change . "name"
-              Form.Input type: "text" label: "Grade Level"
-              Form.Input type: "text" label: "Max Students"
+              #Form.Input type: "text" label: "Class Name" on-change: @handle-change . "name"
+              #Form.Input type: "text" label: "Grade Level"
+              #Form.Input type: "text" label: "Max Students"
               div class-name: "ui submit button", "Save"
 
 module.exports =

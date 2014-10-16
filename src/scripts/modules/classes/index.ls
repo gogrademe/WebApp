@@ -56,7 +56,8 @@ View = React.create-class do
             @props.active-route-handler class: @state.class, terms: @state.terms, term: @state.term
           div class-name: "right floated three wide column",
             div class-name: "ui fluid vertical menu sunken",
-              Link class-name: "item" to: "class.detail" params:{term-id: @props.params.term-id, resource-id: @props.params.resource-id}, "Grades"
+              Link class-name: "item" to: "class.overview" params:{term-id: @props.params.term-id, resource-id: @props.params.resource-id}, "Home"
+              Link class-name: "item" to: "class.grades" params:{term-id: @props.params.term-id, resource-id: @props.params.resource-id}, "Grades"
               Link class-name: "item" to: "class.students" params:{term-id: @props.params.term-id, resource-id: @props.params.resource-id}, "Students"
               Link class-name: "item" to: "class.assignments" params:{term-id: @props.params.term-id, resource-id: @props.params.resource-id}, "Assignments"
               Link class-name: "item" to: "class.settings" params:{term-id: @props.params.term-id, resource-id: @props.params.resource-id}, "Settings"
@@ -64,7 +65,8 @@ View = React.create-class do
 module.exports =
   View:       View
   List:        require './list.ls'
-  Detail:      require './detail.ls'
+  Grades:      require './detail.ls'
+  Overview:      require './Overview.ls'
   Assignments: require '../assignments/Assignments.ls'
   AssignmentGrades: require '../assignments/AssignmentGrades.ls'
   Students:    require './students.ls'

@@ -69,7 +69,7 @@ ClassStudents = React.create-class do
     api.enrollment.events.remove-listener "change", @get-enrollments
 
   student-selected: ->
-    @set-state selected-student: it
+    @set-state selected-student: it.target.value
 
   enroll-student: ->
     api.enrollment.create do
@@ -82,7 +82,7 @@ ClassStudents = React.create-class do
       div class-name: "ui top attached segment",
         div class-name: "ui search form",
           div class-name: "ui fluid action input",
-            Autocomplete on-select: @student-selected, placeholder: "Student...",
+            Autocomplete on-change: @student-selected, placeholder: "Student...",
               if @state.people
                 @state.people.map (p, key)->
                   Option key: key, value: p.id, label: "#{p.first-name} #{p.last-name}"

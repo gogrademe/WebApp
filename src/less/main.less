@@ -94,10 +94,10 @@ body {
 
 }
 
-.ui.modal.top {
-  top: 5rem;
-
-}
+// .ui.modal.top {
+//   top: 5rem;
+//
+// }
 
 .ui.modal .content .actions {
   margin-left: -2em;
@@ -117,4 +117,57 @@ body {
 .ui.search .results {
   max-height: 6em;
   overflow-y: scroll !important;
+}
+
+
+
+// Remove this!
+
+#remove-margin-padding div, #remove-margin-padding table{
+	margin: 0;
+	padding: 0;
+}
+
+#grades-table{
+	overflow-y: auto;
+	overflow-x: none;
+	padding-bottom: 60px;
+	z-index: -1;
+}
+
+#grades-table th{
+	min-width: 140px;
+}
+
+.grade.field input[type="text"]{
+	padding: 0;
+}
+
+#grades-table .icon{
+	padding-top: 0;
+}
+
+#grades-table .icon i{
+	line-height: 1.4;
+}
+
+#grades-table table{
+	border-left: none;
+	border-right: none;
+}
+
+#avg-table{
+	-webkit-box-shadow: -2px 0px 2px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: -2px 0px 2px 0px rgba(0,0,0,0.2);
+	box-shadow: -2px 0px 2px 0px rgba(0,0,0,0.2);
+}
+
+#name-table table{
+	-webkit-box-shadow: 2px 0px 2px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 2px 0px 2px 0px rgba(0,0,0,0.2);
+	box-shadow: 2px 0px 2px 0px rgba(0,0,0,0.2);
+}
+
+#name-table{
+	position: relative;
 }

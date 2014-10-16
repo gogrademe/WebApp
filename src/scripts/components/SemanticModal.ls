@@ -23,7 +23,7 @@ SemanticModal = React.create-class do
   render: ->
     @transfer-props-to do
       div class-name: "ui dimmer page visible active",
-        div class-name: "ui modal top transition visible active",
+        div class-name: "ui modal scrolling transition visible active",
           @render-close-button!
           @render-header!
           @props.children

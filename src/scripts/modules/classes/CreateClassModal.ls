@@ -5,33 +5,43 @@ require! {
   "../../components/ModalMixin.ls": ModalMixin
 
   "../../components/FormMixin.ls"
-
+  "../../components/AutocompleteFor.ls"
   '../../components/SemanticModal.ls': Modal
+
+  "../../api/api.ls"
 
 }
 
 Dom = React.DOM
-{div, button, form} = Dom
+{div, button, form, label} = Dom
 
 CreateClassModal = React.create-class do
   mixins: [FormMixin 'class']
   displayName: "CreateClassModal"
 
-  saveChanges: !->
-    @props.flux.actions.addClass!
+  handle-submit: !->
+    api.class.create @state.class
+      .then ~>
+        @props.on-request-hide!
 
   get-initial-state: ->
     class: {}
+
   render: ->
     @transferPropsTo do
       Modal.SemanticModal title: "Create Class" animation: true,
         div class-name: "content",
           form class-name: "ui form" on-submit: @handle-submit,
-            @input-for 'name' label: 'Name' type: "text"
-            @input-for 'term' label: 'Terms' type: "text"
-            @input-for 'gradeLevel' label: 'Grade Level' type: "text"
-        div className: "actions",
-          button class-name:"ui primary button" type: "submit",
-            "Save"
+            @input-for 'name' label: 'Name'
+            div class-name: "ui two fields",
+              @input-for 'maxStudents' label: 'Max Students'
+              div class-name: "field",
+                label null, "Grade Level"
+                @updatable-for AutocompleteFor.GradeLevel, 'gradeLevel', null
+            div class-name: "field",
+              label null, "Term"
+              @updatable-for AutocompleteFor.SchoolTerms, 'term', null
+
+            @actions on-submit: @handle-submit, on-cancel: @props.on-request-hide
 
 module.exports = CreateClassModal

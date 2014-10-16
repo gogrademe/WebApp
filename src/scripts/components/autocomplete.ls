@@ -41,14 +41,14 @@ Autocomplete = React.create-class do
     dropdown: React.PropTypes.bool
     typeahead: React.PropTypes.bool
     on-input: React.PropTypes.func
-    on-select: React.PropTypes.func
+    on-change: React.PropTypes.func.is-required
     value: React.PropTypes.any
 
   get-default-props: ->
     typeahead: true
     dropdown: false
     on-input: -> {}
-    on-select: -> {}
+    on-change: -> {}
 
   getInitialState: ->
     last-focused-option: null
@@ -67,7 +67,9 @@ Autocomplete = React.create-class do
     if e.keyCode is 27
       @refs.input.getDOMNode().blur!
     else if value.length is 0
-      @hide-list!
+      @set-state term: value
+      # Don't hide list right now.
+      #@hide-list!
     else
       @set-state term: value
 
@@ -78,7 +80,7 @@ Autocomplete = React.create-class do
       value: it.props.value
       term: it.props.label
 
-    @props.on-select it.props.value
+    @props.on-change target: {value: it.props.value }
 
     @hide-list!
 
@@ -111,8 +113,10 @@ Autocomplete = React.create-class do
         props.on-mouse-leave = @handle-option-mouse-leave.bind @, index: index
         return child
     else
-      div null,
-        "No Results..."
+      div class-name:"result",
+        div class-name: "info",
+          div class-name: "title"
+            "No Results..."
 
   show-list: ->
     @set-state is-open: true
@@ -143,25 +147,26 @@ Autocomplete = React.create-class do
   render-input: ->
     input do
       ref: "input"
+      role: "typeahead"
       class-name: "prompt"
       type: "text"
       placeholder: @props.placeholder
       onKeyUp: @handle-key-up
       on-focus: @handle-input-focus
-      onBlur: @handle-input-blur
+      on-blur: @handle-input-blur
       auto-complete: "off"
 
   render: ->
-    @transfer-props-to do
-      div class-name: "ui search",
-        if @props.dropdown then
-          div class-name:"ui icon input",
-            @render-input!
-            i class-name: "sort ascending icon" on-click: @toggle-list
-        else
+    #@transfer-props-to do
+    div class-name: "ui search",
+      if @props.dropdown then
+        div class-name:"ui icon input",
           @render-input!
-        div ref: "list" class-name: "results" style: @make-list-style!,
-          @render-options!
+          i class-name: "sort ascending icon" on-click: @toggle-list
+      else
+        @render-input!
+      div ref: "list" class-name: "results" style: @make-list-style!,
+        @render-options!
 
 module.exports =
   Autocomplete: Autocomplete

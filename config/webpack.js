@@ -31,7 +31,13 @@ module.exports = function (release) {
       new webpack.optimize.UglifyJsPlugin(),
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.optimize.AggressiveMergingPlugin()
-    ] : [],
+    ] : [
+      // new webpack.ProvidePlugin({
+      // React: "react/addons",
+      // moment: "moment",
+      // Tether: "tether"
+      // })
+    ],
 
     resolve: {
       extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.ls']

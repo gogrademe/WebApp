@@ -25,7 +25,7 @@ ClassName = React.create-class do
   render: ->
     term-id = @props.column.term?.value || "t"
     div null,
-      Link to: "class.detail", params: {termId: term-id, resourceId: @props.row.id},
+      Link to: "class.overview", params: {termId: term-id, resourceId: @props.row.id},
         @props.value
 
 ClassList = React.create-class do
@@ -52,6 +52,16 @@ ClassList = React.create-class do
 
       * key: 'gradeLevel'
         display: 'Grade Level'
+
+      * key: 'maxStudents'
+        display: 'Max Students'
+
+      * display: ''
+        resource-type: "class"
+        renderer: NewTable.CrudActions
+        link-to: "class"
+        class-name: "right aligned"
+        td-class-name: "right aligned"
 
   update-select: ->
     @set-state term: it

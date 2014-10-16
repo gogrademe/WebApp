@@ -100,9 +100,6 @@ base-api =
         http-del (url type, id)
 
 types =
-    student: {}
-    teacher: {}
-    parent: {}
     person: {}
     class: {}
     enrollment: {}

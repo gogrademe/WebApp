@@ -17,7 +17,7 @@ date = (x) -> match x
 
 
 date-for-upload = ->
-  moment it, "YYYY-DD-MM"
+  moment it .format "YYYY-DD-MM"
 
 module.exports =
   decode64: decode64

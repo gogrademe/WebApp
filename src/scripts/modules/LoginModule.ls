@@ -49,7 +49,7 @@ LoginPage = React.create-class do
           div className: "field",
             div class-name: "ui right labeled left icon input",
               input do
-                type: "text"
+                type: "email"
                 placeholder: "Email Address"
                 ref: "email"
                 required: true

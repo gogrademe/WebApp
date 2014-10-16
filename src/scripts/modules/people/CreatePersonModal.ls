@@ -2,7 +2,6 @@ require! {
   'react': React
 
   '../../components/SemanticModal.ls': Modal
-  '../../components/FormFor/FormFor.ls'
 
   '../../components/DatePicker'
 
@@ -13,7 +12,6 @@ require! {
   "../../components/AutocompleteFor.ls"
 
   "../../components/FormMixin.ls"
-  "../../components/Form.ls"
 }
 
 Dom = React.DOM
@@ -40,31 +38,32 @@ PersonModal = React.create-class do
       middleName: ''
       lastName: ''
       gradeLevel: ''
-
+      types: []
 
   render: ->
     @transfer-props-to do
       Modal.SemanticModal title: "Create Person",
         div class-name: "content",
-          form class-name: "ui form" on-submit: @handle-submit,
+          form class-name: "ui form",
             h4 class-name: "ui dividing header",
               "Personal Info"
             div class-name: "field",
               label null,
                 "Name"
               div class-name: "three fields",
-                div class-name: "field",
-                  @input-for 'firstName' placeholder: 'First' type: "text"
-                div class-name: "field",
-                  @input-for 'middleName' placeholder: 'Middle' type: "text"
-                div class-name: "field",
-                  @input-for 'lastName' placeholder: 'Last' type: "text"
+                @input-for 'firstName' placeholder: 'First'
+                @input-for 'middleName' placeholder: 'Middle'
+                @input-for 'lastName' placeholder: 'Last'
+            @input-for 'email' label: 'Email' type: 'email'
+            div class-name: "field",
+              label null, "Type"
+              @updatable-for AutocompleteFor.ProfileTypes, "types", null
 
             h4 class-name: "ui dividing header",
               "Student Info"
             div class-name: "field",
               label null, "Grade Level"
-              AutocompleteFor.GradeLevel on-select: @on-select
+              @updatable-for AutocompleteFor.GradeLevel, "gradeLevel", null
             @actions on-submit: @handle-submit, on-cancel: @props.on-request-hide
               #FormFor.Input label: "Grade Level" obj-id: "student.gradeLevel"
 

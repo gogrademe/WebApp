@@ -4,11 +4,14 @@ require! {
 
   './Form/Input/Name.ls'
 
+  '../utils.ls'
+  'moment'
+
   'react-pikaday': Pikaday
 }
 
 Dom = React.DOM
-{div, button, h4, label, form, input, a} = Dom
+{div, button, h4, label, form, input, a, i} = Dom
 
 
 path-to-obj = (path, value) ->
@@ -31,9 +34,11 @@ value-from-path = (path, obj) ->
 FormActions = React.create-class do
   render: ->
     div class-name:"actions",
-      a class-name: "ui button" on-click: @props.on-cancel,
+      a class-name: "ui labeled icon button" on-click: @props.on-cancel,
+        i class-name: "cancel icon"
         "Cancel"
-      a class-name: "ui button primary" on-click: @props.on-submit,
+      a class-name: "ui labeled icon primary button" on-click: @props.on-submit,
+        i class-name: "save icon"
         "Save"
 
 Input = React.create-class do
@@ -63,6 +68,15 @@ PikadayInput = React.create-class do
   get-default-props: ->
     label: ""
     placeholder: ""
+    #display-format: "L"
+    #value-format: "L"
+
+  get-initial-state: ->
+    value: null
+
+  handle-change: ->
+    @set-state value: it
+    @props.on-change @state.value
 
   render: ->
     placeholder = @props.placeholder || @props.label
@@ -71,6 +85,8 @@ PikadayInput = React.create-class do
       @transfer-props-to do
         Pikaday do
           placeholder: placeholder
+          value: @state.value
+          on-change: @handle-change
 
 form-mixin = (state-key) ->
   # get the on-change and value props
@@ -80,6 +96,7 @@ form-mixin = (state-key) ->
   get-props = (path) ->
     value: value-from-path("#state-key.#path", this.state)
     on-change: (event) ~>
+
       /*console.log event
       value = switch event?.target
         # input like
@@ -87,7 +104,7 @@ form-mixin = (state-key) ->
         # plain value, allowed for greater compatibility
         | otherwise => event*/
 
-      value = event.target.value
+      value = event?.target?.value || event
 
       data = updates @state[state-key], path-to-obj("#path", {$set: value})
       @set-state {"#state-key": data}
@@ -97,11 +114,9 @@ form-mixin = (state-key) ->
     props = get-props.call(this, path) <<< extra-props
     component props
 
-  input-for: make-updatable Input
   date-for: make-updatable PikadayInput
-
-  actions: FormActions
-
+  input-for: make-updatable Input
   updatable-for: make-updatable
+  actions: FormActions
 
 module.exports = form-mixin
