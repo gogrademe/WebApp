@@ -103,8 +103,10 @@ form-mixin = (state-key) ->
         | that.value? => that.value
         # plain value, allowed for greater compatibility
         | otherwise => event*/
-
-      value = event?.target?.value || event
+      /*console.log event.target.value*/
+      /*value = event?.target?.value*/
+      
+      value = event.target.value
 
       data = updates @state[state-key], path-to-obj("#path", {$set: value})
       @set-state {"#state-key": data}
