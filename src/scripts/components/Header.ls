@@ -47,8 +47,8 @@ HeaderNav = React.create-class do
         Link class-name: "item" to: "people",
           i class-name:"users icon"
           "People"
-        Link class-name: "item" to: "school.settings",
-          "School Settings"
+        #Link class-name: "item" to: "school.settings",
+        #  "School Settings"
         Link class-name: "item" to: "setup",
           "App Setup"
         div class-name: "right menu",
