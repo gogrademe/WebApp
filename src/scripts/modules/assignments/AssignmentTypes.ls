@@ -8,7 +8,6 @@ require! {
 
   "../../api/api.ls"
 
-  '../classes/nav.ls': Nav
   'react-router': {Link}
 }
 

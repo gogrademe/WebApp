@@ -2,7 +2,6 @@ require! {
   'react': React
   "../../components/Panel.ls"
 
-  './nav.ls': Nav
   '../../components/Header.ls': Header
 }
 

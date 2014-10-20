@@ -7,7 +7,6 @@ require! {
   '../../components/autocomplete.ls'
 
   "../../api/api.ls"
-  './nav.ls': Nav
   '../../components/Header.ls': Header
 }
 

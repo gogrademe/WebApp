@@ -6,7 +6,6 @@ require! {
 
   "../../api/api.ls"
 
-  './nav.ls': Nav
   '../../components/Header.ls'
 }
 Dom = React.DOM
@@ -94,14 +93,12 @@ ClassDetail = React.create-class do
     else
       api.grade.update grade, data
 
-  student-cols:
-    [
-    * key: "person.firstName"
-      display: "Student"
-      class-name: "two wide"
-    ]
   build-cols: ->
-    cols = []
+    cols = [
+      * key: "student.name"
+        display: "Student"
+        class-name: "two wide"
+    ]
     for x in @state.assignments
       cols.push do
         key: "assignments.#{x.id}.grade.grade"
@@ -147,11 +144,7 @@ ClassDetail = React.create-class do
     api.grade.events.remove-listener "change", @get-grades
 
   render: ->
-    div class-name: "ui two column fitted grid",
-      #Nav resource-id: @props.params.resource-id, term-id: @props.params.term-id
-      div class-name: "two wide column",
-        Grid columns: @student-cols, data: @state.students
-      div class-name: "thirteen wide column",
-        Grid columns: @build-cols!, data: @build-data!
+    div null,
+      Grid columns: @build-cols!, data: @build-data!
 
 module.exports = ClassDetail

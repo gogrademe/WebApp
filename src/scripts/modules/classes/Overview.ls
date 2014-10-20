@@ -6,7 +6,6 @@ require! {
 
   "../../api/api.ls"
 
-  './nav.ls': Nav
   '../../components/Header.ls'
 }
 Dom = React.DOM

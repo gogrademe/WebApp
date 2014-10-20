@@ -25,7 +25,7 @@ ClassName = React.create-class do
   render: ->
     term-id = @props.column.term?.value || "t"
     div null,
-      Link to: "class.overview", params: {termId: term-id, resourceId: @props.row.id},
+      Link to: "class.grades", params: {termId: term-id, resourceId: @props.row.id},
         @props.value
 
 ClassList = React.create-class do
