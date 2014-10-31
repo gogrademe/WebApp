@@ -40,6 +40,16 @@ PersonModal = React.create-class do
       gradeLevel: ''
       types: []
 
+  render-student-section: ->
+    #if @state.data.types.index-of('Student') > -1 then
+    if 'Student' in @state.data.types then
+      div null,
+        h4 class-name: "ui dividing header",
+          "Student Info"
+        div class-name: "field",
+          label null, "Grade Level"
+          @updatable-for AutocompleteFor.GradeLevel, "gradeLevel", null
+
   render: ->
     @transfer-props-to do
       Modal.SemanticModal title: "Create Person",
@@ -58,12 +68,9 @@ PersonModal = React.create-class do
             div class-name: "field",
               label null, "Type"
               @updatable-for AutocompleteFor.ProfileTypes, "types", null
+            @render-student-section!
 
-            h4 class-name: "ui dividing header",
-              "Student Info"
-            div class-name: "field",
-              label null, "Grade Level"
-              @updatable-for AutocompleteFor.GradeLevel, "gradeLevel", null
+
             @actions on-submit: @handle-submit, on-cancel: @props.on-request-hide
               #FormFor.Input label: "Grade Level" obj-id: "student.gradeLevel"
 
