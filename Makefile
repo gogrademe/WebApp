@@ -6,7 +6,7 @@ build/$(NAME):
 	gulp build --release
 
 build/container: build/$(NAME)
-	docker build -t lanciv/gogrademeweb .
+	docker build -t gogrademe/webapp .
 	touch build/container
 
 push: build/container
