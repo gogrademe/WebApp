@@ -29,7 +29,16 @@ AssignmentTypes = React.create-class do
       link-to: "type"
       class-name: "right aligned"
       td-class-name: "right aligned"
+        
+  fields:
+    * key: "name"
+      label: "Name"
 
+    * key: "weight"
+      label: "Weight"
+
+    * key: "maxScore"
+      label: "Max Score"
   fetch: ->
     api.type.find!
 
@@ -40,6 +49,6 @@ AssignmentTypes = React.create-class do
         fetch-data: @fetch
         resource: 'type'
         title: 'Assignment Type'
-        form-fields: @table-cols
+        form-fields: @fields
 
 module.exports = AssignmentTypes

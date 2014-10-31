@@ -24,7 +24,7 @@ Modal = React.create-class do
 
   render-inputs: ->
     @props.form-fields.map (item, key) ~>
-      @input-for "#{item.key}" key: key
+      @input-for "#{item.key}", label: item.label, key: key
 
   render: ->
     @transfer-props-to do
@@ -69,7 +69,7 @@ Module = React.create-class do
         #PageHeader primary: @props.title
       div class-name: "main container",
         div class-name: "ui top attached right aligned segment",
-          SemanticModal.ModalTrigger modal: Modal(title: "Create #{@props.title}" form-fields: @props.columns),
+          SemanticModal.ModalTrigger modal: Modal(title: "Create #{@props.title}" form-fields: @props.form-fields),
             a class-name: "ui primary tiny button", "New"
         Grid class-name: "bottom attached" columns: @props.columns, data: @state.data
 

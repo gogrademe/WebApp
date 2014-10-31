@@ -23,15 +23,19 @@ CreateClassModal = React.create-class do
     api.class.create @state.class
       .then ~>
         @props.on-request-hide!
+      .error ~>
+        @set-state errors: it.body
 
   get-initial-state: ->
     class: {}
+    errors: null
 
   render: ->
     @transferPropsTo do
       Modal.SemanticModal title: "Create Class" animation: true,
         div class-name: "content",
           form class-name: "ui form" on-submit: @handle-submit,
+            @messages messages: @state.errors
             @input-for 'name' label: 'Name'
             div class-name: "ui two fields",
               @input-for 'maxStudents' label: 'Max Students'
