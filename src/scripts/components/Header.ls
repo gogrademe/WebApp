@@ -30,6 +30,8 @@ HeaderNav = React.create-class do
       api.person.get person-id
         .then ~>
           @set-state person: it
+        .error ~>
+          Router.replace-with "/logout"
 
   get-initial-state: ->
     person: {}

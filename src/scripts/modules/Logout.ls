@@ -11,6 +11,8 @@ LogoutModule = React.create-class do
   displayName: "LogoutModule"
   component-did-mount: ->
     api.session.del!
+      .then ~>
+        Router.replace-with "/login"
 
   render: ->
     div null,

@@ -94,6 +94,7 @@ ProfileTypes = React.create-class do
       "Teacher"
       "Parent"
       "Other"
+      "Admin"
 
   handle-change: ->
     @props.on-change target: value: [it.target.value]

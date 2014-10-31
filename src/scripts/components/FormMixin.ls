@@ -11,7 +11,7 @@ require! {
 }
 
 Dom = React.DOM
-{div, button, h4, label, form, input, a, i} = Dom
+{div, button, h4, label, form, input, a, i, p} = Dom
 
 
 path-to-obj = (path, value) ->
@@ -30,6 +30,22 @@ path-reduce = (path, obj, fn) -> path.split('.').reduce(fn, obj)
 # value-from-path('a.b', {a: {b: 'foo'}}) => 'foo'
 value-from-path = (path, obj) ->
   path-reduce path, obj, (obj, part) -> obj[part]
+
+
+FormMessages = React.create-class do
+  prop-types:
+    messages: React.PropTypes.array
+  render: ->
+    if @props.messages is not null
+      div class-name:"ui visible error message",
+        div class-name: "header",
+          "Error: " @props.messages.error[0].code
+        p null,
+          @props.messages.error[0].message
+        p null,
+          @props.messages.error[0].fields
+    else
+      null
 
 FormActions = React.create-class do
   render: ->
@@ -103,8 +119,10 @@ form-mixin = (state-key) ->
         | that.value? => that.value
         # plain value, allowed for greater compatibility
         | otherwise => event*/
+      /*console.log event.target.value*/
+      /*value = event?.target?.value*/
 
-      value = event?.target?.value || event
+      value = event.target.value
 
       data = updates @state[state-key], path-to-obj("#path", {$set: value})
       @set-state {"#state-key": data}
@@ -117,6 +135,7 @@ form-mixin = (state-key) ->
   date-for: make-updatable PikadayInput
   input-for: make-updatable Input
   updatable-for: make-updatable
+  messages: FormMessages
   actions: FormActions
 
 module.exports = form-mixin

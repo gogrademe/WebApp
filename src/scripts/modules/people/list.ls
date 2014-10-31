@@ -28,7 +28,7 @@ Dom = React.DOM
 custom-actions = (props)->
   SemanticModal.ModalTrigger modal: CreateAccountModal({person-id: props.row.id}),
     a class-name: "ui icon primary button tiny",
-      i class-name: "user icon"
+      i class-name: "icon settings"
 
 cols =
   * key: 'firstName'
@@ -97,6 +97,8 @@ PeopleList = React.create-class do
         @render-filter-button "Students"
         @render-filter-button "Teachers"
         @render-filter-button "Parents"
+        @render-filter-button "Admins"
+
       SemanticModal.ModalTrigger modal: @modal!,
         a class-name: "ui right floated primary tiny button", "New Person"
 

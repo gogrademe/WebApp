@@ -43,10 +43,6 @@ AssignmentsModal = React.create-class do
       .catch ~>
         console.log it
 
-  handle-change: (key, val)->
-    @state.assignment[key] = val
-    @set-state assignment: @state.assignment
-
   render: ->
     @transfer-props-to do
       Modal.SemanticModal title:"Create Assignment",
