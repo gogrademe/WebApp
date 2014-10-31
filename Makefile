@@ -10,7 +10,7 @@ build/container: build/$(NAME)
 	touch build/container
 
 push: build/container
-	docker push lanciv/gogrademeweb
+	docker push gogrademe/webapp
 # release:
 # 	rm -rf release
 # 	mkdir release
