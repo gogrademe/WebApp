@@ -5,5 +5,5 @@ require! {
 
 window.React = React
 
-React.render-component do
+React.render do
   AppRoutes, document.getElementById("app")
