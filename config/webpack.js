@@ -18,7 +18,7 @@ module.exports = function (release) {
     cache: !release,
     debug: !release,
     devtool: false,
-    entry: './src/scripts/index.ls',
+    entry: './src/scripts/index.js',
 
     stats: {
       colors: true,
