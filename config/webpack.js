@@ -17,7 +17,7 @@ module.exports = function (release) {
 
     cache: !release,
     debug: !release,
-    devtool: false,
+    devtool: release ? false : "#inline-source-map",
     entry: './src/scripts/index.js',
 
     stats: {

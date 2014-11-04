@@ -11,7 +11,7 @@ Dom = React.DOM
 SemanticModal = React.create-class do
   displayName: "SemanticModal"
   prop-types:
-    title: PropTypes.renderable
+    title: PropTypes.node
     backdrop: PropTypes.bool
     close-button: PropTypes.bool
     on-request-hide: PropTypes.func.isRequired
@@ -69,7 +69,7 @@ OverlayMixin =
       @_mountOverlayTarget!
 
     # Save reference to help testing
-    @_overlayInstance = React.renderComponent(@renderOverlay!, @_overlayTarget)
+    @_overlayInstance = React.render(@renderOverlay!, @_overlayTarget)
 
   _unrenderOverlay: ->
     React.unmountComponentAtNode(@_overlayTarget)
@@ -95,7 +95,7 @@ ModalTrigger = React.create-class do
   mixins: [OverlayMixin],
 
   propTypes:
-    modal: PropTypes.renderable.isRequired
+    modal: PropTypes.node.isRequired
 
   getInitialState: ->
     is-overlay-shown: false

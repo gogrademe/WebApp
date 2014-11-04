@@ -3,7 +3,7 @@ require! {
 
   "../../api/api.ls"
 
-  '../../components/Header.ls'
+  '../../components/Header'
 }
 
 Dom = React.DOM

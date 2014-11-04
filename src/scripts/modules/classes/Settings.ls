@@ -1,8 +1,6 @@
 require! {
   'react': React
   "../../components/Panel.ls"
-
-  '../../components/Header.ls': Header
 }
 
 Dom = React.DOM

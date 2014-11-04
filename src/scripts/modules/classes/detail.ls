@@ -5,8 +5,6 @@ require! {
   '../../components/NewTable.ls'
 
   "../../api/api.ls"
-
-  '../../components/Header.ls'
 }
 Dom = React.DOM
 {div, input, i} = Dom

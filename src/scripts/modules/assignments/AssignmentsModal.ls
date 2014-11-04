@@ -10,8 +10,6 @@ require! {
 
   "../../components/AutocompleteFor.ls"
 
-  '../../components/Header.ls': Header
-
   "../../components/FormMixin.ls"
 
 }
