@@ -10,9 +10,9 @@ var webpack = require('webpack');
 module.exports = function (release) {
   return {
     output: {
-      path: './build/',
+      path: release ? './build/' : './stage',
       filename: 'app.js',
-      publicPatch: './build/'
+      publicPatch: release ? './build/' : './stage'
     },
 
     cache: !release,

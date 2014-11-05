@@ -18,8 +18,8 @@ var browserSync = require('browser-sync');
 var argv = require('minimist')(process.argv.slice(2));
 
 // Settings
-var DEST = './build';                         // The build output folder
 var RELEASE = !!argv.release;                 // Minimize and optimize during a build?
+var DEST = RELEASE ? './build' : './stage';                         // The build output folder
 var GOOGLE_ANALYTICS_ID = 'UA-XXXXX-X';       // https://www.google.com/analytics/web/
 var AUTOPREFIXER_BROWSERS = [                 // https://github.com/ai/autoprefixer
   'ie >= 10',

@@ -37,7 +37,7 @@ PersonModal = React.create-class do
   render-student-section: ->
     #if @state.data.types.index-of('Student') > -1 then
     if 'Student' in @state.data.types then
-      div null,
+      div class-name: "field",
         h4 class-name: "ui dividing header",
           "Student Info"
         div class-name: "field",
