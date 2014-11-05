@@ -2,6 +2,10 @@ NAME=GoGradeMeWeb
 HARDWARE=$(shell uname -m)
 VERSION=0.1.0
 
+deps:
+	npm install -g gulp
+	npm install
+
 build/$(NAME):
 	gulp build --release
 
@@ -23,4 +27,4 @@ push: build/container
 # 	echo "gogrademe/$(NAME)" > release/repo
 # 	gh-release
 
-.PHONY: push
+.PHONY: push deps
