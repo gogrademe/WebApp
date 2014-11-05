@@ -1,7 +1,7 @@
 require! {
   'react': React
 
-  '../components/Header.ls'
+  '../components/Header'
   "../components/Panel.ls"
 }
 

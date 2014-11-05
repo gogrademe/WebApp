@@ -1,6 +1,5 @@
 require! {
   'react': React
-  "../../components/Header.ls": Header
   "react-router": {Link}
   "../../components/ModalMixin.ls": ModalMixin
 

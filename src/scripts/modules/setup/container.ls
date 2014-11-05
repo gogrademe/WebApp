@@ -25,4 +25,4 @@ Container = React.create-class do
 
 module.exports =
   Container:       Container
-  AssignmentTypes: require './AssignmentTypes.ls'
+  AssignmentTypes: require './AssignmentTypes'

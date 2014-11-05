@@ -1,5 +1,5 @@
 var React = require('react');
-var AppRoutes = require('./routes.ls');
+var AppRoutes = require('./routes.jsx');
 
 window.React = React;
 

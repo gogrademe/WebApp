@@ -7,7 +7,6 @@ require! {
   '../../components/ActionRenderer.ls'
 
   '../../components/SemanticModal.ls'
-  '../../components/Header.ls'
 
   "../../api/api.ls"
 

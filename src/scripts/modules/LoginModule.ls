@@ -1,6 +1,6 @@
 require! {
   'react': React
-  "react-router": Router
+  "react-router": {Router, Navigation}
 
   "../components/Panel.ls"
   "../api/auth.ls"
@@ -10,6 +10,7 @@ Dom = React.DOM
 
 LoginPage = React.create-class do
   displayName: "LoginPage"
+  mixins: [Navigation]
   get-initial-state: ->
     error: null
     is-logging-in: false
@@ -21,8 +22,8 @@ LoginPage = React.create-class do
     password = @refs.password.getDOMNode().value.trim!
 
     auth.login email: email, password: password
-      .then ->
-        Router.transitionTo('dashboard')
+      .then ~>
+        @transitionTo('dashboard')
       .error ~>
         @set-state do
           is-logging-in: false

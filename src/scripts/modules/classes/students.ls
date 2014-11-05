@@ -7,7 +7,6 @@ require! {
   '../../components/autocomplete.ls'
 
   "../../api/api.ls"
-  '../../components/Header.ls': Header
 }
 
 Dom = React.DOM
