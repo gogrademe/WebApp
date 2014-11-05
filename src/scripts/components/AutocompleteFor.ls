@@ -79,10 +79,13 @@ GradeLevel = React.create-class do
   render-options: ->
     @state.grades.map (item, rId) ->
       Option key: rId, value: item, label: "#{item}"
+  
+  handle-change: ->
+    @props.on-change target: value: it.target.value
 
   render: ->
     @transfer-props-to do
-      Autocomplete placeholder: "Grade Level" dropdown: true,
+      Autocomplete on-change: @handle-change, placeholder: "Grade Level" dropdown: true,
         @render-options!
 
 ProfileTypes = React.create-class do

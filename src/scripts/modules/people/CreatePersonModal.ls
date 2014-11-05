@@ -21,16 +21,10 @@ PersonModal = React.create-class do
   displayName: "PersonModal"
   mixins: [FormMixin 'data']
 
-  on-select: ->
-    @state.data.gradeLevel = it
-    @set-state data: @state.data
-
   handle-submit: ->
     api.person.create @state.data
       .then ~>
         @props.on-request-hide!
-
-  handle-cancel: ->
 
   get-initial-state: ->
     data:
@@ -69,10 +63,7 @@ PersonModal = React.create-class do
               label null, "Type"
               @updatable-for AutocompleteFor.ProfileTypes, "types", null
             @render-student-section!
-
-
             @actions on-submit: @handle-submit, on-cancel: @props.on-request-hide
               #FormFor.Input label: "Grade Level" obj-id: "student.gradeLevel"
-
 
 module.exports = PersonModal
