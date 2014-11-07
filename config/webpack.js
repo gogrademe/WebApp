@@ -44,44 +44,44 @@ module.exports = function (release) {
     },
 
     module: {
-      preLoaders: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loader: 'jshint'
-        }
-      ],
-
-      loaders: [
-        {
-          test: /\.css$/,
-          loader: 'style!css'
-        },
-        {
-          test: /\.less$/,
-          loader: 'style!css!less'
-        },
-        {
-          test: /\.gif/,
-          loader: 'url-loader?limit=10000&mimetype=image/gif'
-        },
-        {
-          test: /\.jpg/,
-          loader: 'url-loader?limit=10000&mimetype=image/jpg'
-        },
-        {
-          test: /\.png/,
-          loader: 'url-loader?limit=10000&mimetype=image/png'
-        },
-        {
-          test: /\.(js|jsx)$/,
-          loader: 'jsx-loader?harmony'
-        },
-        {
-          test: /\.ls$/,
-          loader: 'livescript-loader'
-        }
-      ]
+      preLoaders: [{
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'jshint'
+      }],
+      loaders: [{
+        test: /\.css$/,
+        loader: 'style!css'
+      },
+      {
+        test: /\.less$/,
+        loader: 'style!css!less'
+      },
+      {
+        test: /\.gif/,
+        loader: 'url-loader?limit=10000&mimetype=image/gif'
+      },
+      {
+        test: /\.jpg/,
+        loader: 'url-loader?limit=10000&mimetype=image/jpg'
+      },
+      {
+        test: /\.png/,
+        loader: 'url-loader?limit=10000&mimetype=image/png'
+      },
+      // {
+      //   exclude: /node_modules/,
+      //   test: /\.(js|jsx)$/, 
+      //   loader: 'sweetjs?modules[]=./macros.sjs,readers[]=jsx-reader'
+      // },
+      {
+        test: /\.(js|jsx)$/,
+        loader: 'jsx-loader?harmony'
+      },
+      {
+        test: /\.ls$/,
+        loader: 'livescript-loader'
+      }]
     }
   };
 };

@@ -18,11 +18,12 @@ Container = React.create-class do
         div class-name: "ui stackable grid",
           div class-name: "right floated three wide column",
             div class-name: "ui fluid vertical menu sunken",
+              Link class-name: "item" to: "setup.terms", "Terms"
               Link class-name: "item" to: "setup.assignment-types", "Assignment Types"
           div class-name: "thirteen wide column",
             @props.active-route-handler!
 
-
 module.exports =
   Container:       Container
   AssignmentTypes: require './AssignmentTypes'
+  Terms: require './Terms'

@@ -13,9 +13,6 @@ AssignmentTypes = React.createClass({
     display: "Weight",
     format: 'decimalPercent'
   }, {
-    key: "maxScore",
-    display: "Max Score"
-  }, {
     display: '',
     resourceType: "type",
     renderer: NewTable.CrudActions,
@@ -29,9 +26,6 @@ AssignmentTypes = React.createClass({
   }, {
     key: "weight",
     label: "Weight"
-  }, {
-    key: "maxScore",
-    label: "Max Score"
   }],
   fetch: function() {
     return api.type.find();

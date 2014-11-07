@@ -1,6 +1,6 @@
 
 var React = require('react');
-var HeaderNav = require('./components/Header.jsx');
+var HeaderNav = require('./components/Header');
 var api = require('./api/api.ls');
 var auth = require('./api/auth.ls');
 
