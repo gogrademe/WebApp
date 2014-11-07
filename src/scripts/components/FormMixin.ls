@@ -58,6 +58,7 @@ FormActions = React.create-class do
         "Save"
 
 Input = React.create-class do
+  display-name: "Input"
   prop-types:
     type: React.PropTypes.string.isRequired
 
@@ -79,13 +80,41 @@ Input = React.create-class do
           value: @props.value
           on-blur: @props.on-blur
 
+NumberInput = React.create-class do
+  display-name: "NumberInput"
+  get-default-props: ->
+    label: ""
+    type: "text"
+    placeholder: ""
+
+  handle-change: ->
+    event = it
+    val = event.target.value
+
+    event.target.value = parse-float val, 10
+
+    console.log typeof event.target.value
+
+    @props.on-change event
+
+  render: ->
+    placeholder = @props.placeholder || @props.label
+    div class-name: "field",
+      label null, @props.label if @props.label
+      @transfer-props-to do
+        input do
+          ref: "input"
+          placeholder: placeholder
+          type: @props.type
+          on-change: @handle-change
+          value: @props.value
+          on-blur: @props.on-blur
+
 
 PikadayInput = React.create-class do
   get-default-props: ->
     label: ""
     placeholder: ""
-    #display-format: "L"
-    #value-format: "L"
 
   get-initial-state: ->
     value: null
@@ -110,18 +139,8 @@ form-mixin = (state-key) ->
   get-initial-state: -> {"#state-key": {}}
 
   get-props = (path) ->
-    value: value-from-path("#state-key.#path", this.state)
+    value: value-from-path("#state-key.#path", @state)
     on-change: (event) ~>
-
-      /*console.log event
-      value = switch event?.target
-        # input like
-        | that.value? => that.value
-        # plain value, allowed for greater compatibility
-        | otherwise => event*/
-      /*console.log event.target.value*/
-      /*value = event?.target?.value*/
-
       value = event.target.value
 
       data = updates @state[state-key], path-to-obj("#path", {$set: value})
@@ -134,6 +153,7 @@ form-mixin = (state-key) ->
 
   date-for: make-updatable PikadayInput
   input-for: make-updatable Input
+  num-input-for: make-updatable NumberInput
   updatable-for: make-updatable
   messages: FormMessages
   actions: FormActions
