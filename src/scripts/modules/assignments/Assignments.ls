@@ -1,10 +1,8 @@
 require! {
   'react': React
 
-
-  "../../components/Panel.ls"
   '../../components/NewTable.ls'
-  '../../components/ActionRenderer.ls'
+  '../../components/ActionRenderer'
 
   '../../components/SemanticModal.ls'
 

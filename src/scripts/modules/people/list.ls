@@ -2,7 +2,7 @@ require! {
   'react': React
 
   "../../components/Panel.ls"
-  '../../components/ActionRenderer.ls'
+  '../../components/ActionRenderer'
 
   "../../api/api.ls"
 

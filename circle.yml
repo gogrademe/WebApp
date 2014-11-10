@@ -1,2 +1,16 @@
 general:
-  build_dir: build
+  artifacts:
+    - "build"
+machine:
+  node:
+    version: 0.10.33
+  services:
+    - docker
+dependencies:
+  override:
+    - make deps
+  cache_directories:
+    - "node_modules"
+test:
+  override:
+    - make

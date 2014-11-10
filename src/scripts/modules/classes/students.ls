@@ -3,7 +3,7 @@ require! {
 
   "../../components/Panel.ls"
   '../../components/NewTable.ls'
-  '../../components/ActionRenderer.ls'
+  '../../components/ActionRenderer'
   '../../components/autocomplete.ls'
 
   "../../api/api.ls"
