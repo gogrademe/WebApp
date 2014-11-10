@@ -3,15 +3,13 @@ require! {
 
   '../../components/SemanticModal.ls': Modal
 
-  '../../components/DatePicker'
-
   "../../api/api.ls"
 
   "../../components/autocomplete.ls"
 
   "../../components/AutocompleteFor.ls"
 
-  "../../components/FormMixin.ls"
+  "../../components/FormMixin"
 }
 
 Dom = React.DOM

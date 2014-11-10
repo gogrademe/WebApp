@@ -6,7 +6,7 @@ require! {
   "../api/auth.ls"
 }
 Dom = React.DOM
-{form, div, span, i, input, button, h2, li, ul, h4} = Dom
+{form, div, span, i, input, button, h2, li, ul, h4, img} = Dom
 
 LoginPage = React.create-class do
   displayName: "LoginPage"
@@ -39,10 +39,8 @@ LoginPage = React.create-class do
 
   render: ->
     div class-name:"login container",
-      h2 class-name:"ui centered header",
-        "Cunae Gradebook"
-      #Panel class-name: "five wide column" title: "Login" hasBody: true,
-      div class-name: "",
+      img className:"logo" src:"logo.svg"
+      div null,
         form className: "ui fluid form segment" onSubmit: @handleSubmit,
           h4 class-name: "ui header",
             "Login"

@@ -2,7 +2,7 @@ require! {
   'react': React
 
   'react-router': {Link}
-  '../utils.ls'
+  '../utils/index'
 }
 
 Dom = React.DOM

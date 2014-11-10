@@ -9,6 +9,8 @@
   "dependencies": {
     "bluebird": "^2.3.4",
     "eventemitter3": "^0.1.2",
+    "lodash": "^2.4.1",
+    "material-ui": "^0.2.1",
     "moment": "^2.8.3",
     "pikaday": "^1.2.0",
     "prelude-ls": "^1.1.1",

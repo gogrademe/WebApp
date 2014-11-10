@@ -1,7 +1,7 @@
 require! {
   'react': React
 
-  '../components/PageHeader.ls': Header
+  '../components/PageHeader': Header
 
   "../api/api.ls"
 }

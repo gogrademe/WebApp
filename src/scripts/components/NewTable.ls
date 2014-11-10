@@ -4,7 +4,7 @@ require! {
   'prelude-ls': p
 
   "../api/api.ls"
-  "../utils.ls"
+  "../utils/index": utils
 }
 
 Dom = React.DOM

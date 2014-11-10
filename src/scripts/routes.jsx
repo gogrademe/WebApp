@@ -7,8 +7,8 @@ var LogoutModule = require('./modules/Logout.jsx');
 var DashboardModule = require('./modules/DashboardModule.jsx');
 var NotFoundModule = require('./modules/NotFoundModule.ls');
 var Classes = require('./modules/classes/index.ls');
-var Setup = require('./modules/setup/container.ls');
-var People = require('./modules/people/index.ls');
+var Setup = require('./modules/setup/Container');
+var People = require('./modules/people/index');
 var School = require('./modules/SchoolSettings.ls');
 
 module.exports = (
@@ -31,6 +31,7 @@ module.exports = (
         <Route name="setup" handler={Setup.Container}>
           <Route name="setup.assignment-types" path="assignment-types" handler={Setup.AssignmentTypes} />
           <Route name="setup.terms" path="terms" handler={Setup.Terms} />
+          <Route name="setup.schoolYear" path="schoolyear" handler={Setup.SchoolYear} />
         </Route>
         <Route name="dashboard" path="dashboard" title="Dashboard" handler={DashboardModule} />
         <Redirect path="/" to="dashboard" />

@@ -5,7 +5,7 @@ require! {
 
   "../../api/api.ls"
 
-  "../../components/FormMixin.ls"
+  "../../components/FormMixin"
 
 }
 

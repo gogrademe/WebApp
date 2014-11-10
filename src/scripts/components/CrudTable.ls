@@ -3,12 +3,12 @@ require! {
 
   './NewTable.ls'
   './SemanticModal.ls'
-  './PageHeader.ls'
+  './PageHeader'
 
   "../api/api.ls"
 
 
-  "./FormMixin.ls"
+  "./FormMixin"
 }
 Dom = React.DOM
 {div, i, strong, a, form} = Dom
@@ -21,10 +21,20 @@ Modal = React.create-class do
     data: {}
 
   handle-submit: ->
+    console.log @state.data
+    api[@props.resource].create @state.data
+      .then ~>
+        @props.on-request-hide!
+      .error ~>
+        @set-state errors: it.body
 
   render-inputs: ->
     @props.form-fields.map (item, key) ~>
-      @input-for "#{item.key}", label: item.label, key: key
+      switch item.type
+      | 'default' => @input-row "#{item.key}", label: item.label
+      | 'number' => @num-input-for "#{item.key}", label: item.label, key: key
+      | otherwise => @input-for "#{item.key}", label: item.label, key: key
+
 
   render: ->
     @transfer-props-to do
@@ -65,11 +75,9 @@ Module = React.create-class do
 
   render: ->
     div null,
-      #if @props.title
-        #PageHeader primary: @props.title
       div class-name: "main container",
         div class-name: "ui top attached right aligned segment",
-          SemanticModal.ModalTrigger modal: Modal(title: "Create #{@props.title}" form-fields: @props.form-fields),
+          SemanticModal.ModalTrigger modal: Modal(title: "Create #{@props.title}", resource: @props.resource, form-fields: @props.form-fields),
             a class-name: "ui primary tiny button", "New"
         Grid class-name: "bottom attached" columns: @props.columns, data: @state.data
 

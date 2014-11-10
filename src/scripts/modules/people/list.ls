@@ -11,7 +11,7 @@ require! {
 
   '../../components/NewTable.ls'
 
-  '../../components/PageHeader.ls': Header
+  '../../components/PageHeader': Header
 
   '../../components/SemanticModal.ls'
 }

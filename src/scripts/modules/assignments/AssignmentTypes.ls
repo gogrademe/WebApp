@@ -5,6 +5,8 @@ require! {
   '../../components/ActionRenderer.ls'
   '../../components/SemanticModal.ls'
 
+  '../../mixins/FormMixin'
+
   "../../api/api.ls"
 
   'react-router': {Link}
@@ -29,6 +31,9 @@ assignment-cols =
 
 AssignmentTypes = React.create-class do
   displayName: "AssignmentTypes"
+this.linkState('startDate')
+  mixins: [FormMixin]
+
   get-initial-state: ->
     assignmentTypes: []
 

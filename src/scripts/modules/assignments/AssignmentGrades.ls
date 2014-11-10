@@ -5,7 +5,7 @@ require! {
 
   "../../api/api.ls"
 
-  '../../components/PageHeader.ls': Header
+  '../../components/PageHeader': Header
 
 }
 Dom = React.DOM

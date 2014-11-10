@@ -1,6 +1,6 @@
 var React = require('react');
 var SemanticModal = require('../../components/SemanticModal.ls');
-var FormMixin = require('../../components/FormMixin.ls');
+var FormMixin = require('../../components/FormMixin');
 
 var api = require('../../api/api.ls');
 

@@ -4,13 +4,12 @@ require! {
   '../../components/SemanticModal.ls': Modal
 
   "../../api/api.ls"
-  "../../utils.ls"
 
   "../../components/autocomplete.ls"
 
   "../../components/AutocompleteFor.ls"
 
-  "../../components/FormMixin.ls"
+  "../../components/FormMixin"
 
 }
 

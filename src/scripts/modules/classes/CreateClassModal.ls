@@ -3,7 +3,7 @@ require! {
   "react-router": {Link}
   "../../components/ModalMixin.ls": ModalMixin
 
-  "../../components/FormMixin.ls"
+  "../../components/FormMixin"
   "../../components/AutocompleteFor.ls"
   '../../components/SemanticModal.ls': Modal
 

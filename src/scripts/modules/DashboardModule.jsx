@@ -1,10 +1,9 @@
 /** @jsx React.DOM */
 var React = require('react');
-var Header = require('../components/PageHeader.ls');
+var Header = require('../components/PageHeader');
 var SemanticModal = require('../components/SemanticModal.ls');
 
 var DashboardModule = React.createClass({
-  displayName: "DashboardModule",
   renderItem: function(arg$){
     var header, time, description, author;
     header = arg$.header, time = arg$.time, description = arg$.description, author = arg$.author;

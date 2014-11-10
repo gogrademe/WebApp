@@ -13,7 +13,7 @@ require! {
 
   '../../components/SemanticModal.ls'
 
-  '../../components/PageHeader.ls': Header
+  '../../components/PageHeader': Header
   '../../components/src/modules/Dropdown.ls': select
 }
 Dom = React.DOM
