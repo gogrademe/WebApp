@@ -13,4 +13,4 @@ dependencies:
     - "node_modules"
 test:
   override:
-    - make
+    - make build
