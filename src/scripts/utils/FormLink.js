@@ -37,7 +37,7 @@ _.extend(FormLink.prototype, {
   requestChange: function (value) {
     var callback = this._validateField.bind(this, {
       showHelp: true,
-      showError: true,
+      showError: false,
       event: 'change'
     });
 
@@ -46,4 +46,3 @@ _.extend(FormLink.prototype, {
 });
 
 module.exports = FormLink;
-

@@ -1,22 +1,20 @@
-/** @jsx React.DOM */
-'use strict';
+var React = require('react');
+var mapValues = require('../utils/mapValues');
+var merge = require('react/lib/merge');
 
-var React = require('react'),
-    _ = require('underscore'),
-    FormStates = require('../constants/FormStates'),
-    AppDispatcher = require('../dispatcher/AppDispatcher'),
-    ActionTypes = require('../constants/ActionTypes'),
-    getServiceName = require('../utils/getServiceName'),
-    StoreUtils = require('../utils/StoreUtils'),
-    FormMessageTypes = require('../constants/FormMessageTypes'),
-    mapValues = require('../utils/mapValues'),
-    merge = require('react/lib/merge'),
-    createStore = StoreUtils.createStore;
+var _ = require('lodash');
 
-var _activeMessages = {},
-    _formState = FormStates.EDITABLE_STATE,
-    _defaultValues = {},
-    DEFAULT_FIELDS = ['email', 'name', 'password'];
+var mcFly = require('../flux/mcFly');
+
+var ActionTypes = require('../constants/ActionTypes');
+var FormMessageTypes = require('../constants/FormMessageTypes');
+var FormStates = require('../constants/FormStates');
+
+
+var _activeMessages = {};
+var _formState = FormStates.EDITABLE_STATE;
+var _defaultValues = {};
+var DEFAULT_FIELDS = ['email', 'name', 'password'];
 
 function renderMessage(message) {
   switch (message && message.id) {
@@ -36,28 +34,22 @@ function renderMessage(message) {
     return React.DOM.span(null, "User with this email is not found");
   case FormMessageTypes.BAD_EMAIL:
     return React.DOM.span(null, "Invalid email");
-  case FormMessageTypes.ACCOUNT_IS_USED:
-    return React.DOM.span(null, "Sorry, this account is already connected to another user.");
-  case FormMessageTypes.NOT_REGISTERED:
-    return React.DOM.span(null, "Sorry, this ", getServiceName(message.serviceType), " account is not connected to any Stampsy profile.");
-  case FormMessageTypes.HAS_ANOTHER_ACCOUNT:
-    return React.DOM.span(null, "Sorry, you have already connected a different ", getServiceName(message.serviceType), " account to this Stampsy profile.");
   }
 
   return message;
 }
 
-var FormStore = createStore({
-  get:function(key) {
+var FormStore = mcFly.createStore({
+  get: function (key) {
     return FormStore.getActiveMessages()[key];
   },
 
-  getFormState:function() {
+  getFormState: function () {
     return _formState;
   },
 
-  getActiveMessages:function() {
-    return mapValues(_activeMessages, function(message)  {
+  getActiveMessages: function () {
+    return mapValues(_activeMessages, function (message) {
       return message && {
         isError: message.isError,
         message: renderMessage(message.message)
@@ -65,33 +57,31 @@ var FormStore = createStore({
     });
   },
 
-  getFirstErrorKey:function() {
+  getFirstErrorKey: function () {
     return _.find(_.keys(_activeMessages), function (key) {
       var message = _activeMessages[key];
       return message && message.isError;
     });
   },
 
-  getDefaultValue:function(key) {
+  getDefaultValue: function (key) {
     return _defaultValues[key];
   }
-});
-
-AppDispatcher.register(function (payload) {
-  var action = payload.action;
-
-  switch (action.type) {
+}, function (payload) {
+  switch (payload.actionType) {
   case ActionTypes.SHOW_MODAL:
   case ActionTypes.SHOW_SIDEBAR:
     _formState = FormStates.EDITABLE_STATE;
     _activeMessages = {};
-    _defaultValues = merge(_defaultValues, _.pick(action.modal || {}, DEFAULT_FIELDS));
+    _defaultValues = merge(_defaultValues, _.pick(payload.modal || {}, DEFAULT_FIELDS));
     FormStore.emitChange();
     break;
 
   case ActionTypes.FORM_VALUE_CHANGED:
-    if (DEFAULT_FIELDS.indexOf(action.key) !== -1) {
-      _defaultValues[action.key] = action.value;
+    console.log(payload);
+    console.log("CHANGED");
+    if (DEFAULT_FIELDS.indexOf(payload.key) !== -1) {
+      _defaultValues[payload.key] = payload.value;
       FormStore.emitChange();
     }
     break;
@@ -111,7 +101,7 @@ AppDispatcher.register(function (payload) {
   case ActionTypes.SHOW_FORM_MESSAGES:
   case ActionTypes.SUBMIT_FORM_ERROR:
     _formState = FormStates.EDITABLE_STATE;
-    _activeMessages = merge(_activeMessages, action.messages);
+    _activeMessages = merge(_activeMessages, payload.messages);
     FormStore.emitChange();
     break;
 

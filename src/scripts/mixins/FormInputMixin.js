@@ -11,15 +11,16 @@ module.exports = {
         console.warn('Cannot use valueLink with FormInput. Use formLink instead.');
       }
     },
-    size: React.PropTypes.oneOf(['small', 'normal']),
-    hasMinHeight: React.PropTypes.bool,
-    color: React.PropTypes.oneOf(['light', 'dark']).isRequired,
     placeholder: React.PropTypes.string,
     type: React.PropTypes.string,
     name: React.PropTypes.string,
     autofill: React.PropTypes.bool
   },
-
+  getDefaultProps: function() {
+    return {
+      type: "text"
+    }
+  },
   getInitialState: function () {
     return {
       hasEdited: false
@@ -30,18 +31,9 @@ module.exports = {
     var fieldMessage = this.props.formLink.fieldMessage,
         isError = fieldMessage && fieldMessage.isError;
 
-    return {
-      'error': isError,
-      'light': this.props.color === 'light',
-      'minHeight': this.props.hasMinHeight
-    };
-  },
-
-  getDefaultProps: function () {
-    return {
-      color: 'dark',
-      size: 'normal'
-    };
+    if (isError) {
+      return 'error';
+    }
   },
 
   componentDidUpdate: function () {
@@ -80,6 +72,7 @@ module.exports = {
   },
 
   handleChange: function (e) {
+    console.log('change');
     this.setState({
       hasEdited: true
     });

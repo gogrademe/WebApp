@@ -1,11 +1,13 @@
-'use strict';
-
 var _ = require('lodash'),
     FormLink = require('../utils/FormLink'),
     noop = require('../utils/noop'),
     mapValues = require('../utils/mapValues'),
-    // FormStore = require('../stores/FormStore'),
     FormStates = require('../constants/FormStates');
+
+var FormStore = require('../stores/FormStore');
+var FormActionCreators = require('../actions/FormActionCreators');
+
+var isRequired = require('../utils/isRequired');
 
 var FormMixin = {
   getInitialState: function () {
@@ -16,40 +18,40 @@ var FormMixin = {
     };
   },
 
-  // handleFormStoreChanged: function () {
-  //   if (this.isMounted()) {
-  //     this.setState({
-  //       formMessages: FormStore.getActiveMessages(),
-  //       firstErrorKey: FormStore.getFirstErrorKey(),
-  //       formState: this.state.formState
-  //     });
-  //   }
-  // },
+  handleFormStoreChanged: function () {
+    if (this.isMounted()) {
+      this.setState({
+        formMessages: FormStore.getActiveMessages(),
+        firstErrorKey: FormStore.getFirstErrorKey(),
+        formState: FormStore.getFormState()
+      });
+    }
+  },
 
   componentWillMount: function () {
     this._linkedValidators = {};
     this._pendingMessages = {};
 
-    // FormStore.addChangeListener(this.handleFormStoreChanged);
+    FormStore.addChangeListener(this.handleFormStoreChanged);
   },
 
   componentWillUnmount: function () {
     this._linkedValidators = null;
     this._pendingMessages = null;
 
-    // FormStore.removeChangeListener(this.handleFormStoreChanged);
+    FormStore.removeChangeListener(this.handleFormStoreChanged);
   },
 
   isFormEditable: function () {
-    return this.state.formState === FormStates.EDITABLE_STATE;
+    return FormStore.getFormState() === FormStates.EDITABLE_STATE;
   },
 
   isFormSubmitting: function () {
-    return this.state.formState === FormStates.SUBMITTING_STATE;
+    return FormStore.getFormState() === FormStates.SUBMITTING_STATE;
   },
 
   isFormSubmitted: function () {
-    return this.state.formState === FormStates.SUBMITTED_STATE;
+    return FormStore.getFormState() === FormStates.SUBMITTED_STATE;
   },
 
   isFormValid: function (options) {
@@ -59,28 +61,32 @@ var FormMixin = {
     return !FormStore.getFirstErrorKey();
   },
 
-  // submitForm: function (sendRequest) {
-  //   if (!this.isFormEditable()) {
-  //     throw new Error('Form can only be submitted when in editable state.');
-  //   }
-  //
-  //   var isFormValid = this.isFormValid({
-  //     showError: true,
-  //     event: 'submit'
-  //   });
-  //
-  //   if (!isFormValid) {
-  //     console.log('form is invalid');
-  //     return;
-  //   }
-  //
-  //  FormActionCreators.submitForm();
-  //
-  //   sendRequest();
-  // },
+  submitForm: function (sendRequest) {
+    if (!this.isFormEditable()) {
+      throw new Error('Form can only be submitted when in editable state.');
+    }
+
+    var isFormValid = this.isFormValid({
+      showError: true,
+      event: 'submit'
+    });
+
+    if (!isFormValid) {
+      console.log('form is invalid');
+      return;
+    }
+
+   FormActionCreators.submitForm();
+
+    sendRequest();
+  },
 
   linkState: function (key) {
     return this.linkValidatedState(key, noop);
+  },
+
+  linkReqState: function(key) {
+    return this.linkValidatedState(key, isRequired);
   },
 
   linkValidatedState: function (key, validator) {
@@ -94,7 +100,7 @@ var FormMixin = {
       newState[key] = value;
       this.setState(newState, callback);
 
-      // FormActionCreators.valueChanged(key, value);
+      FormActionCreators.valueChanged(key, value);
     }.bind(this);
 
     validateField = function (options) {
@@ -112,10 +118,8 @@ var FormMixin = {
   },
 
   validateFields: function (keys, options) {
-    var newMessages;
-
-    newMessages = this._getClientFieldMessages(keys, options);
-    // FormActionCreators.showMessages(newMessages);
+    var newMessages = this._getClientFieldMessages(keys, options);
+    FormActionCreators.showMessages(newMessages);
   },
 
   isEnterKey: function (e) {
@@ -124,6 +128,7 @@ var FormMixin = {
   },
 
   _getClientFieldMessages: function (keys, options) {
+    console.log(keys, options);
     var fieldResults = this._runClientValidators(keys, options);
 
     return mapValues(fieldResults, function (result) {
@@ -169,11 +174,3 @@ var FormMixin = {
 };
 
 module.exports = FormMixin;
-
-
-/*****************
- ** WEBPACK FOOTER
- ** ./mixins/FormMixin.js
- ** module id = 54
- ** module chunks = 0
- **/

@@ -1,5 +1,6 @@
 
 var React = require('react');
+var Logo = require('../atoms/Logo');
 var {Router, Link} = require('react-router');
 var select = require('./src/modules/Dropdown.ls');
 var api = require('../api/api.ls');
@@ -62,4 +63,7 @@ var HeaderNav = React.createClass({
     );
   }
 });
+
+// <img className="logo" src="logo-only.svg"/>
+
 module.exports = HeaderNav;
