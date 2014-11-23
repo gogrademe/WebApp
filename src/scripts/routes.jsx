@@ -1,3 +1,5 @@
+/* @flow */
+
 var React = require('react');
 var {Route, Routes, Redirect, NotFoundRoute} = require('react-router');
 var App = require('./app.jsx');
@@ -31,7 +33,6 @@ module.exports = (
         <Route name="setup" handler={Setup.Container}>
           <Route name="setup.assignment-types" path="assignment-types" handler={Setup.AssignmentTypes} />
           <Route name="setup.terms" path="terms" handler={Setup.Terms} />
-          <Route name="setup.schoolYear" path="schoolyear" handler={Setup.SchoolYear} />
         </Route>
         <Route name="dashboard" path="dashboard" title="Dashboard" handler={DashboardModule} />
         <Redirect path="/" to="dashboard" />

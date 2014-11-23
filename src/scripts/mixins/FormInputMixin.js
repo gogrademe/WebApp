@@ -18,12 +18,14 @@ module.exports = {
   },
   getDefaultProps: function() {
     return {
-      type: "text"
+      type: "text",
+      required: true
     }
   },
   getInitialState: function () {
     return {
-      hasEdited: false
+      hasEdited: false,
+      focus: false
     };
   },
 
@@ -110,7 +112,9 @@ module.exports = {
       focus: false
     });
 
-    this.props.formLink.requestBlur();
+    this.props.formLink.requestBlur({
+      hasEdited: this.state.hasEdited
+    });
 
     if (this.props.onBlur) {
       this.props.onBlur(e);

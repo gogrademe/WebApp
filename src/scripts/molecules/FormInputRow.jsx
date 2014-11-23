@@ -1,16 +1,16 @@
 var React = require('react');
 var joinClasses = require('react/lib/joinClasses');
 
-// Atoms
-var FormInput = require('../atoms/FormInput');
+// Mixins
+var FormInputMixin = require('../mixins/FormInputMixin');
 
 // Utils
 var FormLink = require('../utils/FormLink');
 
 var FormInputRow = React.createClass({
-
+  mixins: [FormInputMixin],
   propTypes: {
-    component: React.PropTypes.func,
+    component: React.PropTypes.any,
     formLink: React.PropTypes.instanceOf(FormLink).isRequired,
     valueLink: function (props, propName) {
       if (props[propName]) {
@@ -30,42 +30,9 @@ var FormInputRow = React.createClass({
 
   getDefaultProps: function () {
     return {
-      required: true
+      component: "input",
     };
   },
-
-  getInitialState: function () {
-    return {
-      focus: false
-    };
-  },
-
-  handleBlur: function (e) {
-    this.setState({
-      focus: false
-    });
-
-    if (this.props.onBlur) {
-      this.props.onBlur(e);
-    }
-  },
-
-  handleFocus: function (e) {
-    this.setState({
-      focus: true
-    });
-
-    if (this.props.onFocus) {
-      this.props.onFocus(e);
-    }
-  },
-
-  handleKeyUp: function (e) {
-    if (this.props.onKeyUp) {
-      this.props.onKeyUp(e);
-    }
-  },
-
   isEmpty: function () {
     var value = this.props.formLink.value;
     if (!value) {
@@ -97,6 +64,13 @@ var FormInputRow = React.createClass({
           {props.label}
         </label>) : '';
 
+    var value = props.formLink.value || '';
+
+    // Empty string value prevents browser autofill
+    if (props.autofill && value === '') {
+      value = undefined;
+    }
+
     return (
         <div className={joinClasses('ui field', error)}
              data-empty={this.isEmpty()}
@@ -105,12 +79,14 @@ var FormInputRow = React.createClass({
 
           {label}
           <div className="ui corner labeled input">
-              <FormInput {...props}
+              <Component {...props}
                   ref="input"
+                  value={value}
+                  extraLineCount={0}
                   placeholder={props.placeholder || props.label}
                   onBlur={this.handleBlur}
                   onFocus={this.handleFocus}
-                  onKeyUp={this.handleKeyUp} />
+                  onChange={this.handleChange} />
               {required}
           </div>
           {this.renderMessage()}
@@ -152,10 +128,6 @@ var FormInputRow = React.createClass({
         {fieldMessage.message}
       </div>
     );
-  },
-
-  focus: function () {
-    this.refs.input.focus();
   }
 });
 

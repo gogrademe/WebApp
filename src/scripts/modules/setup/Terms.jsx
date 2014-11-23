@@ -1,12 +1,20 @@
 var React = require('react');
 var api = require('../../api/api.ls');
 var CrudTable = require('../../components/CrudTable.ls');
+
 var NewTable = require('../../components/NewTable.ls');
+
+var SemanticModal = require("../../components/SemanticModal.ls");
+
+var TermModal = require('../../modals/Term');
 
 var Terms = React.createClass({
     tableColumns: [{
-        key: "schoolYear",
-        display: "School Year"
+        key: "schoolYear.start",
+        display: "School Year Start"
+    }, {
+        key: "schoolYear.end",
+        display: "School Year End"
     }, {
         key: "name",
         display: "Name"
@@ -26,27 +34,34 @@ var Terms = React.createClass({
         className: "right aligned",
         tdClassName: "right aligned"
     }],
-    fields: [{
-        key: "schoolYear",
-        label: "School Year"
-    }, {
-        key: "name",
-        label: "Name"
-    }, {
-        key: "startDate",
-        label: "Start Date"
-    }, {
-        key: "endDate",
-        label: "End Date"
-    }],
+    getInitialState() {
+        return {
+            data: []
+        }
+    },
     fetch() {
-        return api.term.find();
+        api.term.find()
+            .then((xs) => {
+              this.setState({
+                data: xs
+              })
+        })
+    },
+    componentWillMount() {
+        this.fetch()
     },
     render() {
         return (
-            <div>
-                <CrudTable columns={this.tableColumns} fetchData={this.fetch} resource="term" title="Term" formFields={this.fields} />
+          <div>
+            <div className="ui top attached right aligned segment">
+              <SemanticModal.ModalTrigger modal={TermModal()}>
+                <a className="ui primary tiny button">
+                  New
+                </a>
+              </SemanticModal.ModalTrigger>
             </div>
+            <NewTable.Grid className="bottom attached" columns={this.tableColumns} data={this.state.data} />
+          </div>
         );
     }
 });

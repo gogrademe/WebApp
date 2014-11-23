@@ -11,9 +11,6 @@ var Container = React.createClass({
           <div className="ui stackable grid">
             <div className="right floated three wide column">
               <div className="ui fluid vertical menu sunken">
-                <Link className="item" to="setup.schoolYear">
-                  School Years
-                </Link>
                 <Link className="item" to="setup.terms">
                   Terms
                 </Link>
@@ -35,5 +32,4 @@ module.exports = {
   Container: Container,
   AssignmentTypes: require('./AssignmentTypes'),
   Terms: require('./Terms'),
-  SchoolYear: require('./SchoolYear')
 };

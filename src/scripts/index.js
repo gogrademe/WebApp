@@ -1,3 +1,5 @@
+/* @flow */
+
 var React = require('react');
 var AppRoutes = require('./routes.jsx');
 

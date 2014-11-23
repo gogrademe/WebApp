@@ -74,7 +74,7 @@ ClassList = React.create-class do
                     selected-index: 0
                     default-value: xs[0].id
                     options: xs.map (x) ->
-                      text: "Year #{x?.schoolYear} - #{x?.name}"
+                      text: "Year #{x?.schoolYear.start}-#{x?.schoolYear.end} - #{x?.name}"
                       value: x?.id
 
   right-buttons: ->

@@ -26,10 +26,10 @@ _.extend(FormLink.prototype, {
     });
   },
 
-  requestBlur: function () {
+  requestBlur: function (options) {
     this._validateField({
       showHelp: false,
-      showError: true,
+      showError: options.hasEdited,
       event: 'blur'
     });
   },

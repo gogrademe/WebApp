@@ -35,16 +35,13 @@ View = React.create-class do
         @set-state terms: it[0]
         @set-state term: term
 
-  render-title: ->
-    | !@state.class or !@state.terms or !@state.term => "Loading..."
-    | otherwise => "#{@state.class.name} - #{@state.class.gradeLevel} / Year #{@state.term.schoolYear} - #{@state.term.name} "
   render-primary: ->
     | !@state.class => "Loading..."
     | otherwise => "#{@state.class.name} - #{@state.class.gradeLevel}"
 
   render-secondary: ->
     | !@state.term => ""
-    | otherwise => "Year #{@state.term.schoolYear} - #{@state.term.name} "
+    | otherwise => "Year #{@state.term.schoolYear.start}-#{@state.term.schoolYear.end} - #{@state.term.name} "
 
   render: ->
     div null,

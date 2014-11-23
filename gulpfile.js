@@ -145,7 +145,7 @@ gulp.task('bundle', function(cb) {
             throw new $.util.PluginError('webpack', err);
         }
 
-        !!argv.verbose && $.util.log('[webpack]', stats.toString({
+        $.util.log('[webpack]', stats.toString({
             colors: true
         }));
 

@@ -1,5 +1,3 @@
-'use strict';
-
 function validateRequiredString(string) {
   string = string || '';
 
