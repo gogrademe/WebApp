@@ -5,6 +5,8 @@ require! {
   '../../components/NewTable.ls'
 
   "../../api/api.ls"
+
+  "react-router": {State}
 }
 Dom = React.DOM
 {div, input, i} = Dom
@@ -59,6 +61,7 @@ GradeAverage = React.create-class do
       "#{@calc-grade!} | #{@calc-ib-grade @calc-grade!} | #{@calc-us-letter-grade @calc-grade!}"
 
 ClassDetail = React.create-class do
+  mixins:[State]
   displayName: "ClassDetail"
   get-initial-state: ->
     students: []
@@ -71,12 +74,12 @@ ClassDetail = React.create-class do
         @set-state grades: it
 
   get-students: ->
-    api.enrollment.find {class-id: @props.params.resource-id, term-id: @props.params.term-id}
+    api.enrollment.find {class-id: @getParams!.resource-id, term-id: @getParams!.term-id}
       .then ~>
         @set-state students: it
 
   get-assignments: ->
-    api.assignment.find {class-id: @props.params.resource-id, term-id: @props.params.term-id}
+    api.assignment.find {class-id: @getParams!.resource-id, term-id: @getParams!.term-id}
       .then ~>
         @set-state assignments: it
 

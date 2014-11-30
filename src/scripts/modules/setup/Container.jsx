@@ -1,6 +1,6 @@
 var React = require('react');
 var Header = require('../../components/PageHeader');
-var Link = require('react-router').Link;
+var {RouteHandler, Link} = require('react-router');
 
 var Container = React.createClass({
   render() {
@@ -20,7 +20,7 @@ var Container = React.createClass({
               </div>
             </div>
             <div className="thirteen wide column">
-              {this.props.activeRouteHandler()}
+              <RouteHandler />
             </div>
           </div>
         </div>

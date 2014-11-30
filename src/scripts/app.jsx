@@ -5,6 +5,8 @@ var HeaderNav = require('./components/Header');
 var api = require('./api/api.ls');
 var auth = require('./api/auth.ls');
 
+var {RouteHandler} = require('react-router');
+
 if (process.env.NODE_ENV !== "production") {
   api.baseUrl = 'http://localhost:5005';
 }
@@ -15,16 +17,18 @@ if (process.env.NODE_ENV === "production") {
 var App = React.createClass({
   loggedIn: function(){
     if (api.session.get()) {
-      return HeaderNav({});
+      return <HeaderNav />;
     }
   },
   render: function(){
     return (
       <div>
-        {this.loggedIn()}
+
+        <HeaderNav />
         <div className="page">
           <div className="full height">
-            {this.props.activeRouteHandler() || "Loading..."}
+            <RouteHandler/>
+
           </div>
         </div>
       </div>
@@ -32,3 +36,6 @@ var App = React.createClass({
   }
 });
 module.exports = App;
+
+// {this.loggedIn()}
+// {this.props.activeRouteHandler() || "Loading..."}
