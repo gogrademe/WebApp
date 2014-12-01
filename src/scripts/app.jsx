@@ -24,7 +24,7 @@ var App = React.createClass({
     return (
       <div>
 
-        <HeaderNav />
+        {this.loggedIn()}
         <div className="page">
           <div className="full height">
             <RouteHandler/>

@@ -26,7 +26,7 @@ View = React.create-class do
 
   component-will-mount: !->
     api.class.get @getParams!.resource-id
-      .then ~>
+      .then !~>
         @set-state do
           class: it
     api.term.find!
