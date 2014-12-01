@@ -1,12 +1,12 @@
 var React = require('react');
 
-var {Router, ActiveState} = require('react-router');
+var {Router, State, RouteHandler} = require('react-router');
 var api = require('../api/api.ls');
 var auth = require('../api/auth.ls');
 
 
 var SignedIn = React.createClass({
-  mixins: [ActiveState],
+  mixins: [State],
   statics: {
     willTransitionTo: function(transition, params){
       if (!api.auth.token) {
@@ -25,7 +25,7 @@ var SignedIn = React.createClass({
     }
   },
   render: function(){
-    return <div><this.props.activeRouteHandler /></div>
+    return <div><RouteHandler/></div>
   }
 });
 module.exports = SignedIn;
