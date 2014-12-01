@@ -50,7 +50,7 @@ View = React.create-class do
       div class-name: "main container",
         div class-name: "ui stackable grid",
           div class-name: "thirteen wide column",
-            RouteHandler class: @state.class, terms: @state.terms, term: @state.term
+            RouteHandler class-id: @getParams!.resource-id, term-id: @getParams!.term-id, class: @state.class, terms: @state.terms, term: @state.term
           div class-name: "right floated three wide column",
             div class-name: "ui fluid vertical menu sunken",
               #Link class-name: "item" to: "class.overview" params:{term-id: @getParams!.term-id, resource-id: @getParams!.resource-id}, "Home"

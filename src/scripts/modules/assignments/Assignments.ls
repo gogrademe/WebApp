@@ -72,7 +72,7 @@ ClassAssignments = React.create-class do
     @get-assignments!
 
   get-assignments: ->
-    api.assignment.find classId: @props.class.id, term-id: @props.term.id
+    api.assignment.find classId: @props.class-id, term-id: @props.term-id
       .then !~>
         @set-state do
           assignments: it
@@ -82,7 +82,7 @@ ClassAssignments = React.create-class do
     | otherwise => assignments-template xs
 
   modal: ->
-    AssignmentsModal class-id: @props.class.id, term-id: @props.term.id
+    AssignmentsModal class-id: @props.class-id, term-id: @props.term-id
 
   render: ->
     div null,

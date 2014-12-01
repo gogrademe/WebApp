@@ -50,7 +50,7 @@ ClassStudents = React.create-class do
     students: []
 
   get-enrollments: ->
-    api.enrollment.find {classId: @props.class.id, term-id: @props.term.id}
+    api.enrollment.find {classId: @props.class-id, term-id: @props.term-id}
       .then ~>
         @set-state do
           students: it
@@ -72,8 +72,8 @@ ClassStudents = React.create-class do
   enroll-student: ->
     api.enrollment.create do
       person-id: @state.selected-student
-      class-id: @props.class.id
-      term-id: @props.term.id
+      class-id: @props.class-id
+      term-id: @props.term-id
 
   render: ->
     div null,
