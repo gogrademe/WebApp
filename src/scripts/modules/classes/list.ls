@@ -53,9 +53,6 @@ ClassList = React.create-class do
       * key: 'gradeLevel'
         display: 'Grade Level'
 
-      * key: 'maxStudents'
-        display: 'Max Students'
-
       * display: ''
         resource-type: "class"
         renderer: NewTable.CrudActions
