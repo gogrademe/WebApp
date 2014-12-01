@@ -21,7 +21,6 @@ module.exports = (
       <Route name="school.settings" path="school/settings" handler={School.Settings} />
       <Route name="people" handler={People.List} />
       <Route name="people.detail" path="people/:resourceId" handler={People.Detail} />
-      <Route name="assignments.grades" title="Assignment Grades" path="assignments/:assignmentId" handler={Classes.AssignmentGrades} />
       <Route name="class" handler={Classes.List} />
       <Route path="class/:termId/:resourceId" handler={Classes.View}>
         <Route name="class.grades" title="Grades" path="grades" handler={Classes.Grades} />

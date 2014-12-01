@@ -7,6 +7,8 @@ require! {
 
   '../../components/PageHeader': Header
 
+  '../../components/SemanticModal.ls': Modal
+
 }
 Dom = React.DOM
 {div, input, i} = Dom
@@ -59,6 +61,10 @@ GradeInput = React.create-class do
             @change-loading false, true
 
   render: ->
+#    <div class="ui icon input loading">
+#  <input type="text" placeholder="Search...">
+#  <i class="search icon"></i>
+#</div>
     render-icon = ~>
       if @state.loading
         i class-name: "spinner loading icon"
@@ -79,7 +85,6 @@ GradeInput = React.create-class do
 
       render-icon!
 
-
 AssignmentGrades = React.create-class do
   displayName: "AssignmentGrades"
   get-initial-state: ->
@@ -88,7 +93,7 @@ AssignmentGrades = React.create-class do
     assignment: {}
 
   get-grades: ->
-    api.grade.find {assignment-id: @props.params.assignment-id}
+    api.grade.find {assignment-id: @props.assignment-id}
       .then ~>
         @set-state grades: it
 
@@ -98,7 +103,7 @@ AssignmentGrades = React.create-class do
         @set-state students: it
 
   get-assignment: ->
-    api.assignment.get @props.params.assignment-id
+    api.assignment.get @props.assignment-id
       .then ~>
         @set-state assignment: it
       .then ~>
@@ -109,13 +114,14 @@ AssignmentGrades = React.create-class do
     cols = [
       * key: "fullName"
         display: "Student"
-        class-name: "three wide"
+
       * key: "grade.comment"
         display: "Comments"
+
       * key: "grade.grade"
         display: "Grade"
-        assignment-id: @props.params.assignment-id
-        max-score: @state.assignment?.type?.max-score
+        assignment-id: @props.assignment-id
+        max-score: @state.assignment?.max-score
         renderer: GradeInput
     ]
 
@@ -135,14 +141,12 @@ AssignmentGrades = React.create-class do
 
     @get-assignment!
 
-
   component-will-unmount: ->
     api.grade.events.remove-listener "change", @get-grades
 
   render: ->
-    div null,
-      Header primary: @state.assignment?.name, secondary: @state.assignment?.type?.name
-      div class-name: "main container",
+    @transfer-props-to do
+      Modal.SemanticModal title: "#{@state.assignment?.name} - #{@state.assignment?.type?.name}",
         Grid columns: @build-cols!, data: @build-data!
 
 module.exports = AssignmentGrades

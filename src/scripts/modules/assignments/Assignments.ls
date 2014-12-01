@@ -11,6 +11,7 @@ require! {
   'react-router': {Link}
 
   './AssignmentsModal.ls'
+  './AssignmentGrades.ls'
 
 }
 
@@ -21,10 +22,14 @@ Dom = React.DOM
 
 AssignmentLink = React.create-class do
   display-name: "AssignmentLink"
+
+  modal: ->
+    AssignmentGrades assignment-id: @props.row.id
+
   render: ->
     div null,
-      Link to: "assignments.grades", params: {assignment-id: @props.row.id},
-        @props.value
+      SemanticModal.ModalTrigger modal: @modal!,
+        a null, @props.value
 
 assignment-cols =
   * key: 'name'
