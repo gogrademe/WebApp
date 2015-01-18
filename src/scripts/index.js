@@ -1,12 +1,13 @@
 /* @flow */
 
 var React = require('react');
-var AppRoutes = require('./routes.jsx');
+var AppRoutes = require('./routes');
 var Router = require('react-router');
+
+var FormsyValidators = require('./utils/validators')();
 
 window.React = React;
 
-// React.render(AppRoutes, document.getElementById("app"));
 
 
 Router.run(AppRoutes, function (Handler) {

@@ -47,6 +47,8 @@ var FormInputRow = React.createClass({
   },
 
   render: function() {
+    console.warn('WARN: FormInputRow has been depreciated.');
+
     var {component: Component, ...props} = this.props;
 
     var formLink = props.formLink;

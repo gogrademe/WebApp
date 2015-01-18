@@ -10,16 +10,19 @@ var webpack = require('webpack');
 module.exports = function (release) {
   return {
     output: {
-      path: release ? './build/' : './stage',
+      path: release ? './build/' : '/stage/',
       filename: 'app.js',
-      publicPatch: release ? './build/' : './stage'
+      publicPath: release ? '/build/' : '/stage/'
     },
 
     cache: !release,
     debug: !release,
     devtool: release ? false : "#inline-source-map",
-    entry: './src/scripts/index.js',
-
+    entry: [
+      'webpack-dev-server/client?http://0.0.0.0:3000',
+      'webpack/hot/only-dev-server',
+      './src/scripts/index.js'
+    ],
     stats: {
       colors: true,
       reasons: !release
@@ -32,11 +35,9 @@ module.exports = function (release) {
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.optimize.AggressiveMergingPlugin()
     ] : [
-      // new webpack.ProvidePlugin({
-      // React: "react/addons",
-      // moment: "moment",
-      // Tether: "tether"
-      // })
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin(),
+      new webpack.NewWatchingPlugin()
     ],
 
     resolve: {
@@ -71,12 +72,12 @@ module.exports = function (release) {
       },
       // {
       //   exclude: /node_modules/,
-      //   test: /\.(js|jsx)$/, 
+      //   test: /\.(js|jsx)$/,
       //   loader: 'sweetjs?modules[]=./macros.sjs,readers[]=jsx-reader'
       // },
       {
         test: /\.(js|jsx)$/,
-        loader: 'jsx-loader?harmony'
+        loaders: ['react-hot', 'jsx?harmony&stripTypes']
       },
       {
         test: /\.ls$/,

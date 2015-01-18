@@ -1,12 +1,13 @@
 var React = require('react');
 
-var {div, i, label, input} = React.DOM;
+var {div, i, label, input, p} = React.DOM;
 
 var FormMessages = React.createClass({
   propTypes: {
     messages: React.PropTypes.array
   },
   render: function(){
+    console.warn('WARN: FormMessages has been depreciated.');
     if (this.props.messages !== null) {
       return div({
         className: "ui visible error message"
