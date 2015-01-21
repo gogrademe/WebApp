@@ -8,8 +8,6 @@ var FormsyValidators = require('./utils/validators')();
 
 window.React = React;
 
-
-
 Router.run(AppRoutes, function (Handler) {
   React.render(<Handler/>, document.getElementById("app"));
 });

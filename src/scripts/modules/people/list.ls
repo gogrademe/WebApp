@@ -6,7 +6,9 @@ require! {
 
   "../../api/api.ls"
 
-  './CreatePersonModal.ls'
+  #'./CreatePersonModal.ls'
+
+  '../../modals/Person.jsx': CreatePersonModal
   './CreateAccountModal.jsx'
 
   '../../components/NewTable.ls'

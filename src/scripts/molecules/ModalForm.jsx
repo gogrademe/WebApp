@@ -4,8 +4,12 @@ var React = require('react');
 
 var Formsy = require('formsy-react');
 
+var RaisedButton = require('material-ui').RaisedButton;
+var Dialog = require('material-ui').Dialog;
+
 var SemanticModal = require('../components/SemanticModal');
 var parseAPIErrors = require('../utils/parseAPIErrors');
+
 
 var ModalForm = React.createClass({
   getDefaultProps: function(): Object {
@@ -15,17 +19,17 @@ var ModalForm = React.createClass({
   },
   getInitialState: function(): Object {
     return {
-      submitClass: "disabled"
+      canSubmit: false
     };
   },
   enableButton: function(): void {
     this.setState({
-      submitClass: ""
+      canSubmit: true
     });
   },
   disableButton: function(): void {
     this.setState({
-      submitClass: "disabled"
+      canSubmit: false
     });
   },
   onSubmitPushed: function(model: Object, resetModel: Function, updateInputsWithError: Function){
@@ -46,26 +50,40 @@ var ModalForm = React.createClass({
     this.refs.form.submit(e);
     return;
   },
+  // render: function(): any {
+  //   var {children, ...props} = this.props;
+  //   return (
+  //     <SemanticModal.SemanticModal {...props}>
+  //       <div className="content">
+  //         <Formsy.Form ref="form" className="ui form" onSubmit={this.onSubmitPushed} onValid={this.enableButton} onInvalid={this.disableButton}>
+  //           {children}
+  //         </Formsy.Form>
+  //       </div>
+  //       <div className="actions">
+  //         <RaisedButton onClick={this.props.onRequestHide} label="Cancel"/>
+  //         <RaisedButton disabled={!this.canSubmit} onClick={this.submitForm} label="Save" primary={true} />
+  //       </div>
+  //     </SemanticModal.SemanticModal>
+  //   );
+  // }
+  componentDidMount: function() {
+    this.refs.dialog.show();
+  },
   render: function(): any {
     var {children, ...props} = this.props;
+
+    var dialogActions = [
+    {text: 'Cancel', onClick: this.props.onCloseClick},
+    {text: 'Submit', onClick: this.submitForm}
+    ];
     return (
-      <SemanticModal.SemanticModal {...props}>
+      <Dialog {...props} ref="dialog" actions={dialogActions}>
         <div className="content">
           <Formsy.Form ref="form" className="ui form" onSubmit={this.onSubmitPushed} onValid={this.enableButton} onInvalid={this.disableButton}>
             {children}
           </Formsy.Form>
         </div>
-        <div className="actions">
-          <a className="ui labeled icon button" onClick={this.props.onRequestHide}>
-            <i className="cancel icon" />
-            Cancel
-          </a>
-          <a className={"ui labeled icon primary button " + this.state.submitClass} onClick={this.submitForm}>
-            <i className="save icon" />
-            Save
-          </a>
-        </div>
-      </SemanticModal.SemanticModal>
+      </Dialog>
     );
   }
 });

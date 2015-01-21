@@ -45,18 +45,23 @@ module.exports = function (release) {
     },
 
     module: {
-      preLoaders: [{
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'jshint'
-      }],
       loaders: [{
         test: /\.css$/,
         loader: 'style!css'
       },
+            // Any png-image or woff-font below or equal to 100K will be converted
+      // to inline base64 instead
+      {
+        test: /\.(png|woff)$/,
+        loader: 'url-loader?limit=100000' },
       {
         test: /\.less$/,
-        loader: 'style!css!less'
+        loaders: [
+          "style-loader",
+          "css-loader",
+          require.resolve("./css-fix-loader.js"),
+          "less-loader"
+        ]
       },
       {
         test: /\.gif/,
@@ -66,10 +71,7 @@ module.exports = function (release) {
         test: /\.jpg/,
         loader: 'url-loader?limit=10000&mimetype=image/jpg'
       },
-      {
-        test: /\.png/,
-        loader: 'url-loader?limit=10000&mimetype=image/png'
-      },
+      { test: /\.(eot|woff)$/, loader: 'file' },
       // {
       //   exclude: /node_modules/,
       //   test: /\.(js|jsx)$/,

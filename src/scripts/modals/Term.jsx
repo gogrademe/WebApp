@@ -8,6 +8,8 @@ var util = require('../utils/index');
 //Molecules
 var ModalForm = require('../molecules/ModalForm');
 var LabeledField = require('../molecules/LabeledField');
+var FormList = require('../molecules/FormList');
+
 
 
 type Term = {
@@ -15,25 +17,23 @@ type Term = {
   endDate: Date;
 };
 
+type SchoolYear = {
+  startYear: number;
+  endYear: number;
+  terms: Array<Term>;
+};
+
 var TermModal = React.createClass({
-  onSubmit(model: Term) {
-
-
-    return api.term.create(model);
+  onSubmit(model: SchoolYear) {
+    return api.year.create(model);
   },
   render() {
     return (
-      <ModalForm {... this.props} title="School Term" onSubmitAsync={this.onSubmit}>
+      <ModalForm {... this.props} title="School Year" onSubmitAsync={this.onSubmit}>
         <div className="field">
           <div className="two fields">
             <LabeledField label="Start Year" name="startYear" validations="isNumeric,isLessThan:endYear" placeholder="Start" required/>
-            <LabeledField label="End Year"name="endYear" validations="isNumeric,isMoreThan:startYear" placeholder="End" required/>
-          </div>
-        </div>
-        <div className="field">
-          <div className="two fields">
-            <LabeledField label="Start Date" name="startDate" validations="isDate" placeholder="Start Date" required/>
-            <LabeledField label="End Date" name="endDate" validations="isDate" placeholder="End Date" required/>
+            <LabeledField label="End Year" name="endYear" validations="isNumeric,isMoreThan:startYear" placeholder="End" required/>
           </div>
         </div>
       </ModalForm>

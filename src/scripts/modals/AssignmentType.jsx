@@ -10,7 +10,7 @@ var LabeledField = require('../molecules/LabeledField');
 
 var AssignmentType = React.createClass({
   onSubmit(model: Object) {
-    model.weight = parseFloat(model.weight / 100);
+    model.weight = Number(model.weight / 100);
 
     return api.type.create(model);
   },
