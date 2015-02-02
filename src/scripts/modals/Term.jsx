@@ -32,8 +32,8 @@ var TermModal = React.createClass({
       <ModalForm {... this.props} title="School Year" onSubmitAsync={this.onSubmit}>
         <div className="field">
           <div className="two fields">
-            <LabeledField label="Start Year" name="startYear" validations="isNumeric,isLessThan:endYear" placeholder="Start" required/>
-            <LabeledField label="End Year" name="endYear" validations="isNumeric,isMoreThan:startYear" placeholder="End" required/>
+            <LabeledField label="Start Year" name="startYear" validations="isNumeric,isLessThan:endYear" placeholder="Start" />
+            <LabeledField label="End Year" name="endYear" validations="isNumeric,isMoreThan:startYear" placeholder="End" />
           </div>
         </div>
       </ModalForm>

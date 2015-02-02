@@ -6,8 +6,7 @@ var NewTable = require('../../components/NewTable.ls');
 
 var SemanticModal = require("../../components/SemanticModal.ls");
 
-var ModalActions = require('../../actions/ModalActions');
-var ModalTypes = require('../../constants/ModalTypes');
+var {TermBtn} = require('../../molecules/ModalButtons');
 
 var Terms = React.createClass({
     tableColumns: [{
@@ -58,7 +57,7 @@ var Terms = React.createClass({
         return (
           <div>
             <div className="ui top attached right aligned segment">
-              <button onClick={this.showModal}>ShowModal </button>
+              <TermBtn label="New" primary={true}/>
             </div>
             <NewTable.Grid className="bottom attached" columns={this.tableColumns} data={this.state.data} />
           </div>

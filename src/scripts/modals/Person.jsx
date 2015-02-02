@@ -1,4 +1,5 @@
-/* @flow */
+"use strict";
+/** @flow */
 
 var React = require('react');
 
@@ -22,12 +23,12 @@ var PersonModal = React.createClass({
             Name
           </label>
           <div className="three fields">
-            <LabeledField name="firstName" placeholder="First Name" required/>
-            <LabeledField name="middleName" placeholder="Middle Name" required/>
-            <LabeledField name="lastName" placeholder="Last Name" required/>
+            <LabeledField name="firstName" placeholder="First Name"/>
+            <LabeledField name="middleName" placeholder="Middle Name" required={false}/>
+            <LabeledField name="lastName" placeholder="Last Name"/>
           </div>
-          <LabeledField label="Email" name="email" placeholder="Email" />
-          <AutocompleteFor.ProfileTypes name="types" />
+          <LabeledField label="Email" name="email" required={false}/>
+          <AutocompleteFor.ProfileTypes name="types"/>
         </div>
       </ModalForm>
     );

@@ -1,11 +1,10 @@
 /* @flow */
+"use strict";
 
 var React = require('react');
+var cx = require('react/lib/cx');
 
 var Formsy = require('formsy-react');
-
-var RaisedButton = require('material-ui').RaisedButton;
-var Dialog = require('material-ui').Dialog;
 
 var SemanticModal = require('../components/SemanticModal');
 var parseAPIErrors = require('../utils/parseAPIErrors');
@@ -36,7 +35,7 @@ var ModalForm = React.createClass({
     if (this.props.onSubmitAsync !== undefined) {
       this.props.onSubmitAsync(model)
         .then(() => {
-          this.props.onRequestHide();
+          this.dismiss();
         })
         .error((res) => {
           var parsedErrs = parseAPIErrors(res.body);
@@ -50,40 +49,31 @@ var ModalForm = React.createClass({
     this.refs.form.submit(e);
     return;
   },
-  // render: function(): any {
-  //   var {children, ...props} = this.props;
-  //   return (
-  //     <SemanticModal.SemanticModal {...props}>
-  //       <div className="content">
-  //         <Formsy.Form ref="form" className="ui form" onSubmit={this.onSubmitPushed} onValid={this.enableButton} onInvalid={this.disableButton}>
-  //           {children}
-  //         </Formsy.Form>
-  //       </div>
-  //       <div className="actions">
-  //         <RaisedButton onClick={this.props.onRequestHide} label="Cancel"/>
-  //         <RaisedButton disabled={!this.canSubmit} onClick={this.submitForm} label="Save" primary={true} />
-  //       </div>
-  //     </SemanticModal.SemanticModal>
-  //   );
-  // }
-  componentDidMount: function() {
-    this.refs.dialog.show();
-  },
   render: function(): any {
     var {children, ...props} = this.props;
 
-    var dialogActions = [
-    {text: 'Cancel', onClick: this.props.onCloseClick},
-    {text: 'Submit', onClick: this.submitForm}
-    ];
     return (
-      <Dialog {...props} ref="dialog" actions={dialogActions}>
+      <SemanticModal.SemanticModal {...props}>
         <div className="content">
           <Formsy.Form ref="form" className="ui form" onSubmit={this.onSubmitPushed} onValid={this.enableButton} onInvalid={this.disableButton}>
             {children}
           </Formsy.Form>
         </div>
-      </Dialog>
+        <div className="actions">
+          <a className="ui labeled icon button" onClick={this.props.onRequestHide}>
+            <i className="cancel icon" />
+            Cancel
+          </a>
+          <a className={cx({
+              'ui labeled icon primary button': true,
+              'disabled': !this.state.canSubmit
+            })}
+            onClick={this.submitForm}>
+            <i className="save icon" />
+            Save
+          </a>
+        </div>
+      </SemanticModal.SemanticModal>
     );
   }
 });

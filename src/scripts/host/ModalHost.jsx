@@ -1,3 +1,5 @@
+"use strict";
+
 var React = require('react');
 
 var Reflux = require('reflux');
@@ -11,6 +13,8 @@ var ModalTypes = require('../constants/ModalTypes');
 
 // Modals
 var TermModal = require('../modals/Term');
+var AssignmentTypeModal = require('../modals/AssignmentType');
+var AccountModal = require('../modals/Account');
 
 var ModalHost = React.createClass({
   mixins: [Reflux.ListenerMixin],
@@ -23,12 +27,6 @@ var ModalHost = React.createClass({
     this.setState({
         modal: modal
     });
-
-    // TODO: Check if modal was previously shown.
-    if (!modal && modal.shouldHide === true) {
-      this.refs.modal.dismiss();
-    }
-    // this.refs.standardDialog.show();
   },
   componentDidMount: function() {
       this.listenTo(modalStore, this.onModalStoreChange);
@@ -41,22 +39,34 @@ var ModalHost = React.createClass({
       </div>
     );
   },
-  closeModal: function() {
-    ModalActions.hideModal();
-  },
+
   getModal: function() {
     var modal = this.state.modal;
+
+    var props = {
+      ref: "modal",
+      onRequestHide: this._handleRequestHide
+    };
 
     if (!modal) {
       return null;
     }
     switch (modal.id) {
       case ModalTypes.TERM:
-        return <TermModal ref="modal" onCloseClick={this.closeModal} />
-        break;
+        return <TermModal {...props} />
+      case ModalTypes.ASSIGNMENT_TYPE:
+        return <AssignmentTypeModal {...props} />
+      case ModalTypes.ACCOUNT:
+        return <AccountModal {...props} />
+      case null:
+        return null;
       default:
+        console.warn("UNHANDLED MODAL TYPE: ", modal);
         return null;
     }
+  },
+  _handleRequestHide: function() {
+    ModalActions.hideModal();
   }
 });
 

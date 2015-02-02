@@ -1,5 +1,8 @@
-var Formsy = require('formsy-react');
+"use strict";
+
 var React = require('react');
+var Formsy = require('formsy-react');
+
 
 var MyAppForm = React.createClass({
   propTypes: {

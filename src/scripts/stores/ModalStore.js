@@ -1,3 +1,5 @@
+"use strict";
+
 var Reflux = require('reflux');
 
 var invariant = require('react/lib/invariant');
@@ -20,14 +22,15 @@ var ModalStore = Reflux.createStore({
       id
     );
     this.modal = {
-      id: id
+      id: id,
+      shouldHide: false
     };
 
     this.trigger(this.modal);
   },
   onHideModal: function(){
     // this.resetModalStore();
-
+    this.modal.id = null;
     this.modal.shouldHide = true;
 
     this.trigger(this.modal);

@@ -1,8 +1,9 @@
 /* @flow */
 
 var React = require('react');
-var AppRoutes = require('./routes');
 var Router = require('react-router');
+
+var AppRoutes = require('./routes');
 
 var FormsyValidators = require('./utils/validators')();
 

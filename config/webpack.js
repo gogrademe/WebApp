@@ -36,8 +36,7 @@ module.exports = function (release) {
       new webpack.optimize.AggressiveMergingPlugin()
     ] : [
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
-      new webpack.NewWatchingPlugin()
+      new webpack.NoErrorsPlugin()
     ],
 
     resolve: {

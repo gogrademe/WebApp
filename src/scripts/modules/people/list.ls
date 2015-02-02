@@ -9,13 +9,14 @@ require! {
   #'./CreatePersonModal.ls'
 
   '../../modals/Person.jsx': CreatePersonModal
-  './CreateAccountModal.jsx'
+  '../../molecules/ModalButtons': {AccountBtn}
 
   '../../components/NewTable.ls'
 
   '../../components/PageHeader': Header
 
   '../../components/SemanticModal.ls'
+
 }
 
 
@@ -28,9 +29,10 @@ Dom = React.DOM
 {Grid, CrudActions} = NewTable
 
 custom-actions = (props)->
-  SemanticModal.ModalTrigger modal: CreateAccountModal({person-id: props.row.id}),
-    a class-name: "ui icon primary button tiny",
-      i class-name: "icon settings"
+  AccountBtn label: "New" primary: true personId: props.row.id
+  #SemanticModal.ModalTrigger modal: CreateAccountModal({person-id: props.row.id}),
+  #  a class-name: "ui icon primary button tiny",
+  #    i class-name: "icon settings"
 
 cols =
   * key: 'firstName'

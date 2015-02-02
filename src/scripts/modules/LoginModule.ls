@@ -29,8 +29,8 @@ LoginPage = React.create-class do
           is-logging-in: false
           error: it
 
-  component-will-mount: ->
-    if auth.isLoggedIn! then Router.replaceWith('dashboard')
+  #component-will-mount: ->
+  #  if auth.isLoggedIn! then @replaceWith('dashboard')
 
   render-messages: ->
     if @state.error is not null
