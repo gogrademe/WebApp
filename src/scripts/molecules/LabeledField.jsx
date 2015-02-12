@@ -37,6 +37,9 @@ var LabeledInput = React.createClass({
           </label>
         ) : null;
 
+      var Field = this.props.field;
+      // var Field = React.createElement(this.props.field, otherProps);
+      // var Field = React.createFacyor(this.props.field);
       return (
         <div className={cx({
           'field': true,
@@ -54,17 +57,24 @@ var LabeledInput = React.createClass({
               value={this.getValue()}
               placeholder={placeholder || label}
             />
-          {this.isRequired() ?
-            (
-              <div className="ui corner label">
-                <i className="red asterisk icon" />
-              </div>
-            ): null}
-            {error}
+            {this.isRequired() ?
+              (
+                <div className="ui corner label">
+                  <i className="red asterisk icon" />
+                </div>
+              ): null}
+              {error}
           </div>
         </div>
       );
     }
   });
+
+      // <input
+      //   type={type}
+      //   onChange={this.changeValue}
+      //   value={this.getValue()}
+      //   placeholder={placeholder || label}
+      // />
 
 module.exports = LabeledInput;

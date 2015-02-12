@@ -35,7 +35,7 @@ var ModalForm = React.createClass({
     if (this.props.onSubmitAsync !== undefined) {
       this.props.onSubmitAsync(model)
         .then(() => {
-          this.dismiss();
+          this.props.onRequestHide();
         })
         .error((res) => {
           var parsedErrs = parseAPIErrors(res.body);

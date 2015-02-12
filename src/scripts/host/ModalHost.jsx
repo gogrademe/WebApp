@@ -13,8 +13,10 @@ var ModalTypes = require('../constants/ModalTypes');
 
 // Modals
 var TermModal = require('../modals/Term');
+var AssignmentModal = require('../modals/Assignment');
 var AssignmentTypeModal = require('../modals/AssignmentType');
 var AccountModal = require('../modals/Account');
+var PersonModal = require('../modals/Person');
 
 var ModalHost = React.createClass({
   mixins: [Reflux.ListenerMixin],
@@ -53,11 +55,15 @@ var ModalHost = React.createClass({
     }
     switch (modal.id) {
       case ModalTypes.TERM:
-        return <TermModal {...props} />
+        return <TermModal {...props} {...modal.options} />
       case ModalTypes.ASSIGNMENT_TYPE:
-        return <AssignmentTypeModal {...props} />
+        return <AssignmentTypeModal {...props}{...modal.options} />
       case ModalTypes.ACCOUNT:
-        return <AccountModal {...props} />
+        return <AccountModal {...props}{...modal.options} />
+      case ModalTypes.PERSON:
+        return <PersonModal {...props} {...modal.options}/>
+      case ModalTypes.ASSIGNMENT:
+        return <AssignmentModal {...props}{...modal.options} />
       case null:
         return null;
       default:

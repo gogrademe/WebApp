@@ -6,7 +6,6 @@ var FormActions = React.createClass({
     onSubmit: React.PropTypes.func.isRequired
   },
   render: function(){
-    console.warn('WARN: FormActions has been depreciated.');
     return (
       <div className="actions">
         <a className="ui labeled icon button" onClick={this.props.onCancel}>

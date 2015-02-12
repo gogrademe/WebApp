@@ -7,9 +7,8 @@ require! {
   "../../api/api.ls"
 
   #'./CreatePersonModal.ls'
-
-  '../../modals/Person.jsx': CreatePersonModal
-  '../../molecules/ModalButtons': {AccountBtn}
+  
+  '../../molecules/ModalButtons': {AccountBtn, PersonBtn}
 
   '../../components/NewTable.ls'
 
@@ -29,7 +28,8 @@ Dom = React.DOM
 {Grid, CrudActions} = NewTable
 
 custom-actions = (props)->
-  AccountBtn label: "New" primary: true personId: props.row.id
+  AccountBtn primary: true icon: true personId: props.row.id,
+    i class-name: "icon settings"
   #SemanticModal.ModalTrigger modal: CreateAccountModal({person-id: props.row.id}),
   #  a class-name: "ui icon primary button tiny",
   #    i class-name: "icon settings"
@@ -103,8 +103,9 @@ PeopleList = React.create-class do
         @render-filter-button "Parents"
         @render-filter-button "Admins"
 
-      SemanticModal.ModalTrigger modal: @modal!,
-        a class-name: "ui right floated primary tiny button", "New Person"
+      PersonBtn className: "ui right floated primary tiny button" label: "New" primary: true
+      #SemanticModal.ModalTrigger modal: @modal!,
+      #  a class-name: "ui right floated primary tiny button", "New Person"
 
   filtered-data: ->
     format = ~>

@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require('react');
+var cx = require('react/lib/cx');
 
 // var Button = require('react-semantic-ui').Button;
 
@@ -12,15 +13,20 @@ var ModalButton = React.createClass({
     modal: React.PropTypes.string.isRequired
   },
   handleOnClick: function() {
-    var {modal, ...other} = this.props;
+    var {modal, className, ...otherProps} = this.props;
 
-    ModalActions.showModal(modal, other);
+    ModalActions.showModal(modal, otherProps);
   },
   render: function(){
+    var {modal, className, icon, ...otherProps} = this.props;
     return (
-      <button className="ui primary tiny button" onClick={this.handleOnClick}>
-        {this.props.label}
-      </button>
+      <a className={cx({
+          'ui tiny button': true,
+          'primary': true,
+          'icon': icon
+        })} onClick={this.handleOnClick} {...this.props}>
+        {this.props.label || this.props.children}
+      </a>
     );
   }
 });
@@ -40,6 +46,13 @@ var AssignmentTypeBtn = React.createClass({
     );
   }
 });
+var AssignmentBtn = React.createClass({
+  render: function(){
+    return (
+      <ModalButton modal={ModalTypes.ASSIGNMENT} {...this.props}/>
+    );
+  }
+});
 var AccountBtn = React.createClass({
   render: function(){
     return (
@@ -47,10 +60,19 @@ var AccountBtn = React.createClass({
     );
   }
 });
+var PersonBtn = React.createClass({
+  render: function(){
+    return (
+      <ModalButton modal={ModalTypes.PERSON} {...this.props}/>
+    );
+  }
+});
 
 
 module.exports = {
   TermBtn: TermBtn,
+  PersonBtn: PersonBtn,
   AssignmentTypeBtn: AssignmentTypeBtn,
+  AssignmentBtn: AssignmentBtn,
   AccountBtn: AccountBtn
 };

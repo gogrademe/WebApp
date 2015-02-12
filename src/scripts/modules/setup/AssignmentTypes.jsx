@@ -40,6 +40,13 @@ module.exports = React.createClass({
     showModal() {
         ModalActions.showModal(ModalTypes.ASSIGNMENT_TYPE);
     },
+    componentDidMount() {
+      api.type.events.addListener("change", this.fetch)
+    },
+    componentWillUnmount() {
+      api.type.events.removeListener("change", this.fetch)
+    },
+
     render() {
         return (
           <div>

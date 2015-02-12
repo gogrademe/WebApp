@@ -18,7 +18,7 @@ var TextInput = React.createClass({
   render: function(){
     var lab = this.props.label;
     var placeholder = this.props.placeholder || lab;
-
+    console.warn('WARN: TextInput has been depreciated.');
     return div({
       className: "field"
     }, this.props.label ? label(null, lab) : void 8, this.transferPropsTo(input({

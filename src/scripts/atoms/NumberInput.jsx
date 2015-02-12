@@ -21,6 +21,7 @@ var NumberInput = React.createClass({
     return this.props.onChange(event);
   },
   render: function(){
+    console.warn('WARN: NumberInput has been depreciated.');
     var placeholder;
     placeholder = this.props.placeholder || this.props.label;
     return div({

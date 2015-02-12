@@ -1,3 +1,4 @@
+"use strict";
 /* @flow */
 
 var React = require('react');
@@ -24,7 +25,26 @@ type SchoolYear = {
 };
 
 var TermModal = React.createClass({
+  mapModel(model) {
+    return {
+      "startYear": model.startYear,
+      "endYear": model.endYear,
+      "terms": [
+        {
+          "name": "term1",
+          "startDate": model.term1_startDate,
+          "endDate": model.term1_endDate
+        },
+        {
+          "name": "term2",
+          "startDate": model.term2_startDate,
+          "endDate": model.term2_endDate
+        }
+      ]
+    };
+  },
   onSubmit(model: SchoolYear) {
+    model = this.mapModel(model);
     return api.year.create(model);
   },
   render() {
@@ -34,6 +54,34 @@ var TermModal = React.createClass({
           <div className="two fields">
             <LabeledField label="Start Year" name="startYear" validations="isNumeric,isLessThan:endYear" placeholder="Start" />
             <LabeledField label="End Year" name="endYear" validations="isNumeric,isMoreThan:startYear" placeholder="End" />
+          </div>
+        </div>
+        <div className="field">
+          <label>Term One</label>
+          <div className="two fields">
+            <LabeledField name="term1_startDate" validations="isDate" placeholder="Start Date" required/>
+            <LabeledField name="term1_endDate" validations="isDate" placeholder="End Date" required/>
+          </div>
+        </div>
+        <div className="field">
+          <label>Term Two</label>
+          <div className="two fields">
+            <LabeledField name="term2_startDate" validations="isDate" placeholder="Start Date" required/>
+            <LabeledField name="term2_endDate" validations="isDate" placeholder="End Date" required/>
+          </div>
+        </div>
+        <div className="field">
+          <label>Term Three</label>
+          <div className="two fields">
+            <LabeledField name="term3_startDate" validations="isDate" placeholder="Start Date" required/>
+            <LabeledField name="term3_endDate" validations="isDate" placeholder="End Date" required/>
+          </div>
+        </div>
+        <div className="field">
+          <label>Term Four</label>
+          <div className="two fields">
+            <LabeledField name="term4_startDate" validations="isDate" placeholder="Start Date" required/>
+            <LabeledField name="term4_endDate" validations="isDate" placeholder="End Date" required/>
           </div>
         </div>
       </ModalForm>
