@@ -1,3 +1,4 @@
+"use strict";
 
 var React = require('react');
 var Logo = require('../atoms/Logo');
@@ -5,6 +6,17 @@ var {Router, Link} = require('react-router');
 var select = require('./src/modules/Dropdown.ls');
 var api = require('../api/api.ls');
 var auth = require('../api/auth.ls');
+
+
+
+var mui = require('material-ui');
+var DropDownIcon = mui.DropDownIcon;
+var DropDownMenu = mui.DropDownMenu;
+var MenuItem = mui.MenuItem;
+var Icon = mui.Icon;
+var RaisedButton = mui.RaisedButton;
+var AppBar = mui.AppBar;
+var ToolbarGroup = mui.ToolbarGroup;
 
 var HeaderNav = React.createClass({
   displayName: "HeaderNav",
@@ -19,9 +31,10 @@ var HeaderNav = React.createClass({
         return this$.setState({
           person: it
         });
-      }).error(function(){
-        return Router.replaceWith("/logout");
       });
+      // .error(function(){
+      //   return Router.replaceWith("/logout");
+      // });
     }
   },
   getInitialState: function(){

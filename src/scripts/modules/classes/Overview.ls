@@ -23,17 +23,17 @@ GradeOverview = React.create-class do
     assignments: []
 
   get-grades: ->
-    api.grade.find {class-id: @props.params.resource-id, term-id: @props.params.term-id}
+    api.grade.find {class-id: @props.class-id, term-id: @props.term-id}
       .then ~>
         @set-state grades: it
 
   get-students: ->
-    api.enrollment.find {class-id: @props.params.resource-id, term-id: @props.params.term-id}
+    api.enrollment.find {class-id: @props.class-id, term-id: @props.term-id}
       .then ~>
         @set-state students: it
 
   get-assignments: ->
-    api.assignment.find {class-id: @props.params.resource-id, term-id: @props.params.term-id}
+    api.assignment.find {class-id: @props.class-id, term-id: @props.term-id}
       .then ~>
         @set-state assignments: it
 

@@ -23,7 +23,8 @@ var date = function(x){
   }
 };
 var dateForUpload = function(it){
-  return moment(it).format("YYYY-DD-MM");
+  //return moment(it).format("YYYY-DD-MM");
+  return moment(it).toDate();
 };
 
 var pathToObj = function(path, value){

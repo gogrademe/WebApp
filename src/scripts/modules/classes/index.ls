@@ -53,7 +53,7 @@ View = React.create-class do
             RouteHandler class-id: @getParams!.resource-id, term-id: @getParams!.term-id, class: @state.class, terms: @state.terms, term: @state.term
           div class-name: "right floated three wide column",
             div class-name: "ui fluid vertical menu sunken",
-              #Link class-name: "item" to: "class.overview" params:{term-id: @getParams!.term-id, resource-id: @getParams!.resource-id}, "Home"
+              Link class-name: "item" to: "class.overview" params:{term-id: @getParams!.term-id, resource-id: @getParams!.resource-id}, "Home"
               Link class-name: "item" to: "class.grades" params:{term-id: @getParams!.term-id, resource-id: @getParams!.resource-id}, "Grades"
               Link class-name: "item" to: "class.students" params:{term-id: @getParams!.term-id, resource-id: @getParams!.resource-id}, "Students"
               Link class-name: "item" to: "class.assignments" params:{term-id: @getParams!.term-id, resource-id: @getParams!.resource-id}, "Assignments"
@@ -63,7 +63,7 @@ module.exports =
   View:       View
   List:        require './list.ls'
   Grades:      require './detail.ls'
-  Overview:      require './Overview.ls'
+  Overview:      require './Overview'
   Assignments: require '../assignments/Assignments.ls'
   AssignmentGrades: require '../assignments/AssignmentGrades.ls'
   Students:    require './students.ls'

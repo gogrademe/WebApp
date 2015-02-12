@@ -1,3 +1,5 @@
+"use strict";
+
 var React = require('react');
 
 var {Router, State, RouteHandler} = require('react-router');
@@ -9,7 +11,7 @@ var SignedIn = React.createClass({
   mixins: [State],
   statics: {
     willTransitionTo: function(transition, params){
-      if (!api.auth.token) {
+      if (!api.session.get()) {
         return transition.redirect('/login');
       }
     }
@@ -25,7 +27,11 @@ var SignedIn = React.createClass({
     }
   },
   render: function(){
-    return <div><RouteHandler/></div>
+    return(
+      <div>
+        <RouteHandler/>
+      </div>
+    );
   }
 });
 module.exports = SignedIn;

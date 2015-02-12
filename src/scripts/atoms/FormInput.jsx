@@ -1,3 +1,5 @@
+"use strict";
+
 var React = require('react');
 
 var FormInputMixin = require('../mixins/FormInputMixin');
@@ -10,7 +12,7 @@ var FormInput = React.createClass({
   getDefaultProps() {
     return {
       component: "input"
-    }
+    };
   },
   render() {
     var {component: Component, ...props} = this.props;
@@ -21,7 +23,7 @@ var FormInput = React.createClass({
     if (props.autofill && value === '') {
       value = undefined;
     }
-    
+    console.warn('WARN: FormInput has been depreciated.');
     return (
       <Component {...props}
         ref='input'

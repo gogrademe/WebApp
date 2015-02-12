@@ -10,9 +10,9 @@ require! {
 
   'react-router': {Link}
 
-  './AssignmentsModal.ls'
   './AssignmentGrades.ls'
 
+  '../../molecules/ModalButtons': {AssignmentBtn}
 }
 
 Dom = React.DOM
@@ -81,14 +81,10 @@ ClassAssignments = React.create-class do
     | !xs       => 'Loading...'
     | otherwise => assignments-template xs
 
-  modal: ->
-    AssignmentsModal class-id: @props.class-id, term-id: @props.term-id
-
   render: ->
     div null,
       div class-name: "ui top attached right aligned segment",
-        SemanticModal.ModalTrigger modal: @modal!,
-          a class-name: "ui primary tiny button", "New Assignment"
+        AssignmentBtn label: "New" class-id: @props.class-id, term-id: @props.term-id
       Grid class-name: "bottom attached" columns: assignment-cols, data: @state.assignments
 
 

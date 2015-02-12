@@ -1,4 +1,6 @@
 [ignore]
+.*/build/.*
+.*/stage/.*
 
 [include]
 ./node_modules/

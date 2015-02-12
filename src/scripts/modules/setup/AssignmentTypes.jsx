@@ -3,9 +3,7 @@ var api = require('../../api/api.ls');
 var CrudTable = require('../../components/CrudTable.ls');
 var NewTable = require('../../components/NewTable.ls');
 
-var SemanticModal = require("../../components/SemanticModal.ls");
-
-var AssignmentTypeModal = require('../../modals/AssignmentType');
+var {AssignmentTypeBtn} = require('../../molecules/ModalButtons');
 
 module.exports = React.createClass({
     getInitialState() {
@@ -39,15 +37,21 @@ module.exports = React.createClass({
       className: "right aligned",
       tdClassName: "right aligned"
     }],
+    showModal() {
+        ModalActions.showModal(ModalTypes.ASSIGNMENT_TYPE);
+    },
+    componentDidMount() {
+      api.type.events.addListener("change", this.fetch)
+    },
+    componentWillUnmount() {
+      api.type.events.removeListener("change", this.fetch)
+    },
+
     render() {
         return (
           <div>
             <div className="ui top attached right aligned segment">
-              <SemanticModal.ModalTrigger modal={AssignmentTypeModal()}>
-                <a className="ui primary tiny button">
-                  New
-                </a>
-              </SemanticModal.ModalTrigger>
+              <AssignmentTypeBtn label="New" primary={true}/>
             </div>
             <NewTable.Grid className="bottom attached" columns={this.tableColumns} data={this.state.data} />
           </div>

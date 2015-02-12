@@ -17,10 +17,11 @@ var webpack = require('webpack');
 var browserSync = require('browser-sync');
 var argv = require('minimist')(process.argv.slice(2));
 
+var WebpackDevServer = require('webpack-dev-server');
+
 // Settings
 var RELEASE = !!argv.release; // Minimize and optimize during a build?
 var DEST = RELEASE ? './build' : './stage'; // The build output folder
-var GOOGLE_ANALYTICS_ID = 'UA-XXXXX-X'; // https://www.google.com/analytics/web/
 var AUTOPREFIXER_BROWSERS = [ // https://github.com/ai/autoprefixer
     'ie >= 10',
     'ie_mob >= 10',
@@ -72,20 +73,20 @@ gulp.task('assets', function() {
 });
 
 
-// Images
-gulp.task('images', function() {
-    src.images = 'src/images/**';
-    return gulp.src(src.images)
-        .pipe($.changed(DEST + '/assets/images'))
-        .pipe($.imagemin({
-            progressive: true,
-            interlaced: true
-        }))
-        .pipe(gulp.dest(DEST + '/assets/images'))
-        .pipe($.size({
-            title: 'images'
-        }));
-});
+// // Images
+// gulp.task('images', function() {
+//     src.images = 'src/images/**';
+//     return gulp.src(src.images)
+//         .pipe($.changed(DEST + '/assets/images'))
+//         .pipe($.imagemin({
+//             progressive: true,
+//             interlaced: true
+//         }))
+//         .pipe(gulp.dest(DEST + '/assets/images'))
+//         .pipe($.size({
+//             title: 'images'
+//         }));
+// });
 
 // HTML pages
 gulp.task('pages', function() {
@@ -128,44 +129,28 @@ gulp.task('styles', function() {
         }));
 });
 
-// Bundle
-gulp.task('bundle', function(cb) {
-    var started = false;
-    var config = require('./config/webpack.js')(RELEASE);
-    // var bundler =  webpack(config, function(err, stats) {
-    //       if(err) throw new $.util.PluginError("webpack", err);
-    //       $.util.log("[webpack]", stats.toString({
-    //           // output options
-    //       }));
-    //   });
-    var bundler = webpack(config);
-
-    function bundle(err, stats) {
-        if (err) {
-            throw new $.util.PluginError('webpack', err);
-        }
-
-        $.util.log('[webpack]', stats.toString({
-            colors: true
-        }));
-
-        if (!started) {
-            started = true;
-            return cb();
-        }
-    }
-
-    if (watch) {
-        bundler.watch(200, bundle);
-    } else {
-        bundler.run(bundle);
-    }
-});
-
 // Build the app from source code
 gulp.task('build', ['clean'], function(cb) {
-    runSequence(['vendor', 'assets', 'images', 'pages', 'styles', 'bundle'], cb);
+    runSequence(['vendor', 'assets', 'pages', 'styles'], cb);
 });
+
+
+gulp.task("webpack-dev-server", function(callback) {
+    // Start a webpack-dev-server
+    var config = require('./config/webpack.js')(RELEASE);
+
+    new WebpackDevServer(webpack(config), {
+      publicPath: config.output.publicPath,
+      hot: true
+    }).listen(3000, '0.0.0.0', function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+
+      console.log('Listening at 0.0.0.0:3000');
+    });
+});
+
 
 
 // Launch a lightweight HTTP Server
@@ -174,26 +159,27 @@ gulp.task('serve', function(cb) {
     watch = true;
 
     runSequence('build', function() {
-        browserSync({
-            notify: false,
-            ghostMode: false,
-            open: false,
-            // Customize the BrowserSync console logging prefix
-            logPrefix: 'RSK',
-            // Run as an https by uncommenting 'https: true'
-            // Note: this uses an unsigned certificate which on first access
-            //       will present a certificate warning in the browser.
-            // https: true,
-            server: DEST
-        });
+        gulp.start('webpack-dev-server');
+        // browserSync({
+        //     notify: false,
+        //     ghostMode: false,
+        //     open: false,
+        //     // Customize the BrowserSync console logging prefix
+        //     logPrefix: 'RSK',
+        //     // Run as an https by uncommenting 'https: true'
+        //     // Note: this uses an unsigned certificate which on first access
+        //     //       will present a certificate warning in the browser.
+        //     // https: true,
+        //     server: DEST
+        // });
 
         gulp.watch(src.assets, ['assets']);
-        gulp.watch(src.images, ['images']);
+        // gulp.watch(src.images, ['images']);
         gulp.watch(src.pages, ['pages']);
         gulp.watch(src.styles, ['styles']);
-        gulp.watch(DEST + '/**/*.*', function(file) {
-            browserSync.reload(path.relative(__dirname, file.path));
-        });
+        // gulp.watch(DEST + '/**/*.*', function(file) {
+        //     browserSync.reload(path.relative(__dirname, file.path));
+        // });
         cb();
     });
 });
