@@ -104,7 +104,7 @@ types =
     class: {}
     enrollment: {}
     term: {}
-    year: {}
+    schoolYear: {}
     type: {}
     assignment: {}
     grade: {}

@@ -5,7 +5,6 @@ var Header = require('../components/Header');
 
 var LogoutModule = React.createClass({
   mixins: [Navigation],
-  displayName: "LogoutModule",
   componentDidMount: function(){
     api.session.del()
     return this.replaceWith("/login");

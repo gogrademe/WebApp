@@ -17,7 +17,7 @@ var PersonModal = React.createClass({
   },
   render() {
     return (
-      <ModalForm {... this.props} title="Create Person" onSubmitAsync={this.onSubmit}>
+      <ModalForm {... this.props} title="Person" onSubmitAsync={this.onSubmit}>
         <div className="field">
           <label>
             Name

@@ -57,7 +57,7 @@ View = React.create-class do
               Link class-name: "item" to: "class.grades" params:{term-id: @getParams!.term-id, resource-id: @getParams!.resource-id}, "Grades"
               Link class-name: "item" to: "class.students" params:{term-id: @getParams!.term-id, resource-id: @getParams!.resource-id}, "Students"
               Link class-name: "item" to: "class.assignments" params:{term-id: @getParams!.term-id, resource-id: @getParams!.resource-id}, "Assignments"
-              Link class-name: "item" to: "class.settings" params:{term-id: @getParams!.term-id, resource-id: @getParams!.resource-id}, "Settings"
+              #Link class-name: "item" to: "class.settings" params:{term-id: @getParams!.term-id, resource-id: @getParams!.resource-id}, "Settings"
 
 module.exports =
   View:       View

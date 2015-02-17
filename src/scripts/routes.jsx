@@ -9,7 +9,6 @@ var LogoutModule = require('./modules/Logout.jsx');
 var DashboardModule = require('./modules/DashboardModule.jsx');
 var NotFoundModule = require('./modules/NotFoundModule');
 var Classes = require('./modules/classes/index.ls');
-var Overview = require('./modules/classes/Overview.ls');
 var Setup = require('./modules/setup/Container');
 var People = require('./modules/people/index');
 var School = require('./modules/SchoolSettings.ls');

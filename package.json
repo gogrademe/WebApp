@@ -7,22 +7,19 @@
   },
   "author": "Matt Aitchison",
   "dependencies": {
-    "bluebird": "^2.8.2",
+    "bluebird": "^2.9.9",
     "eventemitter3": "^0.1.6",
-    "formsy-react": "git://github.com/christianalfoni/formsy-react",
+    "formsy-react": "^0.7.0",
     "lodash": "^2.4.1",
-    "material-ui": "git://github.com/callemall/material-ui",
     "mcfly": "0.0.6",
     "moment": "^2.8.4",
     "prelude-ls": "^1.1.1",
     "react": "^0.12.2",
-    "react-datepicker": "^0.2.10",
     "react-document-title": "^0.1.3",
-    "react-router": "^0.11.6",
+    "react-router": "^0.12.0",
     "react-select": "^0.3.2",
-    "reflux": "^0.2.3",
-    "superagent": "^0.20.0",
-    "sweetjs-loader": "^0.1.0"
+    "reflux": "^0.2.5",
+    "superagent": "^0.20.0"
   },
   "devDependencies": {
     "browser-sync": "^1.5.2",
@@ -64,7 +61,6 @@
     "rimraf": "^2.2.8",
     "run-sequence": "^1.0.0",
     "style-loader": "^0.8.1",
-    "sweet.js": "^0.7.2",
     "url-loader": "^0.5.5",
     "webpack": "^1.5.1",
     "webpack-dev-server": "^1.7.0"

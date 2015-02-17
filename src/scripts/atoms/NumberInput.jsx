@@ -4,7 +4,6 @@ var {div, i, label, input} = React.DOM;
 
 
 var NumberInput = React.createClass({
-  displayName: "NumberInput",
   getDefaultProps: function(){
     return {
       label: "",

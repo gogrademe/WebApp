@@ -27,25 +27,35 @@ type SchoolYear = {
 var TermModal = React.createClass({
   mapModel(model) {
     return {
-      "startYear": model.startYear,
-      "endYear": model.endYear,
+      "start": Number(model.startYear),
+      "end": Number(model.endYear),
       "terms": [
         {
           "name": "term1",
-          "startDate": model.term1_startDate,
-          "endDate": model.term1_endDate
+          "startDate": util.forUpload(model.term1_startDate),
+          "endDate": util.forUpload(model.term1_endDate)
         },
         {
           "name": "term2",
-          "startDate": model.term2_startDate,
-          "endDate": model.term2_endDate
+          "startDate": util.forUpload(model.term2_startDate),
+          "endDate": util.forUpload(model.term2_endDate)
+        },
+        {
+          "name": "term3",
+          "startDate": util.forUpload(model.term3_startDate),
+          "endDate": util.forUpload(model.term3_endDate)
+        },
+        {
+          "name": "term4",
+          "startDate": util.forUpload(model.term4_startDate),
+          "endDate": util.forUpload(model.term4_endDate)
         }
       ]
     };
   },
   onSubmit(model: SchoolYear) {
     model = this.mapModel(model);
-    return api.year.create(model);
+    return api.schoolYear.create(model);
   },
   render() {
     return (

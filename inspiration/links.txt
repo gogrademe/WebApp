@@ -1,3 +1,0 @@
-http://codepen.io/justin808/pen/brluJ/?editors=001
-
-https://github.com/instructure/canvas-lms/blob/stable/db/migrate/20101210192618_init_canvas_db.rb

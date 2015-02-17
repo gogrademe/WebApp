@@ -26,7 +26,7 @@ var AccountModal = React.createClass({
   },
   render() {
     return (
-      <ModalForm {... this.props} title="Create Assignment" onSubmitAsync={this.onSubmit}>
+      <ModalForm {... this.props} title="Assignment" onSubmitAsync={this.onSubmit}>
         <LabeledField name="name" label="Name"/>
         <div className="field">
           <div className="ui two fields">

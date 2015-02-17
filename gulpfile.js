@@ -72,22 +72,6 @@ gulp.task('assets', function() {
         }));
 });
 
-
-// // Images
-// gulp.task('images', function() {
-//     src.images = 'src/images/**';
-//     return gulp.src(src.images)
-//         .pipe($.changed(DEST + '/assets/images'))
-//         .pipe($.imagemin({
-//             progressive: true,
-//             interlaced: true
-//         }))
-//         .pipe(gulp.dest(DEST + '/assets/images'))
-//         .pipe($.size({
-//             title: 'images'
-//         }));
-// });
-
 // HTML pages
 gulp.task('pages', function() {
     src.pages = 'src/pages/**/*.html';
@@ -98,10 +82,7 @@ gulp.task('pages', function() {
             collapseWhitespace: true,
             minifyJS: true
         })))
-        .pipe(gulp.dest(DEST))
-        .pipe($.size({
-            title: 'pages'
-        }));
+        .pipe(gulp.dest(DEST));
 });
 
 
@@ -160,26 +141,8 @@ gulp.task('serve', function(cb) {
 
     runSequence('build', function() {
         gulp.start('webpack-dev-server');
-        // browserSync({
-        //     notify: false,
-        //     ghostMode: false,
-        //     open: false,
-        //     // Customize the BrowserSync console logging prefix
-        //     logPrefix: 'RSK',
-        //     // Run as an https by uncommenting 'https: true'
-        //     // Note: this uses an unsigned certificate which on first access
-        //     //       will present a certificate warning in the browser.
-        //     // https: true,
-        //     server: DEST
-        // });
 
-        gulp.watch(src.assets, ['assets']);
-        // gulp.watch(src.images, ['images']);
-        gulp.watch(src.pages, ['pages']);
         gulp.watch(src.styles, ['styles']);
-        // gulp.watch(DEST + '/**/*.*', function(file) {
-        //     browserSync.reload(path.relative(__dirname, file.path));
-        // });
         cb();
     });
 });

@@ -1,4 +1,16 @@
-FROM nginx
-MAINTAINER Matt Aitchison <matt@lanciv.com>
+FROM gliderlabs/alpine
+RUN apk-install nginx
 
-ADD ./build/ /usr/share/nginx/html
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+COPY package.json /usr/src/app/
+RUN apk-install -t build-deps nodejs build-base python \
+  && npm install -g npm \
+  && npm install \
+  && npm install gulp -g \
+  && gulp \
+  && npm cache clean \
+  && apk del --purge build-deps
+
+COPY . /usr/src/app

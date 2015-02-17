@@ -4,7 +4,6 @@ var {div, i, label, input} = React.DOM;
 
 
 var TextInput = React.createClass({
-  displayName: "TextInput",
   propTypes: {
     type: React.PropTypes.string.isRequired
   },

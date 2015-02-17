@@ -13,32 +13,22 @@ var {TermBtn} = require('../../molecules/ModalButtons');
 var Terms = React.createClass({
     tableColumns: [
     {
-        key: "schoolYear.start",
+        key: "start",
+        display: "Start"
+    },
+    {
+        key: "end",
+        display: "End"
+    },
+    {
+        key: "terms",
         display: "School Year Start"
     },
     {
-        key: "schoolYear.end",
-        display: "School Year End"
-    },
-    {
-        key: "name",
-        display: "Name"
-    },
-    {
-        key: "startDate",
-        display: "Start Date",
-        format: 'date'
-    },
-    {
-        key: "endDate",
-        display: "End Date",
-        format: 'date'
-    },
-    {
         display: '',
-        resourceType: "term",
+        resourceType: "schoolYear",
         renderer: NewTable.CrudActions,
-        linkTo: "term",
+        linkTo: "schoolYear",
         className: "right aligned",
         tdClassName: "right aligned"
     }
@@ -49,12 +39,12 @@ var Terms = React.createClass({
         }
     },
     fetch() {
-        api.term.find()
+        api.schoolYear.find()
             .then((xs) => {
               this.setState({
                 data: xs
-              })
-        })
+            });
+        });
     },
     componentWillMount() {
         this.fetch();

@@ -1,6 +1,6 @@
 var ref$, find, filter, ceiling, isItNaN, sum, map, reject, mean, groupBy, uniqueBy, flatten;
 var React = require('react');
-var Panel = require('../../components/Panel.ls');
+
 var NewTable = require('../../components/NewTable.ls');
 var api = require('../../api/api.ls');
 
@@ -10,7 +10,6 @@ var _ = require('lodash');
 
 var ref$ = require('prelude-ls'), find = ref$.find, filter = ref$.filter, ceiling = ref$.ceiling, isItNaN = ref$.isItNaN, sum = ref$.sum, map = ref$.map, reject = ref$.reject, mean = ref$.mean, groupBy = ref$.groupBy, uniqueBy = ref$.uniqueBy, flatten = ref$.flatten;
 var GradeOverview = React.createClass({
-  displayName: "GradeOverview",
   getInitialState: function(){
     return {
       students: [],
@@ -57,36 +56,21 @@ var GradeOverview = React.createClass({
     })(
     this.state.assignments);
   },
-          // grade =
-          //   @state.grades
-          //     |> filter (.assignment-id is a.id)
-          //     |> find (.person-id is x.person-id)
-  calc: function() {
-    var abt = this.aByType();
-
-    abt = _.map(abt,(x) => {
-      console.log(x)
-    })
-
-    _.reduce(abt,(result, num, key)=> {
-      console.log(result,num, key);
-    });
-  },
   buildCols: function(){
-    // this.calc();
     var i$, ref$, len$, x;
     var cols = [{
       key: "student.name",
       display: "Student",
     }];
 
-    for (i$ = 0, len$ = (ref$ = this.groupTypes()).length; i$ < len$; ++i$) {
-      x = ref$[i$];
-      cols.push({
-        key: "types." + x.id,
-        display: x.name
+    _(this.groupTypes())
+      .forEach((x, key) => {
+        cols.push({
+          key: "types." + x.id,
+          display: x.name
+        });
       });
-    }
+
     return cols;
   },
   whatItShouldLookLike: {
@@ -103,35 +87,16 @@ var GradeOverview = React.createClass({
       }
     }
   },
-
-    // build-data: ->
-    //   for x in @state.students
-    //     result =
-    //       student:
-    //         id: x.person.id
-    //         name: "#{x.person.firstName} #{x.person.lastName}"
-    //       assignments: {}
-    //
-    //     for a in @state.assignments
-    //       grade =
-    //         @state.grades
-    //           |> filter (.assignment-id is a.id)
-    //           |> find (.person-id is x.person-id)
-    //
-    //       result.assignments[a.id] = {
-    //         grade: grade
-    //         assignment: a
-    //       }
-    //
-    //     result
   gradeFor: function(studentId, assignmentId) {
     return _.chain(this.state.grades)
       .filter((x) => {
+        // console.log(x, assignmentId);
         return x.assignmentId == assignmentId;
       })
-      .find((x) => {
-          return x.personId == studentId;
-      }).value();
+      .value();
+      // .find((x) => {
+      //     return x.personId == studentId;
+      // }).value();
 
   },
   buildData: function() {
@@ -144,32 +109,20 @@ var GradeOverview = React.createClass({
         types: {}
       };
 
-      _.forEach(this.aByType(), (type) => {
-        // console.log(type);
-        console.log(type);
-
-        console.log(this.gradeFor(res.student.id, type[0].assignmentId))
-        res.types[type[0].typeId] = 100
-      });
+      // _.chain(this.state.assignments)
+      //   .groupBy((x) => { return x.typeId})
+      //   .forEach((type) => {
+      //     // console.log(type);
+      //     // console.log(type);
+      //     console.log(res.student.id, type[0].id);
+      //     // res.types[type[0].typeId]
+      //     // console.log(this.gradeFor(res.student.id, type[0].assignmentId))
+      //     // res.types[type[0].typeId] = 100
+      //   });
 
 
       return res;
     });
-  },
-  buildData2: function(){
-    var i$, ref$, len$, x, result, results$ = [];
-    for (i$ = 0, len$ = (ref$ = this.state.students).length; i$ < len$; ++i$) {
-      x = ref$[i$];
-      result = {
-        student: {
-          id: x.person.id,
-          name: x.person.firstName + " " + x.person.lastName
-        },
-        types: this.aByType()
-      };
-      results$.push(result);
-    }
-    return results$;
   },
   componentWillMount: function(){
     this.getGrades();

@@ -3,8 +3,6 @@
 var React = require('react');
 
 var Reflux = require('reflux');
-var RaisedButton = require('material-ui').RaisedButton;
-var Dialog = require('material-ui').Dialog;
 
 var ModalActions = require('../actions/ModalActions');
 var modalStore = require('../stores/ModalStore');

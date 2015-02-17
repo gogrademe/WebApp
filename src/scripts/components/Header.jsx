@@ -7,19 +7,7 @@ var select = require('./src/modules/Dropdown.ls');
 var api = require('../api/api.ls');
 var auth = require('../api/auth.ls');
 
-
-
-var mui = require('material-ui');
-var DropDownIcon = mui.DropDownIcon;
-var DropDownMenu = mui.DropDownMenu;
-var MenuItem = mui.MenuItem;
-var Icon = mui.Icon;
-var RaisedButton = mui.RaisedButton;
-var AppBar = mui.AppBar;
-var ToolbarGroup = mui.ToolbarGroup;
-
 var HeaderNav = React.createClass({
-  displayName: "HeaderNav",
   userDisplayName: function(){
     return this.state.person.firstName + " " + this.state.person.lastName;
   },
@@ -32,9 +20,6 @@ var HeaderNav = React.createClass({
           person: it
         });
       });
-      // .error(function(){
-      //   return Router.replaceWith("/logout");
-      // });
     }
   },
   getInitialState: function(){
@@ -76,7 +61,5 @@ var HeaderNav = React.createClass({
     );
   }
 });
-
-// <img className="logo" src="logo-only.svg"/>
 
 module.exports = HeaderNav;

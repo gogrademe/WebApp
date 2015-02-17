@@ -44,7 +44,6 @@ var formMixin = function(stateKey){
     return component(props);
   });
   return {
-    // dateFor: makeUpdatable(PikadayInput),
     inputFor: makeUpdatable(TextInput),
     inputRow: makeUpdatable(InputRow),
     input: makeUpdatable(FormInput),
