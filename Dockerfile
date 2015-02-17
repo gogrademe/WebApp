@@ -9,7 +9,7 @@ RUN apk-install -t build-deps nodejs build-base python \
   && npm install -g npm \
   && npm install \
   && npm install gulp -g \
-  && gulp \
+  && gulp --release \
   && npm cache clean \
   && apk del --purge build-deps
 
