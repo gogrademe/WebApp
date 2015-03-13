@@ -36,7 +36,7 @@ var HeaderNav = React.createClass({
           </div>
           <Link className="item" to="dashboard">
             <i className="dashboard icon" />
-              Dashboard
+            Dashboard
           </Link>
           <Link className="item" to="class">
             Classes

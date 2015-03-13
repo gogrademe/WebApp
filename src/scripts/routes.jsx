@@ -1,3 +1,4 @@
+"use strict";
 var React = require('react');
 var {Route, Redirect, NotFoundRoute} = require('react-router');
 var App = require('./app.jsx');

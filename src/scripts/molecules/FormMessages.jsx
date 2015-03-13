@@ -1,3 +1,5 @@
+
+"use strict";
 var React = require('react');
 
 var {div, i, label, input, p} = React.DOM;

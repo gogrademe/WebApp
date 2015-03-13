@@ -1,6 +1,7 @@
+"use strict";
+
 var React = require('react');
 var api = require('../../api/api.ls');
-var CrudTable = require('../../components/CrudTable.ls');
 var NewTable = require('../../components/NewTable.ls');
 
 var {AssignmentTypeBtn} = require('../../molecules/ModalButtons');
@@ -9,18 +10,18 @@ module.exports = React.createClass({
     getInitialState() {
       return {
         data: []
-      }
+    };
     },
     fetch() {
       api.type.find()
         .then((xs) => {
           this.setState({
             data: xs
-          })
-        })
+        });
+    });
     },
     componentWillMount() {
-      this.fetch()
+      this.fetch();
     },
     tableColumns: [{
       key: "name",
@@ -37,14 +38,11 @@ module.exports = React.createClass({
       className: "right aligned",
       tdClassName: "right aligned"
     }],
-    showModal() {
-        ModalActions.showModal(ModalTypes.ASSIGNMENT_TYPE);
-    },
     componentDidMount() {
-      api.type.events.addListener("change", this.fetch)
+      api.type.events.addListener("change", this.fetch);
     },
     componentWillUnmount() {
-      api.type.events.removeListener("change", this.fetch)
+      api.type.events.removeListener("change", this.fetch);
     },
 
     render() {

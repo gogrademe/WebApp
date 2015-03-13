@@ -1,3 +1,5 @@
+"use strict";
+
 var React = require('react');
 var Header = require('../components/PageHeader');
 var SemanticModal = require('../components/SemanticModal.ls');

@@ -1,3 +1,4 @@
+"use strict";
 /* @flow */
 
 var React = require('react');

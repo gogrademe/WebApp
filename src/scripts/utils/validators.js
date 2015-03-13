@@ -1,3 +1,4 @@
+"use strict";
 /** @flow */
 
 var Formsy = require('formsy-react');

@@ -1,3 +1,5 @@
+"use strict";
+
 var React = require('react');
 var Header = require('../../components/PageHeader');
 var {RouteHandler, Link} = require('react-router');
@@ -25,7 +27,7 @@ var Container = React.createClass({
           </div>
         </div>
       </div>
-    )
+    );
   }
 });
 module.exports = {

@@ -1,3 +1,5 @@
+"use strict";
+
 var ref$, find, filter, ceiling, isItNaN, sum, map, reject, mean, groupBy, uniqueBy, flatten;
 var React = require('react');
 
@@ -91,7 +93,7 @@ var GradeOverview = React.createClass({
     return _.chain(this.state.grades)
       .filter((x) => {
         // console.log(x, assignmentId);
-        return x.assignmentId == assignmentId;
+        return x.assignmentId === assignmentId;
       })
       .value();
       // .find((x) => {

@@ -14,7 +14,6 @@ var path = require('path');
 var merge = require('merge-stream');
 var runSequence = require('run-sequence');
 var webpack = require('webpack');
-// var browserSync = require('browser-sync');
 var argv = require('minimist')(process.argv.slice(2));
 
 var WebpackDevServer = require('webpack-dev-server');
@@ -36,16 +35,6 @@ var AUTOPREFIXER_BROWSERS = [ // https://github.com/ai/autoprefixer
 
 var src = {};
 var watch = false;
-var pkgs = (function() {
-    var temp = {};
-    var map = function(source) {
-        for (var key in source) {
-            temp[key.replace(/[^a-z0-9]/gi, '')] = source[key].substring(1);
-        }
-    };
-    map(require('./package.json').dependencies);
-    return temp;
-}());
 
 // The default task
 gulp.task('default', ['serve']);
@@ -102,7 +91,6 @@ gulp.task('styles', function() {
         .pipe($.autoprefixer({
             browsers: AUTOPREFIXER_BROWSERS
         }))
-        .pipe($.csscomb())
         .pipe($.if(RELEASE, $.minifyCss()))
         .pipe(gulp.dest(DEST + '/css'))
         .pipe($.size({
@@ -123,6 +111,7 @@ gulp.task("webpack-dev-server", function(callback) {
     new WebpackDevServer(webpack(config), {
       publicPath: config.output.publicPath,
       hot: true,
+      stats: { colors: true },
     }).listen(3000, '0.0.0.0', function (err, result) {
       if (err) {
         console.log(err);

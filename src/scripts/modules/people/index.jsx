@@ -1,3 +1,5 @@
+"use strict";
+
 var React = require('react');
 
 var Split = React.createClass({
@@ -6,7 +8,7 @@ var Split = React.createClass({
       <div className="two-col">
         {this.props.detailView}
       </div>
-    )
+    );
   }
 });
 

@@ -1,4 +1,5 @@
 
+"use strict";
 
 function validNumber(number) {
   number = Number(number);

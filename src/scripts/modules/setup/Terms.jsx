@@ -6,8 +6,6 @@ var CrudTable = require('../../components/CrudTable.ls');
 
 var NewTable = require('../../components/NewTable.ls');
 
-var SemanticModal = require("../../components/SemanticModal.ls");
-
 var {TermBtn} = require('../../molecules/ModalButtons');
 
 var Terms = React.createClass({
@@ -36,7 +34,7 @@ var Terms = React.createClass({
     getInitialState() {
         return {
             data: []
-        }
+        };
     },
     fetch() {
         api.schoolYear.find()
@@ -48,9 +46,6 @@ var Terms = React.createClass({
     },
     componentWillMount() {
         this.fetch();
-    },
-    showModal() {
-        ModalActions.showModal(ModalTypes.TERM);
     },
     render() {
         return (
@@ -64,4 +59,4 @@ var Terms = React.createClass({
     }
 });
 
-module.exports = Terms
+module.exports = Terms;

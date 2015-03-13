@@ -1,3 +1,4 @@
+"use strict";
 var moment = require('moment');
 
 var allowedFromats = ['L', 'l'];

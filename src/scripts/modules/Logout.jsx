@@ -1,3 +1,5 @@
+"use strict";
+
 var React = require('react');
 var {Router, Navigation}  = require('react-router');
 var api = require('../api/api.ls');
@@ -6,7 +8,7 @@ var Header = require('../components/Header');
 var LogoutModule = React.createClass({
   mixins: [Navigation],
   componentDidMount: function(){
-    api.session.del()
+    api.session.del();
     return this.replaceWith("/login");
   },
   render: function() {
@@ -25,7 +27,7 @@ var LogoutModule = React.createClass({
           </div>
         </div>
       </div>
-    )
+    );
   }
 });
 module.exports = LogoutModule;
