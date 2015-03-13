@@ -39,15 +39,14 @@ var ProfileTypes = React.createClass({
   },
   render:function() {
     return (
-      <Select
-          {...this.props}
-          multi={true}
-          placeholder="Types"
-          value={this.getVal()}
-          options={this.state.types}
-          onChange={this.changeValue}
-      />
-
+        <Select
+            {...this.props}
+            multi={true}
+            placeholder="Types"
+            value={this.getVal()}
+            options={this.state.types}
+            onChange={this.changeValue}
+        />
     );
   }
 });

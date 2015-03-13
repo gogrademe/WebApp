@@ -14,7 +14,7 @@ var path = require('path');
 var merge = require('merge-stream');
 var runSequence = require('run-sequence');
 var webpack = require('webpack');
-var browserSync = require('browser-sync');
+// var browserSync = require('browser-sync');
 var argv = require('minimist')(process.argv.slice(2));
 
 var WebpackDevServer = require('webpack-dev-server');
@@ -122,7 +122,7 @@ gulp.task("webpack-dev-server", function(callback) {
 
     new WebpackDevServer(webpack(config), {
       publicPath: config.output.publicPath,
-      hot: true
+      hot: true,
     }).listen(3000, '0.0.0.0', function (err, result) {
       if (err) {
         console.log(err);

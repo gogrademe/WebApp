@@ -28,13 +28,14 @@ var PersonModal = React.createClass({
             <LabeledField name="lastName" placeholder="Last Name"/>
           </div>
           <LabeledField label="Email" name="email" required={false}/>
-          <AutocompleteFor.ProfileTypes name="types"/>
+          <LabeledField name="types" placeholder="First Name" field={AutocompleteFor.ProfileTypes}/>
+
         </div>
       </ModalForm>
     );
   }
 });
-
+// <AutocompleteFor.ProfileTypes name="types"/>
 module.exports = PersonModal;
 
 //   render-student-section: ->

@@ -47,7 +47,7 @@ var FormInputRow = React.createClass({
   },
 
   render: function() {
-    console.warn('WARN: FormInputRow has been depreciated.');
+    console.warn('WARN: FormInputRow has been deprecated.');
 
     var {component: Component, ...props} = this.props;
 

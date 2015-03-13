@@ -45,7 +45,7 @@ var FormStore = mcFly.createStore({
   },
 
   getFormState: function () {
-    console.warn('WARN: FormStore has been depreciated.');
+    console.warn('WARN: FormStore has been deprecated.');
 
     return _formState;
   },

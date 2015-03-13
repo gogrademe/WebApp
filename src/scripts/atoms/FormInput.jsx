@@ -23,7 +23,7 @@ var FormInput = React.createClass({
     if (props.autofill && value === '') {
       value = undefined;
     }
-    console.warn('WARN: FormInput has been depreciated.');
+    console.warn('WARN: FormInput has been deprecated.');
     return (
       <Component {...props}
         ref='input'

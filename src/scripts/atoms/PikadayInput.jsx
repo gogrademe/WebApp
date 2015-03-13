@@ -26,7 +26,7 @@ var PikadayInput = React.createClass({
   },
   render() {
     var placeholder = this.props.placeholder || this.props.label;
-console.warn('WARN: PikadayInput has been depreciated.');
+console.warn('WARN: PikadayInput has been deprecated.');
     return (
       <div className="field">
         <Pikaday

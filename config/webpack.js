@@ -35,6 +35,7 @@ module.exports = function (release) {
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.optimize.AggressiveMergingPlugin()
     ] : [
+      new webpack.DefinePlugin({'process.env.NODE_ENV': '"development"'}),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin()
     ],
@@ -78,7 +79,8 @@ module.exports = function (release) {
       // },
       {
         test: /\.(js|jsx)$/,
-        loaders: ['react-hot', 'jsx?harmony&stripTypes']
+        loaders: ['react-hot', 'babel?experimental'],
+        exclude: /node_modules/
       },
       {
         test: /\.ls$/,

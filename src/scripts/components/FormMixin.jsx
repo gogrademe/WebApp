@@ -5,7 +5,6 @@ var utils = require('../utils');
 var FormInput = require('../atoms/FormInput');
 var TextInput = require('../atoms/TextInput');
 var NumberInput = require('../atoms/NumberInput');
-// var PikadayInput = require('../atoms/PikadayInput');
 
 
 // Molecules

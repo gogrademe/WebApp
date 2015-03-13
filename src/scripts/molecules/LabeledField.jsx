@@ -11,6 +11,7 @@ var LabeledInput = React.createClass({
     getDefaultProps: function(){
       return {
         onChange: function() {},
+        field: "input",
         required: true,
         type: "text"
       };
@@ -38,8 +39,8 @@ var LabeledInput = React.createClass({
         ) : null;
 
       var Field = this.props.field;
-      // var Field = React.createElement(this.props.field, otherProps);
-      // var Field = React.createFacyor(this.props.field);
+
+
       return (
         <div className={cx({
           'field': true,
@@ -51,12 +52,14 @@ var LabeledInput = React.createClass({
               'corner labeled': this.isRequired(),
               'input': true
             })}>
-            <input
+
+            <Field
               type={type}
               onChange={this.changeValue}
               value={this.getValue()}
               placeholder={placeholder || label}
-            />
+              />
+              
             {this.isRequired() ?
               (
                 <div className="ui corner label">
@@ -70,11 +73,5 @@ var LabeledInput = React.createClass({
     }
   });
 
-      // <input
-      //   type={type}
-      //   onChange={this.changeValue}
-      //   value={this.getValue()}
-      //   placeholder={placeholder || label}
-      // />
 
 module.exports = LabeledInput;
