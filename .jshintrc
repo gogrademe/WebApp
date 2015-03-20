@@ -1,5 +1,5 @@
 {
-  "strict": true,
+  "strict": false,
   "esnext": true,
   "node": true,
   "browser": true,
