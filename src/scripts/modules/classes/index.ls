@@ -1,7 +1,7 @@
 require! {
   'react': React
 
-  '../../components/src/modules/Dropdown.ls': select
+  #'../../components/src/modules/Dropdown.ls': select
   '../../components/PageHeader': Header
 
   'react-router': {Link, RouteHandler, State}

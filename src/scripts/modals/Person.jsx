@@ -28,7 +28,7 @@ var PersonModal = React.createClass({
             <LabeledField name="lastName" placeholder="Last Name"/>
           </div>
           <LabeledField label="Email" name="email" required={false}/>
-          <LabeledField name="types" placeholder="First Name" field={AutocompleteFor.ProfileTypes}/>
+          <AutocompleteFor.ProfileTypes name="types" placeholder="First Name"/>
 
         </div>
       </ModalForm>

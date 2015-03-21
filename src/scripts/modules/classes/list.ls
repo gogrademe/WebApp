@@ -11,10 +11,12 @@ require! {
 
   'react-router': {Link}
 
+
   '../../components/SemanticModal.ls'
 
   '../../components/PageHeader': Header
-  '../../components/src/modules/Dropdown.ls': select
+  'react-select': Select
+  #'../../components/src/modules/Dropdown.ls': select
 }
 Dom = React.DOM
 {div, i, strong, a} = Dom
@@ -23,7 +25,7 @@ Dom = React.DOM
 
 ClassName = React.create-class do
   render: ->
-    term-id = @props.column.term?.value || "t"
+    term-id = @props.column.term || ""
     div null,
       Link to: "class.grades", params: {termId: term-id, resourceId: @props.row.id},
         @props.value
@@ -41,6 +43,7 @@ ClassList = React.create-class do
         @set-state classes: it
     api.term.find!
       .then ~>
+        @set-state term: it[0].id
         @set-state terms: it
 
   cols: ->
@@ -61,17 +64,18 @@ ClassList = React.create-class do
         td-class-name: "right aligned"
 
   update-select: ->
+    console.log it
     @set-state term: it
 
   select-render: (xs)->
     | !xs => "Loading..."
-    | otherwise => select do
+    | otherwise => Select do
                     class-name:"inline"
-                    select-callback: @update-select
-                    selected-index: 0
-                    default-value: xs[0].id
+                    on-change: @update-select
+                    value: @state.term
+                    autoload: false
                     options: xs.map (x) ->
-                      text: "Year #{x?.schoolYear.start}-#{x?.schoolYear.end} - #{x?.name}"
+                      label: "Year #{x?.schoolYear.start}-#{x?.schoolYear.end} - #{x?.name}"
                       value: x?.id
 
   right-buttons: ->

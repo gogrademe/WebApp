@@ -3,7 +3,7 @@
 var React = require('react');
 var Logo = require('../atoms/Logo');
 var {Router, Link} = require('react-router');
-var select = require('./src/modules/Dropdown.ls');
+// var select = require('./src/modules/Dropdown.ls');
 var api = require('../api/api.ls');
 var auth = require('../api/auth.ls');
 
