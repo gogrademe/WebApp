@@ -1,4 +1,4 @@
-"use strict";
+
 var React = require('react');
 var mapValues = require('../utils/mapValues');
 var merge = require('react/lib/merge');

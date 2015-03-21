@@ -1,18 +1,16 @@
 /* @flow */
 
-"use strict";
+import React from 'react';
+import DocumentTitle from 'react-document-title';
+import {RouteHandler} from 'react-router';
 
-var React = require('react');
-var DocumentTitle = require('react-document-title');
-var {RouteHandler} = require('react-router');
-
-var HeaderNav = require('./components/Header');
+import HeaderNav from './components/Header';
 
 // Hosts
-var ModalHost = require('./host/ModalHost.jsx');
+import ModalHost from './host/ModalHost.jsx';
 
-var api = require('./api/api.ls');
-var auth = require('./api/auth.ls');
+import api from './api/api.ls';
+import auth from './api/auth.ls';
 
 if (process.env.NODE_ENV !== "production") {
   api.baseUrl = 'http://localhost:5005';
@@ -22,13 +20,13 @@ if (process.env.NODE_ENV === "production") {
   api.baseUrl = 'http://api.gogrademe.com';
 }
 
-var App = React.createClass({
-  loggedIn: function(){
+export default React.createClass({
+  loggedIn() {
     if (api.session.get()) {
       return <HeaderNav />;
     }
   },
-  render: function(){
+  render() {
     return (
       <DocumentTitle title='GoGradeMe'>
         <div>
@@ -44,4 +42,3 @@ var App = React.createClass({
     );
   }
 });
-module.exports = App;

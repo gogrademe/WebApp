@@ -1,4 +1,4 @@
-"use strict";
+
 
 var ref$, find, filter, ceiling, isItNaN, sum, map, reject, mean, groupBy, uniqueBy, flatten;
 var React = require('react');

@@ -1,4 +1,4 @@
-"use strict";
+
 /* @flow */
 
 var _ = require('lodash');

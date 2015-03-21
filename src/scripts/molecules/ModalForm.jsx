@@ -1,5 +1,5 @@
 /* @flow */
-"use strict";
+
 
 var React = require('react');
 var cx = require('react/lib/cx');
