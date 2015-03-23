@@ -45,6 +45,10 @@ var HeaderNav = React.createClass({
             <i className="users icon"/>
             People
           </Link>
+          <Link className="item" to="users">
+            <i className="users icon"/>
+            Users
+          </Link>
           <Link className="item" to="setup">
             App Setup
           </Link>

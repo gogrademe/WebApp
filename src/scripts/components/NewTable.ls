@@ -5,6 +5,7 @@ require! {
 
   "../api/api.ls"
   "../utils/index": utils
+  '../atoms/DeleteButton': DeleteBtn
 }
 
 Dom = React.DOM
@@ -51,7 +52,7 @@ Grid = React.create-class do
           ## Build Rows
           data.map (row, rowI) ->
             ## Table Row
-            tr key: "row-#rowI",
+            tr key: "row-#rowI-#{row.id}",
               ## Build columns
               cols.map (column, columnI) ->
                 result = getRenderer(column, rowI, columnI) do
@@ -123,8 +124,9 @@ CrudActions = React.create-class do
 
   render: ->
     div null,
-      a class-name: "ui icon red button tiny" on-click: @delete,
-        i class-name: "icon trash"
+      #a class-name: "ui icon red button tiny" on-click: @delete,
+      #  i class-name: "icon trash"
+      DeleteBtn on-click: @delete
       @props.column.custom-actions? @props
 
 

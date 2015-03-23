@@ -1,17 +1,15 @@
+import React from 'react';
+import {Router, Navigation}  from 'react-router';
+import api from '../api/api.ls';
+import Header from '../components/Header';
 
-
-var React = require('react');
-var {Router, Navigation}  = require('react-router');
-var api = require('../api/api.ls');
-var Header = require('../components/Header');
-
-var LogoutModule = React.createClass({
+export default React.createClass({
   mixins: [Navigation],
-  componentDidMount: function(){
+  componentDidMount(){
     api.session.del();
     return this.replaceWith("/login");
   },
-  render: function() {
+  render() {
     return (
       <div>
         <Header title="Logging Out..."/>
@@ -30,4 +28,3 @@ var LogoutModule = React.createClass({
     );
   }
 });
-module.exports = LogoutModule;

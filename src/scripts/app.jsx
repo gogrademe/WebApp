@@ -12,12 +12,10 @@ import ModalHost from './host/ModalHost.jsx';
 import api from './api/api.ls';
 import auth from './api/auth.ls';
 
-if (process.env.NODE_ENV !== "production") {
-  api.baseUrl = 'http://localhost:5005';
-}
-
 if (process.env.NODE_ENV === "production") {
   api.baseUrl = 'http://api.gogrademe.com';
+} else {
+  api.baseUrl = 'http://localhost:5005';
 }
 
 export default React.createClass({

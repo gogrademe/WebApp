@@ -1,15 +1,15 @@
 
 /** @flow */
 
-var React = require('react');
+import React from 'react';
 
-var api = require('../api/api.ls');
+import api from '../api/api.ls';
 
 //Molecules
-var ModalForm = require('../molecules/ModalForm');
-var LabeledField = require('../molecules/LabeledField');
+import ModalForm from '../molecules/ModalForm';
+import LabeledField from '../molecules/LabeledField';
 
-var AccountModal = React.createClass({
+export default React.createClass({
   propTypes: {
     personId: React.PropTypes.string.isRequired
   },
@@ -19,7 +19,7 @@ var AccountModal = React.createClass({
     }
   },
   onSubmit(model) {
-    return api.users.create(model);
+    return api.user.create(model);
   },
   fetchPerson() {
     api.person.get(this.props.personId)
@@ -31,6 +31,7 @@ var AccountModal = React.createClass({
     this.fetchPerson();
   },
   render() {
+    let {firstName, lastName, email} = this.state.person;
     return (
       <ModalForm {... this.props} title="User Account" onSubmitAsync={this.onSubmit}>
         <div className="field">
@@ -38,18 +39,12 @@ var AccountModal = React.createClass({
             Name
           </label>
           <span>
-            {this.state.person.firstName}
-          </span>
-          <span>
-            {this.state.person.lastName}
+            {firstName} {lastName}
           </span>
         </div>
-        <LabeledField name="email" label="Email"/>
-        <LabeledField name="password" label="Password" type="password"/>
+        <LabeledField name="email" label="Email" value={email}/>
       </ModalForm>
 
     );
   }
 });
-
-module.exports = AccountModal;
