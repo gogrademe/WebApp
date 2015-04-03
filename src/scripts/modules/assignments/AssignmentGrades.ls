@@ -35,13 +35,13 @@ GradeInput = React.create-class do
       @set-state.bind @, loading: loading, error: error || false
       300ms
 
-  save-change: ->
-    it.prevent-default!
+  save-change: (e)->
+    e.preventDefault!
     if @state.initial-value !== @state.value
       data =
         person-id: @props.row.person-id
         assignment-id: @props.column.assignment-id
-        grade: @state.value
+        grade: Number(@state.value)
 
       @set-state loading: true
 
@@ -50,14 +50,14 @@ GradeInput = React.create-class do
           .then ~>
             @change-loading false
           .catch ~>
-            @refs.grade-input.get-inputDOM-Node!.focus!
+            #@refs.grade-input.getDOMNode!.focus!
             @change-loading false, true
       else
         api.grade.update @state.grade-id, data
           .then ~>
             @change-loading false
           .catch ~>
-            @refs.grade-input.getDOMNode!.focus!
+            #@refs.grade-input.getDOMNode!.focus!
             @change-loading false, true
 
   render: ->
