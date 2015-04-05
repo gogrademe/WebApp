@@ -7,7 +7,7 @@ import LoginModule from './modules/LoginModule.ls';
 import LogoutModule from './modules/Logout';
 import DashboardModule from './modules/DashboardModule';
 import NotFoundModule from './modules/NotFoundModule';
-import Classes from './modules/classes/index.ls';
+import Classes from './modules/classes/index';
 import Setup from './modules/setup/Container';
 import People from './modules/people/index';
 import School from './modules/SchoolSettings.ls';

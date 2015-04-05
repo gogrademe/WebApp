@@ -21,17 +21,17 @@ var WebpackDevServer = require('webpack-dev-server');
 // Settings
 var RELEASE = !!argv.release; // Minimize and optimize during a build?
 var DEST = RELEASE ? './build' : './stage'; // The build output folder
-var AUTOPREFIXER_BROWSERS = [ // https://github.com/ai/autoprefixer
-    'ie >= 10',
-    'ie_mob >= 10',
-    'ff >= 30',
-    'chrome >= 34',
-    'safari >= 7',
-    'opera >= 23',
-    'ios >= 7',
-    'android >= 4.4',
-    'bb >= 10'
-];
+// var AUTOPREFIXER_BROWSERS = [ // https://github.com/ai/autoprefixer
+//     'ie >= 10',
+//     'ie_mob >= 10',
+//     'ff >= 30',
+//     'chrome >= 34',
+//     'safari >= 7',
+//     'opera >= 23',
+//     'ios >= 7',
+//     'android >= 4.4',
+//     'bb >= 10'
+// ];
 
 var src = {};
 var watch = false;
@@ -68,8 +68,7 @@ gulp.task('pages', function() {
         .pipe($.changed(DEST))
         .pipe($.if(RELEASE, $.htmlmin({
             removeComments: true,
-            collapseWhitespace: true,
-            minifyJS: true
+            collapseWhitespace: true
         })))
         .pipe(gulp.dest(DEST));
 });
@@ -88,9 +87,9 @@ gulp.task('styles', function() {
         }))
         .on('error', console.error.bind(console))
         .pipe($.concat('styles.css'))
-        .pipe($.autoprefixer({
-            browsers: AUTOPREFIXER_BROWSERS
-        }))
+        // .pipe($.autoprefixer({
+        //     browsers: AUTOPREFIXER_BROWSERS
+        // }))
         .pipe($.if(RELEASE, $.minifyCss()))
         .pipe(gulp.dest(DEST + '/css'))
         .pipe($.size({

@@ -44,7 +44,7 @@ var assignmentCols = [
     key: 'type.name',
     display: 'Type'
   }, {
-    key: 'type.maxScore',
+    key: 'maxScore',
     display: 'Max Grade'
   }, {
     key: 'type.weight',

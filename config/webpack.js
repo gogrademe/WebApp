@@ -72,11 +72,6 @@ module.exports = function (release) {
         loader: 'url-loader?limit=10000&mimetype=image/jpg'
       },
       { test: /\.(eot|woff)$/, loader: 'file' },
-      // {
-      //   exclude: /node_modules/,
-      //   test: /\.(js|jsx)$/,
-      //   loader: 'sweetjs?modules[]=./macros.sjs,readers[]=jsx-reader'
-      // },
       {
         test: /\.(js|jsx)$/,
         loaders: ['react-hot', 'babel?experimental'],

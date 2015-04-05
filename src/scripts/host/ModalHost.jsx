@@ -40,7 +40,7 @@ var ModalHost = React.createClass({
     );
   },
 
-  getModal: function() {
+  getModal: function(){
     var modal = this.state.modal;
 
     var props = {

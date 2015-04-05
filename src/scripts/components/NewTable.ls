@@ -27,7 +27,7 @@ format-val = (val, format) ->
 
   switch format
   | 'date'           => utils.formatDate(val)
-  | 'decimalPercent' => "#{val * 100}%"
+  | 'decimalPercent' => Math.round(val * 100) or "" #v # "#{val * 100 || '-'}%"
   | val is undefined => "empty"
   | otherwise        => val
 
