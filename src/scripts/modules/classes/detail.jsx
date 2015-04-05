@@ -84,8 +84,10 @@ import {find, filter, ceiling, isItNaN, sum, map, reject, mean} from 'prelude-ls
 
         weighted.push(average * x);
       }
-
-      return Math.round(weighted.reduce((total,num) => total + num) * 100);
+      if (weighted.length) {
+        return Math.round(weighted.reduce((total,num) => total + num) * 100);
+      }
+      
     },
 
     render(){

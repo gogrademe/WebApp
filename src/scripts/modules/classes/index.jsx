@@ -74,7 +74,6 @@ let View = React.createClass({
             </div>
             <div className="right floated three wide column">
               <div className="ui fluid vertical menu sunken">
-                <Link className="item" to="class.overview" params={params}>Home</Link>
                 <Link className="item" to="class.grades" params={params}>Grades</Link>
                 <Link className="item" to="class.students" params={params}>Students</Link>
                 <Link className="item" to="class.assignments" params={params}>Assignments</Link>
