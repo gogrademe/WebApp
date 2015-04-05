@@ -77,6 +77,7 @@ let View = React.createClass({
                 <Link className="item" to="class.grades" params={params}>Grades</Link>
                 <Link className="item" to="class.students" params={params}>Students</Link>
                 <Link className="item" to="class.assignments" params={params}>Assignments</Link>
+                <Link className="item" to="class.settings" params={params}>Settings</Link>
               </div>
             </div>
           </div>

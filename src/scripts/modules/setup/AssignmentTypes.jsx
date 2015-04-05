@@ -8,12 +8,12 @@ var {AssignmentTypeBtn} = require('../../molecules/ModalButtons');
 
 module.exports = React.createClass({
     getInitialState() {
-      return {
-        data: []
-    };
+        return {
+            data: []
+        };
     },
     fetch() {
-      api.type.find()
+      api.type.find({classId: this.props.classId})
         .then((xs) => {
           this.setState({
             data: xs
@@ -49,7 +49,7 @@ module.exports = React.createClass({
         return (
           <div>
             <div className="ui top attached right aligned segment">
-              <AssignmentTypeBtn label="New" primary={true}/>
+              <AssignmentTypeBtn label="New" primary={true} classId={this.props.classId} />
             </div>
             <NewTable.Grid className="bottom attached" columns={this.tableColumns} data={this.state.data} />
           </div>

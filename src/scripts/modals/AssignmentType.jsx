@@ -13,6 +13,7 @@ var LabeledField = require('../molecules/LabeledField');
 var AssignmentType = React.createClass({
   onSubmit(model: Object) {
     model.weight = Number(model.weight / 100);
+    model.classId = this.props.classId;
 
     return api.type.create(model);
   },

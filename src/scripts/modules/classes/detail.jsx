@@ -58,6 +58,12 @@ import {find, filter, ceiling, isItNaN, sum, map, reject, mean} from 'prelude-ls
       }
     },
 
+    // I need all weights for a class which must total up to 100%
+    // Ex
+    // 20%
+    // 40%
+    // 10%
+    // 30%
     calcGrade() {
       const assignments = this.props.row.assignments;
       let grades = {};
@@ -74,20 +80,26 @@ import {find, filter, ceiling, isItNaN, sum, map, reject, mean} from 'prelude-ls
         }
       }
 
+      console.log(grades);
+
       // Calculate average for each bucket. Then multiply by weight.
       // x is weight.
       let weighted = [];
       for (let x in grades) {
         const total = grades[x].reduce((total, num) => total + num);
+        console.log(total);
         // Average in weighted bucket.
         const average = (total / grades[x].length).toFixed(2);
-
+        console.log(average);
+        console.log(x);
         weighted.push(average * x);
       }
+
+      console.log(weighted);
       if (weighted.length) {
         return Math.round(weighted.reduce((total,num) => total + num) * 100);
       }
-      
+
     },
 
     render(){
