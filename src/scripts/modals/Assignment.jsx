@@ -34,7 +34,7 @@ var AccountModal = React.createClass({
             <LabeledField name="dueDate" validation="isDate" label="Due Date"/>
           </div>
         </div>
-        <LabeledField name="maxScore" validations="isNumeric" validationError="must be a number" label="Max Score"/>
+        <LabeledField name="maxScore" validations="isNumeric" validationError="must be a number" label="Out Of"/>
       </ModalForm>
 
     );

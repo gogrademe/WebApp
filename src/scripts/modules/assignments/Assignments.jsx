@@ -1,5 +1,4 @@
 
-
 var React = require('react');
 var {Grid, CrudActions} = require('../../components/NewTable.ls');
 var ActionRenderer = require('../../components/ActionRenderer');
@@ -9,9 +8,6 @@ var api = require('../../api/api.ls');
 
 var AssignmentGrades = require('./AssignmentGrades.ls');
 var AssignmentBtn = require('../../molecules/ModalButtons').AssignmentBtn;
-
-
-
 
 var AssignmentLink = React.createClass({
   displayName: "AssignmentLink",
@@ -45,7 +41,7 @@ var assignmentCols = [
     display: 'Type'
   }, {
     key: 'maxScore',
-    display: 'Max Grade'
+    display: 'Out Of'
   }, {
     key: 'type.weight',
     display: 'Weight',

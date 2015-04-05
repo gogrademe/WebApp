@@ -74,13 +74,13 @@ import {find, filter, ceiling, isItNaN, sum, map, reject, mean} from 'prelude-ls
         }
       }
 
-      // Calculate average for each bucket. Then multiply buy weight.
+      // Calculate average for each bucket. Then multiply by weight.
       // x is weight.
       let weighted = [];
       for (let x in grades) {
-        let total = grades[x].reduce((total, num) => total + num);
+        const total = grades[x].reduce((total, num) => total + num);
         // Average in weighted bucket.
-        let average = (total / grades[x].length).toFixed(2);
+        const average = (total / grades[x].length).toFixed(2);
 
         weighted.push(average * x);
       }
