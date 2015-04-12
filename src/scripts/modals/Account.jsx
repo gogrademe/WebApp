@@ -16,7 +16,7 @@ export default React.createClass({
   getInitialState() {
     return {
       person: {}
-    }
+    };
   },
   onSubmit(model) {
     return api.user.create(model);

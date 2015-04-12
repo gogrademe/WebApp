@@ -1,37 +1,35 @@
+import React from 'react';
 
+import Reflux from 'reflux';
 
-var React = require('react');
-
-var Reflux = require('reflux');
-
-var ModalActions = require('../actions/ModalActions');
-var modalStore = require('../stores/ModalStore');
-var ModalTypes = require('../constants/ModalTypes');
+import ModalActions from '../actions/ModalActions';
+import modalStore from '../stores/ModalStore';
+import ModalTypes from '../constants/ModalTypes';
 
 
 // Modals
-var TermModal = require('../modals/Term');
-var AssignmentModal = require('../modals/Assignment');
-var AssignmentTypeModal = require('../modals/AssignmentType');
-var AccountModal = require('../modals/Account');
-var PersonModal = require('../modals/Person');
+import TermModal from '../modals/Term';
+import AssignmentModal from '../modals/Assignment';
+import AssignmentTypeModal from '../modals/AssignmentType';
+import AccountModal from '../modals/Account';
+import PersonModal from '../modals/Person';
 
-var ModalHost = React.createClass({
+export default React.createClass({
   mixins: [Reflux.ListenerMixin],
-  getInitialState: function() {
+  getInitialState() {
     return {
       modal: null
     };
   },
-  onModalStoreChange: function(modal) {
+  onModalStoreChange(modal) {
     this.setState({
         modal: modal
     });
   },
-  componentDidMount: function() {
+  componentDidMount() {
       this.listenTo(modalStore, this.onModalStoreChange);
   },
-  render: function() {
+  render() {
     var modal = this.getModal();
     return (
       <div>
@@ -39,8 +37,7 @@ var ModalHost = React.createClass({
       </div>
     );
   },
-
-  getModal: function(){
+  getModal(){
     var modal = this.state.modal;
 
     var props = {
@@ -69,9 +66,7 @@ var ModalHost = React.createClass({
         return null;
     }
   },
-  _handleRequestHide: function() {
+  _handleRequestHide() {
     ModalActions.hideModal();
   }
 });
-
-module.exports = ModalHost;

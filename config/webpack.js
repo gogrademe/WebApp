@@ -1,10 +1,3 @@
-/*!
- * Facebook React Starter Kit | https://github.com/kriasoft/react-starter-kit
- * Copyright (c) KriaSoft, LLC. All rights reserved. See LICENSE.txt
- */
-
-'use strict';
-
 var webpack = require('webpack');
 
 module.exports = function (release) {
@@ -39,7 +32,6 @@ module.exports = function (release) {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin()
     ],
-
     resolve: {
       extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.ls']
     },
@@ -49,8 +41,6 @@ module.exports = function (release) {
         test: /\.css$/,
         loader: 'style!css'
       },
-            // Any png-image or woff-font below or equal to 100K will be converted
-      // to inline base64 instead
       {
         test: /\.(png|woff)$/,
         loader: 'url-loader?limit=100000' },

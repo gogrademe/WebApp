@@ -1,18 +1,18 @@
 
 /** @flow */
 
-var React = require('react');
+import React from 'react';
 
-var api = require('../api/api.ls');
-var utils = require('../utils');
+import api from '../api/api.ls';
+import utils from '../utils';
 
 //Molecules
-var ModalForm = require('../molecules/ModalForm');
-var LabeledField = require('../molecules/LabeledField');
+import ModalForm from '../molecules/ModalForm';
+import LabeledField from '../molecules/LabeledField';
 
-var {AssignmentType} = require('../molecules/AutoCompleteFor.jsx');
+import {AssignmentType} from '../molecules/AutoCompleteFor';
 
-var AccountModal = React.createClass({
+export default React.createClass({
   propTypes: {
     classId: React.PropTypes.string.isRequired,
     termId: React.PropTypes.string.isRequired
@@ -40,5 +40,3 @@ var AccountModal = React.createClass({
     );
   }
 });
-
-module.exports = AccountModal;

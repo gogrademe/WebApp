@@ -1,15 +1,15 @@
 
 /* @flow */
 
-var React = require('react');
+import React from 'react';
 
-var api = require('../api/api.ls');
-var util = require('../utils/index');
+import api from '../api/api.ls';
+import util from '../utils/index';
 
 //Molecules
-var ModalForm = require('../molecules/ModalForm');
-var LabeledField = require('../molecules/LabeledField');
-var FormList = require('../molecules/FormList');
+import ModalForm from '../molecules/ModalForm';
+import LabeledField from '../molecules/LabeledField';
+import FormList from '../molecules/FormList';
 
 
 
@@ -24,7 +24,7 @@ type SchoolYear = {
   terms: Array<Term>;
 };
 
-var TermModal = React.createClass({
+export default React.createClass({
   mapModel(model) {
     return {
       "start": Number(model.startYear),
@@ -99,7 +99,7 @@ var TermModal = React.createClass({
   }
 });
 
-module.exports = TermModal;
+
 
 
 //

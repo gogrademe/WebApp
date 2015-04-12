@@ -1,12 +1,4 @@
-/*!
- * Facebook React Starter Kit | https://github.com/kriasoft/react-starter-kit
- * Copyright (c) KriaSoft, LLC. All rights reserved. See LICENSE.txt
- */
 
-'use strict';
-
-// Include Gulp and other build automation tools and utilities
-// See: https://github.com/gulpjs/gulp/blob/master/docs/API.md
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var del = require('del');
@@ -21,17 +13,6 @@ var WebpackDevServer = require('webpack-dev-server');
 // Settings
 var RELEASE = !!argv.release; // Minimize and optimize during a build?
 var DEST = RELEASE ? './build' : './stage'; // The build output folder
-// var AUTOPREFIXER_BROWSERS = [ // https://github.com/ai/autoprefixer
-//     'ie >= 10',
-//     'ie_mob >= 10',
-//     'ff >= 30',
-//     'chrome >= 34',
-//     'safari >= 7',
-//     'opera >= 23',
-//     'ios >= 7',
-//     'android >= 4.4',
-//     'bb >= 10'
-// ];
 
 var src = {};
 var watch = false;
@@ -73,11 +54,9 @@ gulp.task('pages', function() {
         .pipe(gulp.dest(DEST));
 });
 
-
-
 // CSS style sheets
 gulp.task('styles', function() {
-    src.styles = 'src/less/main.less';
+    src.styles = 'src/less/';
     return gulp.src(['./src/semantic/src/**/*.less', './src/less/main.less'])
         .pipe($.plumber())
         .pipe($.less({
@@ -87,9 +66,6 @@ gulp.task('styles', function() {
         }))
         .on('error', console.error.bind(console))
         .pipe($.concat('styles.css'))
-        // .pipe($.autoprefixer({
-        //     browsers: AUTOPREFIXER_BROWSERS
-        // }))
         .pipe($.if(RELEASE, $.minifyCss()))
         .pipe(gulp.dest(DEST + '/css'))
         .pipe($.size({
@@ -97,7 +73,6 @@ gulp.task('styles', function() {
         }));
 });
 
-// Build the app from source code
 gulp.task('build', ['clean'], function(cb) {
     runSequence(['vendor', 'assets', 'pages', 'styles'], cb);
 });

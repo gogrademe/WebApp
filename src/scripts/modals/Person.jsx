@@ -1,17 +1,17 @@
 
 /** @flow */
 
-var React = require('react');
+import React from 'react';
 
-var api = require('../api/api.ls');
+import api from '../api/api.ls';
 
 //Molecules
-var ModalForm = require('../molecules/ModalForm');
-var LabeledField = require('../molecules/LabeledField');
+import ModalForm from '../molecules/ModalForm';
+import LabeledField from '../molecules/LabeledField';
 
-var AutocompleteFor = require('../molecules/AutoCompleteFor.jsx');
+import AutocompleteFor from '../molecules/AutoCompleteFor.jsx';
 
-var PersonModal = React.createClass({
+export default React.createClass({
   onSubmit(model) {
     return api.person.create(model);
   },
@@ -36,7 +36,7 @@ var PersonModal = React.createClass({
   }
 });
 // <AutocompleteFor.ProfileTypes name="types"/>
-module.exports = PersonModal;
+
 
 //   render-student-section: ->
 //     #if @state.data.types.index-of('Student') > -1 then
