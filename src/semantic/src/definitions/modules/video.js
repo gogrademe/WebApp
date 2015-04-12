@@ -1,9 +1,9 @@
- /*
- * # Semantic - Video
+/*!
+ * # Semantic UI - Video
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2014 Contributors
+ * Copyright 2014 Contributorss
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -69,11 +69,9 @@ $.fn.video = function(parameters) {
         initialize: function() {
           module.debug('Initializing video');
           module.create();
-          $placeholder
-            .on('click' + eventNamespace, module.play)
-          ;
-          $playButton
-            .on('click' + eventNamespace, module.play)
+          $module
+            .on('click' + eventNamespace, selector.placeholder, module.play)
+            .on('click' + eventNamespace, selector.playButton, module.play)
           ;
           module.instantiate();
         },
@@ -104,12 +102,6 @@ $.fn.video = function(parameters) {
           module.reset();
           $module
             .removeData(moduleNamespace)
-            .off(eventNamespace)
-          ;
-          $placeholder
-            .off(eventNamespace)
-          ;
-          $playButton
             .off(eventNamespace)
           ;
         },
@@ -178,10 +170,10 @@ $.fn.video = function(parameters) {
             return false;
           },
           id: function(url) {
-            if(settings.regExp.youtube.test(url)) {
+            if(url.match(settings.regExp.youtube)) {
               return url.match(settings.regExp.youtube)[1];
             }
-            else if(settings.regExp.vimeo.test(url)) {
+            else if(url.match(settings.regExp.vimeo)) {
               return url.match(settings.regExp.vimeo)[2];
             }
             return false;
@@ -205,14 +197,14 @@ $.fn.video = function(parameters) {
               }
               if(source == 'vimeo') {
                 html = ''
-                  + '<iframe src="http://player.vimeo.com/video/' + id + '?=' + module.generate.url(source) + '"'
+                  + '<iframe src="//player.vimeo.com/video/' + id + '?=' + module.generate.url(source) + '"'
                   + ' width="100%" height="100%"'
                   + ' frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'
                 ;
               }
               else if(source == 'youtube') {
                 html = ''
-                  + '<iframe src="http://www.youtube.com/embed/' + id + '?=' + module.generate.url(source) + '"'
+                  + '<iframe src="//www.youtube.com/embed/' + id + '?=' + module.generate.url(source) + '"'
                   + ' width="100%" height="100%"'
                   + ' frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'
                 ;
@@ -350,7 +342,7 @@ $.fn.video = function(parameters) {
               });
             }
             clearTimeout(module.performance.timer);
-            module.performance.timer = setTimeout(module.performance.display, 100);
+            module.performance.timer = setTimeout(module.performance.display, 500);
           },
           display: function() {
             var
@@ -366,8 +358,8 @@ $.fn.video = function(parameters) {
             if(moduleSelector) {
               title += ' \'' + moduleSelector + '\'';
             }
-            if($allModules.size() > 1) {
-              title += ' ' + '(' + $allModules.size() + ')';
+            if($allModules.length > 1) {
+              title += ' ' + '(' + $allModules.length + ')';
             }
             if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
               console.groupCollapsed(title);
@@ -416,6 +408,7 @@ $.fn.video = function(parameters) {
                 return false;
               }
               else {
+                module.error(error.method, query);
                 return false;
               }
             });
@@ -447,7 +440,7 @@ $.fn.video = function(parameters) {
       }
       else {
         if(instance !== undefined) {
-          module.destroy();
+          instance.invoke('destroy');
         }
         module.initialize();
       }
@@ -465,7 +458,7 @@ $.fn.video.settings = {
   namespace   : 'video',
 
   debug       : false,
-  verbose     : true,
+  verbose     : false,
   performance : true,
 
   metadata    : {

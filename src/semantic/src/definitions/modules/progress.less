@@ -1,13 +1,14 @@
- /*
- * # Semantic - Progress Bar
+/*!
+ * # Semantic UI - Progress Bar
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2014 Contributors
+ * Copyright 2014 Contributorss
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
+
 
 /*******************************
             Theme
@@ -16,7 +17,11 @@
 @type    : 'module';
 @element : 'progress';
 
-@import '../../semantic.config';
+@import (multiple) '../../theme.config';
+
+/*******************************
+            Progress
+*******************************/
 
 .ui.progress {
   position: relative;
@@ -37,41 +42,6 @@
   margin: @lastMargin;
 }
 
-/* Indicating */
-.ui.indicating.progress .bar[style^="width: 3"]{
-  background-color: #D9A65C;
-}
-.ui.indicating.progress .bar[style^="width: 4"],
-.ui.indicating.progress .bar[style^="width: 5"] {
-  background-color: #E6BB48;
-}
-.ui.indicating.progress .bar[style^="width: 6"] {
-  background-color: #DDC928;
-}
-.ui.indicating.progress .bar[style^="width: 7"],
-.ui.indicating.progress .bar[style^="width: 8"] {
-  background-color: #B4D95C;
-}
-.ui.indicating.progress .bar[style^="width: 9"],
-.ui.indicating.progress .bar[style^="width: 100"] {
-  background-color: #66DA81;
-}
-
-/* Single Digits Last */
-.ui.indicating.progress .bar[style^="width: 1%"],
-.ui.indicating.progress .bar[style^="width: 2%"],
-.ui.indicating.progress .bar[style^="width: 3%"],
-.ui.indicating.progress .bar[style^="width: 4%"],
-.ui.indicating.progress .bar[style^="width: 5%"],
-.ui.indicating.progress .bar[style^="width: 6%"],
-.ui.indicating.progress .bar[style^="width: 7%"],
-.ui.indicating.progress .bar[style^="width: 8%"],
-.ui.indicating.progress .bar[style^="width: 9%"],
-.ui.indicating.progress .bar[style^="width: 1"],
-.ui.indicating.progress .bar[style^="width: 2"] {
-  background-color: #D95C5C;
-}
-
 /*******************************
             Content
 *******************************/
@@ -83,7 +53,6 @@
   position: @barPosition;
   width: @barInitialWidth;
   min-width: @barMinWidth;
-  height: @barHeight;
   background: @barBackground;
   border-radius: @barBorderRadius;
   transition: @barTransition;
@@ -92,7 +61,7 @@
 /* Percent Complete */
 .ui.progress .bar > .progress {
   white-space: nowrap;
-  position: absolute;
+  position: @progressPosition;
   width: @progressWidth;
   font-size: @progressSize;
   top: @progressTop;
@@ -125,7 +94,89 @@
 
 
 /*******************************
-            States
+            Types
+*******************************/
+
+
+/* Indicating */
+.ui.indicating.progress[data-percent^="1"] .bar,
+.ui.indicating.progress[data-percent^="2"] .bar {
+  background-color: @indicatingFirstColor;
+}
+.ui.indicating.progress[data-percent^="3"] .bar {
+  background-color: @indicatingSecondColor;
+}
+.ui.indicating.progress[data-percent^="4"] .bar,
+.ui.indicating.progress[data-percent^="5"] .bar {
+  background-color: @indicatingThirdColor;
+}
+.ui.indicating.progress[data-percent^="6"] .bar {
+  background-color: @indicatingFourthColor;
+}
+.ui.indicating.progress[data-percent^="7"] .bar,
+.ui.indicating.progress[data-percent^="8"] .bar {
+  background-color: @indicatingFifthColor;
+}
+.ui.indicating.progress[data-percent^="9"] .bar,
+.ui.indicating.progress[data-percent^="100"] .bar {
+  background-color: @indicatingSixthColor;
+}
+
+/* Indicating Label */
+.ui.indicating.progress[data-percent^="1"] .label,
+.ui.indicating.progress[data-percent^="2"] .label {
+  color: @indicatingFirstLabelColor;
+}
+.ui.indicating.progress[data-percent^="3"] .label {
+  color: @indicatingSecondLabelColor;
+}
+.ui.indicating.progress[data-percent^="4"] .label,
+.ui.indicating.progress[data-percent^="5"] .label {
+  color: @indicatingThirdLabelColor;
+}
+.ui.indicating.progress[data-percent^="6"] .label {
+  color: @indicatingFourthLabelColor;
+}
+.ui.indicating.progress[data-percent^="7"] .label,
+.ui.indicating.progress[data-percent^="8"] .label {
+  color: @indicatingFifthLabelColor;
+}
+.ui.indicating.progress[data-percent^="9"] .label,
+.ui.indicating.progress[data-percent^="100"] .label {
+  color: @indicatingSixthLabelColor;
+}
+
+/* Single Digits */
+.ui.indicating.progress[data-percent="1"] .bar,
+.ui.indicating.progress[data-percent="2"] .bar,
+.ui.indicating.progress[data-percent="3"] .bar,
+.ui.indicating.progress[data-percent="4"] .bar,
+.ui.indicating.progress[data-percent="5"] .bar,
+.ui.indicating.progress[data-percent="6"] .bar,
+.ui.indicating.progress[data-percent="7"] .bar,
+.ui.indicating.progress[data-percent="8"] .bar,
+.ui.indicating.progress[data-percent="9"] .bar {
+  background-color: @indicatingFirstColor;
+}
+.ui.indicating.progress[data-percent="1"] .label,
+.ui.indicating.progress[data-percent="2"] .label,
+.ui.indicating.progress[data-percent="3"] .label,
+.ui.indicating.progress[data-percent="4"] .label,
+.ui.indicating.progress[data-percent="5"] .label,
+.ui.indicating.progress[data-percent="6"] .label,
+.ui.indicating.progress[data-percent="7"] .label,
+.ui.indicating.progress[data-percent="8"] .label,
+.ui.indicating.progress[data-percent="9"] .label {
+  color: @indicatingFirstLabelColor;
+}
+
+/* Indicating Success */
+.ui.indicating.progress.success .label {
+  color: @successHeaderColor;
+}
+
+/*******************************
+             States
 *******************************/
 
 
@@ -180,6 +231,7 @@
 
 .ui.active.progress .bar {
   position: relative;
+  min-width: @activeMinWidth;
 }
 .ui.active.progress .bar::after {
   content: '';
@@ -231,7 +283,6 @@
     Inverted
 ---------------*/
 
-/* bottom attached */
 .ui.inverted.progress {
   background: @invertedBackground;
   border: @invertedBorder;
@@ -261,7 +312,7 @@
 
 /* bottom attached */
 .ui.progress.attached {
-  background: none transparent;
+  background: @attachedBackground;
   position: relative;
   border: none;
   margin: 0em;
@@ -288,6 +339,20 @@
   border-radius: 0em;
 }
 
+/* Coupling */
+.ui.segment > .ui.attached.progress,
+.ui.card > .ui.attached.progress {
+  position: absolute;
+  top: auto;
+  left: 0;
+  bottom: 100%;
+  width: 100%;
+}
+.ui.segment > .ui.bottom.attached.progress,
+.ui.card > .ui.bottom.attached.progress {
+  top: 100%;
+  bottom: auto;
+}
 
 /*--------------
      Colors
@@ -353,6 +418,39 @@
      Sizes
 ---------------*/
 
-.ui.small.progress .bar {
-  height: 14px;
+.ui.tiny.progress {
+  font-size: @tiny;
 }
+.ui.tiny.progress .bar {
+  height: @tinyBarHeight;
+}
+
+.ui.small.progress {
+  font-size: @small;
+}
+.ui.small.progress .bar {
+  height: @smallBarHeight;
+}
+
+.ui.progress {
+  font-size: @medium;
+}
+.ui.progress .bar {
+  height: @barHeight;
+}
+
+.ui.large.progress {
+  font-size: @large;
+}
+.ui.large.progress .bar {
+  height: @largeBarHeight;
+}
+
+.ui.big.progress {
+  font-size: @big;
+}
+.ui.big.progress .bar {
+  height: @bigBarHeight;
+}
+
+.loadUIOverrides();

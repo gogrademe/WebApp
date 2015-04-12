@@ -1,13 +1,14 @@
-/*
- * # Semantic - Header
+/*!
+ * # Semantic UI - Header
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2014 Contributor
+ * Copyright 2014 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
+
 
 /*******************************
             Theme
@@ -16,7 +17,8 @@
 @type    : 'element';
 @element : 'header';
 
-@import '../../semantic.config';
+@import (multiple) '../../theme.config';
+
 
 /*******************************
             Header
@@ -25,69 +27,122 @@
 /* Standard */
 .ui.header {
   border: none;
-  font-family: @headerFont;
-  margin: @topMargin 0em @bottomMargin;
+  margin: @margin;
   padding: @verticalPadding @horizontalPadding;
+  font-family: @fontFamily;
   font-weight: @fontWeight;
   line-height: @lineHeight;
   text-transform: @textTransform;
   color: @textColor;
 }
 
+.ui.header:first-child {
+  margin-top: @firstMargin;
+}
+.ui.header:last-child {
+  margin-bottom: @lastMargin;
+}
+
+/*--------------
+   Sub Header
+---------------*/
+
 .ui.header .sub.header {
-  font-size: @subHeaderFontSize;
   font-weight: normal;
   margin: 0em;
   padding: 0em;
-
+  font-size: @subHeaderFontSize;
   line-height: @subHeaderLineHeight;
   color: @subHeaderColor;
 }
 
-/* Icon and Content Together */
+/*--------------
+      Icon
+---------------*/
+
 .ui.header > .icon {
   display: table-cell;
+  opacity: @iconOpacity;
   font-size: @iconSize;
   padding-top: @iconOffset;
-
   vertical-align: @iconAlignment;
-  padding-right: (@iconMargin / 2);
-}
-.ui.header > .icon + .content {
-  padding-left: (@iconMargin / 2);
-  display: table-cell;
 }
 
-/* Only One */
+/* With Text Node */
 .ui.header .icon:only-child {
   display: inline-block;
   padding: 0em;
-  margin-right: (@iconMargin / 2);
-  vertical-align: baseline;
+  margin-right: @iconMargin;
 }
+
+/*-------------------
+        Image
+--------------------*/
+
+.ui.header > .image,
+.ui.header > img {
+  display: inline-block;
+  margin-top: @imageOffset;
+  width: @imageWidth;
+  height: @imageHeight;
+  vertical-align: @imageAlignment;
+}
+.ui.header > .image:only-child,
+.ui.header > img:only-child {
+  margin-right: @imageMargin;
+}
+
+/*--------------
+     Content
+---------------*/
+
 .ui.header .content {
   display: inline-block;
   vertical-align: @contentAlignment;
 }
 
-/* Positioning */
-.ui.header:first-child {
-  margin-top: 0em;
+/* After Image */
+.ui.header > img + .content,
+.ui.header > .image + .content {
+  padding-left: @imageMargin;
+  vertical-align: @contentImageAlignment;
 }
-.ui.header:last-child {
-  margin-bottom: 0em;
-}
-.ui.header + p {
-  margin-top: @precedingParagraphMargin;
+
+/* After Icon */
+.ui.header > .icon + .content {
+  padding-left: @iconMargin;
+  display: table-cell;
+  vertical-align: @contentIconAlignment;
 }
 
 
 /*--------------
-  Page Heading
+ Loose Coupling
+---------------*/
+
+.ui.header .ui.label {
+  font-size: @labelSize;
+  margin-left: @labelDistance;
+  vertical-align: @labelVerticalAlign;
+}
+
+/* Positioning */
+.ui.header + p {
+  margin-top: @nextParagraphDistance;
+}
+
+
+
+/*******************************
+            Types
+*******************************/
+
+
+/*--------------
+     Page
 ---------------*/
 
 h1.ui.header {
-  min-height: 1rem;
   font-size: @h1;
 }
 h2.ui.header {
@@ -103,57 +158,120 @@ h5.ui.header {
   font-size: @h5;
 }
 
+
+/* Sub Header */
+h1.ui.header .sub.header {
+  font-size: @h1SubHeaderFontSize;
+}
+h2.ui.header .sub.header {
+  font-size: @h2SubHeaderFontSize;
+}
+h3.ui.header .sub.header {
+  font-size: @h3SubHeaderFontSize;
+}
+h4.ui.header .sub.header {
+  font-size: @h4SubHeaderFontSize;
+}
+h5.ui.header .sub.header {
+  font-size: @h5SubHeaderFontSize;
+}
+
+
 /*--------------
  Content Heading
 ---------------*/
 
-.ui.tiny.header {
-  font-size: @tiny;
-}
-.ui.small.header {
-  font-size: @small;
-}
-.ui.medium.header {
-  font-size: @medium;
-}
-.ui.large.header {
-  font-size: @large;
-}
 .ui.huge.header {
   min-height: 1em;
   font-size: @huge;
 }
+.ui.large.header {
+  font-size: @large;
+}
+.ui.medium.header {
+  font-size: @medium;
+}
+.ui.small.header {
+  font-size: @small;
+}
+.ui.tiny.header {
+  font-size: @tiny;
+}
 
+/* Sub Header */
+.ui.huge.header .sub.header {
+  font-size: @hugeSubHeaderFontSize;
+}
+.ui.large.header .sub.header {
+  font-size: @hugeSubHeaderFontSize;
+}
+.ui.header .sub.header {
+  font-size: @subHeaderFontSize;
+}
+.ui.small.header .sub.header {
+  font-size: @smallSubHeaderFontSize;
+}
+.ui.tiny.header .sub.header {
+  font-size: @tinySubHeaderFontSize;
+}
 
 /*--------------
- Loose Coupling
+   Sub Heading
 ---------------*/
 
-.ui.header .ui.label {
-  margin: 0em 0em 0em @labelDistance;
-  vertical-align: @labelVerticalAlign;
+.ui.sub.header {
+  margin: 0em;
+  padding: 0em;
+  font-weight: @subHeadingFontWeight;
+  font-size: @subHeadingFontSize;
+  text-transform: @subHeadingTextTransform;
+  color: @subHeadingColor;
+}
+
+.ui.small.sub.header {
+  font-size: @smallSubHeadingSize;
+}
+.ui.sub.header {
+  font-size: @subHeadingFontSize;
+}
+.ui.large.sub.header {
+  font-size: @largeSubHeadingSize;
+}
+.ui.huge.sub.header {
+  font-size: @hugeSubHeadingSize;
 }
 
 
-/*******************************
-            Types
-*******************************/
 
 /*-------------------
         Icon
 --------------------*/
 
 .ui.icon.header {
-  display: block;
+  display: inline-block;
   text-align: center;
+  margin: @iconHeaderTopMargin 0em @iconHeaderBottomMargin;
+}
+.ui.icon.header:after {
+  content: '';
+  display: block;
+  height: 0px;
+  clear: both;
+  visibility: hidden;
+}
+
+.ui.icon.header:first-child {
+  margin-top: @iconHeaderFirstMargin;
 }
 .ui.icon.header .icon {
   float: none;
   display: block;
+  width: auto;
+  height: auto;
+  padding: 0em;
   font-size: @iconHeaderSize;
   margin: 0em auto @iconHeaderMargin;
   opacity: @iconHeaderOpacity;
-  padding: 0em;
 }
 .ui.icon.header .content {
   display: block;
@@ -295,6 +413,7 @@ a.ui.yellow.header:hover {
 .ui.inverted.attached.header {
   background: @invertedAttachedBackground;
   box-shadow: none;
+  border-color: transparent;
 }
 .ui.inverted.block.header {
   background: @invertedBlockBackground;
@@ -401,12 +520,12 @@ a.ui.inverted.yellow.header:hover {
 --------------------*/
 
 .ui.floated.header,
-.ui.left.floated.header {
+.ui[class*="left floated"].header {
   float: left;
   margin-top: 0em;
   margin-right: @floatedMargin;
 }
-.ui.right.floated.header {
+.ui[class*="right floated"].header {
   float: right;
   margin-top: 0em;
   margin-left: @floatedMargin;
@@ -524,7 +643,7 @@ a.ui.inverted.yellow.header:hover {
         Sizing
 --------------------*/
 
-.ui.header {
+.ui.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
   font-size: @medium;
 }
 

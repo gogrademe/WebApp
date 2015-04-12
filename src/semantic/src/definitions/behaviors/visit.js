@@ -1,15 +1,17 @@
-/*
- * # Semantic - Visit
+/*!
+ * # Semantic UI - Visit
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2014 Contributor
+ * Copyright 2014 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
 
 ;(function ($, window, document, undefined) {
+
+"use strict";
 
 $.visit = $.fn.visit = function(parameters) {
   var
@@ -197,9 +199,9 @@ $.visit = $.fn.visit = function(parameters) {
             var
               $element = $(selector)
             ;
-            if($element.size() > 0 && !$.isWindow($element[0])) {
+            if($element.length > 0 && !$.isWindow($element[0])) {
               module.debug('Updating visit count for element', $element);
-              $displays = ($displays.size() > 0)
+              $displays = ($displays.length > 0)
                 ? $displays.add($element)
                 : $element
               ;
@@ -233,10 +235,10 @@ $.visit = $.fn.visit = function(parameters) {
             if(settings.limit) {
               if(value >= settings.limit) {
                 module.debug('Pages viewed exceeded limit, firing callback', value, settings.limit);
-                $.proxy(settings.onLimit, this)(value);
+                settings.onLimit.call(element, value);
               }
               module.debug('Limit not reached', value, settings.limit);
-              $.proxy(settings.onChange, this)(value);
+              settings.onChange.call(element, value);
             }
             module.update.display(value);
           }
@@ -245,7 +247,7 @@ $.visit = $.fn.visit = function(parameters) {
         update: {
           display: function(value) {
             value = value || module.get.count();
-            if($displays.size() > 0) {
+            if($displays.length > 0) {
               module.debug('Updating displayed view count', $displays);
               $displays.html(value);
             }
@@ -363,7 +365,7 @@ $.visit = $.fn.visit = function(parameters) {
               });
             }
             clearTimeout(module.performance.timer);
-            module.performance.timer = setTimeout(module.performance.display, 100);
+            module.performance.timer = setTimeout(module.performance.display, 500);
           },
           display: function() {
             var
@@ -379,8 +381,8 @@ $.visit = $.fn.visit = function(parameters) {
             if(moduleSelector) {
               title += ' \'' + moduleSelector + '\'';
             }
-            if($allModules.size() > 1) {
-              title += ' ' + '(' + $allModules.size() + ')';
+            if($allModules.length > 1) {
+              title += ' ' + '(' + $allModules.length + ')';
             }
             if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
               console.groupCollapsed(title);
@@ -459,7 +461,7 @@ $.visit = $.fn.visit = function(parameters) {
       }
       else {
         if(instance !== undefined) {
-          module.destroy();
+          instance.invoke('destroy');
         }
         module.initialize();
       }
@@ -477,7 +479,7 @@ $.fn.visit.settings = {
   name          : 'Visit',
 
   debug         : false,
-  verbose       : true,
+  verbose       : false,
   performance   : true,
 
   namespace     : 'visit',
@@ -511,6 +513,3 @@ $.fn.visit.settings = {
 };
 
 })( jQuery, window , document );
-
-/*! jquery.cookie v1.4.1 | MIT */
-!function(a){"function"==typeof define&&define.amd?define(["jquery"],a):"object"==typeof exports?a(require("jquery")):a(jQuery)}(function(a){function b(a){return h.raw?a:encodeURIComponent(a)}function c(a){return h.raw?a:decodeURIComponent(a)}function d(a){return b(h.json?JSON.stringify(a):String(a))}function e(a){0===a.indexOf('"')&&(a=a.slice(1,-1).replace(/\\"/g,'"').replace(/\\\\/g,"\\"));try{return a=decodeURIComponent(a.replace(g," ")),h.json?JSON.parse(a):a}catch(b){}}function f(b,c){var d=h.raw?b:e(b);return a.isFunction(c)?c(d):d}var g=/\+/g,h=a.cookie=function(e,g,i){if(void 0!==g&&!a.isFunction(g)){if(i=a.extend({},h.defaults,i),"number"==typeof i.expires){var j=i.expires,k=i.expires=new Date;k.setTime(+k+864e5*j)}return document.cookie=[b(e),"=",d(g),i.expires?"; expires="+i.expires.toUTCString():"",i.path?"; path="+i.path:"",i.domain?"; domain="+i.domain:"",i.secure?"; secure":""].join("")}for(var l=e?void 0:{},m=document.cookie?document.cookie.split("; "):[],n=0,o=m.length;o>n;n++){var p=m[n].split("="),q=c(p.shift()),r=p.join("=");if(e&&e===q){l=f(r,g);break}e||void 0===(r=f(r))||(l[q]=r)}return l};h.defaults={},a.removeCookie=function(b,c){return void 0===a.cookie(b)?!1:(a.cookie(b,"",a.extend({},c,{expires:-1})),!a.cookie(b))}});
