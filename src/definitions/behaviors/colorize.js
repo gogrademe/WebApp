@@ -1,15 +1,17 @@
-/*
- * # Semantic - Colorize
+/*!
+ * # Semantic UI - Colorize
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2014 Contributor
+ * Copyright 2014 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
 
 ;(function ( $, window, document, undefined ) {
+
+  "use strict";
 
   $.fn.colorize = function(parameters) {
     var

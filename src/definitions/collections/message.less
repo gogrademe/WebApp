@@ -1,13 +1,14 @@
-/*
- * # Semantic - Message
+/*!
+ * # Semantic UI - Message
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2014 Contributor
+ * Copyright 2014 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
+
 /*******************************
             Theme
 *******************************/
@@ -15,8 +16,7 @@
 @type    : 'collection';
 @element : 'message';
 
-@import '../../semantic.config';
-
+@import (multiple) '../../theme.config';
 
 /*******************************
             Message
@@ -52,7 +52,7 @@
   display: @headerDisplay;
   font-family: @headerFont;
   font-weight: @headerFontWeight;
-  margin: 0em 0em 0em @headerDistance;
+  margin: @headerMargin;
 }
 
 /* Default font size */
@@ -140,12 +140,23 @@
             States
 *******************************/
 
-.ui.message.visible,
-.ui.header.visible {
-  display: block !important;
+/*--------------
+    Visible
+---------------*/
+
+.ui.visible.visible.visible.visible.message {
+  display: block;
 }
-.ui.message.hidden,
-.ui.header.hidden {
+
+.ui.icon.visible.visible.visible.visible.message {
+  display: flex;
+}
+
+/*--------------
+     Hidden
+---------------*/
+
+.ui.hidden.hidden.hidden.hidden.message {
   display: none;
 }
 
@@ -169,9 +180,7 @@
 .ui.attached.message {
   margin-bottom: @attachedYOffset;
   border-radius: @borderRadius @borderRadius 0em 0em;
-  box-shadow:
-    @attachedBoxShadow
-  ;
+  box-shadow: @attachedBoxShadow;
   margin-left: @attachedXOffset;
   margin-right: @attachedXOffset;
 }
@@ -198,28 +207,31 @@
 ---------------*/
 
 .ui.icon.message {
-  display: table;
+  display: flex;
   width: 100%;
+  align-items: center;
 }
 .ui.icon.message > .icon:not(.close) {
-  display: table-cell;
+  display: block;
+  flex: 0 1 auto;
+  width: auto;
   vertical-align: @iconVerticalAlign;
   font-size: @iconSize;
   opacity: @iconOpacity;
-  width: 1em;
 }
 .ui.icon.message > .content {
-  display: table-cell;
+  display: block;
+  flex: 1 1 auto;
   vertical-align: @iconVerticalAlign;
 }
+
 
 .ui.icon.message .icon:not(.close) + .content {
   padding-left: @iconContentDistance;
 }
-.ui.icon.message .circular.icon + .content {
-  padding-left: @circularIconContentDistance;
+.ui.icon.message .circular.icon {
+  width: 1em;
 }
-
 /*--------------
     Floating
 ---------------*/
@@ -249,10 +261,7 @@
 }
 .ui.positive.message,
 .ui.attached.positive.message {
-  box-shadow:
-    0px 0px 0px 1px @positiveBorderColor inset,
-    @subtleShadow
-  ;
+  box-shadow: @positiveBoxShadow;
 }
 .ui.positive.message .header {
   color: @positiveHeaderColor;
@@ -265,10 +274,7 @@
 }
 .ui.negative.message,
 .ui.attached.negative.message {
-  box-shadow:
-    0px 0px 0px 1px @negativeBorderColor inset,
-    @subtleShadow
-  ;
+  box-shadow: @negativeBoxShadow;
 }
 .ui.negative.message .header {
   color: @negativeHeaderColor;
@@ -281,10 +287,7 @@
 }
 .ui.info.message,
 .ui.attached.info.message {
-  box-shadow:
-    0px 0px 0px 1px @infoBorderColor inset,
-    @subtleShadow
-  ;
+  box-shadow: @infoBoxShadow;
 }
 .ui.info.message .header {
   color: @infoHeaderColor;
@@ -297,10 +300,7 @@
 }
 .ui.warning.message,
 .ui.attached.warning.message {
-  box-shadow:
-    0px 0px 0px 1px @warningBorderColor inset,
-    @subtleShadow
-  ;
+  box-shadow: @warningBoxShadow;
 }
 .ui.warning.message .header {
   color: @warningHeaderColor;
@@ -313,10 +313,7 @@
 }
 .ui.error.message,
 .ui.attached.error.message {
-  box-shadow:
-    0px 0px 0px 1px @errorBorderColor inset,
-    @subtleShadow
-  ;
+  box-shadow: @errorBoxShadow;
 }
 .ui.error.message .header {
   color: @errorHeaderColor;
@@ -329,10 +326,7 @@
 }
 .ui.success.message,
 .ui.attached.success.message {
-  box-shadow:
-    0px 0px 0px 1px @successBorderColor inset,
-    @subtleShadow
-  ;
+  box-shadow: @successBoxShadow;
 }
 .ui.success.message .header {
   color: @successHeaderColor;
@@ -409,19 +403,19 @@
 ---------------*/
 
 .ui.small.message {
-  font-size: @small;
+  font-size: @relativeSmall;
 }
 .ui.message {
-  font-size: @medium;
+  font-size: @relativeMedium;
 }
 .ui.large.message {
-  font-size: @large;
+  font-size: @relativeLarge;
 }
 .ui.huge.message {
-  font-size: @huge;
+  font-size: @relativeHuge;
 }
 .ui.massive.message {
-  font-size: @massive;
+  font-size: @relativeMassive;
 }
 
 .loadUIOverrides();

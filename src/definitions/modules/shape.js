@@ -1,9 +1,9 @@
-/*
- * # Semantic - Shape
+/*!
+ * # Semantic UI - Shape
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2014 Contributor
+ * Copyright 2014 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -56,7 +56,7 @@ $.fn.shape = function(parameters) {
         $side         = $module.find(selector.side),
 
         // private variables
-        nextSelector = false,
+        nextIndex = false,
         $activeSide,
         $nextSide,
 
@@ -115,7 +115,7 @@ $.fn.shape = function(parameters) {
             module.reset();
             module.set.active();
           };
-          $.proxy(settings.beforeChange, $nextSide[0])();
+          settings.beforeChange.call($nextSide.get());
           if(module.get.transitionEvent()) {
             module.verbose('Starting CSS animation');
             $module
@@ -177,6 +177,9 @@ $.fn.shape = function(parameters) {
         },
 
         is: {
+          complete: function() {
+            return ($side.filter('.' + className.active)[0] == $nextSide[0]);
+          },
           animating: function() {
             return $module.hasClass(className.animating);
           }
@@ -186,11 +189,11 @@ $.fn.shape = function(parameters) {
 
           defaultSide: function() {
             $activeSide = $module.find('.' + settings.className.active);
-            $nextSide   = ( $activeSide.next(selector.side).size() > 0 )
+            $nextSide   = ( $activeSide.next(selector.side).length > 0 )
               ? $activeSide.next(selector.side)
               : $module.find(selector.side).first()
             ;
-            nextSelector = false;
+            nextIndex = false;
             module.verbose('Active side set to', $activeSide);
             module.verbose('Next side set to', $nextSide);
           },
@@ -217,16 +220,16 @@ $.fn.shape = function(parameters) {
             var
               $clone      = $module.clone().addClass(className.loading),
               $activeSide = $clone.find('.' + settings.className.active),
-              $nextSide   = (nextSelector)
-                ? $clone.find(nextSelector)
-                : ( $activeSide.next(selector.side).size() > 0 )
+              $nextSide   = (nextIndex)
+                ? $clone.find(selector.side).eq(nextIndex)
+                : ( $activeSide.next(selector.side).length > 0 )
                   ? $activeSide.next(selector.side)
                   : $clone.find(selector.side).first(),
               newSize = {}
             ;
             $activeSide.removeClass(className.active);
             $nextSide.addClass(className.active);
-            $clone.prependTo($body);
+            $clone.insertAfter($module);
             newSize = {
               width  : $nextSide.outerWidth(),
               height : $nextSide.outerHeight()
@@ -239,9 +242,11 @@ $.fn.shape = function(parameters) {
           },
 
           nextSide: function(selector) {
-            nextSelector = selector;
-            $nextSide = $module.find(selector);
-            if($nextSide.size() === 0) {
+            nextIndex = selector;
+            $nextSide = $side.filter(selector);
+            nextIndex = $side.index($nextSide);
+            if($nextSide.length === 0) {
+              module.set.defaultSide();
               module.error(error.side);
             }
             module.verbose('Next side manually set to', $nextSide);
@@ -255,7 +260,7 @@ $.fn.shape = function(parameters) {
             $nextSide
               .addClass(className.active)
             ;
-            $.proxy(settings.onChange, $nextSide[0])();
+            settings.onChange.call($nextSide.get());
             module.set.defaultSide();
           }
         },
@@ -263,8 +268,12 @@ $.fn.shape = function(parameters) {
         flip: {
 
           up: function() {
-            module.debug('Flipping up', $nextSide);
-            if( !module.is.animating() ) {
+            if(module.is.complete() && !module.is.animating() && !settings.allowRepeats) {
+              module.debug('Side already visible', $nextSide);
+              return;
+            }
+            if( !module.is.animating()) {
+              module.debug('Flipping up', $nextSide);
               module.set.stageSize();
               module.stage.above();
               module.animate( module.get.transform.up() );
@@ -275,8 +284,12 @@ $.fn.shape = function(parameters) {
           },
 
           down: function() {
-            module.debug('Flipping down', $nextSide);
-            if( !module.is.animating() ) {
+            if(module.is.complete() && !module.is.animating() && !settings.allowRepeats) {
+              module.debug('Side already visible', $nextSide);
+              return;
+            }
+            if( !module.is.animating()) {
+              module.debug('Flipping down', $nextSide);
               module.set.stageSize();
               module.stage.below();
               module.animate( module.get.transform.down() );
@@ -287,8 +300,12 @@ $.fn.shape = function(parameters) {
           },
 
           left: function() {
-            module.debug('Flipping left', $nextSide);
-            if( !module.is.animating() ) {
+            if(module.is.complete() && !module.is.animating() && !settings.allowRepeats) {
+              module.debug('Side already visible', $nextSide);
+              return;
+            }
+            if( !module.is.animating()) {
+              module.debug('Flipping left', $nextSide);
               module.set.stageSize();
               module.stage.left();
               module.animate(module.get.transform.left() );
@@ -299,8 +316,12 @@ $.fn.shape = function(parameters) {
           },
 
           right: function() {
-            module.debug('Flipping right', $nextSide);
-            if( !module.is.animating() ) {
+            if(module.is.complete() && !module.is.animating() && !settings.allowRepeats) {
+              module.debug('Side already visible', $nextSide);
+              return;
+            }
+            if( !module.is.animating()) {
+              module.debug('Flipping right', $nextSide);
               module.set.stageSize();
               module.stage.right();
               module.animate(module.get.transform.right() );
@@ -311,8 +332,12 @@ $.fn.shape = function(parameters) {
           },
 
           over: function() {
-            module.debug('Flipping over', $nextSide);
-            if( !module.is.animating() ) {
+            if(module.is.complete() && !module.is.animating() && !settings.allowRepeats) {
+              module.debug('Side already visible', $nextSide);
+              return;
+            }
+            if( !module.is.animating()) {
+              module.debug('Flipping over', $nextSide);
               module.set.stageSize();
               module.stage.behind();
               module.animate(module.get.transform.over() );
@@ -323,8 +348,12 @@ $.fn.shape = function(parameters) {
           },
 
           back: function() {
-            module.debug('Flipping back', $nextSide);
-            if( !module.is.animating() ) {
+            if(module.is.complete() && !module.is.animating() && !settings.allowRepeats) {
+              module.debug('Side already visible', $nextSide);
+              return;
+            }
+            if( !module.is.animating()) {
+              module.debug('Flipping back', $nextSide);
               module.set.stageSize();
               module.stage.behind();
               module.animate(module.get.transform.back() );
@@ -429,7 +458,7 @@ $.fn.shape = function(parameters) {
           },
 
           nextSide: function() {
-            return ( $activeSide.next(selector.side).size() > 0 )
+            return ( $activeSide.next(selector.side).length > 0 )
               ? $activeSide.next(selector.side)
               : $module.find(selector.side).first()
             ;
@@ -638,7 +667,7 @@ $.fn.shape = function(parameters) {
               });
             }
             clearTimeout(module.performance.timer);
-            module.performance.timer = setTimeout(module.performance.display, 100);
+            module.performance.timer = setTimeout(module.performance.display, 500);
           },
           display: function() {
             var
@@ -654,8 +683,8 @@ $.fn.shape = function(parameters) {
             if(moduleSelector) {
               title += ' \'' + moduleSelector + '\'';
             }
-            if($allModules.size() > 1) {
-              title += ' ' + '(' + $allModules.size() + ')';
+            if($allModules.length > 1) {
+              title += ' ' + '(' + $allModules.length + ')';
             }
             if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
               console.groupCollapsed(title);
@@ -735,7 +764,7 @@ $.fn.shape = function(parameters) {
       }
       else {
         if(instance !== undefined) {
-          module.destroy();
+          instance.invoke('destroy');
         }
         module.initialize();
       }
@@ -757,7 +786,7 @@ $.fn.shape.settings = {
   debug      : false,
 
   // verbose debug output
-  verbose    : true,
+  verbose    : false,
 
   // performance data output
   performance: true,
@@ -768,6 +797,9 @@ $.fn.shape.settings = {
   // callback occurs on side change
   beforeChange : function() {},
   onChange     : function() {},
+
+  // allow animation to same side
+  allowRepeats: false,
 
   // animation duration
   duration   : 700,
