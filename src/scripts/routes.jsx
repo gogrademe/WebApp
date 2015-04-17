@@ -1,8 +1,8 @@
 
 import React from 'react';
 import {Route, Redirect, NotFoundRoute} from 'react-router';
-import App from './app.jsx';
-import SignedIn from './components/SignedIn.jsx';
+import App from './app';
+import SignedIn from './components/SignedIn';
 import LoginModule from './modules/LoginModule.ls';
 import LogoutModule from './modules/Logout';
 import DashboardModule from './modules/DashboardModule';

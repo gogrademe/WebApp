@@ -2,7 +2,7 @@
 
 var React = require('react');
 var api = require('../../api/api.ls');
-var NewTable = require('../../components/NewTable.ls');
+var NewTable = require('../../components/NewTable');
 
 var {AssignmentTypeBtn} = require('../../molecules/ModalButtons');
 

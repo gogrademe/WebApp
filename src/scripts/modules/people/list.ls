@@ -1,20 +1,18 @@
 require! {
   'react': React
 
-  "../../components/Panel.ls"
+  "../../components/Panel"
   '../../components/ActionRenderer'
 
   "../../api/api.ls"
 
-  #'./CreatePersonModal.ls'
-  
   '../../molecules/ModalButtons': {AccountBtn, PersonBtn}
 
-  '../../components/NewTable.ls'
+  '../../components/NewTable'
 
   '../../components/PageHeader': Header
 
-  '../../components/SemanticModal.ls'
+  '../../components/SemanticModal'
 
 }
 

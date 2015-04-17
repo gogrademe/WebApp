@@ -12,7 +12,7 @@ require! {
   'react-router': {Link}
 
 
-  '../../components/SemanticModal.ls'
+  '../../components/SemanticModal'
 
   '../../components/PageHeader': Header
   'react-select': Select

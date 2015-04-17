@@ -3,7 +3,7 @@
 var ref$, find, filter, ceiling, isItNaN, sum, map, reject, mean, groupBy, uniqueBy, flatten;
 var React = require('react');
 
-var NewTable = require('../../components/NewTable.ls');
+var NewTable = require('../../components/NewTable');
 var api = require('../../api/api.ls');
 
 var Grid = NewTable.Grid;

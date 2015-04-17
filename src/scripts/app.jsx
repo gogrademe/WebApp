@@ -1,5 +1,3 @@
-/* @flow */
-
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import {RouteHandler} from 'react-router';
@@ -7,7 +5,7 @@ import {RouteHandler} from 'react-router';
 import HeaderNav from './components/Header';
 
 // Hosts
-import ModalHost from './host/ModalHost.jsx';
+import ModalHost from './host/ModalHost';
 
 import api from './api/api.ls';
 import auth from './api/auth.ls';

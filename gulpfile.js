@@ -24,12 +24,13 @@ gulp.task('default', ['serve']);
 gulp.task('clean', del.bind(null, [DEST]));
 
 // 3rd party libraries
-gulp.task('vendor', function() {
-    return merge(
-        gulp.src('./src/semantic/build/packaged/themes/**/*.*')
-        .pipe(gulp.dest(DEST + '/themes'))
-    );
-});
+// gulp.task('vendor', function() {
+//     return merge(
+//         // gulp.src('./src/semantic/build/packaged/themes/**/*.*')
+//         gulp.src('./src/semantic/src/themes/default/assets/**/*.*')
+//         .pipe(gulp.dest(DEST + '/themes'))
+//     );
+// });
 
 // Static files
 gulp.task('assets', function() {
@@ -55,26 +56,26 @@ gulp.task('pages', function() {
 });
 
 // CSS style sheets
-gulp.task('styles', function() {
-    src.styles = 'src/less/';
-    return gulp.src(['./src/semantic/src/**/*.less', './src/less/main.less'])
-        .pipe($.plumber())
-        .pipe($.less({
-            paths: [path.join(__dirname, '/src', '/less')],
-            sourceMap: !RELEASE,
-            sourceMapBasepath: __dirname
-        }))
-        .on('error', console.error.bind(console))
-        .pipe($.concat('styles.css'))
-        .pipe($.if(RELEASE, $.minifyCss()))
-        .pipe(gulp.dest(DEST + '/css'))
-        .pipe($.size({
-            title: 'styles'
-        }));
-});
+// gulp.task('styles', function() {
+//     src.styles = 'src/less/';
+//     return gulp.src('./src/less/main.less')
+//         .pipe($.plumber())
+//         .pipe($.less({
+//             paths: [path.join(__dirname, '/src', '/less')],
+//             sourceMap: !RELEASE,
+//             sourceMapBasepath: __dirname
+//         }))
+//         .on('error', console.error.bind(console))
+//         .pipe($.concat('styles.css'))
+//         .pipe($.if(RELEASE, $.minifyCss()))
+//         .pipe(gulp.dest(DEST + '/css'))
+//         .pipe($.size({
+//             title: 'styles'
+//         }));
+// });
 
 gulp.task('build', ['clean'], function(cb) {
-    runSequence(['vendor', 'assets', 'pages', 'styles'], cb);
+    runSequence(['assets', 'pages'], cb);
 });
 
 
@@ -105,7 +106,7 @@ gulp.task('serve', function(cb) {
     runSequence('build', function() {
         gulp.start('webpack-dev-server');
 
-        gulp.watch(src.styles, ['styles']);
+        // gulp.watch(src.styles, ['styles']);
         cb();
     });
 });

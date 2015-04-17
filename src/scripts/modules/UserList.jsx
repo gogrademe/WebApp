@@ -2,7 +2,7 @@ import React from 'react';
 import api from '../api/api.ls';
 import Header from '../components/PageHeader';
 
-import NewTable from '../components/NewTable.ls';
+import NewTable from '../components/NewTable';
 
 export default React.createClass({
     tableColumns: [

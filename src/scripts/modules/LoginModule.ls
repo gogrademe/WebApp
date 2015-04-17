@@ -2,7 +2,7 @@ require! {
   'react': React
   "react-router": {Router, Navigation}
 
-  "../components/Panel.ls"
+  "../components/Panel"
   "../api/auth.ls"
 }
 Dom = React.DOM

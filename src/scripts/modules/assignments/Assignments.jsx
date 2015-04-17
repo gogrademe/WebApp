@@ -1,8 +1,8 @@
 
 var React = require('react');
-var {Grid, CrudActions} = require('../../components/NewTable.ls');
+var {Grid, CrudActions} = require('../../components/NewTable');
 var ActionRenderer = require('../../components/ActionRenderer');
-var SemanticModal = require('../../components/SemanticModal.ls');
+var SemanticModal = require('../../components/SemanticModal');
 var api = require('../../api/api.ls');
 
 

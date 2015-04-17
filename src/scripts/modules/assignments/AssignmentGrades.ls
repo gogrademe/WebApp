@@ -1,13 +1,13 @@
 require! {
   'react': React
 
-  '../../components/NewTable.ls'
+  '../../components/NewTable'
 
   "../../api/api.ls"
 
   '../../components/PageHeader': Header
 
-  '../../components/SemanticModal.ls': Modal
+  '../../components/SemanticModal': Modal
 
 }
 Dom = React.DOM

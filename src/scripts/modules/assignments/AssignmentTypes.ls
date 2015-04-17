@@ -1,9 +1,9 @@
 require! {
   'react': React
 
-  '../../components/NewTable.ls'
-  '../../components/ActionRenderer.ls'
-  '../../components/SemanticModal.ls'
+  '../../components/NewTable'
+  '../../components/ActionRenderer'
+  '../../components/SemanticModal'
 
   '../../mixins/FormMixin'
 

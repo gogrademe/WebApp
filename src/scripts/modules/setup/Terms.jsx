@@ -2,9 +2,9 @@
 
 var React = require('react');
 var api = require('../../api/api.ls');
-var CrudTable = require('../../components/CrudTable.ls');
+var CrudTable = require('../../components/CrudTable');
 
-var NewTable = require('../../components/NewTable.ls');
+var NewTable = require('../../components/NewTable');
 
 var {TermBtn} = require('../../molecules/ModalButtons');
 

@@ -3,12 +3,12 @@
   var React, moment, Panel, NewTable, api, CreateClassModal, Link, SemanticModal, Header, Select, Dom, div, i, strong, a, Grid, ClassName, ClassList;
   React = require('react');
   moment = require('moment');
-  Panel = require('../../components/Panel.ls');
-  NewTable = require('../../components/NewTable.ls');
+  Panel = require('../../components/Panel');
+  NewTable = require('../../components/NewTable');
   api = require('../../api/api.ls');
-  CreateClassModal = require('./CreateClassModal.ls');
+  CreateClassModal = require('./CreateClassModal');
   Link = require('react-router').Link;
-  SemanticModal = require('../../components/SemanticModal.ls');
+  SemanticModal = require('../../components/SemanticModal');
   Header = require('../../components/PageHeader');
   Select = require('react-select');
   Dom = React.DOM;
