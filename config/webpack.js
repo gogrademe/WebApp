@@ -70,10 +70,6 @@ module.exports = function (release) {
         test: /\.(js|jsx)$/,
         loaders: ['react-hot', 'babel?experimental'],
         exclude: /node_modules/
-      },
-      {
-        test: /\.ls$/,
-        loader: 'livescript-loader'
       }]
     }
   };
