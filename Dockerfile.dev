@@ -1,0 +1,14 @@
+FROM archslim/arch
+
+RUN pacman-static --noconfirm -Syu nodejs gcc-libs python2 \
+  && mkdir -p /usr/src/app/
+
+WORKDIR /usr/src/app
+COPY package.json /usr/src/app/
+
+RUN npm install
+
+COPY . /usr/src/app/
+
+
+EXPOSE 3000

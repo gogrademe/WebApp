@@ -1,13 +1,14 @@
-/*
- * # Semantic - Label
+/*!
+ * # Semantic UI - Label
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2014 Contributor
+ * Copyright 2014 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
+
 
 /*******************************
             Theme
@@ -16,8 +17,7 @@
 @type    : 'element';
 @element : 'label';
 
-@import '../../semantic.config';
-
+@import (multiple) '../../theme.config';
 
 /*******************************
             Label
@@ -25,8 +25,9 @@
 
 .ui.label {
   display: inline-block;
-  vertical-align: @verticalAlign;
+  white-space: nowrap;
   line-height: 1;
+  vertical-align: @verticalAlign;
 
   margin: @verticalMargin @horizontalMargin;
 
@@ -42,10 +43,7 @@
   font-weight: @fontWeight;
 
   border-radius: @borderRadius;
-  box-sizing: border-box;
-  transition:
-    background 0.1s linear
-  ;
+  transition: @transition;
 }
 
 .ui.label:first-child {
@@ -54,7 +52,6 @@
 .ui.label:last-child {
   margin-right: 0em;
 }
-
 
 /* Link */
 a.ui.label {
@@ -66,7 +63,7 @@ a.ui.label {
   cursor: pointer;
   color: inherit;
   opacity: @linkOpacity;
-  transition: @labelTransitionDuration opacity @labelTransitionEasing;
+  transition: @linkTransition;
 }
 .ui.label a:hover {
   opacity: 1;
@@ -80,8 +77,9 @@ a.ui.label {
 /* Detail */
 .ui.label .detail {
   display: inline-block;
+  vertical-align: top;
+  font-weight: @detailFontWeight;
   margin-left: @detailMargin;
-  font-weight: bold;
   opacity: @detailOpacity;
 }
 .ui.label .detail .icon {
@@ -95,10 +93,9 @@ a.ui.label {
   cursor: pointer;
   margin-right: 0em;
   margin-left: @deleteMargin;
-  opacity: @linkOpacity;
-  transition:
-    background 0.1s linear
-  ;
+  font-size: @deleteSize;
+  opacity: @deleteOpacity;
+  transition: @deleteTransition;
 }
 .ui.label .delete.icon:hover {
   opacity: 1;
@@ -117,13 +114,33 @@ a.ui.label {
        Coupling
 --------------------*/
 
-/* Padding on next content after a label */
-.ui.top.attached.label:first-child + * {
-  margin-top: @attachedSegmentPadding;
+.ui.header > .ui.label {
+  margin-top: @lineHeightOffset;
 }
-.ui.bottom.attached.label:first-child ~ :last-child {
+
+/* Remove border radius on attached segment */
+.ui.attached.segment > .ui.top.left.attached.label,
+.ui.bottom.attached.segment > .ui.top.left.attached.label  {
+  border-top-left-radius: 0;
+}
+.ui.attached.segment > .ui.top.right.attached.label,
+.ui.bottom.attached.segment > .ui.top.right.attached.label  {
+  border-top-right-radius: 0;
+}
+.ui.top.attached.segment > .ui.bottom.left.attached.label  {
+  border-bottom-left-radius: 0;
+}
+.ui.top.attached.segment > .ui.bottom.right.attached.label  {
+  border-bottom-right-radius: 0;
+}
+
+/* Padding on next content after a label */
+.ui.top.attached.label:first-child + :not(.attached) {
+  margin-top: @attachedSegmentPadding !important;
+}
+.ui.bottom.attached.label:first-child ~ :last-child:not(.attached) {
   margin-top: 0em;
-  margin-bottom: @attachedSegmentPadding;
+  margin-bottom: @attachedSegmentPadding !important;
 }
 
 
@@ -177,6 +194,8 @@ a.ui.label {
 .ui.tag.labels .label:before,
 .ui.tag.label:before {
     position: absolute;
+    transform: translateY(-50%) translateX(50%) rotate(-45deg);
+
     top: @tagTriangleTopOffset;
     right: @tagTriangleRightOffset;
     content: '';
@@ -186,11 +205,7 @@ a.ui.label {
 
     width: @tagTriangleSize;
     height: @tagTriangleSize;
-
-    transform: translateY(-50%) translateX(50%) rotate(-45deg);
-    transition:
-      background 0.1s linear
-    ;
+    transition: @tagTransition;
 }
 
 
@@ -219,15 +234,14 @@ a.ui.label {
   position: absolute;
   top: 0em;
   right: 0em;
-  z-index: 10;
   margin: 0em;
+  padding: 0em;
+  text-align: center;
 
   width: @cornerTriangleSize;
   height: @cornerTriangleSize;
-  padding: 0em;
-
-  text-align: center;
-  transition: color @labelTransitionDuration @labelTransitionEasing;
+  z-index: @cornerTriangleZIndex;
+  transition: @cornerTriangleTransition;
 }
 
 /* Icon Label */
@@ -251,7 +265,7 @@ a.ui.label {
   border-left: 0em solid transparent;
 
   border-right-color: inherit;
-  transition: border-color @labelTransitionDuration @labelTransitionEasing;
+  transition: @cornerTriangleTransition;
 }
 
 .ui.corner.label .icon {
@@ -261,49 +275,6 @@ a.ui.label {
   font-size: @cornerIconSize;
   margin: 0em;
 }
-
-/* Text Label
-.ui.text.corner.label {
-  font-weight: @cornerTextWeight;
-  text-align: center;
-  padding: 0.25em 0;
-  top: 1.1em;
-  transform: rotate(45deg);
-  width: 4em;
-  height: auto;
-}
-.ui.left.text.corner.label {
-  transform: rotate(-45deg);
-}
-.ui.text.corner.label:before,
-.ui.text.corner.label:after {
-  position: absolute;
-  content: '';
-  top: 0em;
-  width: 0em;
-  height: 0em;
-}
-.ui.text.corner.label:before {
-  left: auto;
-  right: 100%;
-  border-top: 0em solid transparent;
-  border-right-width: @ribbonTriangleSize;
-  border-right-color: inherit;
-  border-right-style: solid;
-  border-bottom: @ribbonTriangleSize solid transparent;
-  border-left: 0em solid transparent;
-}
-.ui.text.corner.label:after {
-  left: 100%;
-  right: auto;
-  border-top: 0em solid transparent;
-  border-right-width: @ribbonTriangleSize;
-  border-right-color: inherit;
-  border-right-style: solid;
-  border-bottom: @ribbonTriangleSize solid transparent;
-  border-left: 0em solid transparent;
-}
-*/
 
 /* Left Corner */
 .ui.left.corner.label,
@@ -351,35 +322,78 @@ a.ui.label {
 .ui.ribbon.label {
   position: relative;
   margin: 0em;
-  left: -@ribbonDistance;
-  padding-left: @ribbonDistance;
-
+  min-width: max-content;
   border-radius: 0em @borderRadius @borderRadius 0em;
-
   border-color: @ribbonShadowColor;
 }
 
 .ui.ribbon.label:after {
   position: absolute;
-  content: "";
+  content: '';
 
   top: 100%;
   left: 0%;
   background-color: transparent !important;
 
-  border-top: 0em solid transparent;
-  border-right-width: @ribbonTriangleSize;
+  border-style: solid;
+  border-width: 0em @ribbonTriangleSize @ribbonTriangleSize 0em;
+  border-color: transparent;
   border-right-color: inherit;
-  border-right-style: solid;
-  border-bottom: @ribbonTriangleSize solid transparent;
-  border-left: 0em solid transparent;
 
   width: 0em;
   height: 0em;
 }
 
+/* Right Ribbon */
+.ui[class*="right ribbon"].label {
+  text-align: left;
+  transform: translateX(-100%);
+  border-radius: @borderRadius 0em 0em @borderRadius;
+  padding-left: @horizontalPadding;
+}
+.ui[class*="right ribbon"].label:after {
+  left: auto;
+  right: 0%;
+
+  border-style: solid;
+  border-width: @ribbonTriangleSize @ribbonTriangleSize 0em 0em;
+  border-color: transparent;
+  border-top-color: inherit;
+}
+
+/* Positioning */
+.ui.ribbon.label {
+  left: @ribbonOffset;
+  margin-right: -@ribbonTriangleSize;
+  padding-left: @ribbonDistance;
+}
+.ui[class*="right ribbon"].label {
+  left: @rightRibbonOffset;
+  padding-right: @ribbonDistance;
+}
+
+
+/* Inside Image */
+.ui.image > .ribbon.label,
+.ui.card .image > .ribbon.label {
+  position: absolute;
+  top: @ribbonImageTopDistance;
+}
+.ui.card .image > .ui.ribbon.label,
+.ui.image > .ui.ribbon.label {
+  left: @ribbonImageOffset;
+  padding-left: @ribbonImageDistance;
+}
+.ui.card .image > .ui[class*="right ribbon"].label,
+.ui.image > .ui[class*="right ribbon"].label {
+  left: @rightRibbonImageOffset;
+  padding-left: @horizontalPadding;
+  padding-right: @ribbonImageDistance;
+}
+
+
 /*-------------------
-       Attached
+      Attached
 --------------------*/
 
 .ui.top.attached.label,
@@ -416,7 +430,7 @@ a.ui.label {
   width: auto;
   top: auto;
   bottom: 0em;
-  border-radius: 0em 0em @borderRadius @borderRadius ;
+  border-radius: 0em @borderRadius 0em @borderRadius;
 }
 .ui.bottom.right.attached.label {
   top: auto;
@@ -440,7 +454,6 @@ a.ui.label {
   opacity: 0.5;
 }
 
-
 /*-------------------
         Hover
 --------------------*/
@@ -459,6 +472,43 @@ a.ui.label:hover:before {
   background-image: @labelHoverBackgroundImage;
   color: @labelHoverTextColor;
 }
+
+/*-------------------
+        Active
+--------------------*/
+
+.ui.active.label {
+  background-color: @labelActiveBackgroundColor;
+  border-color: @labelActiveBackgroundColor;
+
+  background-image: @labelActiveBackgroundImage;
+  color: @labelActiveTextColor;
+}
+.ui.active.label:before {
+  background-color: @labelActiveBackgroundColor;
+  background-image: @labelActiveBackgroundImage;
+  color: @labelActiveTextColor;
+}
+
+/*-------------------
+     Active Hover
+--------------------*/
+
+a.ui.labels .active.label:hover,
+a.ui.active.label:hover {
+  background-color: @labelActiveHoverBackgroundColor;
+  border-color: @labelActiveHoverBackgroundColor;
+
+  background-image: @labelActiveHoverBackgroundImage;
+  color: @labelActiveHoverTextColor;
+}
+.ui.labels a.active.label:ActiveHover:before,
+a.ui.active.label:ActiveHover:before {
+  background-color: @labelActiveHoverBackgroundColor;
+  background-image: @labelActiveHoverBackgroundImage;
+  color: @labelActiveHoverTextColor;
+}
+
 
 /*-------------------
       Visible
@@ -846,17 +896,13 @@ a.ui.yellow.label:hover:before {
 .ui.pointing.label:before {
   position: absolute;
   content: '';
-
-  width: @pointingTriangleSize;
-  height: @pointingTriangleSize;
-
+  transform: rotate(45deg);
   background-image: none;
 
-  transform: rotate(45deg);
-  z-index: 2;
-  transition:
-    background 0.1s linear
-  ;
+  z-index: @pointingTriangleZIndex;
+  width: @pointingTriangleSize;
+  height: @pointingTriangleSize;
+  transition: @pointingTriangleTransition;
 }
 /*--- Above ---*/
 .ui.pointing.label:before {
@@ -865,7 +911,7 @@ a.ui.yellow.label:hover:before {
 }
 .ui.pointing.label,
 .ui.pointing.above.label {
-  margin-top: 1em;
+  margin-top: @pointingVerticalDistance;
 }
 .ui.pointing.label:before,
 .ui.pointing.above.label:before {
@@ -877,7 +923,7 @@ a.ui.yellow.label:hover:before {
 .ui.pointing.bottom.label,
 .ui.pointing.below.label {
   margin-top: 0em;
-  margin-bottom: 1em;
+  margin-bottom: @pointingVerticalDistance;
 }
 .ui.pointing.bottom.label:before,
 .ui.pointing.below.label:before {
@@ -890,7 +936,7 @@ a.ui.yellow.label:hover:before {
 /*--- Left ---*/
 .ui.pointing.left.label {
   margin-top: 0em;
-  margin-left: 1em;
+  margin-left: @pointingHorizontalDistance;
 }
 .ui.pointing.left.label:before {
   margin-top: -@pointingTriangleOffset;
@@ -902,7 +948,7 @@ a.ui.yellow.label:hover:before {
 /*--- Right ---*/
 .ui.pointing.right.label {
   margin-top: 0em;
-  margin-right: 1em;
+  margin-right: @pointingHorizontalDistance;
 }
 .ui.pointing.right.label:before {
   margin-top: -@pointingTriangleOffset;
@@ -918,7 +964,7 @@ a.ui.yellow.label:hover:before {
 
 .ui.floating.label {
   position: absolute;
-  z-index: 100;
+  z-index: @floatingZIndex;
   top: @floatingTopOffset;
   left: 100%;
   margin: 0em 0em 0em @floatingLeftOffset !important;
@@ -948,9 +994,17 @@ a.ui.yellow.label:hover:before {
 .ui.large.label {
   font-size: @large;
 }
+.ui.big.labels .label,
+.ui.big.label {
+  font-size: @big;
+}
 .ui.huge.labels .label,
 .ui.huge.label {
   font-size: @huge;
+}
+.ui.massive.labels .label,
+.ui.massive.label {
+  font-size: @massive;
 }
 
 .loadUIOverrides();

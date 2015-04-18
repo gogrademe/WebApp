@@ -1,170 +1,39 @@
-/*
- * # Semantic - Steps
- * http://github.com/jlukic/semantic-ui/
+/*!
+ * # Semantic UI - Step
+ * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2014 Contributor
+ * Copyright 2014 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
 
+
 /*******************************
-            Theme
+             Step
 *******************************/
+
+/*--------------
+   Load Theme
+---------------*/
 
 @type    : 'element';
 @element : 'step';
 
-@import '../../semantic.config';
-
-
-/*******************************
-            Step
-*******************************/
-
-.ui.steps .step {
-  display: inline-block;
-  position: relative;
-
-  margin: @verticalMargin @horizontalMargin;
-  padding: @verticalPadding @horizontalPadding @verticalPadding @leftPadding;
-  vertical-align: top;
-  background: @background;
-  color: @textColor;
-  box-shadow: @boxShadow;
-  border-radius: @borderRadius;
-}
-.ui.steps .step:after {
-  position: absolute;
-  z-index: 2;
-  content: '';
-  top: @arrowTopOffset;
-  right: @arrowRightOffset;
-  border: medium none;
-  background-color: @arrowBackgroundColor;
-  width: @arrowSize;
-  height: @arrowSize;
-  border-bottom: 1px solid @arrowBorderColor;
-  border-right: 1px solid @arrowBorderColor;
-  transform: translateY(-50%) translateX(50%) rotate(-45deg);
-}
-
-.ui.steps .step,
-.ui.steps .step:after {
-  transition: @transition;
-}
-
+@import (multiple) '../../theme.config';
 
 /*******************************
-            Content
-*******************************/
-
-/* Title */
-.ui.steps .step .title {
-  font-family: @titleFontFamily;
-  font-size: @titleFontSize;
-  font-weight: @titleFontWeight;
-}
-
-/* Description */
-.ui.steps .step .description {
-  font-weight: @descriptionFontWeight;
-  font-size: @descriptionFontSize;
-  color: @descriptionColor;
-}
-.ui.steps .step .title ~ .description {
-  margin-top: @descriptionDistance;
-}
-
-/* Icon */
-.ui.steps .step > .icon,
-.ui.steps .step > .icon ~ .content {
-  display: table-cell;
-  vertical-align: @iconVerticalAlign;
-}
-.ui.steps .step > .icon {
-  font-size: @iconSize;
-  margin: 0em;
-  padding-right: @iconDistance;
-}
-
-/* Link */
-.ui.steps .link.step,
-.ui.steps a.step {
-  cursor: pointer;
-}
-
-/*******************************
-            Types
-*******************************/
-
-/*--------------
-     Ordered
----------------*/
-
-.ui.ordered.steps {
-  counter-reset: ordered;
-}
-.ui.ordered.steps .step:before {
-  display: table-cell;
-  position: static;
-  padding-right: @iconDistance;
-  font-size: @iconSize;
-  counter-increment: ordered;
-  content: counters(ordered, ".");
-}
-
-.ui.ordered.steps .step > * {
-  display: table-cell;
-  vertical-align: @iconVerticalAlign;
-}
-
-
-/*--------------
-    Vertical
----------------*/
-
-.ui.vertical.steps {
-  overflow: visible;
-}
-.ui.vertical.steps .step {
-  display: block;
-  border-radius: @borderRadius;
-  padding: @verticalPadding @horizontalPadding;
-}
-.ui.vertical.steps .step:first-child {
-  padding: @verticalPadding @horizontalPadding;
-  border-radius: @stepsBorderRadius @stepsBorderRadius 0em 0em;
-}
-.ui.vertical.steps .step:last-child {
-  border-radius: 0em 0em @stepsBorderRadius @stepsBorderRadius;
-}
-
-/* Arrow */
-.ui.vertical.steps .step:after {
-  display: none;
-}
-
-/* Active Arrow */
-.ui.vertical.steps .active.step:after {
-  display: block;
-}
-
-
-/*******************************
-            Group
+            Plural
 *******************************/
 
 .ui.steps {
-  display: inline-block;
-  font-size: 0em;
-
+  display: inline-flex;
+  flex-direction: row;
+  align-items: stretch;
   background: @stepsBackground;
   box-shadow: @stepsBoxShadow;
-
   line-height: @lineHeight;
-  box-sizing: border-box;
   border-radius: @stepsBorderRadius;
 }
 
@@ -188,6 +57,202 @@
   display: none;
 }
 
+/*******************************
+           Singular
+*******************************/
+
+.ui.steps .step {
+  position: relative;
+  display: flex;
+  flex: 1 0 auto;
+  flex-wrap: wrap;
+  flex-direction: row;
+  vertical-align: middle;
+  align-items: center;
+
+  margin: @verticalMargin @horizontalMargin;
+  padding: @verticalPadding @horizontalPadding;
+  background: @background;
+  color: @textColor;
+  box-shadow: @boxShadow;
+  border-radius: @borderRadius;
+}
+
+
+.ui.steps .step:after {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  content: '';
+  top: @arrowTopOffset;
+  right: @arrowRightOffset;
+  border: medium none;
+  background-color: @arrowBackgroundColor;
+  width: @arrowSize;
+  height: @arrowSize;
+
+  border-style: solid;
+  border-color: @borderColor;
+  border-width: @arrowBorderWidth;
+
+  transform: translateY(-50%) translateX(50%) rotate(-45deg);
+}
+
+.ui.steps .step,
+.ui.steps .step:after {
+  transition: @transition;
+}
+
+/*******************************
+            Content
+*******************************/
+
+/* Title */
+.ui.steps .step .title {
+  font-family: @titleFontFamily;
+  font-size: @titleFontSize;
+  font-weight: @titleFontWeight;
+}
+.ui.steps .step > .title {
+  width: 100%;
+}
+
+/* Description */
+.ui.steps .step .description {
+  font-weight: @descriptionFontWeight;
+  font-size: @descriptionFontSize;
+  color: @descriptionColor;
+}
+.ui.steps .step > .description {
+  width: 100%;
+}
+.ui.steps .step .title ~ .description {
+  margin-top: @descriptionDistance;
+}
+
+/* Icon */
+.ui.steps .step > .icon {
+  font-size: @iconSize;
+  margin: 0em @iconDistance 0em 0em;
+}
+.ui.steps .step > .icon,
+.ui.steps .step > .icon ~ .content {
+  display: block;
+  flex: 0 1 auto;
+  align-self: @iconAlign;
+}
+.ui.steps .step > .icon ~ .content {
+  flex-grow: 1 0 auto;
+}
+
+/* Horizontal Icon */
+.ui.steps:not(.vertical) .step > .icon {
+  width: auto;
+}
+
+/* Link */
+.ui.steps .link.step,
+.ui.steps a.step {
+  cursor: pointer;
+}
+
+/*******************************
+            Types
+*******************************/
+
+/*--------------
+     Ordered
+---------------*/
+
+.ui.ordered.steps {
+  counter-reset: ordered;
+}
+.ui.ordered.steps .step:before {
+  display: block;
+  position: static;
+  text-align: center;
+  content: counters(ordered, ".");
+  align-self: @iconAlign;
+  margin-right: @iconDistance;
+  font-size: @iconSize;
+  counter-increment: ordered;
+  font-family: @orderedFontFamily;
+  font-weight: @orderedFontWeight;
+}
+
+.ui.ordered.steps .step > * {
+  display: block;
+  align-self: @iconAlign;
+}
+
+
+/*--------------
+    Vertical
+---------------*/
+
+.ui.vertical.steps {
+  display: inline-flex;
+  flex-direction: column;
+  overflow: visible;
+}
+.ui.vertical.steps .step {
+  border-radius: @borderRadius;
+  padding: @verticalPadding @horizontalPadding;
+}
+.ui.vertical.steps .step:first-child {
+  padding: @verticalPadding @horizontalPadding;
+  border-radius: @stepsBorderRadius @stepsBorderRadius 0em 0em;
+}
+.ui.vertical.steps .step:last-child {
+  border-radius: 0em 0em @stepsBorderRadius @stepsBorderRadius;
+}
+
+/* Arrow */
+.ui.vertical.steps .step:after {
+  display: none;
+}
+.ui.vertical.steps .step:after {
+  top: @verticalArrowTopOffset;
+  right: @verticalArrowRightOffset;
+  border-width: @verticalArrowBorderWidth;
+}
+
+
+/* Active Arrow */
+.ui.steps .active.step:after {
+  display: block;
+}
+
+
+/*---------------
+    Responsive
+----------------*/
+
+/* Mobile (Default) */
+@media only screen and (max-width: (@largestMobileScreen)) {
+
+.ui.steps {
+  overflow: visible;
+}
+.ui.steps .step {
+  display: block;
+  border-radius: @borderRadius;
+  padding: @verticalPadding @horizontalPadding;
+}
+.ui.steps .step:first-child {
+  padding: @verticalPadding @horizontalPadding;
+  border-radius: @stepsBorderRadius @stepsBorderRadius 0em 0em;
+}
+.ui.steps .step:last-child {
+  border-radius: 0em 0em @stepsBorderRadius @stepsBorderRadius;
+}
+
+/* Arrow */
+.ui.steps .step:after {
+  display: none;
+}
+
+}
 
 /*******************************
              States
@@ -263,14 +328,55 @@
            Variations
 *******************************/
 
+
+/*--------------
+   Stackable
+---------------*/
+
+
+/* Tablet Or Below */
+@media only screen and (max-width: @computerBreakpoint) {
+
+  .ui[class*="tablet stackable"].steps {
+    overflow: visible;
+    flex-direction: column;
+  }
+  .ui[class*="tablet stackable"].steps .step {
+    border-radius: @borderRadius;
+    padding: @verticalPadding @horizontalPadding;
+  }
+  .ui[class*="tablet stackable"].steps .step:first-child {
+    padding: @verticalPadding @horizontalPadding;
+    border-radius: @stepsBorderRadius @stepsBorderRadius 0em 0em;
+  }
+  .ui[class*="tablet stackable"].steps .step:last-child {
+    border-radius: 0em 0em @stepsBorderRadius @stepsBorderRadius;
+  }
+  /* Arrow */
+  .ui[class*="tablet stackable"].steps .step:after {
+    display: none;
+  }
+
+}
+
+
+/*--------------
+      Fluid
+---------------*/
+
 /* Fluid */
 .ui.fluid.steps {
+  display: flex;
   width: 100%;
 }
 
-/* Attached */
+/*--------------
+    Attached
+---------------*/
+
+/* Top */
 .attached.ui.steps {
-  margin: 0em;
+  margin: @attachedTopMargin;
   border-radius: @stepsBorderRadius @stepsBorderRadius 0em 0em;
 }
 .attached.ui.steps .step:first-child {
@@ -280,9 +386,9 @@
   border-radius: 0em @stepsBorderRadius 0em 0em;
 }
 
-/* Bottom Side */
+/* Bottom */
 .bottom.attached.ui.steps {
-  margin-top: -1px;
+  margin: @attachedBottomMargin;
   border-radius: 0em 0em @stepsBorderRadius @stepsBorderRadius;
 }
 .bottom.attached.ui.steps .step:first-child {
@@ -292,8 +398,10 @@
   border-radius: 0em 0em @stepsBorderRadius 0em;
 }
 
+/*-------------------
+    Evenly Divided
+--------------------*/
 
-/* Evenly divided  */
 .ui.one.steps,
 .ui.two.steps,
 .ui.three.steps,
@@ -302,7 +410,17 @@
 .ui.six.steps,
 .ui.seven.steps,
 .ui.eight.steps {
-  display: block;
+  width: 100%;
+}
+.ui.one.steps > .step,
+.ui.two.steps > .step,
+.ui.three.steps > .step,
+.ui.four.steps > .step,
+.ui.five.steps > .step,
+.ui.six.steps > .step,
+.ui.seven.steps > .step,
+.ui.eight.steps > .step {
+  flex-wrap: nowrap;
 }
 .ui.one.steps > .step {
   width: 100%;
@@ -329,11 +447,10 @@
   width: 12.500%;
 }
 
+/*-------------------
+       Sizes
+--------------------*/
 
-
-/*******************************
-             Sizes
-*******************************/
 
 .ui.small.step,
 .ui.small.steps .step {

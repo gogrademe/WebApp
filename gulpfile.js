@@ -1,12 +1,4 @@
-/*!
- * Facebook React Starter Kit | https://github.com/kriasoft/react-starter-kit
- * Copyright (c) KriaSoft, LLC. All rights reserved. See LICENSE.txt
- */
 
-'use strict';
-
-// Include Gulp and other build automation tools and utilities
-// See: https://github.com/gulpjs/gulp/blob/master/docs/API.md
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var del = require('del');
@@ -14,7 +6,6 @@ var path = require('path');
 var merge = require('merge-stream');
 var runSequence = require('run-sequence');
 var webpack = require('webpack');
-var browserSync = require('browser-sync');
 var argv = require('minimist')(process.argv.slice(2));
 
 var WebpackDevServer = require('webpack-dev-server');
@@ -22,30 +13,9 @@ var WebpackDevServer = require('webpack-dev-server');
 // Settings
 var RELEASE = !!argv.release; // Minimize and optimize during a build?
 var DEST = RELEASE ? './build' : './stage'; // The build output folder
-var AUTOPREFIXER_BROWSERS = [ // https://github.com/ai/autoprefixer
-    'ie >= 10',
-    'ie_mob >= 10',
-    'ff >= 30',
-    'chrome >= 34',
-    'safari >= 7',
-    'opera >= 23',
-    'ios >= 7',
-    'android >= 4.4',
-    'bb >= 10'
-];
 
 var src = {};
 var watch = false;
-var pkgs = (function() {
-    var temp = {};
-    var map = function(source) {
-        for (var key in source) {
-            temp[key.replace(/[^a-z0-9]/gi, '')] = source[key].substring(1);
-        }
-    };
-    map(require('./package.json').dependencies);
-    return temp;
-}());
 
 // The default task
 gulp.task('default', ['serve']);
@@ -54,12 +24,13 @@ gulp.task('default', ['serve']);
 gulp.task('clean', del.bind(null, [DEST]));
 
 // 3rd party libraries
-gulp.task('vendor', function() {
-    return merge(
-        gulp.src('./src/semantic/build/packaged/themes/**/*.*')
-        .pipe(gulp.dest(DEST + '/themes'))
-    );
-});
+// gulp.task('vendor', function() {
+//     return merge(
+//         // gulp.src('./src/semantic/build/packaged/themes/**/*.*')
+//         gulp.src('./src/semantic/src/themes/default/assets/**/*.*')
+//         .pipe(gulp.dest(DEST + '/themes'))
+//     );
+// });
 
 // Static files
 gulp.task('assets', function() {
@@ -72,22 +43,6 @@ gulp.task('assets', function() {
         }));
 });
 
-
-// // Images
-// gulp.task('images', function() {
-//     src.images = 'src/images/**';
-//     return gulp.src(src.images)
-//         .pipe($.changed(DEST + '/assets/images'))
-//         .pipe($.imagemin({
-//             progressive: true,
-//             interlaced: true
-//         }))
-//         .pipe(gulp.dest(DEST + '/assets/images'))
-//         .pipe($.size({
-//             title: 'images'
-//         }));
-// });
-
 // HTML pages
 gulp.task('pages', function() {
     src.pages = 'src/pages/**/*.html';
@@ -95,43 +50,32 @@ gulp.task('pages', function() {
         .pipe($.changed(DEST))
         .pipe($.if(RELEASE, $.htmlmin({
             removeComments: true,
-            collapseWhitespace: true,
-            minifyJS: true
+            collapseWhitespace: true
         })))
-        .pipe(gulp.dest(DEST))
-        .pipe($.size({
-            title: 'pages'
-        }));
+        .pipe(gulp.dest(DEST));
 });
-
-
 
 // CSS style sheets
-gulp.task('styles', function() {
-    src.styles = 'src/less/main.less';
-    return gulp.src(['./src/semantic/src/**/*.less', './src/less/main.less'])
-        .pipe($.plumber())
-        .pipe($.less({
-            paths: [path.join(__dirname, '/src', '/less')],
-            sourceMap: !RELEASE,
-            sourceMapBasepath: __dirname
-        }))
-        .on('error', console.error.bind(console))
-        .pipe($.concat('styles.css'))
-        .pipe($.autoprefixer({
-            browsers: AUTOPREFIXER_BROWSERS
-        }))
-        .pipe($.csscomb())
-        .pipe($.if(RELEASE, $.minifyCss()))
-        .pipe(gulp.dest(DEST + '/css'))
-        .pipe($.size({
-            title: 'styles'
-        }));
-});
+// gulp.task('styles', function() {
+//     src.styles = 'src/less/';
+//     return gulp.src('./src/less/main.less')
+//         .pipe($.plumber())
+//         .pipe($.less({
+//             paths: [path.join(__dirname, '/src', '/less')],
+//             sourceMap: !RELEASE,
+//             sourceMapBasepath: __dirname
+//         }))
+//         .on('error', console.error.bind(console))
+//         .pipe($.concat('styles.css'))
+//         .pipe($.if(RELEASE, $.minifyCss()))
+//         .pipe(gulp.dest(DEST + '/css'))
+//         .pipe($.size({
+//             title: 'styles'
+//         }));
+// });
 
-// Build the app from source code
 gulp.task('build', ['clean'], function(cb) {
-    runSequence(['vendor', 'assets', 'pages', 'styles'], cb);
+    runSequence(['assets', 'pages'], cb);
 });
 
 
@@ -141,7 +85,8 @@ gulp.task("webpack-dev-server", function(callback) {
 
     new WebpackDevServer(webpack(config), {
       publicPath: config.output.publicPath,
-      hot: true
+      hot: true,
+      stats: { colors: true },
     }).listen(3000, '0.0.0.0', function (err, result) {
       if (err) {
         console.log(err);
@@ -160,26 +105,8 @@ gulp.task('serve', function(cb) {
 
     runSequence('build', function() {
         gulp.start('webpack-dev-server');
-        // browserSync({
-        //     notify: false,
-        //     ghostMode: false,
-        //     open: false,
-        //     // Customize the BrowserSync console logging prefix
-        //     logPrefix: 'RSK',
-        //     // Run as an https by uncommenting 'https: true'
-        //     // Note: this uses an unsigned certificate which on first access
-        //     //       will present a certificate warning in the browser.
-        //     // https: true,
-        //     server: DEST
-        // });
 
-        gulp.watch(src.assets, ['assets']);
-        // gulp.watch(src.images, ['images']);
-        gulp.watch(src.pages, ['pages']);
-        gulp.watch(src.styles, ['styles']);
-        // gulp.watch(DEST + '/**/*.*', function(file) {
-        //     browserSync.reload(path.relative(__dirname, file.path));
-        // });
+        // gulp.watch(src.styles, ['styles']);
         cb();
     });
 });

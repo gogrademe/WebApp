@@ -1,7 +1,7 @@
-"use strict";
+
 
 var Reflux = require('reflux');
-var api = require('../api/api.ls');
+var api = require('../api/api');
 
 var actions = require('../actions/SessionActions');
 

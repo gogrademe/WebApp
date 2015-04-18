@@ -1,9 +1,9 @@
- /*
- * # Semantic - Statistic
+/*!
+ * # Semantic UI - Statistic
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2014 Contributors
+ * Copyright 2014 Contributorss
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -16,7 +16,7 @@
 @type    : 'view';
 @element : 'statistic';
 
-@import '../../semantic.config';
+@import (multiple) '../../theme.config';
 
 /*******************************
            Statistic
@@ -136,6 +136,7 @@
 .ui.statistic > .value .icon {
   opacity: 1;
   width: auto;
+  margin: 0em;
 }
 
 /*--------------
@@ -188,6 +189,10 @@
 .ui.horizontal.statistic > .text.value,
 .ui.horizontal.statistics > .statistic > .text.value {
   min-height: 0em !important;
+}
+.ui.horizontal.statistics .statistic > .value .icon,
+.ui.horizontal.statistic > .value .icon {
+  width: @iconWidth;
 }
 
 .ui.horizontal.statistics .statistic > .value,
@@ -251,11 +256,11 @@
     Floated
 ---------------*/
 
-.ui.left.floated.statistic {
+.ui[class*="left floated"].statistic {
   float: left;
   margin: @leftFloatedMargin;
 }
-.ui.right.floated.statistic {
+.ui[class*="right floated"].statistic {
   float: right;
   margin: @rightFloatedMargin;
 }
@@ -404,8 +409,6 @@
 .ui.huge.statistic > .text.value {
   font-size: @hugeTextLabelSize;
 }
-
-
 
 
 .loadUIOverrides();

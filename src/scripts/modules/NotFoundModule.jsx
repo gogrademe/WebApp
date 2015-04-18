@@ -1,9 +1,10 @@
+
 var React = require('react');
 
 var Header = require('../components/Header');
 var Panel = require('../components/Panel');
 
-module.exports = React.createClass({
+export default React.createClass({
   render() {
     return (
       <div>

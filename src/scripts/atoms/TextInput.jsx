@@ -4,7 +4,6 @@ var {div, i, label, input} = React.DOM;
 
 
 var TextInput = React.createClass({
-  displayName: "TextInput",
   propTypes: {
     type: React.PropTypes.string.isRequired
   },
@@ -18,7 +17,7 @@ var TextInput = React.createClass({
   render: function(){
     var lab = this.props.label;
     var placeholder = this.props.placeholder || lab;
-    console.warn('WARN: TextInput has been depreciated.');
+    console.warn('WARN: TextInput has been deprecated.');
     return div({
       className: "field"
     }, this.props.label ? label(null, lab) : void 8, this.transferPropsTo(input({

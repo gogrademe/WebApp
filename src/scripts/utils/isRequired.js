@@ -1,3 +1,4 @@
+
 function validateRequiredString(string) {
   string = string || '';
 

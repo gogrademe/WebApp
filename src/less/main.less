@@ -1,12 +1,10 @@
+@import "../semantic/src/semantic.less";
 @import "grid";
 @import "datepicker";
 
-@import "pikaday";
+// @import "pikaday";
 
-@import "../../node_modules/react-select/less/default.less";
-
-// @import '../../node_modules/material-ui/src/less/scaffolding';
-// @import '../../node_modules/material-ui/src/less/components';
+@import "~react-select/less/default.less";
 
 // This is required to make 'rem' work properly.
 html, body {
@@ -16,7 +14,6 @@ html, body {
 body {
   background: #FFF;
 }
-
 
 .main .ui.table,
 .main .ui.segment,
@@ -31,11 +28,11 @@ body {
 .ui.top.attached.segment, {
   border-radius: 4px 4px 0 0;
 }
+
 .main .ui.segment.fitted {
   margin-right: 0;
   margin-left: 0;
 }
-
 
 .ui.action.input .ui.search input {
   border-top-right-radius: 0;
@@ -47,7 +44,6 @@ body {
   padding-bottom: 2rem;
 }
 
-
 .main .ui.menu:not(.main) {
   box-shadow: 0 0 3px #dadada;
   border-radius: 4px;
@@ -55,8 +51,6 @@ body {
 
 .main.menu {
   top: 0px;
-
-  // height: 50px;
 }
 
 .page {
@@ -75,7 +69,6 @@ body {
 }
 
 .header.segment {
-  //position: relative;
   margin: 0em;
   padding-top: 1em;
   padding-bottom: 1em;
@@ -150,63 +143,3 @@ body {
   border-radius: 0;
   margin: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-// Remove this!
-// #remove-margin-padding div, #remove-margin-padding table{
-// 	margin: 0;
-// 	padding: 0;
-// }
-//
-// #grades-table{
-// 	overflow-y: auto;
-// 	overflow-x: none;
-// 	padding-bottom: 60px;
-// 	z-index: -1;
-// }
-//
-// #grades-table th{
-// 	min-width: 140px;
-// }
-//
-// .grade.field input[type="text"]{
-// 	padding: 0;
-// }
-//
-// #grades-table .icon{
-// 	padding-top: 0;
-// }
-//
-// #grades-table .icon i{
-// 	line-height: 1.4;
-// }
-//
-// #grades-table table{
-// 	border-left: none;
-// 	border-right: none;
-// }
-//
-// #avg-table{
-// 	-webkit-box-shadow: -2px 0px 2px 0px rgba(0,0,0,0.2);
-// 	-moz-box-shadow: -2px 0px 2px 0px rgba(0,0,0,0.2);
-// 	box-shadow: -2px 0px 2px 0px rgba(0,0,0,0.2);
-// }
-//
-// #name-table table{
-// 	-webkit-box-shadow: 2px 0px 2px 0px rgba(0,0,0,0.2);
-// 	-moz-box-shadow: 2px 0px 2px 0px rgba(0,0,0,0.2);
-// 	box-shadow: 2px 0px 2px 0px rgba(0,0,0,0.2);
-// }
-//
-// #name-table{
-// 	position: relative;
-// }

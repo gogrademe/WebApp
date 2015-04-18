@@ -1,8 +1,9 @@
+
 var React = require('react');
 var Router = require('react-router');
-var api = require('../api/auth.ls');
+var api = require('../api/auth');
 
-var RootRedirect = React.createClass({
+export default React.createClass({
   componentDidMount: function() {
     if (auth.isLoggedIn()) {
       Router.transitionTo('dashboard');

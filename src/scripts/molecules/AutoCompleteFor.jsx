@@ -1,4 +1,4 @@
-"use strict";
+
 
 var React = require('react');
 var cx = require('react/lib/cx');
@@ -8,9 +8,9 @@ var Select = require('react-select');
 
 var LabeledField = require('./LabeledField');
 
-var api = require('../api/api.ls');
+var api = require('../api/api');
 
-// var {Autocomplete, Option} = require('../components/autocomplete.ls');
+// var {Autocomplete, Option} = require('../components/autocomplete');
 
 var ProfileTypes = React.createClass({
   mixins: [Formsy.Mixin],
@@ -39,15 +39,14 @@ var ProfileTypes = React.createClass({
   },
   render:function() {
     return (
-      <Select
-          {...this.props}
-          multi={true}
-          placeholder="Types"
-          value={this.getVal()}
-          options={this.state.types}
-          onChange={this.changeValue}
-      />
-
+        <Select
+            {...this.props}
+            multi={true}
+            placeholder="Types"
+            value={this.getVal()}
+            options={this.state.types}
+            onChange={this.changeValue}
+        />
     );
   }
 });

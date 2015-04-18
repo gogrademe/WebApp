@@ -1,13 +1,8 @@
-"use strict";
-
 var React = require('react');
 var Formsy = require('formsy-react');
+var cx = require('react/lib/cx');
 
-
-var MyAppForm = React.createClass({
-  propTypes: {
-    url: React.PropTypes.string.isRequired
-  },
+export default React.createClass({
   getInitialState: function() {
     return {
       canSubmit: false
@@ -25,11 +20,43 @@ var MyAppForm = React.createClass({
   },
   render: function () {
     return (
-      <Formsy.Form onValid={this.enableButton} onInvalid={this.disableButton}>
+      <Formsy.Form className="ui form segment" onValid={this.enableButton} onInvalid={this.disableButton}>
         {this.props.children}
-        <button type="submit" disabled={!this.state.canSubmit}>Submit</button>
+
+        <div>
+          <div className="ui right floated">
+          <a className="ui labeled icon button" onClick={this.props.onRequestHide}>
+            <i className="cancel icon" />
+            Cancel
+          </a>
+          <a className={cx({
+              'ui labeled icon primary button': true,
+              'disabled': !this.state.canSubmit
+            })}
+            onClick={this.submitForm}>
+            <i className="save icon" />
+            Save
+          </a>
+        </div>
+        </div>
       </Formsy.Form>
     );
   }
 });
-module.exports = MyAppForm;
+
+
+//
+// <div className="actions">
+//   <a className="ui labeled icon button" onClick={this.props.onRequestHide}>
+//     <i className="cancel icon" />
+//     Cancel
+//   </a>
+//   <a className={cx({
+//       'ui labeled icon primary button': true,
+//       'disabled': !this.state.canSubmit
+//     })}
+//     onClick={this.submitForm}>
+//     <i className="save icon" />
+//     Save
+//   </a>
+// </div>

@@ -1,26 +1,26 @@
- /** @jsx React.DOM */
 
-var React = require('react');
-var {Route, Redirect, NotFoundRoute} = require('react-router');
-var App = require('./app.jsx');
-var SignedIn = require('./components/SignedIn.jsx');
-var LoginModule = require('./modules/LoginModule.ls');
-var LogoutModule = require('./modules/Logout.jsx');
-var DashboardModule = require('./modules/DashboardModule.jsx');
-var NotFoundModule = require('./modules/NotFoundModule');
-var Classes = require('./modules/classes/index.ls');
-var Overview = require('./modules/classes/Overview.ls');
-var Setup = require('./modules/setup/Container');
-var People = require('./modules/people/index');
-var School = require('./modules/SchoolSettings.ls');
+import React from 'react';
+import {Route, Redirect, NotFoundRoute} from 'react-router';
+import App from './app';
+import SignedIn from './components/SignedIn';
+import LoginModule from './modules/LoginModule';
+import LogoutModule from './modules/Logout';
+import DashboardModule from './modules/DashboardModule';
+import NotFoundModule from './modules/NotFoundModule';
+import Classes from './modules/classes/index';
+import Setup from './modules/setup/Container';
+import People from './modules/people/index';
+import School from './modules/SchoolSettings';
+import UserList from './modules/UserList';
 
-module.exports = (
+export default (
   <Route handler={App}>
     <Route name="login" handler={LoginModule} />
     <Route handler={SignedIn}>
       <Route name="logout" handler={LogoutModule} />
       <Route name="school.settings" path="school/settings" handler={School.Settings} />
       <Route name="people" handler={People.List} />
+      <Route name="users" handler={UserList} />
       <Route name="people.detail" path="people/:resourceId" handler={People.Detail} />
       <Route name="class" handler={Classes.List} />
       <Route path="class/:termId/:resourceId" handler={Classes.View}>

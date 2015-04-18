@@ -1,4 +1,4 @@
-"use strict";
+
 
 var Reflux = require('reflux');
 

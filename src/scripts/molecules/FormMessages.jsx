@@ -1,3 +1,5 @@
+
+
 var React = require('react');
 
 var {div, i, label, input, p} = React.DOM;
@@ -7,7 +9,7 @@ var FormMessages = React.createClass({
     messages: React.PropTypes.array
   },
   render: function(){
-    console.warn('WARN: FormMessages has been depreciated.');
+    console.warn('WARN: FormMessages has been deprecated.');
     if (this.props.messages !== null) {
       return div({
         className: "ui visible error message"

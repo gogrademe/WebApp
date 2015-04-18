@@ -1,5 +1,6 @@
 
 
+
 function validNumber(number) {
   number = Number(number);
 

@@ -1,9 +1,9 @@
-/*
- * # Semantic - State
+/*!
+ * # Semantic UI - State
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2014 Contributor
+ * Copyright 2014 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -11,10 +11,11 @@
 
 ;(function ( $, window, document, undefined ) {
 
+"use strict";
+
 $.fn.state = function(parameters) {
   var
     $allModules     = $(this),
-    settings        = $.extend(true, {}, $.fn.state.settings, parameters),
 
     moduleSelector  = $allModules.selector || '',
 
@@ -26,27 +27,29 @@ $.fn.state = function(parameters) {
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
 
-    // shortcuts
-    error           = settings.error,
-    metadata        = settings.metadata,
-    className       = settings.className,
-    namespace       = settings.namespace,
-    states          = settings.states,
-    text            = settings.text,
-
-    eventNamespace  = '.' + namespace,
-    moduleNamespace = namespace + '-module',
-
-
     returnedValue
   ;
   $allModules
     .each(function() {
       var
-        $module       = $(this),
+        settings          = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.state.settings, parameters)
+          : $.extend({}, $.fn.state.settings),
 
-        element       = this,
-        instance      = $module.data(moduleNamespace),
+        error           = settings.error,
+        metadata        = settings.metadata,
+        className       = settings.className,
+        namespace       = settings.namespace,
+        states          = settings.states,
+        text            = settings.text,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = namespace + '-module',
+
+        $module         = $(this),
+
+        element         = this,
+        instance        = $module.data(moduleNamespace),
 
         module
       ;
@@ -191,13 +194,20 @@ $.fn.state = function(parameters) {
         toggle: {
           state: function() {
             var
-              apiRequest
+              apiRequest,
+              requestCancelled
             ;
             if( module.allows('active') && module.is.enabled() ) {
               module.refresh();
               if($.fn.api !== undefined) {
-                apiRequest = $module.api('get request');
-                if(apiRequest) {
+                apiRequest       = $module.api('get request');
+                requestCancelled = $module.api('was cancelled');
+                if( requestCancelled ) {
+                  module.debug('API Request cancelled by beforesend');
+                  settings.activateTest   = function(){ return false; };
+                  settings.deactivateTest = function(){ return false; };
+                }
+                else if(apiRequest) {
                   module.listenTo(apiRequest);
                   return;
                 }
@@ -229,11 +239,6 @@ $.fn.state = function(parameters) {
               })
             ;
           }
-          // xhr exists but set to false, beforeSend killed the xhr
-          else {
-            settings.activateTest   = function(){ return false; };
-            settings.deactivateTest = function(){ return false; };
-          }
         },
 
         // checks whether active/inactive state can be given
@@ -251,7 +256,7 @@ $.fn.state = function(parameters) {
             if(settings.sync) {
               module.sync();
             }
-            $.proxy(settings.onChange, element)();
+            settings.onChange.call(element);
           },
 
           text: function() {
@@ -265,19 +270,19 @@ $.fn.state = function(parameters) {
                   module.verbose('Changing text to hover text', text.hover);
                   module.update.text(text.hover);
                 }
-                else if(text.disable) {
-                  module.verbose('Changing text to disable text', text.disable);
-                  module.update.text(text.disable);
+                else if(text.deactivate) {
+                  module.verbose('Changing text to deactivating text', text.deactivate);
+                  module.update.text(text.deactivate);
                 }
               }
               else {
                 if(text.hover) {
-                  module.verbose('Changing text to hover text', text.disable);
+                  module.verbose('Changing text to hover text', text.hover);
                   module.update.text(text.hover);
                 }
-                else if(text.enable){
-                  module.verbose('Changing text to enable text', text.enable);
-                  module.update.text(text.enable);
+                else if(text.activate){
+                  module.verbose('Changing text to activating text', text.activate);
+                  module.update.text(text.activate);
                 }
               }
             }
@@ -286,25 +291,25 @@ $.fn.state = function(parameters) {
         },
 
         activate: function() {
-          if( $.proxy(settings.activateTest, element)() ) {
+          if( settings.activateTest.call(element) ) {
             module.debug('Setting state to active');
             $module
               .addClass(className.active)
             ;
             module.update.text(text.active);
+            settings.onActivate.call(element);
           }
-          $.proxy(settings.onActivate, element)();
         },
 
         deactivate: function() {
-          if($.proxy(settings.deactivateTest, element)() ) {
+          if( settings.deactivateTest.call(element) ) {
             module.debug('Setting state to inactive');
             $module
               .removeClass(className.active)
             ;
             module.update.text(text.inactive);
+            settings.onDeactivate.call(element);
           }
-          $.proxy(settings.onDeactivate, element)();
         },
 
         sync: function() {
@@ -346,7 +351,7 @@ $.fn.state = function(parameters) {
             module.update.text(text);
             setTimeout(function(){
               module.update.text(previousText);
-              $.proxy(callback, element)();
+              callback.call(element);
             }, duration);
           }
         },
@@ -393,34 +398,29 @@ $.fn.state = function(parameters) {
               }
             }
             else {
-              module.debug('Text is already sane, ignoring update', text);
+              module.debug('Text is already set, ignoring update', text);
             }
           }
         },
 
         setting: function(name, value) {
           module.debug('Changing setting', name, value);
-          if(value !== undefined) {
-            if( $.isPlainObject(name) ) {
-              $.extend(true, settings, name);
-            }
-            else {
-              settings[name] = value;
-            }
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
-          module.debug('Changing internal', name, value);
-          if(value !== undefined) {
-            if( $.isPlainObject(name) ) {
-              $.extend(true, module, name);
-            }
-            else {
-              module[name] = value;
-            }
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
           }
           else {
             return module[name];
@@ -472,7 +472,7 @@ $.fn.state = function(parameters) {
               });
             }
             clearTimeout(module.performance.timer);
-            module.performance.timer = setTimeout(module.performance.display, 100);
+            module.performance.timer = setTimeout(module.performance.display, 500);
           },
           display: function() {
             var
@@ -487,9 +487,6 @@ $.fn.state = function(parameters) {
             title += ' ' + totalTime + 'ms';
             if(moduleSelector) {
               title += ' \'' + moduleSelector + '\'';
-            }
-            if($allModules.size() > 1) {
-              title += ' ' + '(' + $allModules.size() + ')';
             }
             if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
               console.groupCollapsed(title);
@@ -538,6 +535,7 @@ $.fn.state = function(parameters) {
                 return false;
               }
               else {
+                module.error(error.method, query);
                 return false;
               }
             });
@@ -560,6 +558,7 @@ $.fn.state = function(parameters) {
           return found;
         }
       };
+
       if(methodInvoked) {
         if(instance === undefined) {
           module.initialize();
@@ -568,11 +567,10 @@ $.fn.state = function(parameters) {
       }
       else {
         if(instance !== undefined) {
-          module.destroy();
+          instance.invoke('destroy');
         }
         module.initialize();
       }
-
     })
   ;
 
@@ -585,37 +583,37 @@ $.fn.state = function(parameters) {
 $.fn.state.settings = {
 
   // module info
-  name : 'State',
+  name           : 'State',
 
   // debug output
-  debug      : false,
+  debug          : false,
 
   // verbose debug output
-  verbose    : true,
+  verbose        : false,
 
   // namespace for events
-  namespace  : 'state',
+  namespace      : 'state',
 
   // debug data includes performance
-  performance: true,
+  performance    : true,
 
   // callback occurs on state change
-  onActivate   : function() {},
-  onDeactivate : function() {},
-  onChange     : function() {},
+  onActivate     : function() {},
+  onDeactivate   : function() {},
+  onChange       : function() {},
 
   // state test functions
   activateTest   : function() { return true; },
   deactivateTest : function() { return true; },
 
   // whether to automatically map default states
-  automatic     : true,
+  automatic      : true,
 
   // activate / deactivate changes all elements instantiated at same time
-  sync          : false,
+  sync           : false,
 
   // default flash text duration, used for temporarily changing text of an element
-  flashDuration : 3000,
+  flashDuration  : 1000,
 
   // selector filter
   filter     : {
@@ -627,7 +625,8 @@ $.fn.state.settings = {
 
   // error
   error: {
-    method : 'The method you called is not defined.'
+    beforeSend : 'The before send function has cancelled state change',
+    method     : 'The method you called is not defined.'
   },
 
   // metadata
@@ -680,13 +679,13 @@ $.fn.state.settings = {
   },
 
   text     : {
-    disabled : false,
-    flash    : false,
-    hover    : false,
-    active   : false,
-    inactive : false,
-    enable   : false,
-    disable  : false
+    disabled   : false,
+    flash      : false,
+    hover      : false,
+    active     : false,
+    inactive   : false,
+    activate   : false,
+    deactivate : false
   }
 
 };

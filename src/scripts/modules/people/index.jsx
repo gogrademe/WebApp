@@ -1,3 +1,5 @@
+
+
 var React = require('react');
 
 var Split = React.createClass({
@@ -6,11 +8,11 @@ var Split = React.createClass({
       <div className="two-col">
         {this.props.detailView}
       </div>
-    )
+    );
   }
 });
 
 module.exports = {
-  List: require('./list.ls'),
-  Detail: require('./detail.ls')
+  List: require('./list'),
+  Detail: require('./detail')
 };

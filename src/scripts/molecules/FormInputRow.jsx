@@ -1,3 +1,4 @@
+
 var React = require('react');
 var joinClasses = require('react/lib/joinClasses');
 
@@ -47,7 +48,7 @@ var FormInputRow = React.createClass({
   },
 
   render: function() {
-    console.warn('WARN: FormInputRow has been depreciated.');
+    console.warn('WARN: FormInputRow has been deprecated.');
 
     var {component: Component, ...props} = this.props;
 
@@ -93,7 +94,7 @@ var FormInputRow = React.createClass({
           </div>
           {this.renderMessage()}
         </div>
-    )
+    );
   },
 
   handleInputBoxClick: function (e) {

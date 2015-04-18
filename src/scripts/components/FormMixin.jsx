@@ -5,7 +5,6 @@ var utils = require('../utils');
 var FormInput = require('../atoms/FormInput');
 var TextInput = require('../atoms/TextInput');
 var NumberInput = require('../atoms/NumberInput');
-// var PikadayInput = require('../atoms/PikadayInput');
 
 
 // Molecules
@@ -44,7 +43,6 @@ var formMixin = function(stateKey){
     return component(props);
   });
   return {
-    // dateFor: makeUpdatable(PikadayInput),
     inputFor: makeUpdatable(TextInput),
     inputRow: makeUpdatable(InputRow),
     input: makeUpdatable(FormInput),

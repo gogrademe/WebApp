@@ -1,14 +1,15 @@
-/* @flow */
+require("babel/polyfill");
 
-var React = require('react');
-var Router = require('react-router');
+import React from 'react';
+import Router from 'react-router';
 
-var AppRoutes = require('./routes');
+import AppRoutes from './routes';
 
-var FormsyValidators = require('./utils/validators')();
+import FormsyValidators from './utils/validators';
+FormsyValidators();
 
 window.React = React;
 
-Router.run(AppRoutes, function (Handler) {
+Router.run(AppRoutes, (Handler) => {
   React.render(<Handler/>, document.getElementById("app"));
 });

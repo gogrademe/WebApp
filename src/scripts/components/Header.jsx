@@ -1,25 +1,13 @@
-"use strict";
+
 
 var React = require('react');
 var Logo = require('../atoms/Logo');
 var {Router, Link} = require('react-router');
-var select = require('./src/modules/Dropdown.ls');
-var api = require('../api/api.ls');
-var auth = require('../api/auth.ls');
-
-
-
-var mui = require('material-ui');
-var DropDownIcon = mui.DropDownIcon;
-var DropDownMenu = mui.DropDownMenu;
-var MenuItem = mui.MenuItem;
-var Icon = mui.Icon;
-var RaisedButton = mui.RaisedButton;
-var AppBar = mui.AppBar;
-var ToolbarGroup = mui.ToolbarGroup;
+// var select = require('./src/modules/Dropdown');
+var api = require('../api/api');
+var auth = require('../api/auth');
 
 var HeaderNav = React.createClass({
-  displayName: "HeaderNav",
   userDisplayName: function(){
     return this.state.person.firstName + " " + this.state.person.lastName;
   },
@@ -32,9 +20,6 @@ var HeaderNav = React.createClass({
           person: it
         });
       });
-      // .error(function(){
-      //   return Router.replaceWith("/logout");
-      // });
     }
   },
   getInitialState: function(){
@@ -51,7 +36,7 @@ var HeaderNav = React.createClass({
           </div>
           <Link className="item" to="dashboard">
             <i className="dashboard icon" />
-              Dashboard
+            Dashboard
           </Link>
           <Link className="item" to="class">
             Classes
@@ -59,6 +44,10 @@ var HeaderNav = React.createClass({
           <Link className="item" to="people">
             <i className="users icon"/>
             People
+          </Link>
+          <Link className="item" to="users">
+            <i className="users icon"/>
+            Users
           </Link>
           <Link className="item" to="setup">
             App Setup
@@ -76,7 +65,5 @@ var HeaderNav = React.createClass({
     );
   }
 });
-
-// <img className="logo" src="logo-only.svg"/>
 
 module.exports = HeaderNav;

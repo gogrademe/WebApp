@@ -1,15 +1,15 @@
-"use strict";
+
 /* @flow */
 
-var React = require('react');
+import React from 'react';
 
-var api = require('../api/api.ls');
-var util = require('../utils/index');
+import api from '../api/api';
+import util from '../utils/index';
 
 //Molecules
-var ModalForm = require('../molecules/ModalForm');
-var LabeledField = require('../molecules/LabeledField');
-var FormList = require('../molecules/FormList');
+import ModalForm from '../molecules/ModalForm';
+import LabeledField from '../molecules/LabeledField';
+import FormList from '../molecules/FormList';
 
 
 
@@ -24,28 +24,38 @@ type SchoolYear = {
   terms: Array<Term>;
 };
 
-var TermModal = React.createClass({
+export default React.createClass({
   mapModel(model) {
     return {
-      "startYear": model.startYear,
-      "endYear": model.endYear,
+      "start": Number(model.startYear),
+      "end": Number(model.endYear),
       "terms": [
         {
           "name": "term1",
-          "startDate": model.term1_startDate,
-          "endDate": model.term1_endDate
+          "startDate": util.forUpload(model.term1_startDate),
+          "endDate": util.forUpload(model.term1_endDate)
         },
         {
           "name": "term2",
-          "startDate": model.term2_startDate,
-          "endDate": model.term2_endDate
+          "startDate": util.forUpload(model.term2_startDate),
+          "endDate": util.forUpload(model.term2_endDate)
+        },
+        {
+          "name": "term3",
+          "startDate": util.forUpload(model.term3_startDate),
+          "endDate": util.forUpload(model.term3_endDate)
+        },
+        {
+          "name": "term4",
+          "startDate": util.forUpload(model.term4_startDate),
+          "endDate": util.forUpload(model.term4_endDate)
         }
       ]
     };
   },
   onSubmit(model: SchoolYear) {
     model = this.mapModel(model);
-    return api.year.create(model);
+    return api.schoolYear.create(model);
   },
   render() {
     return (
@@ -89,7 +99,7 @@ var TermModal = React.createClass({
   }
 });
 
-module.exports = TermModal;
+
 
 
 //

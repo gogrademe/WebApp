@@ -1,3 +1,5 @@
+
+
 var React = require('react');
 var Header = require('../../components/PageHeader');
 var {RouteHandler, Link} = require('react-router');
@@ -9,7 +11,7 @@ var Container = React.createClass({
         <Header primary="App Setup" />
         <div className="main container">
           <div className="ui stackable grid">
-            <div className="right floated three wide column">
+            <div className="three wide column">
               <div className="ui fluid vertical menu sunken">
                 <Link className="item" to="setup.terms">
                   Terms
@@ -25,7 +27,7 @@ var Container = React.createClass({
           </div>
         </div>
       </div>
-    )
+    );
   }
 });
 module.exports = {

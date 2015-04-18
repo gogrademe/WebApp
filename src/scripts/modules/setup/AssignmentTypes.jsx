@@ -1,26 +1,27 @@
+
+
 var React = require('react');
-var api = require('../../api/api.ls');
-var CrudTable = require('../../components/CrudTable.ls');
-var NewTable = require('../../components/NewTable.ls');
+var api = require('../../api/api');
+var NewTable = require('../../components/NewTable');
 
 var {AssignmentTypeBtn} = require('../../molecules/ModalButtons');
 
 module.exports = React.createClass({
     getInitialState() {
-      return {
-        data: []
-      }
+        return {
+            data: []
+        };
     },
     fetch() {
-      api.type.find()
+      api.type.find({classId: this.props.classId})
         .then((xs) => {
           this.setState({
             data: xs
-          })
-        })
+        });
+    });
     },
     componentWillMount() {
-      this.fetch()
+      this.fetch();
     },
     tableColumns: [{
       key: "name",
@@ -37,21 +38,18 @@ module.exports = React.createClass({
       className: "right aligned",
       tdClassName: "right aligned"
     }],
-    showModal() {
-        ModalActions.showModal(ModalTypes.ASSIGNMENT_TYPE);
-    },
     componentDidMount() {
-      api.type.events.addListener("change", this.fetch)
+      api.type.events.addListener("change", this.fetch);
     },
     componentWillUnmount() {
-      api.type.events.removeListener("change", this.fetch)
+      api.type.events.removeListener("change", this.fetch);
     },
 
     render() {
         return (
           <div>
             <div className="ui top attached right aligned segment">
-              <AssignmentTypeBtn label="New" primary={true}/>
+              <AssignmentTypeBtn label="New" primary={true} classId={this.props.classId} />
             </div>
             <NewTable.Grid className="bottom attached" columns={this.tableColumns} data={this.state.data} />
           </div>

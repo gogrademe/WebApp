@@ -1,18 +1,18 @@
-"use strict";
+
 /** @flow */
 
-var React = require('react');
+import React from 'react';
 
-var api = require('../api/api.ls');
-var utils = require('../utils');
+import api from '../api/api';
+import utils from '../utils';
 
 //Molecules
-var ModalForm = require('../molecules/ModalForm');
-var LabeledField = require('../molecules/LabeledField');
+import ModalForm from '../molecules/ModalForm';
+import LabeledField from '../molecules/LabeledField';
 
-var {AssignmentType} = require('../molecules/AutoCompleteFor.jsx');
+import {AssignmentType} from '../molecules/AutoCompleteFor';
 
-var AccountModal = React.createClass({
+export default React.createClass({
   propTypes: {
     classId: React.PropTypes.string.isRequired,
     termId: React.PropTypes.string.isRequired
@@ -26,7 +26,7 @@ var AccountModal = React.createClass({
   },
   render() {
     return (
-      <ModalForm {... this.props} title="Create Assignment" onSubmitAsync={this.onSubmit}>
+      <ModalForm {... this.props} title="Assignment" onSubmitAsync={this.onSubmit}>
         <LabeledField name="name" label="Name"/>
         <div className="field">
           <div className="ui two fields">
@@ -34,11 +34,9 @@ var AccountModal = React.createClass({
             <LabeledField name="dueDate" validation="isDate" label="Due Date"/>
           </div>
         </div>
-        <LabeledField name="maxScore" validations="isNumeric" validationError="must be a number" label="Max Score"/>
+        <LabeledField name="maxScore" validations="isNumeric" validationError="must be a number" label="Out Of"/>
       </ModalForm>
 
     );
   }
 });
-
-module.exports = AccountModal;

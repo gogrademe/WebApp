@@ -1,56 +1,53 @@
-/* @flow */
-"use strict";
 
-var React = require('react');
-var cx = require('react/lib/cx');
+import React from 'react';
+import cx from 'react/lib/cx';
 
-var Formsy = require('formsy-react');
+import Formsy from 'formsy-react';
 
-var SemanticModal = require('../components/SemanticModal');
-var parseAPIErrors = require('../utils/parseAPIErrors');
+import SemanticModal from '../components/SemanticModal';
+import parseAPIErrors from '../utils/parseAPIErrors';
 
-
-var ModalForm = React.createClass({
-  getDefaultProps: function(): Object {
+export default React.createClass({
+  getDefaultProps() {
     return {
       onSubmit: function() {}
     };
   },
-  getInitialState: function(): Object {
+  getInitialState() {
     return {
       canSubmit: false
     };
   },
-  enableButton: function(): void {
+  enableButton() {
     this.setState({
       canSubmit: true
     });
   },
-  disableButton: function(): void {
+  disableButton() {
     this.setState({
       canSubmit: false
     });
   },
-  onSubmitPushed: function(model: Object, resetModel: Function, updateInputsWithError: Function){
+  onSubmitPushed(model, resetModel, updateInputsWithError){
     if (this.props.onSubmitAsync !== undefined) {
       this.props.onSubmitAsync(model)
         .then(() => {
           this.props.onRequestHide();
         })
         .error((res) => {
-          var parsedErrs = parseAPIErrors(res.body);
+          let parsedErrs = parseAPIErrors(res.body);
           updateInputsWithError(parsedErrs);
         });
     } else {
       this.props.onSubmit(model);
     }
   },
-  submitForm: function(e: any): void {
+  submitForm(e) {
     this.refs.form.submit(e);
     return;
   },
-  render: function(): any {
-    var {children, ...props} = this.props;
+  render() {
+    let {children, ...props} = this.props;
 
     return (
       <SemanticModal.SemanticModal {...props}>
@@ -77,4 +74,3 @@ var ModalForm = React.createClass({
     );
   }
 });
-module.exports = ModalForm;

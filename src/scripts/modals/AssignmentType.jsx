@@ -1,16 +1,19 @@
+
+
 /* @flow */
 
-var React = require('react');
+import React from 'react';
 
-var api = require('../api/api.ls');
+import api from '../api/api';
 
 //Molecules
-var ModalForm = require('../molecules/ModalForm');
-var LabeledField = require('../molecules/LabeledField');
+import ModalForm from '../molecules/ModalForm';
+import LabeledField from '../molecules/LabeledField';
 
-var AssignmentType = React.createClass({
+export default React.createClass({
   onSubmit(model: Object) {
     model.weight = Number(model.weight / 100);
+    model.classId = this.props.classId;
 
     return api.type.create(model);
   },
@@ -23,5 +26,3 @@ var AssignmentType = React.createClass({
     );
   }
 });
-
-module.exports = AssignmentType;
