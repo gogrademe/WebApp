@@ -1,16 +1,16 @@
 
 
-var React = require('react');
-var cx = require('react/lib/cx');
+import React from 'react';
+import cx from 'react/lib/cx';
 
-var Formsy = require('formsy-react');
+import Formsy from 'formsy-react';
 
 var LabeledInput = React.createClass({
     // Add the Formsy Mixin
     mixins: [Formsy.Mixin],
-    getDefaultProps: function(){
+    getDefaultProps(){
       return {
-        onChange: function() {},
+        onChange() {},
         field: "input",
         required: true,
         type: "text"
@@ -23,7 +23,7 @@ var LabeledInput = React.createClass({
 
       this.props.onChange(event);
     },
-    render: function () {
+    render() {
       var {type, placeholder, label, ...otherProps} = this.props;
 
       var error = this.showError() && this.getErrorMessage() !== undefined ? (

@@ -16,7 +16,7 @@
       e.preventDefault();
       return api.enrollment.del(this.props.row.id);
     },
-    render: function(){
+    render(){
       var lnk;
       lnk = this.props.column.linkTo;
       return button({
@@ -47,12 +47,12 @@
   ];
   ClassStudents = React.createClass({
     displayName: "ClassStudents",
-    getInitialState: function(){
+    getInitialState(){
       return {
         students: []
       };
     },
-    getEnrollments: function(){
+    getEnrollments(){
       var this$ = this;
       return api.enrollment.find({
         classId: this.props.classId,
@@ -63,7 +63,7 @@
         });
       });
     },
-    componentDidMount: function(){
+    componentDidMount(){
       var this$ = this;
       api.enrollment.events.addListener("change", this.getEnrollments);
       this.getEnrollments();
@@ -73,7 +73,7 @@
         });
       });
     },
-    componentWillUnmount: function(){
+    componentWillUnmount(){
       return api.enrollment.events.removeListener("change", this.getEnrollments);
     },
     studentSelected: function(it){
@@ -81,14 +81,14 @@
         selectedStudent: it.target.value
       });
     },
-    enrollStudent: function(){
+    enrollStudent(){
       return api.enrollment.create({
         personId: this.state.selectedStudent,
         classId: this.props.classId,
         termId: this.props.termId
       });
     },
-    render: function(){
+    render(){
       return (
         <div>
           <div className="ui top attached segment">

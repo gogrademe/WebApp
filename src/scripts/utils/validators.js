@@ -1,8 +1,8 @@
 
 /** @flow */
 
-var Formsy = require('formsy-react');
-var moment = require('moment');
+import Formsy from 'formsy-react';
+import moment from 'moment';
 
 module.exports = function() {
     Formsy.addValidationRule('isWeight', function(value): bool {

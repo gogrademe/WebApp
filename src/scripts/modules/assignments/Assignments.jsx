@@ -1,22 +1,22 @@
 
-var React = require('react');
-var {Grid, CrudActions} = require('../../components/NewTable');
-var ActionRenderer = require('../../components/ActionRenderer');
-var SemanticModal = require('../../components/SemanticModal');
-var api = require('../../api/api');
+import React from 'react';
+import {Grid, CrudActions} from '../../components/NewTable';
+import ActionRenderer from '../../components/ActionRenderer';
+import SemanticModal from '../../components/SemanticModal';
+import api from '../../api/api';
 
 
-var AssignmentGrades = require('./AssignmentGrades');
+import AssignmentGrades from './AssignmentGrades';
 var AssignmentBtn = require('../../molecules/ModalButtons').AssignmentBtn;
 
 var AssignmentLink = React.createClass({
   displayName: "AssignmentLink",
-  modal: function(){
+  modal(){
     return new AssignmentGrades({
       assignmentId: this.props.row.id
     });
   },
-  render: function(){
+  render(){
     return (
       <div>
         <SemanticModal.ModalTrigger modal={this.modal()}>
@@ -55,21 +55,21 @@ var assignmentCols = [
 ];
 var ClassAssignments = React.createClass({
   displayName: "ClassAssignments",
-  getInitialState: function(){
+  getInitialState(){
     return {
       assignments: []
     };
   },
-  componentDidMount: function(){
+  componentDidMount(){
     api.assignment.events.addListener("change", this.getAssignments);
   },
-  componentWillUnmount: function(){
+  componentWillUnmount(){
     api.assignment.events.removeListener("change", this.getAssignments);
   },
-  componentWillMount: function(){
+  componentWillMount(){
     this.getAssignments();
   },
-  getAssignments: function(){
+  getAssignments(){
     api.assignment.find({
       classId: this.props.classId,
       termId: this.props.termId
@@ -79,7 +79,7 @@ var ClassAssignments = React.createClass({
       });
     });
   },
-  render: function(){
+  render(){
     return (
       <div>
         <div className="ui top attached right aligned segment">

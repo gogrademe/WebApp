@@ -1,7 +1,7 @@
 
 /* @flow */
 
-var _ = require('lodash');
+import _ from 'lodash';
 
 // parseAPIErrors will parse an error that looks like the following.
 // [{

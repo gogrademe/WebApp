@@ -8,12 +8,12 @@
   div = Dom.div;
   PersonDetail = React.createClass({
     displayName: "PersonDetail",
-    getInitialState: function(){
+    getInitialState(){
       return {
         person: {}
       };
     },
-    componentWillMount: function(){
+    componentWillMount(){
       var this$ = this;
       return api.person.get(this.props.params.resourceId).then(function(it){
         return this$.setState({
@@ -31,7 +31,7 @@
         return "Loading...";
       }
     },
-    render: function(){
+    render(){
       return div(null, Header({
         title: this.title(this.state.person)
       }), div({

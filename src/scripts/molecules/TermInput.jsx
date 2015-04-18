@@ -1,16 +1,16 @@
 
-var React = require('react');
-var cx = require('react/lib/cx');
+import React from 'react';
+import cx from 'react/lib/cx';
 
-var Formsy = require('formsy-react');
+import Formsy from 'formsy-react';
 
-var LabeledField = require('./LabeledField');
+import LabeledField from './LabeledField';
 
 var TermInput = React.createClass({
     // Add the Formsy Mixin
     mixins: [Formsy.Mixin],
 
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
           value: {}
         };
@@ -27,7 +27,7 @@ var TermInput = React.createClass({
     getVal: function(name) {
       return this.getValue()[name];
     },
-    render: function () {
+    render() {
       var error = this.showError() && this.getErrorMessage() !== undefined ? (
         <div className="ui red pointing above label">
           {this.getErrorMessage()}

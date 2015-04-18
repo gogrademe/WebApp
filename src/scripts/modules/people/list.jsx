@@ -47,19 +47,19 @@
   ];
   PeopleList = React.createClass({
     displayName: "PeopleList",
-    getInitialState: function(){
+    getInitialState(){
       return {
         currentFilter: 'All',
         people: []
       };
     },
-    componentDidMount: function(){
+    componentDidMount(){
       return api.person.events.addListener("change", this.getPeople);
     },
-    componentWillUnmount: function(){
+    componentWillUnmount(){
       return api.person.events.removeListener("change", this.getPeople);
     },
-    getPeople: function(){
+    getPeople(){
       var this$ = this;
       return api.person.find().then(function(it){
         return this$.setState({
@@ -67,10 +67,10 @@
         });
       });
     },
-    componentWillMount: function(){
+    componentWillMount(){
       return this.getPeople();
     },
-    modal: function(){
+    modal(){
       return CreatePersonModal(null);
     },
     renderFilterButton: function(name){
@@ -94,7 +94,7 @@
         onClick: setActive
       }, name);
     },
-    renderGridTop: function(){
+    renderGridTop(){
       return div(null, div({
         className: "ui basic tiny buttons"
       }, this.renderFilterButton("All"), this.renderFilterButton("Students"), this.renderFilterButton("Teachers"), this.renderFilterButton("Parents"), this.renderFilterButton("Admins")), PersonBtn({
@@ -103,7 +103,7 @@
         primary: true
       }));
     },
-    filteredData: function(){
+    filteredData(){
       var format, this$ = this;
       format = function(){
         return function(it){
@@ -120,7 +120,7 @@
         this.state.people);
       }
     },
-    render: function(){
+    render(){
       return div(null, Header({
         primary: "All People"
       }), div({

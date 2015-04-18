@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 var {div, i, label, input} = React.DOM;
 
@@ -7,14 +7,14 @@ var TextInput = React.createClass({
   propTypes: {
     type: React.PropTypes.string.isRequired
   },
-  getDefaultProps: function(){
+  getDefaultProps(){
     return {
       label: "",
       type: "text",
       placeholder: ""
     };
   },
-  render: function(){
+  render(){
     var lab = this.props.label;
     var placeholder = this.props.placeholder || lab;
     console.warn('WARN: TextInput has been deprecated.');

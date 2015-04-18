@@ -28,21 +28,21 @@
     displayName: "AssignmentTypes"
   }, this.linkState('startDate'), {
     mixins: [FormMixin],
-    getInitialState: function(){
+    getInitialState(){
       return {
         assignmentTypes: []
       };
     },
-    componentDidMount: function(){
+    componentDidMount(){
       return api.assignmentType.events.addListener("change", this.getAssignmentTypes);
     },
-    componentWillUnmount: function(){
+    componentWillUnmount(){
       return api.assignmentType.events.removeListener("change", this.getAssignmentTypes);
     },
-    componentWillMount: function(){
+    componentWillMount(){
       this.getAssignmentTypes();
     },
-    getAssignmentTypes: function(){
+    getAssignmentTypes(){
       var this$ = this;
       return api.type.find({
         classId: this.props.params.resourceId,
@@ -53,7 +53,7 @@
         });
       });
     },
-    render: function(){
+    render(){
       return div(null, div({
         className: "ui top attached right aligned segment"
       }, SemanticModal.ModalTrigger({

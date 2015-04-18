@@ -1,8 +1,8 @@
 
 
-var React = require('react');
+import React from 'react';
 
-var Formsy = require('formsy-react');
+import Formsy from 'formsy-react';
 
 var FormGroup = React.createClass({
     // Add the Formsy Mixin
@@ -10,7 +10,7 @@ var FormGroup = React.createClass({
 
     // Add a map to store the inputs of the form, a model to store
     // the values of the form and register child inputs
-    componentWillMount: function () {
+    componentWillMount() {
       this.inputs = {};
       this.model = {};
       this.registerInputs(this.props.children);
@@ -33,7 +33,7 @@ var FormGroup = React.createClass({
 
       }.bind(this));
     },
-    getCurrentValues: function () {
+    getCurrentValues() {
       return Object.keys(this.inputs).reduce(function (data, name) {
         var component = this.inputs[name];
         data[name] = component.state._value;
@@ -43,7 +43,7 @@ var FormGroup = React.createClass({
 
     // Goes through all registered components and
     // updates the model values
-    updateModel: function () {
+    updateModel() {
       Object.keys(this.inputs).forEach(function (name) {
         var component = this.inputs[name];
 
@@ -69,7 +69,7 @@ var FormGroup = React.createClass({
       delete this.inputs[component.props.name];
       delete this.model[component.props.name];
     },
-    render: function () {
+    render() {
 
       var {children, ...props} = this.props;
       return (

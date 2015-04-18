@@ -1,8 +1,8 @@
 
 
-var React = require('react');
-var Header = require('../../components/PageHeader');
-var {RouteHandler, Link} = require('react-router');
+import React from 'react';
+import Header from '../../components/PageHeader';
+import {RouteHandler, Link} from 'react-router';
 
 var Container = React.createClass({
   render() {

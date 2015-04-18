@@ -1,12 +1,12 @@
 
-var React = require('react');
-var joinClasses = require('react/lib/joinClasses');
+import React from 'react';
+import joinClasses from 'react/lib/joinClasses';
 
 // Mixins
-var FormInputMixin = require('../mixins/FormInputMixin');
+import FormInputMixin from '../mixins/FormInputMixin';
 
 // Utils
-var FormLink = require('../utils/FormLink');
+import FormLink from '../utils/FormLink';
 
 var FormInputRow = React.createClass({
   mixins: [FormInputMixin],
@@ -29,12 +29,12 @@ var FormInputRow = React.createClass({
     autofill: React.PropTypes.bool
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       component: "input",
     };
   },
-  isEmpty: function () {
+  isEmpty() {
     var value = this.props.formLink.value;
     if (!value) {
       return true;
@@ -47,7 +47,7 @@ var FormInputRow = React.createClass({
     return false;
   },
 
-  render: function() {
+  render() {
     console.warn('WARN: FormInputRow has been deprecated.');
 
     var {component: Component, ...props} = this.props;
@@ -106,7 +106,7 @@ var FormInputRow = React.createClass({
     }
   },
 
-  renderMessage: function () {
+  renderMessage() {
     var formLink = this.props.formLink,
         fieldMessage = formLink.fieldMessage;
 

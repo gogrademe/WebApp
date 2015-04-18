@@ -1,7 +1,7 @@
-var React = require('react');
-var utils = require('../utils');
-var moment = require('moment');
-var Pikaday = require('react-pikaday');
+import React from 'react';
+import utils from '../utils';
+import moment from 'moment';
+import Pikaday from 'react-pikaday';
 
 
 var {div, i, label, input} = React.DOM;

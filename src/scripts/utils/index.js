@@ -1,5 +1,5 @@
 
-var moment = require('moment');
+import moment from 'moment';
 var decode64 = function(input){
   return false;
 };

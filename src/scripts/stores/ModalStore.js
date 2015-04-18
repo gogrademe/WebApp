@@ -1,18 +1,18 @@
 
 
-var Reflux = require('reflux');
+import Reflux from 'reflux';
 
-var invariant = require('react/lib/invariant');
+import invariant from 'react/lib/invariant';
 
-var actions = require('../actions/ModalActions');
-var ModalTypes = require('../constants/ModalTypes');
+import actions from '../actions/ModalActions';
+import ModalTypes from '../constants/ModalTypes';
 
 var ModalStore = Reflux.createStore({
   listenables: actions,
-  resetModalStore: function() {
+  resetModalStore() {
     this.modal = null;
   },
-  init: function() {
+  init() {
     this.resetModalStore();
   },
   onShowModal: function(id, options){
@@ -29,7 +29,7 @@ var ModalStore = Reflux.createStore({
 
     this.trigger(this.modal);
   },
-  onHideModal: function(){
+  onHideModal(){
     // this.resetModalStore();
     this.modal.id = null;
     this.modal.shouldHide = true;

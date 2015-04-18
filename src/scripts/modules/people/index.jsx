@@ -1,9 +1,9 @@
 
 
-var React = require('react');
+import React from 'react';
 
 var Split = React.createClass({
-  render: function(){
+  render(){
     return (
       <div className="two-col">
         {this.props.detailView}

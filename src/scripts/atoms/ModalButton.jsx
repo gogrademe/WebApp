@@ -1,19 +1,19 @@
 
 
-var React = require('react');
+import React from 'react';
 
-var ModalActions = require('../actions/ModalActions');
+import ModalActions from '../actions/ModalActions';
 
 var ModalButton = React.createClass({
   propTypes: {
     modal: React.PropTypes.string.isRequired
   },
-  handleOnClick: function() {
+  handleOnClick() {
     var {modal, ...other} = this.props;
 
     ModalActions.showModal(modal, ...other);
   },
-  render: function(){
+  render(){
     return (
       <FloatingActionButton {...this.props} onClick={this.handleOnClick}/>
     );

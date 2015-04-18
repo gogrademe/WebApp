@@ -1,10 +1,10 @@
 
 
-var React = require('react');
+import React from 'react';
 
-var {Router, State, RouteHandler} = require('react-router');
-var api = require('../api/api');
-var auth = require('../api/auth');
+import {Router, State, RouteHandler} from 'react-router';
+import api from '../api/api';
+import auth from '../api/auth';
 
 
 var SignedIn = React.createClass({
@@ -16,17 +16,17 @@ var SignedIn = React.createClass({
       }
     }
   },
-  getInitialState: function(){
+  getInitialState(){
     return {
       person: {}
     };
   },
-  updateActiveState: function(){
+  updateActiveState(){
     if (!api.session.get()) {
       return Router.replaceWith('/login');
     }
   },
-  render: function(){
+  render(){
     return(
       <div>
         <RouteHandler/>

@@ -1,20 +1,20 @@
 
 
-var React = require('react');
-var cx = require('react/lib/cx');
+import React from 'react';
+import cx from 'react/lib/cx';
 
-var Formsy = require('formsy-react');
-var Select = require('react-select');
+import Formsy from 'formsy-react';
+import Select from 'react-select';
 
-var LabeledField = require('./LabeledField');
+import LabeledField from './LabeledField';
 
-var api = require('../api/api');
+import api from '../api/api';
 
-// var {Autocomplete, Option} = require('../components/autocomplete');
+// import {Autocomplete, Option} from '../components/autocomplete';
 
 var ProfileTypes = React.createClass({
   mixins: [Formsy.Mixin],
-  getInitialState: function() {
+  getInitialState() {
     return {
       types: [
         {label: "Student", value:"student"},
@@ -29,7 +29,7 @@ var ProfileTypes = React.createClass({
   changeValue: function (newVal, options) {
       this.setValue(newVal);
   },
-  getVal: function() {
+  getVal() {
     var val = this.getValue();
 
     if (val === "")
@@ -53,12 +53,12 @@ var ProfileTypes = React.createClass({
 
 var AssignmentType = React.createClass({
   mixins: [Formsy.Mixin],
-  getInitialState: function() {
+  getInitialState() {
     return {
       types: []
     };
   },
-  componentWillMount: function() {
+  componentWillMount() {
     api.type.find()
       .then((xs)=> {
         var types = xs.map(function(type){
@@ -75,7 +75,7 @@ var AssignmentType = React.createClass({
   changeValue: function (newVal, options) {
       this.setValue(newVal);
   },
-  getVal: function() {
+  getVal() {
     var val = this.getValue();
 
     if (val === "")

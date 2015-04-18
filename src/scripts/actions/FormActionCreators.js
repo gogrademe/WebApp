@@ -1,6 +1,6 @@
-var mcFly = require('../flux/mcFly');
+import mcFly from '../flux/mcFly';
 
-var ActionTypes = require('../constants/ActionTypes');
+import ActionTypes from '../constants/ActionTypes';
 
 var FormActionCreators = mcFly.createActions({
   submitForm() {

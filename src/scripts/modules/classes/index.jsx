@@ -44,7 +44,7 @@ let View = React.createClass({
       return this.state['class'].name + " - " + this.state['class'].gradeLevel;
     }
   },
-  renderSecondary: function(){
+  renderSecondary(){
     switch (false) {
     case !!this.state.term:
       return "";
@@ -52,7 +52,7 @@ let View = React.createClass({
       return "Year " + this.state.term.schoolYear.start + "-" + this.state.term.schoolYear.end + " - " + this.state.term.name + " ";
     }
   },
-  render: function(){
+  render(){
     let params = {
       termId: this.getParams().termId,
       resourceId: this.getParams().resourceId

@@ -1,10 +1,10 @@
-var React = require('react');
+import React from 'react';
 
 var {div, i, label, input} = React.DOM;
 
 
 var NumberInput = React.createClass({
-  getDefaultProps: function(){
+  getDefaultProps(){
     return {
       label: "",
       type: "text",
@@ -19,7 +19,7 @@ var NumberInput = React.createClass({
 
     return this.props.onChange(event);
   },
-  render: function(){
+  render(){
     console.warn('WARN: NumberInput has been deprecated.');
     var placeholder;
     placeholder = this.props.placeholder || this.props.label;

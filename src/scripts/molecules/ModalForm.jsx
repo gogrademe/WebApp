@@ -10,7 +10,7 @@ import parseAPIErrors from '../utils/parseAPIErrors';
 export default React.createClass({
   getDefaultProps() {
     return {
-      onSubmit: function() {}
+      onSubmit() {}
     };
   },
   getInitialState() {

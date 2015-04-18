@@ -4,13 +4,13 @@ var _ = require('lodash'),
     mapValues = require('../utils/mapValues'),
     FormStates = require('../constants/FormStates');
 
-var FormStore = require('../stores/FormStore');
-var FormActionCreators = require('../actions/FormActionCreators');
+import FormStore from '../stores/FormStore';
+import FormActionCreators from '../actions/FormActionCreators';
 
-var isRequired = require('../utils/isRequired');
+import isRequired from '../utils/isRequired';
 
 var FormMixin = {
-  getInitialState: function () {
+  getInitialState() {
     return {
       formMessages: {},
       firstErrorKey: null,
@@ -18,7 +18,7 @@ var FormMixin = {
     };
   },
 
-  handleFormStoreChanged: function () {
+  handleFormStoreChanged() {
     if (this.isMounted()) {
       this.setState({
         formMessages: FormStore.getActiveMessages(),
@@ -28,29 +28,29 @@ var FormMixin = {
     }
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     this._linkedValidators = {};
     this._pendingMessages = {};
 
     FormStore.addChangeListener(this.handleFormStoreChanged);
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     this._linkedValidators = null;
     this._pendingMessages = null;
 
     FormStore.removeChangeListener(this.handleFormStoreChanged);
   },
 
-  isFormEditable: function () {
+  isFormEditable() {
     return FormStore.getFormState() === FormStates.EDITABLE_STATE;
   },
 
-  isFormSubmitting: function () {
+  isFormSubmitting() {
     return FormStore.getFormState() === FormStates.SUBMITTING_STATE;
   },
 
-  isFormSubmitted: function () {
+  isFormSubmitted() {
     return FormStore.getFormState() === FormStates.SUBMITTED_STATE;
   },
 

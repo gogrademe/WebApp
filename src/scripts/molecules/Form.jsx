@@ -1,24 +1,24 @@
-var React = require('react');
-var Formsy = require('formsy-react');
-var cx = require('react/lib/cx');
+import React from 'react';
+import Formsy from 'formsy-react';
+import cx from 'react/lib/cx';
 
 export default React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     return {
       canSubmit: false
     };
   },
-  enableButton: function () {
+  enableButton() {
     this.setState({
       canSubmit: true
     });
   },
-  disableButton: function () {
+  disableButton() {
     this.setState({
       canSubmit: false
     });
   },
-  render: function () {
+  render() {
     return (
       <Formsy.Form className="ui form segment" onValid={this.enableButton} onInvalid={this.disableButton}>
         {this.props.children}

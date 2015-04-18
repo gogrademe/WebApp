@@ -16,14 +16,14 @@
       value: React.PropTypes.any.isRequired,
       label: React.PropTypes.string.isRequired
     },
-    getDefaultProps: function(){
+    getDefaultProps(){
       return {
         role: 'option',
         tabIndex: '-1',
         isSelected: false
       };
     },
-    render: function(){
+    render(){
       return this.transferPropsTo(div({
         className: "result"
       }, div({
@@ -42,19 +42,19 @@
       onChange: React.PropTypes.func.isRequired,
       value: React.PropTypes.any
     },
-    getDefaultProps: function(){
+    getDefaultProps(){
       return {
         typeahead: true,
         dropdown: false,
-        onInput: function(){
+        onInput(){
           return {};
         },
-        onChange: function(){
+        onChange(){
           return {};
         }
       };
     },
-    getInitialState: function(){
+    getInitialState(){
       return {
         lastFocusedOption: null,
         focusedOption: null,
@@ -107,7 +107,7 @@
         focusedOption: index
       });
     },
-    renderOptions: function(){
+    renderOptions(){
       var includes, this$ = this;
       includes = function(str, needle){
         if (needle === null) {
@@ -147,12 +147,12 @@
         }), "No Results..."));
       }
     },
-    showList: function(){
+    showList(){
       return this.setState({
         isOpen: true
       });
     },
-    hideList: function(){
+    hideList(){
       return this.setState({
         isOpen: false
       });
@@ -169,7 +169,7 @@
         return this.hideList();
       }
     },
-    makeListStyle: function(){
+    makeListStyle(){
       if (this.state.isOpen) {
         return {
           display: 'block'
@@ -180,14 +180,14 @@
         };
       }
     },
-    toggleList: function(){
+    toggleList(){
       if (this.state.isOpen) {
         return this.hideList();
       } else {
         return this.showList();
       }
     },
-    renderInput: function(){
+    renderInput(){
       return input({
         ref: "input",
         role: "typeahead",
@@ -200,7 +200,7 @@
         autoComplete: "off"
       });
     },
-    render: function(){
+    render(){
       return div({
         className: "ui search"
       }, this.props.dropdown

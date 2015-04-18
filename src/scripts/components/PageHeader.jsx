@@ -1,6 +1,6 @@
 
 
-var React = require('react');
+import React from 'react';
 
 var PageHeader = React.createClass({
   render(){

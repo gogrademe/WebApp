@@ -12,12 +12,12 @@
   Grid = NewTable.Grid;
   Modal = React.createClass({
     mixins: [FormMixin('data')],
-    getInitialState: function(){
+    getInitialState(){
       return {
         data: {}
       };
     },
-    handleSubmit: function(){
+    handleSubmit(){
       var this$ = this;
       console.log(this.state.data);
       return api[this.props.resource].create(this.state.data).then(function(){
@@ -28,7 +28,7 @@
         });
       });
     },
-    renderInputs: function(){
+    renderInputs(){
       var this$ = this;
       return this.props.formFields.map(function(item, key){
         switch (item.type) {
@@ -49,7 +49,7 @@
         }
       });
     },
-    render: function(){
+    render(){
       return this.transferPropsTo(SemanticModal.SemanticModal({
         title: this.props.title,
         animation: true
@@ -72,26 +72,26 @@
       fetchData: React.PropTypes.func.isRequired,
       formFields: React.PropTypes.array.isRequired
     },
-    getInitialState: function(){
+    getInitialState(){
       return {
         data: []
       };
     },
-    getDefaultProps: function(){
+    getDefaultProps(){
       return {
         columns: []
       };
     },
-    componentWillMount: function(){
+    componentWillMount(){
       return this.fetchData();
     },
-    componentDidMount: function(){
+    componentDidMount(){
       return api.type.events.addListener("change", this.fetchData);
     },
-    componentWillUnmount: function(){
+    componentWillUnmount(){
       return api.type.events.removeListener("change", this.fetchData);
     },
-    fetchData: function(){
+    fetchData(){
       var this$ = this;
       return this.props.fetchData().then(function(it){
         return this$.setState({
@@ -99,7 +99,7 @@
         });
       });
     },
-    render: function(){
+    render(){
       return div(null, div({
         className: "main container"
       }, div({

@@ -1,8 +1,8 @@
 
 'use strict';
 
-var React = require('react');
-var IconMixin = require('../mixins/IconMixin');
+import React from 'react';
+import IconMixin from '../mixins/IconMixin';
 
 var LogoIcon = React.createClass({
   mixins: [IconMixin],

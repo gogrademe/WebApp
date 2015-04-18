@@ -1,8 +1,8 @@
 
 
-var React = require('react');
+import React from 'react';
 
-var FormInputMixin = require('../mixins/FormInputMixin');
+import FormInputMixin from '../mixins/FormInputMixin';
 
 var FormInput = React.createClass({
   mixins: [FormInputMixin],

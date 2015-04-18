@@ -1,13 +1,13 @@
 
 
-var React = require('react');
+import React from 'react';
 
 var FormActions = React.createClass({
   propTypes: {
     onCancel: React.PropTypes.func.isRequired,
     onSubmit: React.PropTypes.func.isRequired
   },
-  render: function(){
+  render(){
     return (
       <div className="actions">
         <a className="ui labeled icon button" onClick={this.props.onCancel}>

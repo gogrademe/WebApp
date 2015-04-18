@@ -1,7 +1,7 @@
-var React = require('react');
-var _ = require('lodash');
-var FormLink = require('../utils/FormLink');
-var SyntheticEvent = require('react/lib/SyntheticEvent');
+import React from 'react';
+import _ from 'lodash';
+import FormLink from '../utils/FormLink';
+import SyntheticEvent from 'react/lib/SyntheticEvent';
 
 module.exports = {
   propTypes: {
@@ -16,20 +16,20 @@ module.exports = {
     name: React.PropTypes.string,
     autofill: React.PropTypes.bool
   },
-  getDefaultProps: function() {
+  getDefaultProps() {
     return {
       type: "text",
       required: true
     }
   },
-  getInitialState: function () {
+  getInitialState() {
     return {
       hasEdited: false,
       focus: false
     };
   },
 
-  getCSSModifiers: function () {
+  getCSSModifiers() {
     var fieldMessage = this.props.formLink.fieldMessage,
         isError = fieldMessage && fieldMessage.isError;
 
@@ -38,14 +38,14 @@ module.exports = {
     }
   },
 
-  componentDidUpdate: function () {
+  componentDidUpdate() {
     var formLink = this.props.formLink;
     if (formLink.hasFormError && formLink.isFirstError) {
       this.scrollIntoViewIfNeeded();
     }
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.props.formLink.requestInit();
 
     if (this.props.autofill) {
@@ -53,13 +53,13 @@ module.exports = {
     }
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     if (this.props.autofill) {
       window.clearInterval(this._syncWithAutofillInterval);
     }
   },
 
-  syncWithAutofill: function () {
+  syncWithAutofill() {
     if (!this.isMounted() || !this.props.autofill) {
       return;
     }
@@ -121,7 +121,7 @@ module.exports = {
     }
   },
 
-  scrollIntoViewIfNeeded: function () {
+  scrollIntoViewIfNeeded() {
     var inputEl = this.refs.input.getDOMNode();
 
     if (_.isFunction(inputEl.scrollIntoViewIfNeeded)) {
@@ -129,7 +129,7 @@ module.exports = {
     }
   },
 
-  focus: function () {
+  focus() {
     if (_.isFunction(this.refs.input.focus)) {
       this.refs.input.focus();
     } else {

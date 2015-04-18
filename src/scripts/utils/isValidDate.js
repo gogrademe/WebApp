@@ -1,5 +1,5 @@
 
-var moment = require('moment');
+import moment from 'moment';
 
 var allowedFromats = ['L', 'l'];
 function validDate(date) {

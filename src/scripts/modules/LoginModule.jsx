@@ -10,7 +10,7 @@
   LoginPage = React.createClass({
     displayName: "LoginPage",
     mixins: [Navigation],
-    getInitialState: function(){
+    getInitialState(){
       return {
         error: null,
         isLoggingIn: false
@@ -36,14 +36,14 @@
         });
       });
     },
-    renderMessages: function(){
+    renderMessages(){
       if (this.state.error !== null) {
         return div({
           className: "ui error visible message"
         }, this.state.error.statusCode + ": " + this.state.error.message);
       }
     },
-    render: function(){
+    render(){
       return div({
         className: "login container"
       }, img({
@@ -99,7 +99,7 @@
   });
   LoginLoading = React.createClass({
     displayName: "LoginLoading",
-    render: function(){
+    render(){
       var style;
       style = {};
       if (!this.props.isLoggingIn === true) {

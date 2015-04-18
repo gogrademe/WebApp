@@ -1,25 +1,25 @@
 
 
 var ref$, find, filter, ceiling, isItNaN, sum, map, reject, mean, groupBy, uniqueBy, flatten;
-var React = require('react');
+import React from 'react';
 
-var NewTable = require('../../components/NewTable');
-var api = require('../../api/api');
+import NewTable from '../../components/NewTable';
+import api from '../../api/api';
 
 var Grid = NewTable.Grid;
 
-var _ = require('lodash');
+import _ from 'lodash';
 
 var ref$ = require('prelude-ls'), find = ref$.find, filter = ref$.filter, ceiling = ref$.ceiling, isItNaN = ref$.isItNaN, sum = ref$.sum, map = ref$.map, reject = ref$.reject, mean = ref$.mean, groupBy = ref$.groupBy, uniqueBy = ref$.uniqueBy, flatten = ref$.flatten;
 var GradeOverview = React.createClass({
-  getInitialState: function(){
+  getInitialState(){
     return {
       students: [],
       grades: [],
       assignments: []
     };
   },
-  getGrades: function(){
+  getGrades(){
     api.grade.find({
       classId: this.props.classId,
       termId: this.props.termId
@@ -27,7 +27,7 @@ var GradeOverview = React.createClass({
       this.setState({grades: data});
     });
   },
-  getStudents: function(){
+  getStudents(){
     api.enrollment.find({
       classId: this.props.classId,
       termId: this.props.termId
@@ -35,7 +35,7 @@ var GradeOverview = React.createClass({
       this.setState({students: data});
     });
   },
-  getAssignments: function(){
+  getAssignments(){
     api.assignment.find({
       classId: this.props.classId,
       termId: this.props.termId
@@ -43,7 +43,7 @@ var GradeOverview = React.createClass({
       this.setState({assignments: data});
     });
   },
-  groupTypes: function(){
+  groupTypes(){
     return uniqueBy(function(it){
       return it.id;
     })(
@@ -52,13 +52,13 @@ var GradeOverview = React.createClass({
     })(
     this.state.assignments));
   },
-  aByType: function(){
+  aByType(){
     return groupBy(function(it){
       return it.typeId;
     })(
     this.state.assignments);
   },
-  buildCols: function(){
+  buildCols(){
     var i$, ref$, len$, x;
     var cols = [{
       key: "student.name",
@@ -101,7 +101,7 @@ var GradeOverview = React.createClass({
       // }).value();
 
   },
-  buildData: function() {
+  buildData() {
     return _.map(this.state.students, (x) =>{
       var res = {
         student: {
@@ -126,18 +126,18 @@ var GradeOverview = React.createClass({
       return res;
     });
   },
-  componentWillMount: function(){
+  componentWillMount(){
     this.getGrades();
     this.getAssignments();
     this.getStudents();
   },
-  componentDidMount: function() {
+  componentDidMount() {
     api.grade.events.addListener("change", this.getGrades);
   },
-  componentWillUnmount: function(){
+  componentWillUnmount(){
     api.grade.events.removeListener("change", this.getGrades);
   },
-  render: function(){
+  render(){
     return (
       <div>
         <Grid columns={this.buildCols()} data={this.buildData()} />

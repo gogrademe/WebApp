@@ -1,4 +1,4 @@
-var keyMirror = require('react/lib/keyMirror');
+import keyMirror from 'react/lib/keyMirror';
 
 module.exports = keyMirror({
   LOGIN_WRONG_CREDENTIALS: null,

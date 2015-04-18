@@ -37,13 +37,13 @@
   };
   Grid = React.createClass({
     displayName: "Grid",
-    getInitialState: function(){
+    getInitialState(){
       return {
         sortByIndex: null,
         sortDirection: true
       };
     },
-    render: function(){
+    render(){
       var data, cols, getRenderer;
       data = this.props.data;
       cols = this.props.columns;
@@ -82,7 +82,7 @@
   });
   StringRenderer = React.createClass({
     displayName: "StringRenderer",
-    getInitialState: function(){
+    getInitialState(){
       return {
         editing: false
       };
@@ -94,7 +94,7 @@
         row: this.props.row
       });
     },
-    render: function(){
+    render(){
       var val;
       val = formatVal(this.props.value, this.props.column.format);
       if (this.state.editing) {
@@ -112,7 +112,7 @@
         return div(null, val);
       }
     },
-    toggle: function(){
+    toggle(){
       this.setState({
         editing: !this.state.editing
       });
@@ -124,7 +124,7 @@
       e.preventDefault();
       return api[this.props.column.resourceType].del(this.props.row.id);
     },
-    render: function(){
+    render(){
       var ref$;
       return div(null, DeleteBtn({
         onClick: this['delete']
@@ -133,7 +133,7 @@
   });
   CellLink = React.createClass({
     displayName: "CellLink",
-    render: function(){
+    render(){
       var linkTo;
       linkTo = this.props.column.linkTo;
       return div(null, Link({

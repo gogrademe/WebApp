@@ -15,7 +15,7 @@
   div = Dom.div, i = Dom.i, strong = Dom.strong, a = Dom.a;
   Grid = NewTable.Grid;
   ClassName = React.createClass({
-    render: function(){
+    render(){
       var termId;
       termId = this.props.column.term || "";
       return div(null, Link({
@@ -29,14 +29,14 @@
   });
   ClassList = React.createClass({
     displayName: "ClassList",
-    getInitialState: function(){
+    getInitialState(){
       return {
         classes: [],
         terms: null,
         term: null
       };
     },
-    componentWillMount: function(){
+    componentWillMount(){
       var this$ = this;
       api['class'].find().then(function(it){
         return this$.setState({
@@ -52,7 +52,7 @@
         });
       });
     },
-    cols: function(){
+    cols(){
       return [
         {
           key: 'name',
@@ -97,10 +97,10 @@
         });
       }
     },
-    rightButtons: function(){
+    rightButtons(){
       return this.selectRender(this.state.terms);
     },
-    render: function(){
+    render(){
       return div(null, Header({
         primary: 'All Classes',
         right: this.rightButtons()

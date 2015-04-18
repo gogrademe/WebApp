@@ -1,20 +1,20 @@
 
 
-var Reflux = require('reflux');
-var api = require('../api/api');
+import Reflux from 'reflux';
+import api from '../api/api';
 
-var actions = require('../actions/SessionActions');
+import actions from '../actions/SessionActions';
 
 var SessionStore = Reflux.createStore({
   listenables: actions,
-  getInitialState: function () {
+  getInitialState() {
     this.session = {
       token: localStorage.getItem("token")
     };
 
     return this.session;
   },
-  onInvalidateSession: function() {
+  onInvalidateSession() {
     this.session = {
       token: null
     };
@@ -31,7 +31,7 @@ var SessionStore = Reflux.createStore({
   //   this.trigger(this.session);
   //
   // },
-  isLoggedIn: function () {
+  isLoggedIn() {
     switch (false) {
     case !localStorage.token:
       return localStorage.token;
@@ -53,7 +53,7 @@ var SessionStore = Reflux.createStore({
       });
     }
   },
-  _setLoggedOut: function () {
+  _setLoggedOut() {
     return localStorage.removeItem("token");
   },
   _setLoggedIn: function (token) {
@@ -68,7 +68,7 @@ var SessionStore = Reflux.createStore({
       }
     });
   },
-  currentUser: function () {
+  currentUser() {
     var tokenInfo;
     if (this.isLoggedIn()) {
       tokenInfo = localStorage.token.split(".")[1];

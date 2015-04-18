@@ -1,10 +1,10 @@
 
 
-var React = require('react');
-var api = require('../../api/api');
-var NewTable = require('../../components/NewTable');
+import React from 'react';
+import api from '../../api/api';
+import NewTable from '../../components/NewTable';
 
-var {AssignmentTypeBtn} = require('../../molecules/ModalButtons');
+import {AssignmentTypeBtn} from '../../molecules/ModalButtons';
 
 module.exports = React.createClass({
     getInitialState() {

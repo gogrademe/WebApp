@@ -1,12 +1,12 @@
 
 
-var React = require('react');
-var api = require('../../api/api');
-var CrudTable = require('../../components/CrudTable');
+import React from 'react';
+import api from '../../api/api';
+import CrudTable from '../../components/CrudTable';
 
-var NewTable = require('../../components/NewTable');
+import NewTable from '../../components/NewTable';
 
-var {TermBtn} = require('../../molecules/ModalButtons');
+import {TermBtn} from '../../molecules/ModalButtons';
 
 var Terms = React.createClass({
     tableColumns: [

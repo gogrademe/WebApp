@@ -15,7 +15,7 @@
       var ref$;
       return this.setState((ref$ = {}, ref$[key + ""] = e.target.value, ref$));
     },
-    render: function(){
+    render(){
       return div(null, Header({
         primary: "School / Settings"
       }), div({

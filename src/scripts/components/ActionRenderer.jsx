@@ -1,6 +1,6 @@
 
 
-var React = require('react');
+import React from 'react';
 var Link = require('react-router').Link;
 
 module.exports = React.createClass({

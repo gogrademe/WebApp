@@ -1,13 +1,13 @@
 
-var React = require('react');
+import React from 'react';
 
-var Formsy = require('formsy-react');
+import Formsy from 'formsy-react';
 
-var LabeledField = require('./LabeledField');
+import LabeledField from './LabeledField';
 
 var FormList = React.createClass({
     mixins: [Formsy.Mixin],
-    getInitialState: function() {
+    getInitialState() {
       return {
         value: [{
           startDate: "12/12/2014",
@@ -15,12 +15,12 @@ var FormList = React.createClass({
         }]
       };
     },
-    getDefaultProps: function() {
+    getDefaultProps() {
       return {
 
       };
     },
-    render: function () {
+    render() {
       console.log('failed');
       // this.registerInputs(this.props.children);
       return (

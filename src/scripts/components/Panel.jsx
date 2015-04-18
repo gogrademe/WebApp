@@ -6,7 +6,7 @@
   div = Dom.div, h4 = Dom.h4;
   PanelBody = React.createClass({
     displayName: "PanelBody",
-    render: function(){
+    render(){
       return div({
         className: "ui segment attached"
       }, this.props.children);
@@ -14,7 +14,7 @@
   });
   Panel = React.createClass({
     displayName: "Panel",
-    render: function(){
+    render(){
       return this.transferPropsTo(div(null, h4({
         className: "ui top header attached"
       }, this.props.title), this.props.hasBody

@@ -1,4 +1,4 @@
-var McFly = require('mcfly');
+import McFly from 'mcfly';
 
 var mcFly = new McFly();
 

@@ -1,17 +1,17 @@
 
-var React = require('react');
-var Router = require('react-router');
-var api = require('../api/auth');
+import React from 'react';
+import Router from 'react-router';
+import api from '../api/auth';
 
 export default React.createClass({
-  componentDidMount: function() {
+  componentDidMount() {
     if (auth.isLoggedIn()) {
       Router.transitionTo('dashboard');
     } else {
       Router.transitionTo('login');
     }
   },
-  render: function() {
+  render() {
     return <div>
   }
 });

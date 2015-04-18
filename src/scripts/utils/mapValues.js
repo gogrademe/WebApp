@@ -1,4 +1,4 @@
-var _ = require('lodash');
+import _ from 'lodash';
 
 function mapValues(obj, iterator, context) {
   return _.object(

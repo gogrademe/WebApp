@@ -1,8 +1,8 @@
 
-var React = require('react');
+import React from 'react';
 
-var Header = require('../components/Header');
-var Panel = require('../components/Panel');
+import Header from '../components/Header';
+import Panel from '../components/Panel';
 
 export default React.createClass({
   render() {

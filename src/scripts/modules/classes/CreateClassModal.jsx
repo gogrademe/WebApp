@@ -13,7 +13,7 @@
   CreateClassModal = React.createClass({
     mixins: [FormMixin('class')],
     displayName: "CreateClassModal",
-    handleSubmit: function(){
+    handleSubmit(){
       var this$ = this;
       api['class'].create(this.state['class']).then(function(){
         return this$.props.onRequestHide();
@@ -23,13 +23,13 @@
         });
       });
     },
-    getInitialState: function(){
+    getInitialState(){
       return {
         'class': {},
         errors: null
       };
     },
-    render: function(){
+    render(){
       return this.transferPropsTo(Modal.SemanticModal({
         title: "Create Class",
         animation: true

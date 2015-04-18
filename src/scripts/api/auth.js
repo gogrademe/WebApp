@@ -4,7 +4,7 @@
   React = require('react');
   api = require('./api');
   Auth = {
-    isLoggedIn: function(){
+    isLoggedIn(){
       switch (false) {
       case !localStorage.token:
         return localStorage.token;
@@ -26,7 +26,7 @@
         });
       }
     },
-    _setLoggedOut: function(){
+    _setLoggedOut(){
       return localStorage.removeItem("token");
     },
     _setLoggedIn: function(token){
@@ -41,7 +41,7 @@
         }
       });
     },
-    currentUser: function(){
+    currentUser(){
       var tokenInfo;
       if (this.isLoggedIn()) {
         tokenInfo = localStorage.token.split(".")[1];

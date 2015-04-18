@@ -8,18 +8,18 @@
   div = Dom.div;
   module.exports = function(){
     return {
-      getInitialState: function(){
+      getInitialState(){
         return {
           isSaving: false,
           error: null
         };
       },
-      modalSaving: function(){
+      modalSaving(){
         this.setState({
           isSaving: true
         });
       },
-      modalSaveSuccess: function(){
+      modalSaveSuccess(){
         this.props.onRequestHide();
       },
       modalSaveFail: function(error){
@@ -30,7 +30,7 @@
           });
         }
       },
-      errorAlerts: function(){
+      errorAlerts(){
         if (this.state.error) {
           return div({
             bsStyle: "danger"

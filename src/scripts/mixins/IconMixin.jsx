@@ -1,10 +1,10 @@
-var React = require('react');
+import React from 'react';
 
 var IconMixin = {
   propTypes: {
     size: React.PropTypes.oneOf(['small', 'medium', 'large']).isRequired
   },
-  render: function () {
+  render() {
     var svg = this.renderSVG(this.props.size);
 
     var viewBox = {

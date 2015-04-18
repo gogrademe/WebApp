@@ -1,8 +1,8 @@
 
 
-var React = require('react');
-var Header = require('../components/PageHeader');
-var SemanticModal = require('../components/SemanticModal');
+import React from 'react';
+import Header from '../components/PageHeader';
+import SemanticModal from '../components/SemanticModal';
 
 var DashboardModule = React.createClass({
   renderItem: function(arg$){
@@ -30,7 +30,7 @@ var DashboardModule = React.createClass({
       </div>
     );
   },
-  render: function(){
+  render(){
     return (
       <div>
         <Header primary='Dashboard'/>

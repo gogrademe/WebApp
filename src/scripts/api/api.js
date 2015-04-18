@@ -194,7 +194,7 @@
   }
   types.session = {
     cache: [],
-    get: function(){
+    get(){
       switch (false) {
       case !localStorage.token:
         return localStorage.token;
@@ -202,7 +202,7 @@
         return null;
       }
     },
-    del: function(){
+    del(){
       var ref$;
       return ref$ = localStorage.token, delete localStorage.token, ref$;
     },

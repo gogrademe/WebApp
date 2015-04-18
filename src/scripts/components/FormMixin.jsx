@@ -1,21 +1,21 @@
-var updates = require('react/lib/update');
-var utils = require('../utils');
+import updates from 'react/lib/update';
+import utils from '../utils';
 
 // Atoms
-var FormInput = require('../atoms/FormInput');
-var TextInput = require('../atoms/TextInput');
-var NumberInput = require('../atoms/NumberInput');
+import FormInput from '../atoms/FormInput';
+import TextInput from '../atoms/TextInput';
+import NumberInput from '../atoms/NumberInput';
 
 
 // Molecules
-var InputRow = require('../molecules/FormInputRow');
-var FormMessages = require('../molecules/FormMessages');
-var FormActions = require('../molecules/FormActions');
+import InputRow from '../molecules/FormInputRow';
+import FormMessages from '../molecules/FormMessages';
+import FormActions from '../molecules/FormActions';
 
 var formMixin = function(stateKey){
   var getProps, makeUpdatable;
   ({
-    getInitialState: function(){
+    getInitialState(){
       var ref$;
       return ref$ = {}, ref$[stateKey + ""] = {}, ref$;
     }

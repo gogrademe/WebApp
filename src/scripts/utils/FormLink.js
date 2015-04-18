@@ -1,6 +1,6 @@
 
 // From Stampsy
-var _ = require('lodash');
+import _ from 'lodash';
 
 function FormLink(options) {
   this.value = options.value;
@@ -13,7 +13,7 @@ function FormLink(options) {
 }
 
 _.extend(FormLink.prototype, {
-  requestInit: function () {
+  requestInit() {
     this._validateField({
       event: 'init'
     });

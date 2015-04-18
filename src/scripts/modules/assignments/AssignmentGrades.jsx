@@ -11,7 +11,7 @@
   Grid = NewTable.Grid;
   find = require('prelude-ls').find;
   GradeInput = React.createClass({
-    getInitialState: function(){
+    getInitialState(){
       var ref$;
       return {
         initialValue: this.props.value,
@@ -60,7 +60,7 @@
         }
       }
     },
-    render: function(){
+    render(){
       var renderIcon, this$ = this;
       renderIcon = function(){
         if (this$.state.loading) {
@@ -91,14 +91,14 @@
   });
   AssignmentGrades = React.createClass({
     displayName: "AssignmentGrades",
-    getInitialState: function(){
+    getInitialState(){
       return {
         students: [],
         grades: [],
         assignment: {}
       };
     },
-    getGrades: function(){
+    getGrades(){
       var this$ = this;
       return api.grade.find({
         assignmentId: this.props.assignmentId
@@ -108,7 +108,7 @@
         });
       });
     },
-    getStudents: function(){
+    getStudents(){
       var this$ = this;
       return api.enrollment.find({
         classId: this.state.assignment.classId,
@@ -119,7 +119,7 @@
         });
       });
     },
-    getAssignment: function(){
+    getAssignment(){
       var this$ = this;
       return api.assignment.get(this.props.assignmentId).then(function(it){
         return this$.setState({
@@ -130,7 +130,7 @@
         return this$.getStudents();
       });
     },
-    buildCols: function(){
+    buildCols(){
       var cols, ref$;
       cols = [
         {
@@ -149,7 +149,7 @@
       ];
       return cols;
     },
-    buildData: function(){
+    buildData(){
       var i$, ref$, len$, x, result, results$ = [];
       for (i$ = 0, len$ = (ref$ = this.state.students).length; i$ < len$; ++i$) {
         x = ref$[i$];
@@ -165,14 +165,14 @@
         return it.personId === x.personId;
       }
     },
-    componentWillMount: function(){
+    componentWillMount(){
       api.grade.events.addListener("change", this.getGrades);
       return this.getAssignment();
     },
-    componentWillUnmount: function(){
+    componentWillUnmount(){
       return api.grade.events.removeListener("change", this.getGrades);
     },
-    render: function(){
+    render(){
       var ref$, ref1$, ref2$;
       return this.transferPropsTo(Modal.SemanticModal({
         title: ((ref$ = this.state.assignment) != null ? ref$.name : void 8) + " - " + ((ref1$ = this.state.assignment) != null ? (ref2$ = ref1$.type) != null ? ref2$.name : void 8 : void 8)

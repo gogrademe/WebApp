@@ -1,17 +1,17 @@
 
 
-var React = require('react');
-var Logo = require('../atoms/Logo');
-var {Router, Link} = require('react-router');
-// var select = require('./src/modules/Dropdown');
-var api = require('../api/api');
-var auth = require('../api/auth');
+import React from 'react';
+import Logo from '../atoms/Logo';
+import {Router, Link} from 'react-router';
+// import select from './src/modules/Dropdown';
+import api from '../api/api';
+import auth from '../api/auth';
 
 var HeaderNav = React.createClass({
-  userDisplayName: function(){
+  userDisplayName(){
     return this.state.person.firstName + " " + this.state.person.lastName;
   },
-  componentWillMount: function(){
+  componentWillMount(){
     var personId, this$ = this;
     personId = auth.currentUser().personId;
     if (personId) {
@@ -22,12 +22,12 @@ var HeaderNav = React.createClass({
       });
     }
   },
-  getInitialState: function(){
+  getInitialState(){
     return {
       person: {}
     };
   },
-  render: function() {
+  render() {
     return (
       <div className="ui fixed blue inverted main menu">
         <div className="container">

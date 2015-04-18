@@ -1,6 +1,6 @@
 
 
-var React = require('react');
+import React from 'react';
 
 var {div, i, label, input, p} = React.DOM;
 
@@ -8,7 +8,7 @@ var FormMessages = React.createClass({
   propTypes: {
     messages: React.PropTypes.array
   },
-  render: function(){
+  render(){
     console.warn('WARN: FormMessages has been deprecated.');
     if (this.props.messages !== null) {
       return div({

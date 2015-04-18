@@ -1,15 +1,15 @@
 
-var React = require('react');
-var mapValues = require('../utils/mapValues');
-var merge = require('react/lib/merge');
+import React from 'react';
+import mapValues from '../utils/mapValues';
+import merge from 'react/lib/merge';
 
-var _ = require('lodash');
+import _ from 'lodash';
 
-var mcFly = require('../flux/mcFly');
+import mcFly from '../flux/mcFly';
 
-var ActionTypes = require('../constants/ActionTypes');
-var FormMessageTypes = require('../constants/FormMessageTypes');
-var FormStates = require('../constants/FormStates');
+import ActionTypes from '../constants/ActionTypes';
+import FormMessageTypes from '../constants/FormMessageTypes';
+import FormStates from '../constants/FormStates';
 
 
 var _activeMessages = {};
@@ -45,13 +45,13 @@ var FormStore = mcFly.createStore({
     return FormStore.getActiveMessages()[key];
   },
 
-  getFormState: function () {
+  getFormState() {
     console.warn('WARN: FormStore has been deprecated.');
 
     return _formState;
   },
 
-  getActiveMessages: function () {
+  getActiveMessages() {
     return mapValues(_activeMessages, function (message) {
       return message && {
         isError: message.isError,
@@ -60,7 +60,7 @@ var FormStore = mcFly.createStore({
     });
   },
 
-  getFirstErrorKey: function () {
+  getFirstErrorKey() {
     return _.find(_.keys(_activeMessages), function (key) {
       var message = _activeMessages[key];
       return message && message.isError;

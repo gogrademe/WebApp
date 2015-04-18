@@ -8,12 +8,12 @@
   div = Dom.div;
   Autocomplete = autocomplete.Autocomplete, Option = autocomplete.Option;
   AssignmentType = React.createClass({
-    getInitialState: function(){
+    getInitialState(){
       return {
         types: null
       };
     },
-    componentWillMount: function(){
+    componentWillMount(){
       var this$ = this;
       return api.type.find().then(function(it){
         return this$.setState({
@@ -21,7 +21,7 @@
         });
       });
     },
-    renderOptions: function(){
+    renderOptions(){
       if (this.state.types) {
         return this.state.types.map(function(item, rId){
           return Option({
@@ -34,7 +34,7 @@
         return div(null, "Loading...");
       }
     },
-    render: function(){
+    render(){
       return this.transferPropsTo(Autocomplete({
         placeholder: "Type",
         dropdown: true
@@ -43,12 +43,12 @@
   });
   SchoolTerms = React.createClass({
     displayName: "SchoolTerms",
-    getInitialState: function(){
+    getInitialState(){
       return {
         terms: null
       };
     },
-    componentWillMount: function(){
+    componentWillMount(){
       var this$ = this;
       return api.term.find().then(function(it){
         return this$.setState({
@@ -63,7 +63,7 @@
         }
       });
     },
-    renderOptions: function(){
+    renderOptions(){
       if (this.state.terms) {
         return this.state.terms.map(function(item, rId){
           return Option({
@@ -76,7 +76,7 @@
         return div(null, "Loading...");
       }
     },
-    render: function(){
+    render(){
       return div(null, Autocomplete({
         onChange: this.handleChange,
         placeholder: "Term",
@@ -86,12 +86,12 @@
   });
   GradeLevel = React.createClass({
     displayName: "GradeLevel",
-    getInitialState: function(){
+    getInitialState(){
       return {
         grades: ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th"]
       };
     },
-    renderOptions: function(){
+    renderOptions(){
       return this.state.grades.map(function(item, rId){
         return Option({
           key: rId,
@@ -107,7 +107,7 @@
         }
       });
     },
-    render: function(){
+    render(){
       return this.transferPropsTo(Autocomplete({
         onChange: this.handleChange,
         placeholder: "Grade Level",
@@ -117,7 +117,7 @@
   });
   ProfileTypes = React.createClass({
     displayName: "ProfileTypes",
-    getInitialState: function(){
+    getInitialState(){
       return {
         types: ["Student", "Teacher", "Parent", "Other", "Admin"]
       };
@@ -129,7 +129,7 @@
         }
       });
     },
-    renderOptions: function(){
+    renderOptions(){
       return this.state.types.map(function(item, rId){
         return Option({
           key: rId,
@@ -138,7 +138,7 @@
         });
       });
     },
-    render: function(){
+    render(){
       return this.transferPropsTo(Autocomplete({
         onChange: this.handleChange,
         placeholder: "Type",
