@@ -3,7 +3,7 @@
   var React, p, api, utils, DeleteBtn, Dom, div, a, i, table, thead, tr, tbody, td, th, span, input, button, pre, get, formatVal, Grid, StringRenderer, CrudActions, CellLink;
   React = require('react');
   p = require('prelude-ls');
-  api = require('../api/api.ls');
+  api = require('../api/api');
   utils = require('../utils/index');
   DeleteBtn = require('../atoms/DeleteButton');
   Dom = React.DOM;

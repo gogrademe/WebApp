@@ -1,7 +1,7 @@
 
 var React = require('react');
 var Router = require('react-router');
-var api = require('../api/auth.ls');
+var api = require('../api/auth');
 
 export default React.createClass({
   componentDidMount: function() {

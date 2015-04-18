@@ -2,7 +2,7 @@
 (function(){
   var React, api, autocomplete, Dom, div, Autocomplete, Option, AssignmentType, SchoolTerms, GradeLevel, ProfileTypes;
   React = require('react');
-  api = require('../api/api.ls');
+  api = require('../api/api');
   autocomplete = require('./autocomplete');
   Dom = React.DOM;
   div = Dom.div;

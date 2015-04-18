@@ -5,7 +5,7 @@
   moment = require('moment');
   Panel = require('../../components/Panel');
   NewTable = require('../../components/NewTable');
-  api = require('../../api/api.ls');
+  api = require('../../api/api');
   CreateClassModal = require('./CreateClassModal');
   Link = require('react-router').Link;
   SemanticModal = require('../../components/SemanticModal');

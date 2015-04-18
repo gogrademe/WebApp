@@ -1,6 +1,6 @@
 import React from 'react';
 import {Router, Navigation}  from 'react-router';
-import api from '../api/api.ls';
+import api from '../api/api';
 import Header from '../components/Header';
 
 export default React.createClass({

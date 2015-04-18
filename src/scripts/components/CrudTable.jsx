@@ -5,7 +5,7 @@
   NewTable = require('./NewTable');
   SemanticModal = require('./SemanticModal');
   PageHeader = require('./PageHeader');
-  api = require('../api/api.ls');
+  api = require('../api/api');
   FormMixin = require('./FormMixin');
   Dom = React.DOM;
   div = Dom.div, i = Dom.i, strong = Dom.strong, a = Dom.a, form = Dom.form;

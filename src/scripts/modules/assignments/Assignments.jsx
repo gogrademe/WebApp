@@ -3,10 +3,10 @@ var React = require('react');
 var {Grid, CrudActions} = require('../../components/NewTable');
 var ActionRenderer = require('../../components/ActionRenderer');
 var SemanticModal = require('../../components/SemanticModal');
-var api = require('../../api/api.ls');
+var api = require('../../api/api');
 
 
-var AssignmentGrades = require('./AssignmentGrades.ls');
+var AssignmentGrades = require('./AssignmentGrades');
 var AssignmentBtn = require('../../molecules/ModalButtons').AssignmentBtn;
 
 var AssignmentLink = React.createClass({

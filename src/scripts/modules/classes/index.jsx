@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../components/PageHeader';
 import {Link, RouteHandler, State} from 'react-router';
-import api from '../../api/api.ls';
+import api from '../../api/api';
 import {find} from 'prelude-ls';
 
 let View = React.createClass({

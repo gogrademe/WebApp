@@ -3,7 +3,7 @@
 
 import React from 'react';
 
-import api from '../api/api.ls';
+import api from '../api/api';
 import utils from '../utils';
 
 //Molecules

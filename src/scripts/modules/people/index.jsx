@@ -13,6 +13,6 @@ var Split = React.createClass({
 });
 
 module.exports = {
-  List: require('./list.ls'),
-  Detail: require('./detail.ls')
+  List: require('./list'),
+  Detail: require('./detail')
 };

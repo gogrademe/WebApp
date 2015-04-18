@@ -6,7 +6,7 @@
   NewTable = require('../../components/NewTable');
   ActionRenderer = require('../../components/ActionRenderer');
   autocomplete = require('../../components/autocomplete');
-  api = require('../../api/api.ls');
+  api = require('../../api/api');
   Dom = React.DOM;
   div = Dom.div, button = Dom.button;
   Grid = NewTable.Grid, StringRenderer = NewTable.StringRenderer;

@@ -7,8 +7,8 @@ import HeaderNav from './components/Header';
 // Hosts
 import ModalHost from './host/ModalHost';
 
-import api from './api/api.ls';
-import auth from './api/auth.ls';
+import api from './api/api';
+import auth from './api/auth';
 
 if (process.env.NODE_ENV === "production") {
   api.baseUrl = 'http://api.gogrademe.com';

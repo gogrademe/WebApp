@@ -8,9 +8,9 @@ var Select = require('react-select');
 
 var LabeledField = require('./LabeledField');
 
-var api = require('../api/api.ls');
+var api = require('../api/api');
 
-// var {Autocomplete, Option} = require('../components/autocomplete.ls');
+// var {Autocomplete, Option} = require('../components/autocomplete');
 
 var ProfileTypes = React.createClass({
   mixins: [Formsy.Mixin],

@@ -3,14 +3,14 @@ import React from 'react';
 import {Route, Redirect, NotFoundRoute} from 'react-router';
 import App from './app';
 import SignedIn from './components/SignedIn';
-import LoginModule from './modules/LoginModule.ls';
+import LoginModule from './modules/LoginModule';
 import LogoutModule from './modules/Logout';
 import DashboardModule from './modules/DashboardModule';
 import NotFoundModule from './modules/NotFoundModule';
 import Classes from './modules/classes/index';
 import Setup from './modules/setup/Container';
 import People from './modules/people/index';
-import School from './modules/SchoolSettings.ls';
+import School from './modules/SchoolSettings';
 import UserList from './modules/UserList';
 
 export default (

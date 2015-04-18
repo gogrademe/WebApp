@@ -2,7 +2,7 @@
 import React from 'react';
 import Panel from '../../components/Panel';
 import {Grid} from '../../components/NewTable';
-import api from '../../api/api.ls';
+import api from '../../api/api';
 import {State} from 'react-router';
 import {find, filter, ceiling, isItNaN, sum, map, reject, mean} from 'prelude-ls';
 

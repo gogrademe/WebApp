@@ -4,7 +4,7 @@ var ref$, find, filter, ceiling, isItNaN, sum, map, reject, mean, groupBy, uniqu
 var React = require('react');
 
 var NewTable = require('../../components/NewTable');
-var api = require('../../api/api.ls');
+var api = require('../../api/api');
 
 var Grid = NewTable.Grid;
 

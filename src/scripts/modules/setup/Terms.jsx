@@ -1,7 +1,7 @@
 
 
 var React = require('react');
-var api = require('../../api/api.ls');
+var api = require('../../api/api');
 var CrudTable = require('../../components/CrudTable');
 
 var NewTable = require('../../components/NewTable');

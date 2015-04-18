@@ -3,7 +3,7 @@
   var React, cloneWithProps, api, ref$, filter, sortBy, escapeRegExp, Dom, div, h1, img, span, ul, a, i, button, input, p, strong, Option, Autocomplete;
   React = require('react');
   cloneWithProps = require('react/lib/cloneWithProps');
-  api = require('../api/api.ls');
+  api = require('../api/api');
   ref$ = require('prelude-ls'), filter = ref$.filter, sortBy = ref$.sortBy;
   escapeRegExp = function(str){
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");

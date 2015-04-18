@@ -5,7 +5,7 @@ import {State} from 'react-router';
 import Form from '../../molecules/Form';
 import LabeledField from '../../molecules/LabeledField';
 
-import api from '../../api/api.ls';
+import api from '../../api/api';
 
 import AssignmentTypes from '../setup/AssignmentTypes';
 

@@ -3,8 +3,8 @@
 var React = require('react');
 
 var {Router, State, RouteHandler} = require('react-router');
-var api = require('../api/api.ls');
-var auth = require('../api/auth.ls');
+var api = require('../api/api');
+var auth = require('../api/auth');
 
 
 var SignedIn = React.createClass({

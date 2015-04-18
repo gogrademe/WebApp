@@ -1,5 +1,5 @@
 import React from 'react';
-import api from '../api/api.ls';
+import api from '../api/api';
 import Header from '../components/PageHeader';
 
 import NewTable from '../components/NewTable';
