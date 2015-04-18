@@ -14,8 +14,7 @@ module.exports = function (release) {
     entry: [
       'webpack-dev-server/client?http://0.0.0.0:3000',
       'webpack/hot/only-dev-server',
-      './src/scripts/index.js',
-      './src/less/main.less'
+      './src/scripts/index.js'
     ],
     stats: {
       colors: true,
@@ -37,35 +36,14 @@ module.exports = function (release) {
           }
         ),
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
-      new ExtractTextPlugin("style.css"),
-      new require('./css-fix-loader.js')()
-
+      new webpack.NoErrorsPlugin()
     ],
     resolve: {
-      extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.ls']
+      extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
     },
 
     module: {
-      loaders: [{
-        test: /\.css$/,
-        loader: 'style!css'
-      },
-      {
-        test: /\.(png|woff|eot|woff2|ttf|svg)$/,
-        loader: 'url-loader?limit=100000' },
-      {
-        test: /\.(less|config)$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
-      },
-      {
-        test: /\.gif/,
-        loader: 'url-loader?limit=10000&mimetype=image/gif'
-      },
-      {
-        test: /\.jpg/,
-        loader: 'url-loader?limit=10000&mimetype=image/jpg'
-      },
+      loaders: [
       {
         test: /\.(js|jsx)$/,
         loaders: ['react-hot', 'babel?experimental'],
