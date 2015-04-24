@@ -4,129 +4,93 @@ import {Router, Navigation} from 'react-router';
 import Panel from '../components/Panel';
 import auth from '../api/auth';
 
+require('./LoginModule.less');
 
 const LoginPage = React.createClass({
-    mixins: [Navigation],
-    getInitialState(){
-      return {
-        error: null,
-        isLoggingIn: false
-      };
-    },
-    handleSubmit(e){
-      var email, password, this$ = this;
-      e.preventDefault();
+  mixins: [Navigation],
+  getInitialState(){
+    return {
+      error: null,
+      isLoggingIn: false
+    };
+  },
+  handleSubmit(e){
+    e.preventDefault();
+    this.setState({
+      isLoggingIn: true
+    });
+    const email = this.refs.email.getDOMNode().value.trim();
+    const password = this.refs.password.getDOMNode().value.trim();
+
+    auth.login({
+      email: email,
+      password: password
+    }).then(() => {
+      this.transitionTo('dashboard');
+    }).error((it) => {
       this.setState({
-        isLoggingIn: true
+        isLoggingIn: false,
+        error: it
       });
-      email = this.refs.email.getDOMNode().value.trim();
-      password = this.refs.password.getDOMNode().value.trim();
-      auth.login({
-        email: email,
-        password: password
-      }).then(function(){
-        return this$.transitionTo('dashboard');
-      }).error(function(it){
-        return this$.setState({
-          isLoggingIn: false,
-          error: it
-        });
-      });
-    },
-    renderMessages(){
-      if (this.state.error !== null) {
-        return div({
-          className: "ui error visible message"
-        }, this.state.error.statusCode + ": " + this.state.error.message);
-      }
-    },
-    render(){
+    });
+  },
+  renderMessages(){
+    if (this.state.error !== null) {
       return (
-        <div className="login container">
-          <div>
-            <form className="ui fluid form segment" onSubmit={this.handleSubmit}>
-              <h4 className="ui header">Login</h4>
-              {this.renderMessages()}
-              <div className="field">
-                  <div className="ui right labeled left icon input">
-                      <input
-                          type="email"
-                          placeholder="Email Address"
-                          ref="email"
-                          required={true} />
-                      <i className="user icon"></i>
-                  </div>
-              </div>
-            </form>
-          </div>
+        <div>
+          {this.state.error.statusCode + ": " + this.state.error.message}
         </div>
-      )
-      // return div({
-      //   className: "login container"
-      // }, img({
-      //   className: "logo",
-      //   src: "logo.svg"
-      // }), div(null, form({
-      //   className: "ui fluid form segment",
-      //   onSubmit: this.handleSubmit
-      // }, h4({
-      //   className: "ui header"
-      // }, "Login"), this.renderMessages(), div({
-      //   className: "field"
-      // }, div({
-      //   className: "ui right labeled left icon input"
-      // }, input({
-      //   type: "email",
-      //   placeholder: "Email Address",
-      //   ref: "email",
-      //   required: true
-      // }), i({
-      //   className: "user icon"
-      // }), div({
-      //   className: "ui corner label"
-      // }, i({
-      //   className: "icon asterisk"
-      // })))), div({
-      //   className: "field"
-      // }, div({
-      //   className: "ui right labeled left icon input"
-      // }, input({
-      //   type: "password",
-      //   placeholder: "Password",
-      //   ref: "password",
-      //   required: true
-      // }), i({
-      //   className: "lock icon"
-      // }), div({
-      //   className: "ui corner label"
-      // }, i({
-      //   className: "icon asterisk"
-      // })))), div({
-      //   className: "field"
-      // }, button({
-      //   type: "submit",
-      //   disabled: this.state.isLoggingIn,
-      //   role: "button",
-      //   className: "ui primary fluid submit button",
-      //   value: "Post"
-      // }, LoginLoading({
-      //   isLoggingIn: this.state.isLoggingIn
-      // }), "Log in")))));
+      );
     }
-  });
+  },
+  render(){
+    return (
+      <div className="login container">
+        <div className="card card-container">
+          <img className="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+          <p className="profile-name-card" />
+          <form className="form-signin" onSubmit={this.handleSubmit}>
+            {this.renderMessages()}
+            <span className="reauth-email" />
+            <input
+              type="email"
+              ref="email"
+              className="form-control"
+              placeholder="Email address"
+              required ={true}
+              autofocus={true} />
+            <input
+              type="password"
+              ref="password"
+              className="form-control"
+              placeholder="Password"
+              required={true} />
+            <button
+              className="btn btn-lg btn-primary btn-block btn-signin"
+              disabled={this.state.isLoggingIn}
+              type="submit"
+              value="Post">
+              Sign in
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+});
 
 const LoginLoading = React.createClass({
-    render(){
-      var style;
-      style = {};
-      if (!this.props.isLoggingIn === true) {
-        style.display = "none";
-      }
-      return i({
-        className: "fa fa-cog fa-spin",
-        style: style
-      });
+  render(){
+    var style;
+    style = {};
+    if (!this.props.isLoggingIn === true) {
+      style.display = "none";
     }
-  });
+    return i({
+      className: "fa fa-cog fa-spin",
+      style: style
+    });
+  }
+});
 
 module.exports = LoginPage;
