@@ -5,6 +5,7 @@ import Panel from '../components/Panel';
 import auth from '../api/auth';
 
 require('./LoginModule.less');
+require('../../assets/logo.svg');
 
 const LoginPage = React.createClass({
   mixins: [Navigation],
@@ -47,8 +48,7 @@ const LoginPage = React.createClass({
     return (
       <div className="login container">
         <div className="card card-container">
-          <img className="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-          <p className="profile-name-card" />
+          <img className="profile-img-card" src="logo.svg" />
           <form className="form-signin" onSubmit={this.handleSubmit}>
             {this.renderMessages()}
             <span className="reauth-email" />
@@ -66,7 +66,7 @@ const LoginPage = React.createClass({
               placeholder="Password"
               required={true} />
             <button
-              className="btn btn-lg btn-primary btn-block btn-signin"
+              className="btn btn-lg btn-success btn-block btn-signin"
               disabled={this.state.isLoggingIn}
               type="submit"
               value="Post">
