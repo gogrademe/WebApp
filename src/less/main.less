@@ -1,142 +1,41 @@
-@import "grid";
-@import "datepicker";
+@import "../../node_modules/bootstrap/less/bootstrap.less";
 
-@import "../../node_modules/react-select/less/default.less";
+// @import "../../node_modules/material-ui/src/less/scaffolding.less";
+// @import "../../node_modules/material-ui/src/less/components.less";
+@import "../../node_modules/fixed-data-table/dist/fixed-data-table.css";
 
-// This is required to make 'rem' work properly.
-html, body {
- font-size: 14px;
-}
-
-body {
-  background: #FFF;
-}
-
-.main .ui.table,
-.main .ui.segment,
-.main .ui.table.attached,
-.main .ui.attached.segment,
-.main .ui.attached.header, {
-  border: none;
-  box-shadow: 0 0 3px #dadada;
-  border-radius: 4px;
-}
-
-.ui.top.attached.segment, {
-  border-radius: 4px 4px 0 0;
-}
-
-.main .ui.segment.fitted {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-.ui.action.input .ui.search input {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0px;
-  margin-bottom: 1px;
-}
-
-.full.height {
-  padding-bottom: 2rem;
-}
-
-.main .ui.menu:not(.main) {
-  box-shadow: 0 0 3px #dadada;
-  border-radius: 4px;
-}
-
-.main.menu {
-  top: 0px;
-}
-
-.page {
-  padding-top: 2.5em;
-}
-
-.login.container {
-  max-width: 320px;
-  width: auto;
-}
-
-.container {
-  max-width: 980px;
-  margin: 0px auto;
-  position: relative;
-}
-
-.header.segment {
-  margin: 0em;
-  padding-top: 1em;
-  padding-bottom: 1em;
-  margin-bottom: 1em;
-  background-color: #FFF;
-  border-bottom: 1px solid #DDD;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-
-  h3 {
-    span {
-      padding-right: .5em;
-    }
-  }
-  .right.actions {
-    margin-left: 0;
-    margin-right: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
-}
-
-.ui.modal .content .actions {
-  margin-left: -2em;
-  margin-right: -2em;
-  margin-bottom: -2em;
-}
-
-.ui.fitted.segment .button {
-  margin-right: 0;
-}
-
-.ui.menu .item.title {
-  padding-left: 0;
-}
-
-.ui.search .results {
-  max-height: 6em;
-  overflow-y: scroll !important;
-}
-
-.ui.very.basic.table td > div {
-    margin-right: .8em;
-}
-
-.icon.logo {
-  z-index: 502;
-  position: relative;
-  overflow: hidden;
-  width: 2rem;
-  height: 2rem;
-  -webkit-transition: width .5s .2s cubic-bezier(0.175,.885,.32,1);
-  transition: width .5s .2s cubic-bezier(0.175,.885,.32,1);
-}
-
-.icon.wrapper {
-  width: 2rem;
-  height: 2rem;
-}
-
-.Icon-container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.ui.modal > table {
-  border: none;
-  border-radius: 0;
-  margin: 0;
-}
+// .mui-app-canvas {
+//   height: 100%;
+// }
+//
+// .logo {
+//   cursor: pointer;
+//   .mui-font-style-headline;
+//   .mui-text-full-white;
+//   line-height: @app-bar-height;
+//   .mui-font-weight-light;
+//   background-color: @primary-1-color;
+//   padding-left: @desktop-gutter;
+//   padding-top: 0;
+//   margin-bottom: @desktop-gutter-mini;
+// }
+//
+// .full-width-section {
+//   padding: @desktop-gutter;
+//   .clearfix();
+//
+//   .full-width-section-content {
+//     max-width: 1200px;
+//     margin: 0 auto;
+//   }
+//
+//   @media @device-small {
+//     padding-top: (@desktop-gutter * 2);
+//     padding-bottom: (@desktop-gutter * 2);
+//   }
+//
+//   @media @device-large {
+//     padding-top: (@desktop-gutter * 3);
+//     padding-bottom: (@desktop-gutter * 3);
+//   }
+// }
