@@ -4,68 +4,82 @@
 // @import "../../node_modules/material-ui/src/less/components.less";
 @import "../../node_modules/fixed-data-table/dist/fixed-data-table.css";
 
+@border-radius-base: 0;
+
+body {
+    background-color: @brand-primary;
+}
+.main.container {
+    padding-top: 40px;
+    background-color: white;
+}
+
+nav.app-nav {
+    &:extend(
+        .navbar all,
+        .navbar-default all,
+        .navbar-fixed-top all);
+
+    background-color: @brand-primary;
+    border-bottom: 0;
+    margin-bottom: 0;
+
+    .navbar-brand {
+        &:hover {color: darken(white, 15%);}
+        color: white;
+    }
+    .navbar-nav {
+        font-weight:500;
+
+        & > li > a {
+            &:hover {color: darken(white, 15%);}
+            color: white;
+        }
+        & > .active > a,
+        & > .active > a:focus {
+            background-color: white;
+            color: @brand-primary;
+        }
+    }
+}
+
+.page-header {
+    background-color: white;
+}
+
+.form-control {
+    border-color: @gray-lighter;
+    // border: 0;
+    // color: white;
+    // background-color: @brand-primary;
+}
 
 .card-container.card {
     width: 350px;
-    padding: 40px 40px;
+    // padding: 40px 40px;
+    padding: 20px;
 }
 
-.btn {
-    font-weight: 700;
-    height: 36px;
-    user-select: none;
-    cursor: default;
-}
+// .btn {
+//     font-weight: 700;
+//     height: 36px;
+//     user-select: none;
+//     cursor: default;
+// }
 
 .card {
-    background-color: @brand-primary;
+    background-color: white;
     /* just in case there no content*/
     padding: 20px 25px 30px;
     margin: 0 auto 25px;
-    margin-top: 50px;
+    // margin-top: 50px;
     border-radius: 2px;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .profile-img-card {
     height: 124px;
+    width: 124px;
     margin: 0 auto 10px;
     display: block;
 }
-
-
-// .mui-app-canvas {
-//   height: 100%;
-// }
-//
-// .logo {
-//   cursor: pointer;
-//   .mui-font-style-headline;
-//   .mui-text-full-white;
-//   line-height: @app-bar-height;
-//   .mui-font-weight-light;
-//   background-color: @primary-1-color;
-//   padding-left: @desktop-gutter;
-//   padding-top: 0;
-//   margin-bottom: @desktop-gutter-mini;
-// }
-//
-// .full-width-section {
-//   padding: @desktop-gutter;
-//   .clearfix();
-//
-//   .full-width-section-content {
-//     max-width: 1200px;
-//     margin: 0 auto;
-//   }
-//
-//   @media @device-small {
-//     padding-top: (@desktop-gutter * 2);
-//     padding-bottom: (@desktop-gutter * 2);
-//   }
-//
-//   @media @device-large {
-//     padding-top: (@desktop-gutter * 3);
-//     padding-bottom: (@desktop-gutter * 3);
-//   }
-// }

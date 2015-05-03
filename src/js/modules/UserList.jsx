@@ -2,17 +2,23 @@ import React from 'react';
 import api from '../api/api';
 import Header from '../components/PageHeader';
 
-// import NewTable from '../components/NewTable';
-// import {Table, Column} from 'fixed-data-table';
+import NewTable from '../components/NewTable';
 
 export default React.createClass({
+    tableColumns: [
+      {
+          key: "email",
+          display: "Email"
+      },
+      {
+          key: "disabled",
+          display: "Disabled"
+      },
+    ],
     getInitialState() {
       return {
           data: []
       };
-    },
-    get(index) {
-      return this.state.data[index];
     },
     fetch() {
       api.user.find()
@@ -29,7 +35,8 @@ export default React.createClass({
         return (
           <div>
             <Header primary="All Users" />
-            <div className="main container">              
+            <div>
+                <NewTable.Grid columns={this.tableColumns} data={this.state.data} />
             </div>
           </div>
         );

@@ -5,19 +5,12 @@ import React from 'react';
 var PageHeader = React.createClass({
   render(){
     return (
-      <div className="header segment">
-        <div className="container">
-          <h3 className="ui header">
-            <span>
-              {this.props.primary}
-            </span>
-            <span className="sub header">
-              {this.props.secondary}
-            </span>
-          </h3>
-          <div className="right actions">
-            {this.props.right}
-          </div>
+      <div className="page-header">
+        <h3>
+          {this.props.primary} <small>{this.props.secondary}</small>
+        </h3>
+        <div className="right actions">
+          {this.props.right}
         </div>
       </div>
     );
@@ -25,3 +18,8 @@ var PageHeader = React.createClass({
 });
 
 module.exports = PageHeader;
+
+//
+// <span className="sub header">
+//   {this.props.secondary}
+// </span>

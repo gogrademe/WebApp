@@ -2,15 +2,12 @@
 import React from 'react';
 
 import api from '../api/api';
-  var p, utils, DeleteBtn, Dom, div, a, i, table, thead, tr, tbody, td, th, span, input, button, pre, get, formatVal;
+import p from 'prelude-ls';
 
-  p = require('prelude-ls');
+import utils from '../utils/index';
+import DeleteBtn from '../atoms/DeleteButton';
 
-  utils = require('../utils/index');
-  DeleteBtn = require('../atoms/DeleteButton');
-  Dom = React.DOM;
-  div = Dom.div, a = Dom.a, i = Dom.i, table = Dom.table, thead = Dom.thead, tr = Dom.tr, tbody = Dom.tbody, td = Dom.td, th = Dom.th, span = Dom.span, input = Dom.input, button = Dom.button, pre = Dom.pre;
-  get = function(obj, prop){
+let get = function(obj, prop){
     var parts, last;
     parts = prop.split('.');
     last = parts.pop();
@@ -22,7 +19,7 @@ import api from '../api/api';
     }
     return obj[last];
   };
-  formatVal = function(val, format){
+let formatVal = function(val, format){
     if (typeof format === 'function') {
       return format(val);
     }
@@ -46,10 +43,8 @@ let Grid = React.createClass({
       };
     },
     render(){
-      var data, cols, getRenderer;
-      data = this.props.data;
-      cols = this.props.columns;
-      getRenderer = this.getRenderer;
+      const data = this.props.data;
+      const cols = this.props.columns;
 
       return (
         <table className="ui compact table" {... this.props}>
@@ -64,16 +59,19 @@ let Grid = React.createClass({
               return (
                 <tr key={key}>
                   {cols.map((column, columnI) => {
-                    let result = this.getRenderer(column,rowI, columnI)({
-                      rowI: rowI,
-                      row: row,
-                      columnI: columnI,
-                      column: column,
-                      value: get(row, column.key || "")
-                    });
+                    const Renderer = this.getRenderer(column,rowI, columnI);
                     return (
-                      <td></td>
-                    )
+                      <td
+                        key={"cell-" + rowI + "-" + columnI}
+                        className={column.tdClassName || ""} >
+                        <Renderer
+                          rowI={rowI}
+                          row={row}
+                          columnI={columnI}
+                          column={column}
+                          value={get(row, column.key || "")}/>
+                      </td>
+                    );
                   })}
                 </tr>
               )
@@ -108,10 +106,13 @@ let Grid = React.createClass({
       return renderer = column.renderer || StringRenderer;
     },
     renderHeader: function(obj, index){
-      return th({
-        key: "col-" + index,
-        className: obj.className
-      }, obj.display || obj.key);
+      return (
+        <th key={"col-" + index}
+          className={obj.className}>
+          {obj.display || obj.key}
+        </th>
+
+      )
     }
   });
 let StringRenderer = React.createClass({
@@ -128,29 +129,42 @@ let StringRenderer = React.createClass({
         row: this.props.row
       });
     },
-    render(){
-      var val;
-      val = formatVal(this.props.value, this.props.column.format);
-      if (this.state.editing) {
-        return div(null, div({
-          className: "ui action input small"
-        }, input({
-          type: "text",
-          value: val,
-          onChange: this.handleChange
-        }), div({
-          className: "ui button tiny",
-          onClick: this.toggle
-        }, "x")));
-      } else {
-        return div(null, val);
-      }
-    },
-    toggle(){
-      this.setState({
-        editing: !this.state.editing
-      });
+    render() {
+      const val = formatVal(this.props.value, this.props.column.format);
+      return (
+        <div>
+          {val}
+        </div>
+      )
     }
+    // render(){
+    //   var val;
+    //   val = formatVal(this.props.value, this.props.column.format);
+    //   if (this.state.editing) {
+    //     return (
+    //       <div>
+    //
+    //       </div>
+    //     )
+    //     return div(null, div({
+    //       className: "ui action input small"
+    //     }, input({
+    //       type: "text",
+    //       value: val,
+    //       onChange: this.handleChange
+    //     }), div({
+    //       className: "ui button tiny",
+    //       onClick: this.toggle
+    //     }, "x")));
+    //   } else {
+    //     return div(null, val);
+    //   }
+    // },
+    // toggle(){
+    //   this.setState({
+    //     editing: !this.state.editing
+    //   });
+    // }
   });
 let CrudActions = React.createClass({
     displayName: "CrudActions",
@@ -160,12 +174,16 @@ let CrudActions = React.createClass({
     },
     render(){
       var ref$;
-      return div(null, DeleteBtn({
-        onClick: this['delete']
-      }), typeof (ref$ = this.props.column).customActions == 'function' ? ref$.customActions(this.props) : void 8);
+      return (
+        <div>
+          <DeleteBtn onClick={this.delete}/>
+        </div>
+      );
+      // return div(null, DeleteBtn({
+      //   onClick: this['delete']
+      // }), typeof (ref$ = this.props.column).customActions == 'function' ? ref$.customActions(this.props) : void 8);
     }
-  });
-
+});
 
 let CellLink = React.createClass({
     render(){

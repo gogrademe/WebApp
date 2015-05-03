@@ -46,33 +46,34 @@ const LoginPage = React.createClass({
   },
   render(){
     return (
-      <div className="login container">
-        <div className="card card-container">
-          <img className="profile-img-card" src="logo.svg" />
-          <form className="form-signin" onSubmit={this.handleSubmit}>
-            {this.renderMessages()}
-            <span className="reauth-email" />
-            <input
-              type="email"
-              ref="email"
-              className="form-control"
-              placeholder="Email address"
-              required ={true}
-              autofocus={true} />
-            <input
-              type="password"
-              ref="password"
-              className="form-control"
-              placeholder="Password"
-              required={true} />
-            <button
-              className="btn btn-lg btn-success btn-block btn-signin"
-              disabled={this.state.isLoggingIn}
-              type="submit"
-              value="Post">
-              Sign in
-            </button>
-          </form>
+      <div>
+        <img className="profile-img-card" src="logo.svg" />
+        <div className="login container">
+          <div className="card card-container">
+            <form className="form-signin" onSubmit={this.handleSubmit}>
+              {this.renderMessages()}
+              <input
+                type="email"
+                ref="email"
+                className="form-control"
+                placeholder="Email address"
+                required ={true}
+                autofocus={true} />
+              <input
+                type="password"
+                ref="password"
+                className="form-control"
+                placeholder="Password"
+                required={true} />
+              <button
+                className="btn btn-lg btn-success btn-block btn-signin"
+                disabled={this.state.isLoggingIn}
+                type="submit"
+                value="Post">
+                Sign in
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     );

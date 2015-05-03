@@ -4,7 +4,7 @@ var path = require('path');
 var shell = require('shelljs');
 
 const RELEASE = process.env.NODE_ENV === 'production';
-const VERSION = shell.exec('git describe --tags').output;
+const VERSION = shell.exec('git describe --tags --always').output;
 
 const entry = './src/js/index';
 module.exports = {
@@ -64,7 +64,7 @@ module.exports = {
         loader: "file-loader?name=[name].[ext]"
       },
       {
-        test: /\.jsx?$/,
+        test: /\.(jsx|js)?$/,
         loaders: ['react-hot', 'babel?stage=0'],
         exclude: /node_modules/
       }

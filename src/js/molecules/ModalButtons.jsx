@@ -20,11 +20,7 @@ var ModalButton = React.createClass({
   render(){
     var {modal, className, icon, ...otherProps} = this.props;
     return (
-      <a className={cx({
-          'ui tiny button': true,
-          'primary': true,
-          'icon': icon
-        })} onClick={this.handleOnClick} {...this.props}>
+      <a onClick={this.handleOnClick} {...this.props}>
         {this.props.label || this.props.children}
       </a>
     );

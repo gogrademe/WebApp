@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import Header from '../components/PageHeader';
 import SemanticModal from '../components/SemanticModal';
@@ -33,13 +31,13 @@ var DashboardModule = React.createClass({
   render(){
     return (
       <div>
-        <Header primary='Dashboard'/>
-        <div className="main container">
-          <div className="ui segment">
-            <h2 className="mui-font-style-headline">
-              Announcements
-            </h2>
-            <div className="ui items">
+        <Header primary='Dashboard' secondary="test"/>
+        <div>
+          <div className="panel panel-default">
+            <div className="panel-heading">
+              <h3 className="panel-title">Announcements</h3>
+            </div>
+            <div className="panel-body">
               {this.renderItem({
                 header: "New Version!",
                 time: "Yesterday",

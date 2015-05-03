@@ -51,18 +51,18 @@ export default React.createClass({
 
     return (
       <SemanticModal.SemanticModal {...props}>
-        <div className="content">
+        <div className="modal-body">
           <Formsy.Form ref="form" className="ui form" onSubmit={this.onSubmitPushed} onValid={this.enableButton} onInvalid={this.disableButton}>
             {children}
           </Formsy.Form>
         </div>
-        <div className="actions">
-          <a className="ui labeled icon button" onClick={this.props.onRequestHide}>
+        <div className="modal-footer">
+          <a className="btn btn-default" onClick={this.props.onRequestHide}>
             <i className="cancel icon" />
             Cancel
           </a>
           <a className={cx({
-              'ui labeled icon primary button': true,
+              'btn btn-primary': true,
               'disabled': !this.state.canSubmit
             })}
             onClick={this.submitForm}>

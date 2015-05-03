@@ -18,14 +18,16 @@ export default React.createClass({
   render() {
     return (
       <ModalForm {... this.props} title="Person" onSubmitAsync={this.onSubmit}>
-        <div className="field">
-          <label>
-            Name
-          </label>
-          <div className="three fields">
-            <LabeledField name="firstName" placeholder="First Name"/>
-            <LabeledField name="middleName" placeholder="Middle Name" required={false}/>
-            <LabeledField name="lastName" placeholder="Last Name"/>
+        <div>
+          <div className="form-group">
+            <label>
+              Name
+            </label>
+            <div className="row">
+              <LabeledField name="firstName" placeholder="First Name" size="col-xs-4"/>
+              <LabeledField name="middleName" placeholder="Middle Name" required={false} size="col-xs-4"/>
+              <LabeledField name="lastName" placeholder="Last Name" size="col-xs-4"/>
+            </div>
           </div>
           <LabeledField label="Email" name="email" required={false}/>
           <AutocompleteFor.ProfileTypes name="types" placeholder="First Name"/>

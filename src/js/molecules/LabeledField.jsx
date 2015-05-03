@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import cx from 'react/lib/cx';
+import cx from 'classnames';
 
 import Formsy from 'formsy-react';
 
@@ -33,7 +33,7 @@ var LabeledInput = React.createClass({
       ) : null;
 
       var renderLabel = label ? (
-          <label>
+          <label className="control-label">
             {label}
           </label>
         ) : null;
@@ -42,24 +42,25 @@ var LabeledInput = React.createClass({
 
 
       return (
-        <div className={cx({
-          'field': true,
-          'error':  this.showError()
+        <div className={
+            cx('form-group', this.props.size, {
+          'has-error': this.showError()
           })}>
           {renderLabel}
           <div className={cx({
-              'ui': true,
-              'corner labeled': this.isRequired(),
-              'input': true
+              // 'ui': true,
+              // 'corner labeled': this.isRequired(),
+              // 'input': true
             })}>
 
             <Field
+              className="form-control"
               type={type}
               onChange={this.changeValue}
               value={this.getValue()}
               placeholder={placeholder || label}
               />
-              
+
             {this.isRequired() ?
               (
                 <div className="ui corner label">

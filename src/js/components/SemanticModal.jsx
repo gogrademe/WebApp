@@ -17,11 +17,13 @@ let SemanticModal = React.createClass({
   },
   render() {
     return (
-      <div className="ui dimmer page visible active" >
-        <div className="ui standard modal scrolling transition visible active" {... this.props}>
-          {this.renderCloseButton()}
-          {this.renderHeader()}
-          {this.props.children}
+      <div className="modal" style={{display: 'block'}}>
+        <div className="modal-dialog" {... this.props} >
+          <div className="modal-content">
+            {this.renderCloseButton()}
+            {this.renderHeader()}
+            {this.props.children}
+          </div>
         </div>
       </div>
     )
@@ -40,7 +42,7 @@ let SemanticModal = React.createClass({
   renderHeader() {
     if (this.props.title) {
       return (
-        <div className="header">
+        <div className="modal-header">
           {this.props.title}
         </div>
       );

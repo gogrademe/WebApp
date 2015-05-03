@@ -23,11 +23,13 @@ export default React.createClass({
     }
   },
   render() {
+    const className = api.session.get() ? "main container" : "";
+    
     return (
       <DocumentTitle title='GoGradeMe'>
         <div>
           {this.loggedIn()}
-          <div className="mui-app-content-canvas full-width-section">
+          <div className={className}>
             <RouteHandler/>
           </div>
           <ModalHost />

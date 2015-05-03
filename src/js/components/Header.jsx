@@ -1,7 +1,8 @@
 import React from 'react';
 import Logo from '../atoms/Logo';
-import Router from 'react-router';
-import {AppBar, LeftNav} from 'material-ui';
+import Router, {Link} from 'react-router';
+import {Nav, DropdownButton} from 'react-bootstrap';
+import {NavItemLink} from 'react-router-bootstrap';
 
 import api from '../api/api';
 import auth from '../api/auth';
@@ -15,20 +16,21 @@ let menuItems = [
   {route: 'setup', text: 'App Settup'}
 ];
 
-var HeaderNav = React.createClass({
+const HeaderNav = React.createClass({
   mixins: [Router.Navigation, Router.State],
   userDisplayName(){
     return this.state.person.firstName + " " + this.state.person.lastName;
   },
   componentWillMount(){
-    var personId, this$ = this;
-    personId = auth.currentUser().personId;
+    const personId = auth.currentUser().personId;
     if (personId) {
-      return api.person.get(personId).then(function(it){
-        return this$.setState({
-          person: it
+      api.person
+        .get(personId)
+        .then((it) => {
+          this.setState({
+            person: it
+          });
         });
-      });
     }
   },
   getInitialState(){
@@ -38,25 +40,38 @@ var HeaderNav = React.createClass({
     }
   },
   render() {
-    var header = <div className="logo">GoGradeMe</div>;
     return (
-      <div>
-        <AppBar
-          className="mui-dark-theme"
-          title="GoGradeMe"
-          zDepth={0}
-          onMenuIconButtonTouchTap={this._onMenuIconButtonTouchTap}
-          />
-        <LeftNav
-          ref="leftNav"
-          docked={false}
-          isInitiallyOpen={false}
-          menuItems={menuItems}
-          header={header}
-          selectedIndex={this._getSelectedIndex()}
-          onChange={this._onLeftNavChange}
-          />
-      </div>
+      <nav className="app-nav">
+        <div className="container">
+          <div className="navbar-header">
+            <span className="navbar-brand">GoGradeMe</span>
+          </div>
+          <Nav navbar>
+            <NavItemLink to="dashboard">
+              Dashboard
+            </NavItemLink>
+            <NavItemLink to="class">
+              Classes
+            </NavItemLink>
+            <NavItemLink to="people">
+              People
+            </NavItemLink>
+            <NavItemLink to="users">
+              Users
+            </NavItemLink>
+            <NavItemLink to="setup">
+              App Setup
+            </NavItemLink>
+          </Nav>
+          <Nav navbar right>
+            <DropdownButton title={this.userDisplayName()}>
+              <NavItemLink to="logout">
+                Logout
+              </NavItemLink>
+            </DropdownButton>
+          </Nav>
+        </div>
+      </nav>
     );
   },
   _onMenuIconButtonTouchTap() {
@@ -80,6 +95,22 @@ var HeaderNav = React.createClass({
     this.refs.leftNav.close();
   }
 });
+//
+// <AppBar
+//   className="mui-dark-theme"
+//   title="GoGradeMe"
+//   zDepth={0}
+//   onMenuIconButtonTouchTap={this._onMenuIconButtonTouchTap}
+//   />
+// <LeftNav
+//   ref="leftNav"
+//   docked={false}
+//   isInitiallyOpen={false}
+//   menuItems={menuItems}
+//   header={header}
+//   selectedIndex={this._getSelectedIndex()}
+//   onChange={this._onLeftNavChange}
+//   />
 
 // <div className="ui fixed blue inverted main menu">
 //   <div className="container">
