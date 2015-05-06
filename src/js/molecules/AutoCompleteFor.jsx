@@ -1,67 +1,72 @@
-
-
-import React from 'react';
-import cx from 'react/lib/cx';
+import React, {PropTypes} from 'react';
 
 import Formsy from 'formsy-react';
 import Select from 'react-select';
 
-import LabeledField from './LabeledField';
+import {Multiselect} from 'react-widgets';
 
 import api from '../api/api';
-
-// import {Autocomplete, Option} from '../components/autocomplete';
 
 var ProfileTypes = React.createClass({
   mixins: [Formsy.Mixin],
   getInitialState() {
     return {
       types: [
-        {label: "Student", value:"student"},
-        {label: "Teacher", value:"teacher"},
-        {label: "Parent", value:"parent"},
-        {label: "Other", value:"other"},
-        {label: "Admin", value:"admin"}
+        {label: 'Student', value: 'student'},
+        {label: 'Teacher', value: 'teacher'},
+        {label: 'Parent', value: 'parent'},
+        {label: 'Other', value: 'other'},
+        {label: 'Admin', value: 'admin'}
       ]
     };
   },
-
-  changeValue: function (newVal, options) {
-      this.setValue(newVal);
+  changeValue(newVal) {
+      this.setValue(newVal.map(v => v.value));
   },
   getVal() {
     var val = this.getValue();
 
-    if (val === "")
+    if (val === '') {
       return null;
-    else
+    } else {
       return val;
+    }
   },
-  render:function() {
+  render() {
     return (
-        <Select
-            {...this.props}
-            multi={true}
-            placeholder="Types"
-            value={this.getVal()}
-            options={this.state.types}
-            onChange={this.changeValue}
-        />
+        <div className="form-group">
+          <label>
+            Types
+          </label>
+          <Multiselect
+              {... this.props}
+              placeholder="Types"
+              value={this.getVal()}
+              valueField='value'
+              textField='label'
+              data={this.state.types}
+              onChange={this.changeValue}
+          />
+        </div>
     );
   }
 });
 
-var AssignmentType = React.createClass({
+var AssignmentGroup = React.createClass({
   mixins: [Formsy.Mixin],
+  propTypes: {
+    classId: PropTypes.string.isRequired,
+    termId: PropTypes.string.isRequired
+  },
   getInitialState() {
     return {
       types: []
     };
   },
   componentWillMount() {
-    api.type.find()
+    api.assignmentGroup.find({classId: this.props.classId, termId: this.props.termId})
       .then((xs)=> {
-        var types = xs.map(function(type){
+        const types = xs.map(function(type){
           return {
             value: type.id,
             label: type.name
@@ -72,21 +77,22 @@ var AssignmentType = React.createClass({
         });
       });
   },
-  changeValue: function (newVal, options) {
+  changeValue(newVal) {
       this.setValue(newVal);
   },
   getVal() {
     var val = this.getValue();
 
-    if (val === "")
+    if (val === '') {
       return null;
-    else
+    } else {
       return val;
+    }
   },
-  render:function() {
+  render() {
     return (
       <Select
-          placeholder="Type"
+          placeholder="Group"
           value={this.getValue()}
           options={this.state.types}
           onChange={this.changeValue}
@@ -97,5 +103,5 @@ var AssignmentType = React.createClass({
 
 module.exports = {
   ProfileTypes: ProfileTypes,
-  AssignmentType: AssignmentType
+  AssignmentGroup: AssignmentGroup
 };

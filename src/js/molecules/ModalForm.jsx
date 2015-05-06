@@ -1,13 +1,18 @@
 
-import React from 'react';
-import cx from 'react/lib/cx';
+import React, {PropTypes} from 'react';
+import cx from 'classnames';
 
 import Formsy from 'formsy-react';
+import {Modal} from 'react-bootstrap';
 
-import SemanticModal from '../components/SemanticModal';
 import parseAPIErrors from '../utils/parseAPIErrors';
 
 export default React.createClass({
+  propTypes: {
+    onSubmit: PropTypes.func,
+    onRequestHide: PropTypes.func,
+    onSubmitAsync: PropTypes.func
+  },
   getDefaultProps() {
     return {
       onSubmit() {}
@@ -50,7 +55,7 @@ export default React.createClass({
     let {children, ...props} = this.props;
 
     return (
-      <SemanticModal.SemanticModal {...props}>
+      <Modal {...props} bsStyle="primary">
         <div className="modal-body">
           <Formsy.Form ref="form" className="ui form" onSubmit={this.onSubmitPushed} onValid={this.enableButton} onInvalid={this.disableButton}>
             {children}
@@ -61,8 +66,9 @@ export default React.createClass({
             <i className="cancel icon" />
             Cancel
           </a>
-          <a className={cx({
-              'btn btn-primary': true,
+          <a className={cx(
+            'btn btn-primary',
+            {
               'disabled': !this.state.canSubmit
             })}
             onClick={this.submitForm}>
@@ -70,7 +76,7 @@ export default React.createClass({
             Save
           </a>
         </div>
-      </SemanticModal.SemanticModal>
+      </Modal>
     );
   }
 });

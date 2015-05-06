@@ -2,26 +2,25 @@
 
 import React from 'react';
 import Header from '../../components/PageHeader';
-import {RouteHandler, Link} from 'react-router';
+import {RouteHandler} from 'react-router';
+import {Nav} from 'react-bootstrap';
+import {NavItemLink} from 'react-router-bootstrap';
 
 var Container = React.createClass({
   render() {
     return (
       <div>
         <Header primary="App Setup" />
-        <div className="main container">
-          <div className="ui stackable grid">
-            <div className="three wide column">
-              <div className="ui fluid vertical menu sunken">
-                <Link className="item" to="setup.terms">
+        <div>
+          <div className="row">
+            <div className="col-sm-12 col-md-2">
+              <Nav bsStyle='pills' stacked>
+                <NavItemLink to="setup.terms">
                   Terms
-                </Link>
-                <Link className="item" to="setup.assignment-types">
-                  Assignment Types
-                </Link>
-              </div>
+                </NavItemLink>
+              </Nav>
             </div>
-            <div className="thirteen wide column">
+            <div className="col-sm-12 col-md-10">
               <RouteHandler />
             </div>
           </div>
@@ -33,5 +32,5 @@ var Container = React.createClass({
 module.exports = {
   Container: Container,
   AssignmentTypes: require('./AssignmentTypes'),
-  Terms: require('./Terms'),
+  Terms: require('./Terms')
 };

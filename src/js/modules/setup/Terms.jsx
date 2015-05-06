@@ -27,8 +27,8 @@ var Terms = React.createClass({
         resourceType: "schoolYear",
         renderer: NewTable.CrudActions,
         linkTo: "schoolYear",
-        className: "right aligned",
-        tdClassName: "right aligned"
+        className: 'text-right',
+        tdClassName: 'text-right'
     }
     ],
     getInitialState() {
@@ -50,10 +50,10 @@ var Terms = React.createClass({
     render() {
         return (
           <div>
-            <div className="ui top attached right aligned segment">
-              <TermBtn label="New" primary={true}/>
+              <div className="btn-toolbar" role="toolbar">
+              <TermBtn label="New" primary className="btn btn-primary pull-right"/>
             </div>
-            <NewTable.Grid className="bottom attached" columns={this.tableColumns} data={this.state.data} />
+            <NewTable.Grid columns={this.tableColumns} data={this.state.data} />
           </div>
         );
     }

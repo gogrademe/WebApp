@@ -31,7 +31,6 @@ export default (
         <Route name="class.settings" title="Settings" path="settings" handler={Classes.Settings} />
       </Route>
       <Route name="setup" handler={Setup.Container}>
-        <Route name="setup.assignment-types" path="assignment-types" handler={Setup.AssignmentTypes} />
         <Route name="setup.terms" path="terms" handler={Setup.Terms} />
       </Route>
       <Route name="dashboard" path="dashboard" title="Dashboard" handler={DashboardModule} />

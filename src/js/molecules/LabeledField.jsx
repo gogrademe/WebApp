@@ -11,9 +11,9 @@ var LabeledInput = React.createClass({
     getDefaultProps(){
       return {
         onChange() {},
-        field: "input",
+        field: 'input',
         required: true,
-        type: "text"
+        type: 'text'
       };
     },
     // setValue() will set the value of the component, which in
@@ -24,51 +24,44 @@ var LabeledInput = React.createClass({
       this.props.onChange(event);
     },
     render() {
-      var {type, placeholder, label, ...otherProps} = this.props;
+      let {type, placeholder, label} = this.props;
 
-      var error = this.showError() && this.getErrorMessage() !== undefined ? (
-        <div className="ui red pointing above label">
+      const error = this.showError() && this.getErrorMessage() !== undefined ? (
+        <span className="help-block">
           {this.getErrorMessage()}
-        </div>
+        </span>
       ) : null;
 
-      var renderLabel = label ? (
+      const renderLabel = label ? (
           <label className="control-label">
             {label}
           </label>
         ) : null;
 
-      var Field = this.props.field;
+      const Field = this.props.field;
 
 
       return (
-        <div className={
-            cx('form-group', this.props.size, {
-          'has-error': this.showError()
-          })}>
+        <div className={cx(
+          'form-group',
+          this.props.size,
+          {'has-error': this.showError()})}>
           {renderLabel}
-          <div className={cx({
-              // 'ui': true,
-              // 'corner labeled': this.isRequired(),
-              // 'input': true
-            })}>
+          <Field
+            className="form-control"
+            type={type}
+            onChange={this.changeValue}
+            value={this.getValue()}
+            placeholder={placeholder || label}
+            />
 
-            <Field
-              className="form-control"
-              type={type}
-              onChange={this.changeValue}
-              value={this.getValue()}
-              placeholder={placeholder || label}
-              />
-
-            {this.isRequired() ?
-              (
-                <div className="ui corner label">
-                  <i className="red asterisk icon" />
-                </div>
-              ): null}
-              {error}
-          </div>
+          {this.isRequired() ?
+            (
+              <div className="ui corner label">
+                <i className="red asterisk icon" />
+              </div>
+            ): null}
+            {error}
         </div>
       );
     }

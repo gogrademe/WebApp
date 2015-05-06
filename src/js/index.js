@@ -1,4 +1,4 @@
-require("babel/polyfill");
+require('babel/polyfill');
 require('../less/main.less');
 
 import React from 'react';
@@ -12,5 +12,5 @@ FormsyValidators();
 window.React = React;
 
 Router.run(AppRoutes, (Handler) => {
-  React.render(<Handler/>, document.getElementById("app"));
+  React.render(<Handler/>, document.getElementById('app'));
 });

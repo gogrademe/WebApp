@@ -72,11 +72,13 @@ import {find, filter, ceiling, isItNaN, sum, map, reject, mean} from 'prelude-ls
       for (let x in assignments) {
         const a = assignments[x];
         if (a.grade) {
-          const type = a.grade.assignment.type.weight;
+          const group = a.grade.assignment.group.weight;
 
-          if (!grades[type]) grades[type] = [];
+          if (!grades[group]) {
+            grades[group] = [];
+          }
 
-          grades[type].push(a.grade.gradeAverage);
+          grades[group].push(a.grade.gradeAverage);
         }
       }
 
@@ -114,7 +116,6 @@ import {find, filter, ceiling, isItNaN, sum, map, reject, mean} from 'prelude-ls
 
   let ClassDetail = React.createClass({
     mixins: [State],
-    displayName: "ClassDetail",
     getInitialState(){
       return {
         students: [],
@@ -156,23 +157,23 @@ import {find, filter, ceiling, isItNaN, sum, map, reject, mean} from 'prelude-ls
     },
     buildCols(){
       let cols = [{
-        key: "student.name",
-        display: "Student",
-        className: "two wide"
+        key: 'student.name',
+        display: 'Student'
+        // className: "two wide"
       }];
 
       for (let x of this.state.assignments) {
         cols.push({
-          key: "assignments." + x.id + ".grade.gradeAverage",
-          format: "decimalPercent",
-          display: x.name + ""
+          key: `assignments.${x.id}.grade.gradeAverage`,
+          format: 'decimalPercent',
+          display: x.name
         });
       }
 
       cols.push({
-        display: "Avg - IB - US",
-        className: "two wide",
-        tdClassName: "positive",
+        display: 'Avg - IB - US',
+        // className: "two wide",
+        // tdClassName: "positive",
         renderer: GradeAverage
       });
 
@@ -208,13 +209,13 @@ import {find, filter, ceiling, isItNaN, sum, map, reject, mean} from 'prelude-ls
       return results;
     },
     componentWillMount() {
-      api.grade.events.addListener("change", this.getGrades);
+      api.grade.events.addListener('change', this.getGrades);
       this.getGrades();
       this.getAssignments();
       this.getStudents();
     },
     componentWillUnmount(){
-      api.grade.events.removeListener("change", this.getGrades);
+      api.grade.events.removeListener('change', this.getGrades);
     },
     render(){
       return (

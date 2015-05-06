@@ -13,7 +13,7 @@ module.exports = React.createClass({
         };
     },
     fetch() {
-      api.type.find({classId: this.props.classId})
+      api.assignmentGroup.find({classId: this.props.classId})
         .then((xs) => {
           this.setState({
             data: xs
@@ -35,23 +35,23 @@ module.exports = React.createClass({
       resourceType: "type",
       renderer: NewTable.CrudActions,
       linkTo: "type",
-      className: "right aligned",
-      tdClassName: "right aligned"
+      className: 'text-right',
+      tdClassName: 'text-right'
     }],
     componentDidMount() {
-      api.type.events.addListener("change", this.fetch);
+      api.assignmentGroup.events.addListener("change", this.fetch);
     },
     componentWillUnmount() {
-      api.type.events.removeListener("change", this.fetch);
+      api.assignmentGroup.events.removeListener("change", this.fetch);
     },
 
     render() {
         return (
           <div>
-            <div className="ui top attached right aligned segment">
-              <AssignmentTypeBtn label="New" primary={true} classId={this.props.classId} />
+            <div className="btn-toolbar" role="toolbar">
+              <AssignmentTypeBtn label="New" classId={this.props.classId} className="btn btn-primary pull-right"/>
             </div>
-            <NewTable.Grid className="bottom attached" columns={this.tableColumns} data={this.state.data} />
+            <NewTable.Grid columns={this.tableColumns} data={this.state.data} />
           </div>
         );
     }

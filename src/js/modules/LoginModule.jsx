@@ -1,7 +1,6 @@
 import React from 'react';
-import {Router, Navigation} from 'react-router';
-
-import Panel from '../components/Panel';
+import {Navigation} from 'react-router';
+;
 import auth from '../api/auth';
 
 require('./LoginModule.less');
@@ -57,14 +56,14 @@ const LoginPage = React.createClass({
                 ref="email"
                 className="form-control"
                 placeholder="Email address"
-                required ={true}
-                autofocus={true} />
+                required
+                autoFocus />
               <input
                 type="password"
                 ref="password"
                 className="form-control"
                 placeholder="Password"
-                required={true} />
+                required />
               <button
                 className="btn btn-lg btn-success btn-block btn-signin"
                 disabled={this.state.isLoggingIn}

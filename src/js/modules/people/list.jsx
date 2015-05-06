@@ -5,19 +5,16 @@ import api from '../../api/api';
 
 import {Grid, CrudActions} from '../../components/NewTable';
 import Header from '../../components/PageHeader';
-import SemanticModal from '../../components/SemanticModal';
-
-import ActionRenderer from '../../components/ActionRenderer';
 
 import {AccountBtn, PersonBtn} from '../../molecules/ModalButtons';
-import {filter, any} from 'prelude-ls'
+import {filter} from 'prelude-ls';
 
-let customActions = function(props){
+const customActions = function(props){
   return (
     <AccountBtn primary={true} icon={true} personId={props.row.id}>
-      <i classname="icon settings"/>
+      <i className="icon settings"/>
     </AccountBtn>
-  )
+  );
 };
 const cols = [
   {
@@ -34,16 +31,15 @@ const cols = [
     display: 'Types'
   }, {
     display: '',
-    resourceType: "person",
+    resourceType: 'person',
     renderer: CrudActions,
-    linkTo: "people",
-    className: "right aligned",
-    tdClassName: "right aligned",
+    linkTo: 'people',
+    className: 'text-right',
+    tdClassName: 'text-right',
     customActions: customActions
   }
 ];
 let PeopleList = React.createClass({
-  displayName: "PeopleList",
   getInitialState(){
     return {
       currentFilter: 'All',
@@ -51,10 +47,10 @@ let PeopleList = React.createClass({
     };
   },
   componentDidMount(){
-    api.person.events.addListener("change", this.getPeople);
+    api.person.events.addListener('change', this.getPeople);
   },
   componentWillUnmount(){
-    api.person.events.removeListener("change", this.getPeople);
+    api.person.events.removeListener('change', this.getPeople);
   },
   getPeople(){
     api.person.find()
@@ -76,9 +72,9 @@ let PeopleList = React.createClass({
     btnClassName = (function(){
       switch (isActive) {
       case true:
-        return "btn btn-default active";
+        return 'btn btn-default active';
       default:
-        return "btn btn-default";
+        return 'btn btn-default';
       }
     }());
     setActive = function(){
@@ -98,13 +94,13 @@ let PeopleList = React.createClass({
   },
   renderGridTop(){
     return (
-      <div>
+      <div className="btn-toolbar" role="toolbar">
         <div className="btn-group">
-          {this.renderFilterButton("All")}
-          {this.renderFilterButton("Students")}
-          {this.renderFilterButton("Teachers")}
-          {this.renderFilterButton("Parents")}
-          {this.renderFilterButton("Admins")}
+          {this.renderFilterButton('All')}
+          {this.renderFilterButton('Students')}
+          {this.renderFilterButton('Teachers')}
+          {this.renderFilterButton('Parents')}
+          {this.renderFilterButton('Admins')}
         </div>
         <PersonBtn
           className="btn btn-primary pull-right"

@@ -35,7 +35,7 @@ var TermBtn = React.createClass({
   }
 });
 
-var AssignmentTypeBtn = React.createClass({
+var AssignmentGroupBtn = React.createClass({
   render(){
     return (
       <ModalButton modal={ModalTypes.ASSIGNMENT_TYPE} {...this.props}/>
@@ -68,7 +68,7 @@ var PersonBtn = React.createClass({
 module.exports = {
   TermBtn: TermBtn,
   PersonBtn: PersonBtn,
-  AssignmentTypeBtn: AssignmentTypeBtn,
+  AssignmentGroupBtn: AssignmentGroupBtn,
   AssignmentBtn: AssignmentBtn,
   AccountBtn: AccountBtn
 };

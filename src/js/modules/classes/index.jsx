@@ -1,12 +1,16 @@
 import React from 'react';
 import Header from '../../components/PageHeader';
-import {Link, RouteHandler, State} from 'react-router';
+import {RouteHandler} from 'react-router';
 import api from '../../api/api';
 import {find} from 'prelude-ls';
 
+import {Nav} from 'react-bootstrap';
+import {NavItemLink} from 'react-router-bootstrap';
+
 let View = React.createClass({
-  mixins: [State],
-  displayName: "View",
+  contextTypes: {
+    router: React.PropTypes.func
+  },
   getInitialState() {
     return {
       term: null,
@@ -15,70 +19,70 @@ let View = React.createClass({
     };
   },
   componentWillMount() {
-    let resourceId = this.getParams().resourceId;
+    let params = this.context.router.getCurrentParams();
 
-    api['class'].get(resourceId).then((data) => {
+    api['class'].get(params.resourceId).then((data) => {
       this.setState({
         'class': data
       });
     });
 
-    api.term.find().then((it) => {
-      let termId = this.getParams().termId;
-      let term = find(function(it){
-        return it.id === termId;
-      }, it);
-      this.setState({
-        terms: it[0]
-      });
-      this.setState({
-        term: term
-      });
+    api.term.find()
+      .then((res) => {
+        let termId = params.termId;
+        let term = find(function(it){
+          return it.id === termId;
+        }, res);
+        this.setState({
+          terms: res[0]
+        });
+        this.setState({
+          term: term
+        });
     });
   },
   renderPrimary() {
     switch (false) {
     case !!this.state['class']:
-      return "Loading...";
+      return 'Loading...';
     default:
-      return this.state['class'].name + " - " + this.state['class'].gradeLevel;
+      return this.state['class'].name + ' - ' + this.state['class'].gradeLevel;
     }
   },
   renderSecondary(){
     switch (false) {
     case !!this.state.term:
-      return "";
+      return '';
     default:
-      return "Year " + this.state.term.schoolYear.start + "-" + this.state.term.schoolYear.end + " - " + this.state.term.name + " ";
+      return 'Year ' + this.state.term.schoolYear.start + '-' + this.state.term.schoolYear.end + ' - ' + this.state.term.name + ' ';
     }
   },
   render(){
+    const ctxParam = this.context.router.getCurrentParams();
     let params = {
-      termId: this.getParams().termId,
-      resourceId: this.getParams().resourceId
+      termId: ctxParam.termId,
+      resourceId: ctxParam.resourceId
     };
-
     return (
       <div>
         <Header primary={this.renderPrimary()} secondary={this.renderSecondary()} />
-        <div className="main container">
-          <div className="ui stackable grid">
-            <div className="thirteen wide column">
+        <div>
+          <div className="row">
+            <div className="col-sm-12 col-md-2">
+              <Nav bsStyle='pills' stacked>
+                <NavItemLink to="class.grades" params={params}>Grades</NavItemLink>
+                <NavItemLink to="class.students" params={params}>Students</NavItemLink>
+                <NavItemLink to="class.assignments" params={params}>Assignments</NavItemLink>
+                <NavItemLink to="class.settings" params={params}>Settings</NavItemLink>
+              </Nav>
+            </div>
+            <div className="col-sm-12 col-md-10">
               <RouteHandler
-                classId={this.getParams().resourceId}
-                termId={this.getParams().termId}
-                class={this.state['class']}
+                classId={ctxParam.resourceId}
+                termId={ctxParam.termId}
                 terms={this.state.terms}
                 term={this.state.term}
                 />
-            </div>
-            <div className="right floated three wide column">
-              <div className="ui fluid vertical menu sunken">
-                <Link className="item" to="class.grades" params={params}>Grades</Link>
-                <Link className="item" to="class.students" params={params}>Students</Link>
-                <Link className="item" to="class.assignments" params={params}>Assignments</Link>
-                <Link className="item" to="class.settings" params={params}>Settings</Link>
-              </div>
             </div>
           </div>
         </div>

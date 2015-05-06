@@ -1,12 +1,8 @@
 import React from 'react';
 import Header from '../components/PageHeader';
-import SemanticModal from '../components/SemanticModal';
 
 var DashboardModule = React.createClass({
-  renderItem: function(arg$){
-    var header, time, description, author;
-    header = arg$.header, time = arg$.time, description = arg$.description, author = arg$.author;
-
+  renderItem({header, time, description, author}){
     return (
       <div className="item">
         <div className="content">
@@ -15,7 +11,7 @@ var DashboardModule = React.createClass({
           </h3>
           <div className="meta">
             <span className="author">
-              {author},
+              {author + ','}
             </span>
             <span className="time">
               {time}
@@ -31,7 +27,7 @@ var DashboardModule = React.createClass({
   render(){
     return (
       <div>
-        <Header primary='Dashboard' secondary="test"/>
+        <Header primary="Dashboard"/>
         <div>
           <div className="panel panel-default">
             <div className="panel-heading">
@@ -39,16 +35,16 @@ var DashboardModule = React.createClass({
             </div>
             <div className="panel-body">
               {this.renderItem({
-                header: "New Version!",
-                time: "Yesterday",
-                description: "Major Changes: theme",
-                author: "Matt Aitchison"
+                header: 'New Version!',
+                time: 'Yesterday',
+                description: 'Major Changes: theme',
+                author: 'Matt Aitchison'
               })}
               {this.renderItem({
-                header: "Grade Grid View",
-                time: "Yesterday",
-                description: "Grade inputs have been removed to prevent accidental changes.",
-                author: "Matt Aitchison"
+                header: 'Grade Grid View',
+                time: 'Yesterday',
+                description: 'Grade inputs have been removed to prevent accidental changes.',
+                author: 'Matt Aitchison'
               })}
             </div>
           </div>

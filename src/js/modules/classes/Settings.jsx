@@ -1,24 +1,88 @@
 import React from 'react';
-import Header from '../../components/PageHeader';
-import {State} from 'react-router';
-
-import Form from '../../molecules/Form';
-import LabeledField from '../../molecules/LabeledField';
-
 import api from '../../api/api';
+import NewTable from '../../components/NewTable';
 
-import AssignmentTypes from '../setup/AssignmentTypes';
+import {AssignmentGroupBtn} from '../../molecules/ModalButtons';
 
+// const AssignmentEdit = (props) => {
+//   return (
+//     <AssignmentGroupBtn
+//     label='Edit'
+//     classId={props.classId}
+//     termId={props.termId}
+//     className='btn btn-primary pull-right'/>
+//   );
+// };
+
+const AssignmentEdit = React.createClass({
+  render() {
+      return (
+        <AssignmentGroupBtn
+        label='Edit'
+        classId={this.props.row.classId}
+        termId={this.props.row.termId}
+        groupId={this.props.row.id}
+        className='btn btn-primary pull-right'/>
+      );
+  }
+});
 
 export default React.createClass({
-  mixins: [State],
+  getInitialState() {
+    return {
+        data: []
+    };
+  },
+  fetch() {
+    api.assignmentGroup
+      .find({classId: this.props.classId, termId: this.props.termId})
+      .then((xs) => {
+          this.setState({
+              data: xs
+          });
+      });
+  },
+  componentWillMount() {
+      this.fetch();
+  },
+  tableColumns: [{
+      key: 'name',
+      display: 'Name'
+  }, {
+      key: 'weight',
+      display: 'Weight',
+      format: 'decimalPercent'
+  }, {
+      display: '',
+      resourceType: 'assignmentGroup',
+      renderer: NewTable.CrudActions,
+      linkTo: 'type',
+      className: 'text-right',
+      tdClassName: 'text-right'
+  }, {
+      display: '',
+      renderer: AssignmentEdit,
+      className: 'text-right',
+      tdClassName: 'text-right'
+  }],
+  componentDidMount() {
+      api.assignmentGroup.events.addListener('change', this.fetch);
+  },
+  componentWillUnmount() {
+      api.assignmentGroup.events.removeListener('change', this.fetch);
+  },
+
   render() {
     return (
       <div>
-        <Form className="ui form" title="Assignment Type" onSubmitAsync={this.onSubmit}>
-          <LabeledField label="Name" name="name" placeholder="Name"/>
-          <LabeledField label="Weight" name="weight" validationError="must be between .5% and 100%" validations="isWeight"/>
-        </Form>
+        <div className='btn-toolbar' role='toolbar'>
+          <AssignmentGroupBtn
+              label='New'
+              classId={this.props.classId}
+              termId={this.props.termId}
+              className='btn btn-primary pull-right'/>
+        </div>
+        <NewTable.Grid columns={this.tableColumns} data={this.state.data} />
       </div>
     );
   }

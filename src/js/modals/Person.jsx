@@ -30,7 +30,7 @@ export default React.createClass({
             </div>
           </div>
           <LabeledField label="Email" name="email" required={false}/>
-          <AutocompleteFor.ProfileTypes name="types" placeholder="First Name"/>
+          <AutocompleteFor.ProfileTypes label="Types" name="types" placeholder="First Name"/>
 
         </div>
       </ModalForm>

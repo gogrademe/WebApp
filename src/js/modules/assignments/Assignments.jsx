@@ -1,7 +1,6 @@
 
 import React from 'react';
 import {Grid, CrudActions} from '../../components/NewTable';
-import ActionRenderer from '../../components/ActionRenderer';
 import SemanticModal from '../../components/SemanticModal';
 import api from '../../api/api';
 
@@ -10,7 +9,6 @@ import AssignmentGrades from './AssignmentGrades';
 var AssignmentBtn = require('../../molecules/ModalButtons').AssignmentBtn;
 
 var AssignmentLink = React.createClass({
-  displayName: "AssignmentLink",
   modal(){
     return new AssignmentGrades({
       assignmentId: this.props.row.id
@@ -37,34 +35,37 @@ var assignmentCols = [
     display: 'Due Date',
     format: 'date'
   }, {
-    key: 'type.name',
+    key: 'group.name',
     display: 'Type'
   }, {
     key: 'maxScore',
     display: 'Out Of'
   }, {
-    key: 'type.weight',
+    key: 'group.weight',
     display: 'Weight',
     format: 'decimalPercent',
     className: 'col-md-1'
   }, {
     display: 'Actions',
-    resourceType: "assignment",
+    className: 'text-right',
+    tdClassName: 'text-right',
+    resourceType: 'assignment',
     renderer: CrudActions
   }
 ];
 var ClassAssignments = React.createClass({
-  displayName: "ClassAssignments",
   getInitialState(){
     return {
       assignments: []
     };
   },
   componentDidMount(){
-    api.assignment.events.addListener("change", this.getAssignments);
+    api.assignment.events.addListener('change', this.getAssignments);
+    api.assignmentGroup.events.addListener('change', this.getAssignments);
   },
   componentWillUnmount(){
-    api.assignment.events.removeListener("change", this.getAssignments);
+    api.assignment.events.removeListener('change', this.getAssignments);
+    api.assignmentGroup.events.removeListener('change', this.getAssignments);
   },
   componentWillMount(){
     this.getAssignments();
@@ -82,14 +83,14 @@ var ClassAssignments = React.createClass({
   render(){
     return (
       <div>
-        <div className="ui top attached right aligned segment">
+        <div className="btn-toolbar" role="toolbar">
           <AssignmentBtn
             label="New"
+            className="btn btn-primary pull-right"
             classId={this.props.classId}
             termId={this.props.termId} />
         </div>
         <Grid
-          className="bottom attached"
           columns={assignmentCols}
           data={this.state.assignments} />
       </div>

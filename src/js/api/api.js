@@ -138,7 +138,7 @@
     enrollment: {},
     term: {},
     schoolYear: {},
-    type: {},
+    assignmentGroup: {},
     assignment: {},
     grade: {},
     school: {},

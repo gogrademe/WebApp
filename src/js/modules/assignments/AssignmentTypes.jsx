@@ -44,7 +44,7 @@
     },
     getAssignmentTypes(){
       var this$ = this;
-      return api.type.find({
+      return api.assignmentGroup.find({
         classId: this.props.params.resourceId,
         termId: this.props.params.termId
       }).then(function(it){

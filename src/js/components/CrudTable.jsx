@@ -86,10 +86,10 @@
       return this.fetchData();
     },
     componentDidMount(){
-      return api.type.events.addListener("change", this.fetchData);
+      return api.assignmentGroup.events.addListener("change", this.fetchData);
     },
     componentWillUnmount(){
-      return api.type.events.removeListener("change", this.fetchData);
+      return api.assignmentGroup.events.removeListener("change", this.fetchData);
     },
     fetchData(){
       var this$ = this;

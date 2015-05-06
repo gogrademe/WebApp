@@ -10,7 +10,7 @@ import ModalTypes from '../constants/ModalTypes';
 // Modals
 import TermModal from '../modals/Term';
 import AssignmentModal from '../modals/Assignment';
-import AssignmentTypeModal from '../modals/AssignmentType';
+import AssignmentGroupModal from '../modals/AssignmentGroup';
 import AccountModal from '../modals/Account';
 import PersonModal from '../modals/Person';
 
@@ -52,7 +52,7 @@ export default React.createClass({
       case ModalTypes.TERM:
         return <TermModal {...props} {...modal.options} />
       case ModalTypes.ASSIGNMENT_TYPE:
-        return <AssignmentTypeModal {...props}{...modal.options} />
+        return <AssignmentGroupModal {...props}{...modal.options} />
       case ModalTypes.ACCOUNT:
         return <AccountModal {...props}{...modal.options} />
       case ModalTypes.PERSON:

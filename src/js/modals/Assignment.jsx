@@ -1,16 +1,11 @@
-
-/** @flow */
-
 import React from 'react';
 
 import api from '../api/api';
 import utils from '../utils';
 
-//Molecules
 import ModalForm from '../molecules/ModalForm';
 import LabeledField from '../molecules/LabeledField';
-
-import {AssignmentType} from '../molecules/AutoCompleteFor';
+import {AssignmentGroup} from '../molecules/AutoCompleteFor';
 
 export default React.createClass({
   propTypes: {
@@ -22,6 +17,7 @@ export default React.createClass({
     model.termId = this.props.termId;
     model.dueDate = utils.forUpload(model.dueDate);
     model.maxScore = Number(model.maxScore);
+
     return api.assignment.create(model);
   },
   render() {
@@ -30,7 +26,7 @@ export default React.createClass({
         <LabeledField name="name" label="Name"/>
         <div className="field">
           <div className="ui two fields">
-            <AssignmentType name="typeId" label="Type"/>
+            <AssignmentGroup name="typeId" classId={this.props.classId} termId={this.props.termId} label="Type"/>
             <LabeledField name="dueDate" validation="isDate" label="Due Date"/>
           </div>
         </div>

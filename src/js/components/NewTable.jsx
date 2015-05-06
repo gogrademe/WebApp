@@ -35,6 +35,57 @@ let formatVal = function(val, format){
     }
   };
 
+  let StringRenderer = React.createClass({
+      getInitialState(){
+        return {
+          editing: false
+        };
+      },
+      handleChange: function(event){
+        ({
+          value: event.target.value,
+          column: this.props.column,
+          row: this.props.row
+        });
+      },
+      render() {
+        const val = formatVal(this.props.value, this.props.column.format);
+        return (
+          <div>
+            {val}
+          </div>
+        )
+      }
+      // render(){
+      //   var val;
+      //   val = formatVal(this.props.value, this.props.column.format);
+      //   if (this.state.editing) {
+      //     return (
+      //       <div>
+      //
+      //       </div>
+      //     )
+      //     return div(null, div({
+      //       className: "ui action input small"
+      //     }, input({
+      //       type: "text",
+      //       value: val,
+      //       onChange: this.handleChange
+      //     }), div({
+      //       className: "ui button tiny",
+      //       onClick: this.toggle
+      //     }, "x")));
+      //   } else {
+      //     return div(null, val);
+      //   }
+      // },
+      // toggle(){
+      //   this.setState({
+      //     editing: !this.state.editing
+      //   });
+      // }
+    });
+
 let Grid = React.createClass({
     getInitialState(){
       return {
@@ -47,38 +98,40 @@ let Grid = React.createClass({
       const cols = this.props.columns;
 
       return (
-        <table className="ui compact table" {... this.props}>
-          <thead>
-            <tr>
-              {cols.map(this.renderHeader)}
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, rowI) => {
-              let key = `row-${rowI}-${row.id}`;
-              return (
-                <tr key={key}>
-                  {cols.map((column, columnI) => {
-                    const Renderer = this.getRenderer(column,rowI, columnI);
-                    return (
-                      <td
-                        key={"cell-" + rowI + "-" + columnI}
-                        className={column.tdClassName || ""} >
-                        <Renderer
-                          rowI={rowI}
-                          row={row}
-                          columnI={columnI}
-                          column={column}
-                          value={get(row, column.key || "")}/>
-                      </td>
-                    );
-                  })}
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      )
+        <div className="table-responsive">
+          <table className="table" {... this.props}>
+            <thead>
+              <tr>
+                {cols.map(this.renderHeader)}
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((row, rowI) => {
+                let key = `row-${rowI}-${row.id}`;
+                return (
+                  <tr key={key}>
+                    {cols.map((column, columnI) => {
+                      const Renderer = this.getRenderer(column, rowI, columnI);
+                      return (
+                        <td
+                          key={"cell-" + rowI + "-" + columnI}
+                          className={column.tdClassName || ""} >
+                          <Renderer
+                            rowI={rowI}
+                            row={row}
+                            columnI={columnI}
+                            column={column}
+                            value={get(row, column.key || "")}/>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      );
       // return table({
       //   className: "ui compact table",
       //   ... this.props
@@ -101,13 +154,12 @@ let Grid = React.createClass({
       //   }));
       // })));
     },
-    getRenderer: function(column, rowI, columnI){
-      var renderer;
-      return renderer = column.renderer || StringRenderer;
+    getRenderer: function(column){
+      return column.renderer || StringRenderer;
     },
     renderHeader: function(obj, index){
       return (
-        <th key={"col-" + index}
+        <th key={'col-' + index}
           className={obj.className}>
           {obj.display || obj.key}
         </th>
@@ -115,65 +167,14 @@ let Grid = React.createClass({
       )
     }
   });
-let StringRenderer = React.createClass({
-    displayName: "StringRenderer",
-    getInitialState(){
-      return {
-        editing: false
-      };
-    },
-    handleChange: function(event){
-      ({
-        value: event.target.value,
-        column: this.props.column,
-        row: this.props.row
-      });
-    },
-    render() {
-      const val = formatVal(this.props.value, this.props.column.format);
-      return (
-        <div>
-          {val}
-        </div>
-      )
-    }
-    // render(){
-    //   var val;
-    //   val = formatVal(this.props.value, this.props.column.format);
-    //   if (this.state.editing) {
-    //     return (
-    //       <div>
-    //
-    //       </div>
-    //     )
-    //     return div(null, div({
-    //       className: "ui action input small"
-    //     }, input({
-    //       type: "text",
-    //       value: val,
-    //       onChange: this.handleChange
-    //     }), div({
-    //       className: "ui button tiny",
-    //       onClick: this.toggle
-    //     }, "x")));
-    //   } else {
-    //     return div(null, val);
-    //   }
-    // },
-    // toggle(){
-    //   this.setState({
-    //     editing: !this.state.editing
-    //   });
-    // }
-  });
+
 let CrudActions = React.createClass({
-    displayName: "CrudActions",
     'delete': function(e){
       e.preventDefault();
       return api[this.props.column.resourceType].del(this.props.row.id);
     },
     render(){
-      var ref$;
+      // const EditButton = this.props.editButton || (<span></span>);
       return (
         <div>
           <DeleteBtn onClick={this.delete}/>

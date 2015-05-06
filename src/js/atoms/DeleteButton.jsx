@@ -1,5 +1,6 @@
 import React from 'react';
-import api from '../api/api';
+
+import {ButtonGroup, Button, Glyphicon} from 'react-bootstrap';
 
 export default React.createClass({
   getInitialState() {
@@ -17,21 +18,19 @@ export default React.createClass({
     return this.props.onClick(e);
   },
   render() {
-    var btn = !this.state.confirm ? (
-      <span>
-        <a className="ui icon red button tiny" onClick={this.toggle}>
-          <i className="icon trash"/>
-        </a>
-      </span>
+    const btn = !this.state.confirm ? (
+      <Button bsStyle="danger" onClick={this.toggle}>
+        <Glyphicon glyph="trash" />
+      </Button>
     ) : (
-      <span>
-        <a className="ui icon button tiny" onClick={this.toggle}>
-          <i className="icon remove"/>
-        </a>
-        <a className="ui icon red button tiny" onClick={this.handleConfirm}>
-          <i className="icon checkmark"/>
-        </a>
-      </span>
+      <ButtonGroup>
+        <Button onClick={this.toggle}>
+          <Glyphicon glyph="remove" />
+        </Button>
+        <Button bsStyle="danger" onClick={this.handleConfirm}>
+          <Glyphicon glyph="ok" />
+        </Button>
+      </ButtonGroup>
     );
 
     return (
