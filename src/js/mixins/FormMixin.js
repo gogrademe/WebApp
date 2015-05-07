@@ -29,6 +29,7 @@ var FormMixin = {
   },
 
   componentWillMount() {
+    console.warn('WARN: deprecated.');
     this._linkedValidators = {};
     this._pendingMessages = {};
 

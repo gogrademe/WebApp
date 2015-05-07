@@ -15,6 +15,7 @@
   Panel = React.createClass({
     displayName: "Panel",
     render(){
+      console.warn('WARN: deprecated.');
       return this.transferPropsTo(div(null, h4({
         className: "ui top header attached"
       }, this.props.title), this.props.hasBody

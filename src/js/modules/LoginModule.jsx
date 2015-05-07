@@ -1,6 +1,5 @@
 import React from 'react';
 import {Navigation} from 'react-router';
-;
 import auth from '../api/auth';
 
 require('./LoginModule.less');
@@ -38,7 +37,7 @@ const LoginPage = React.createClass({
     if (this.state.error !== null) {
       return (
         <div>
-          {this.state.error.statusCode + ": " + this.state.error.message}
+          {this.state.error.statusCode + ': ' + this.state.error.message}
         </div>
       );
     }
@@ -46,29 +45,29 @@ const LoginPage = React.createClass({
   render(){
     return (
       <div>
-        <img className="profile-img-card" src="logo.svg" />
-        <div className="login container">
-          <div className="card card-container">
-            <form className="form-signin" onSubmit={this.handleSubmit}>
+        <img className='profile-img-card' src='logo.svg' />
+        <div className='login container'>
+          <div className='card card-container'>
+            <form className='form-signin' onSubmit={this.handleSubmit}>
               {this.renderMessages()}
               <input
-                type="email"
-                ref="email"
-                className="form-control"
-                placeholder="Email address"
+                type='email'
+                ref='email'
+                className='form-control'
+                placeholder='Email address'
                 required
                 autoFocus />
               <input
-                type="password"
-                ref="password"
-                className="form-control"
-                placeholder="Password"
+                type='password'
+                ref='password'
+                className='form-control'
+                placeholder='Password'
                 required />
               <button
-                className="btn btn-lg btn-success btn-block btn-signin"
+                className='btn btn-lg btn-success btn-block btn-signin'
                 disabled={this.state.isLoggingIn}
-                type="submit"
-                value="Post">
+                type='submit'
+                value='Post'>
                 Sign in
               </button>
             </form>
@@ -79,18 +78,18 @@ const LoginPage = React.createClass({
   }
 });
 
-const LoginLoading = React.createClass({
-  render(){
-    var style;
-    style = {};
-    if (!this.props.isLoggingIn === true) {
-      style.display = "none";
-    }
-    return i({
-      className: "fa fa-cog fa-spin",
-      style: style
-    });
-  }
-});
+// const LoginLoading = React.createClass({
+//   render(){
+//     var style;
+//     style = {};
+//     if (!this.props.isLoggingIn === true) {
+//       style.display = 'none';
+//     }
+//     return i({
+//       className: 'fa fa-cog fa-spin',
+//       style: style
+//     });
+//   }
+// });
 
 module.exports = LoginPage;

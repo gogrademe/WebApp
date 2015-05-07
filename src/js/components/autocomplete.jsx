@@ -201,6 +201,7 @@
       });
     },
     render(){
+      console.warn('WARN: FormInputRow has been deprecated.');
       return div({
         className: "ui search"
       }, this.props.dropdown

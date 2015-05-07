@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 var shell = require('shelljs');
 
@@ -25,7 +25,7 @@ module.exports = {
 
   plugins: RELEASE ? [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"',
+      'process.env.NODE_ENV': "'production'",
       __VERSION__: JSON.stringify(VERSION)
     }),
     new webpack.optimize.DedupePlugin(),
@@ -36,7 +36,7 @@ module.exports = {
     new ExtractTextPlugin('[name].css')
   ]:[
     new webpack.DefinePlugin({
-      __VERSION__: JSON.stringify(VERSION + "-dev")
+      __VERSION__: JSON.stringify(VERSION + '-dev')
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
@@ -53,15 +53,15 @@ module.exports = {
       },
       {
         test: /\.gif$/,
-        loader: "url-loader?mimetype=image/png"
+        loader: 'url-loader?mimetype=image/png'
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader?limit=10000&minetype=application/font-woff"
+        loader: 'url-loader?limit=10000&minetype=application/font-woff'
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file-loader?name=[name].[ext]"
+        loader: 'file-loader?name=[name].[ext]'
       },
       {
         test: /\.(jsx|js)?$/,

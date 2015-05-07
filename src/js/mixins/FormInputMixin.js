@@ -46,6 +46,7 @@ module.exports = {
   },
 
   componentDidMount() {
+    console.warn('WARN: deprecated.');
     this.props.formLink.requestInit();
 
     if (this.props.autofill) {

@@ -16,6 +16,7 @@ let SemanticModal = React.createClass({
     };
   },
   render() {
+    console.warn('WARN: deprecated.');
     return (
       <div className="modal" style={{display: 'block'}}>
         <div className="modal-dialog" {... this.props} >
@@ -137,6 +138,7 @@ let ModalTrigger = React.createClass({
     }
   },
   render() {
+    console.warn('WARN: deprecated.');
     let child = React.Children.only(this.props.children);
     return cloneWithProps(child, {
       onClick: this.toggle

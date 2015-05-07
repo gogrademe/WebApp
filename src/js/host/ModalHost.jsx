@@ -11,6 +11,7 @@ import ModalTypes from '../constants/ModalTypes';
 import TermModal from '../modals/Term';
 import AssignmentModal from '../modals/Assignment';
 import AssignmentGroupModal from '../modals/AssignmentGroup';
+import AssignmentGradesModal from '../modules/assignments/AssignmentGrades';
 import AccountModal from '../modals/Account';
 import PersonModal from '../modals/Person';
 
@@ -41,7 +42,7 @@ export default React.createClass({
     var modal = this.state.modal;
 
     var props = {
-      ref: "modal",
+      ref: 'modal',
       onRequestHide: this._handleRequestHide
     };
 
@@ -53,6 +54,8 @@ export default React.createClass({
         return <TermModal {...props} {...modal.options} />
       case ModalTypes.ASSIGNMENT_TYPE:
         return <AssignmentGroupModal {...props}{...modal.options} />
+      case ModalTypes.ASSIGNMENT_GRADES:
+        return <AssignmentGradesModal {...props}{...modal.options} />
       case ModalTypes.ACCOUNT:
         return <AccountModal {...props}{...modal.options} />
       case ModalTypes.PERSON:
@@ -62,7 +65,7 @@ export default React.createClass({
       case null:
         return null;
       default:
-        console.warn("UNHANDLED MODAL TYPE: ", modal);
+        console.warn('UNHANDLED MODAL TYPE: ', modal);
         return null;
     }
   },

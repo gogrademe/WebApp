@@ -21,7 +21,7 @@ var FormList = React.createClass({
       };
     },
     render() {
-      console.log('failed');
+      console.warn('WARN: FormInputRow has been deprecated.');
       // this.registerInputs(this.props.children);
       return (
         <div>

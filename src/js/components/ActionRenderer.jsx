@@ -14,7 +14,7 @@ module.exports = React.createClass({
     var prms = {
       resourceId: rowId
     };
-
+    console.warn('WARN: deprecated.');
     return (
       <div className="3 fluid ui icon buttons small">
         <Link to={lnk + ".detail"} params={prms} className="ui button">

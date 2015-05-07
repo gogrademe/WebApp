@@ -70,7 +70,7 @@ let ClassList = React.createClass({
           resourceType: 'class',
           renderer: CrudActions,
           className: 'text-right',
-          tdClassName: 'text-right',
+          tdClassName: 'text-right col-md-2',
           linkTo: 'class'
         }
       ];

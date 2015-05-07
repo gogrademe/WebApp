@@ -9,6 +9,7 @@
   module.exports = function(){
     return {
       getInitialState(){
+        console.warn('WARN: deprecated.');
         return {
           isSaving: false,
           error: null

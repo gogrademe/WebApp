@@ -5,6 +5,7 @@ var IconMixin = {
     size: React.PropTypes.oneOf(['small', 'medium', 'large']).isRequired
   },
   render() {
+    console.warn('WARN: deprecated.');
     var svg = this.renderSVG(this.props.size);
 
     var viewBox = {

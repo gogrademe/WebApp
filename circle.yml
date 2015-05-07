@@ -5,10 +5,8 @@ machine:
   services:
     - docker
 dependencies:
-  pre:
-    - make circleci
   override:
-
+    - docker build -t webapp .
 test:
   override:
     - exit 0

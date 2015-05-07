@@ -50,6 +50,7 @@
       });
     },
     render(){
+      console.warn('WARN: deprecated.');
       return this.transferPropsTo(SemanticModal.SemanticModal({
         title: this.props.title,
         animation: true
@@ -100,6 +101,7 @@
       });
     },
     render(){
+      console.warn('WARN: deprecated.');
       return div(null, div({
         className: "main container"
       }, div({

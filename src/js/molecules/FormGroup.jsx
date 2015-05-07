@@ -70,6 +70,7 @@ var FormGroup = React.createClass({
       delete this.model[component.props.name];
     },
     render() {
+      console.warn('WARN: FormInputRow has been deprecated.');
 
       var {children, ...props} = this.props;
       return (

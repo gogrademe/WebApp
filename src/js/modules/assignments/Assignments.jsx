@@ -1,7 +1,8 @@
 
 import React from 'react';
 import {Grid, CrudActions} from '../../components/NewTable';
-import SemanticModal from '../../components/SemanticModal';
+// import SemanticModal from '../../components/SemanticModal';
+import {AssignmentGradesBtn} from '../../molecules/ModalButtons';
 import api from '../../api/api';
 
 
@@ -17,9 +18,9 @@ var AssignmentLink = React.createClass({
   render(){
     return (
       <div>
-        <SemanticModal.ModalTrigger modal={this.modal()}>
-          <a>{this.props.value}</a>
-        </SemanticModal.ModalTrigger>
+        <AssignmentGradesBtn primary={true} icon={true} assignmentId={this.props.row.id}>
+          {this.props.value}
+        </AssignmentGradesBtn>
       </div>
     );
   }
@@ -48,7 +49,7 @@ var assignmentCols = [
   }, {
     display: 'Actions',
     className: 'text-right',
-    tdClassName: 'text-right',
+    tdClassName: 'text-right col-md-2',
     resourceType: 'assignment',
     renderer: CrudActions
   }

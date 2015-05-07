@@ -49,6 +49,13 @@ var AssignmentBtn = React.createClass({
     );
   }
 });
+var AssignmentGradesBtn = React.createClass({
+  render(){
+    return (
+      <ModalButton modal={ModalTypes.ASSIGNMENT_GRADES} {...this.props}/>
+    );
+  }
+});
 var AccountBtn = React.createClass({
   render(){
     return (
@@ -70,5 +77,6 @@ module.exports = {
   PersonBtn: PersonBtn,
   AssignmentGroupBtn: AssignmentGroupBtn,
   AssignmentBtn: AssignmentBtn,
+  AssignmentGradesBtn: AssignmentGradesBtn,
   AccountBtn: AccountBtn
 };

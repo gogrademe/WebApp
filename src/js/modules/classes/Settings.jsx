@@ -1,33 +1,52 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import api from '../../api/api';
-import NewTable from '../../components/NewTable';
+import {Grid, CrudActions} from '../../components/NewTable';
 
 import {AssignmentGroupBtn} from '../../molecules/ModalButtons';
 
-// const AssignmentEdit = (props) => {
-//   return (
-//     <AssignmentGroupBtn
-//     label='Edit'
-//     classId={props.classId}
-//     termId={props.termId}
-//     className='btn btn-primary pull-right'/>
-//   );
-// };
+import cx from 'classnames';
 
 const AssignmentEdit = React.createClass({
+  propTypes: {
+    row: PropTypes.object
+  },
   render() {
       return (
-        <AssignmentGroupBtn
-        label='Edit'
-        classId={this.props.row.classId}
-        termId={this.props.row.termId}
-        groupId={this.props.row.id}
-        className='btn btn-primary pull-right'/>
+        <div className="btn-group">
+          <CrudActions {... this.props}/>
+          <AssignmentGroupBtn
+            label='Edit'
+            classId={this.props.row.classId}
+            termId={this.props.row.termId}
+            groupId={this.props.row.id}
+            className='btn btn-primary'/>
+        </div>
       );
   }
 });
 
+const WeightFooter = React.createClass({
+  propTypes: {
+    data: PropTypes.array
+  },
+  render() {
+    const weights = this.props.data.map(x => x.weight * 100);
+    const weight = weights.length ? weights.reduce((a, b) => a+b) : 0;
+    return (
+      <div>
+        <strong className={cx({'text-danger': weight !== 100})}>
+          {weight}
+        </strong> /100
+      </div>
+    );
+  }
+});
+
 export default React.createClass({
+  propTypes: {
+    classId: PropTypes.string,
+    termId: PropTypes.string
+  },
   getInitialState() {
     return {
         data: []
@@ -48,22 +67,19 @@ export default React.createClass({
   tableColumns: [{
       key: 'name',
       display: 'Name'
-  }, {
+  },
+  {
       key: 'weight',
       display: 'Weight',
-      format: 'decimalPercent'
-  }, {
-      display: '',
-      resourceType: 'assignmentGroup',
-      renderer: NewTable.CrudActions,
-      linkTo: 'type',
-      className: 'text-right',
-      tdClassName: 'text-right'
-  }, {
+      format: 'decimalPercent',
+      footerRenderer: WeightFooter
+  },
+  {
       display: '',
       renderer: AssignmentEdit,
+      resourceType: 'assignmentGroup',
       className: 'text-right',
-      tdClassName: 'text-right'
+      tdClassName: 'text-right col-md-2'
   }],
   componentDidMount() {
       api.assignmentGroup.events.addListener('change', this.fetch);
@@ -73,6 +89,9 @@ export default React.createClass({
   },
 
   render() {
+    const weights = this.state.data.map(x => x.weight * 100);
+    // this.state.data.map((x) => x.weight)
+
     return (
       <div>
         <div className='btn-toolbar' role='toolbar'>
@@ -82,7 +101,7 @@ export default React.createClass({
               termId={this.props.termId}
               className='btn btn-primary pull-right'/>
         </div>
-        <NewTable.Grid columns={this.tableColumns} data={this.state.data} />
+        <Grid columns={this.tableColumns} data={this.state.data} />
       </div>
     );
   }

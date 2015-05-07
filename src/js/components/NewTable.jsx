@@ -129,6 +129,11 @@ let Grid = React.createClass({
                 );
               })}
             </tbody>
+            <tfoot>
+              <tr>
+                {cols.map(this.renderFooter)}
+              </tr>
+            </tfoot>
           </table>
         </div>
       );
@@ -163,8 +168,16 @@ let Grid = React.createClass({
           className={obj.className}>
           {obj.display || obj.key}
         </th>
-
-      )
+      );
+    },
+    renderFooter: function(obj, index){
+      const Renderer = obj.footerRenderer;
+      return (
+        <td key={'col-foot-' + index}
+          className={obj.className}>
+          {Renderer ? <Renderer {... this.props} column={obj} /> : null}
+        </td>
+      );
     }
   });
 
@@ -176,9 +189,7 @@ let CrudActions = React.createClass({
     render(){
       // const EditButton = this.props.editButton || (<span></span>);
       return (
-        <div>
           <DeleteBtn onClick={this.delete}/>
-        </div>
       );
       // return div(null, DeleteBtn({
       //   onClick: this['delete']

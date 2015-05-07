@@ -33,7 +33,7 @@ const cols = [
       display: 'Actions',
       renderer: StudentActions,
       linkTo: 'class',
-      className: 'col-md-3'
+      tdClassName: 'text-right col-md-2'
     }
   ];
 let ClassStudents = React.createClass({
@@ -43,25 +43,17 @@ let ClassStudents = React.createClass({
       };
     },
     getEnrollments(){
-      var this$ = this;
-      return api.enrollment.find({
+      api.enrollment.find({
         classId: this.props.classId,
         termId: this.props.termId
-      }).then(function(it){
-        return this$.setState({
-          students: it
-        });
-      });
+      }).then(xs => { this.setState({students: xs}); });
     },
-    componentDidMount(){
-      var this$ = this;
+    componentWillMount(){
       api.enrollment.events.addListener('change', this.getEnrollments);
       this.getEnrollments();
-      api.person.find().then(function(it){
-        return this$.setState({
-          people: it
-        });
-      });
+
+      api.person.find()
+        .then(xs => { this.setState({people: xs}); });
     },
     componentWillUnmount(){
       return api.enrollment.events.removeListener('change', this.getEnrollments);
@@ -88,8 +80,7 @@ let ClassStudents = React.createClass({
               </div>
             </div>
           </div>
-          <Grid columns={cols} data={this.state.students}>
-          </Grid>
+          <Grid columns={cols} data={this.state.students} />
         </div>
       );
       // return div(null, div({

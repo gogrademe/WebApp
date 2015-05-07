@@ -33,11 +33,7 @@ export default React.createClass({
       </ButtonGroup>
     );
 
-    return (
-      <span>
-        {btn}
-      </span>
-    );
+    return btn;
   }
 });
 

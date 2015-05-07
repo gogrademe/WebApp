@@ -14,6 +14,7 @@ var ModalButton = React.createClass({
     ModalActions.showModal(modal, ...other);
   },
   render(){
+    console.warn('WARN: deprecated.');
     return (
       <FloatingActionButton {...this.props} onClick={this.handleOnClick}/>
     );
