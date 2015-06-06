@@ -10,7 +10,6 @@ import NotFoundModule from './modules/NotFoundModule';
 import Classes from './modules/classes/index';
 import Setup from './modules/setup/Container';
 import People from './modules/people/index';
-import School from './modules/SchoolSettings';
 import UserList from './modules/UserList';
 
 export default (
@@ -18,7 +17,6 @@ export default (
     <Route name="login" handler={LoginModule} />
     <Route handler={SignedIn}>
       <Route name="logout" handler={LogoutModule} />
-      <Route name="school.settings" path="school/settings" handler={School.Settings} />
       <Route name="people" handler={People.List} />
       <Route name="users" handler={UserList} />
       <Route name="people.detail" path="people/:resourceId" handler={People.Detail} />

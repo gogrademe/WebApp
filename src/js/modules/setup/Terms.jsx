@@ -2,7 +2,6 @@
 
 import React from 'react';
 import api from '../../api/api';
-import CrudTable from '../../components/CrudTable';
 
 import NewTable from '../../components/NewTable';
 

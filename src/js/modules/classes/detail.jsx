@@ -167,7 +167,7 @@ let GradeAverage = React.createClass({
     //   if (weighted.length) {
     //     return Math.round(weighted.reduce((total,num) => total + num) * 100);
     //   }
-    return 0
+    return 0;
   },
   render(){
     const body = this.calcGrade() + ' | ' + this.calcIbGrade(this.calcGrade()) + ' | ' + this.calcUsLetterGrade(this.calcGrade());
