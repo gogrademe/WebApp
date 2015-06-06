@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Router from 'react-router';
-import api from '../api/auth';
+import auth from '../api/auth';
 
 export default React.createClass({
   componentDidMount() {
@@ -12,6 +12,6 @@ export default React.createClass({
     }
   },
   render() {
-    return <div>
+    return (<div></div>);
   }
 });

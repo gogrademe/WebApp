@@ -51,7 +51,7 @@ let GradeInput = React.createClass({
     //     </div>);
     // },
     render() {
-      return (
+      return this.props.column.editMode ? (
         <div className="grade-input" onBlur={this.handleBlur} >
           <input
             type="text"
@@ -61,7 +61,7 @@ let GradeInput = React.createClass({
             onChange={this.changeValue} />
           <span className="input-group-addon">/ {this.props.column.maxScore}</span>
         </div>
-      );
+      ) : (<div>{this.getValue()}</div>);
     }
   });
 
@@ -188,7 +188,8 @@ let ClassDetail = React.createClass({
       students: [],
       attempts: [],
       assignments: [],
-      assignmentGroups: []
+      assignmentGroups: [],
+      editColumn: null
     };
   },
   getGrades(){
@@ -232,7 +233,6 @@ let ClassDetail = React.createClass({
     for (let x of this.state.assignments) {
       cols.push({
         key: `attempts.${x.id}.latestAttempt.score`,
-        //format: 'decimalPercent',
         renderer: GradeInput,
         assignmentId: x.id,
         maxScore: x.maxScore,

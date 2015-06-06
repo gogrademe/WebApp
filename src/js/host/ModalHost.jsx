@@ -11,7 +11,7 @@ import ModalTypes from '../constants/ModalTypes';
 import TermModal from '../modals/Term';
 import AssignmentModal from '../modals/Assignment';
 import AssignmentGroupModal from '../modals/AssignmentGroup';
-import AssignmentGradesModal from '../modules/assignments/AssignmentGrades';
+// import AssignmentGradesModal from '../modules/assignments/AssignmentGrades';
 import AccountModal from '../modals/Account';
 import PersonModal from '../modals/Person';
 

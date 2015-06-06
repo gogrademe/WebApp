@@ -31,6 +31,5 @@ var Container = React.createClass({
 });
 module.exports = {
   Container: Container,
-  AssignmentTypes: require('./AssignmentTypes'),
   Terms: require('./Terms')
 };

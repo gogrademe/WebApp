@@ -87,7 +87,7 @@ let ClassList = React.createClass({
             onChange={this.updateSelect}
             value={this.state.term}
             autoload={false}
-            options={xs.map(x => {return {label: 'Year', value: x.id}; })}/>
+            options={xs.map(x => {return {label: `Year ${x.schoolYear.start}-${x.schoolYear.end} - ${x.name}`, value: x.id}; })}/>
         );
         // return Select({
         //   className: 'inline',

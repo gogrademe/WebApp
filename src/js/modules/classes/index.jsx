@@ -96,7 +96,6 @@ module.exports = {
   Grades: require('./detail'),
   Overview: require('./Overview'),
   Assignments: require('../assignments/Assignments'),
-  AssignmentGrades: require('../assignments/AssignmentGrades'),
   Students: require('./students'),
   Settings: require('./Settings')
 };

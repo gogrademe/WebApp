@@ -18,7 +18,7 @@ export default React.createClass({
     return this.props.onClick(e);
   },
   render() {
-    const btn = !this.state.confirm ? (
+    return !this.state.confirm ? (
       <Button bsStyle="danger" onClick={this.toggle}>
         <Glyphicon glyph="trash" />
       </Button>
@@ -32,8 +32,6 @@ export default React.createClass({
         </Button>
       </ButtonGroup>
     );
-
-    return btn;
   }
 });
 
