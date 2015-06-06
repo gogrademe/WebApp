@@ -2,15 +2,13 @@
 
 import React from 'react';
 
-import {Router, State, RouteHandler} from 'react-router';
+import {Router, RouteHandler} from 'react-router';
 import api from '../api/api';
-import auth from '../api/auth';
 
 
 var SignedIn = React.createClass({
-  mixins: [State],
   statics: {
-    willTransitionTo: function(transition, params){
+    willTransitionTo: function(transition){
       if (!api.session.get()) {
         return transition.redirect('/login');
       }
@@ -27,7 +25,7 @@ var SignedIn = React.createClass({
     }
   },
   render(){
-    return(
+    return (
       <div>
         <RouteHandler/>
       </div>

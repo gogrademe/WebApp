@@ -7,7 +7,7 @@ import FormInputMixin from '../mixins/FormInputMixin';
 var FormInput = React.createClass({
   mixins: [FormInputMixin],
   propTypes: {
-    component: React.PropTypes.any,
+    component: React.PropTypes.any
   },
   getDefaultProps() {
     return {

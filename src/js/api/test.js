@@ -15,7 +15,7 @@
   }).then(function(it){
     return console.log(JSON.stringify(it, null, 4));
   }).then(function(){
-    return api['class'].find();
+    return api.course.find();
   }).then(function(it){
     return console.log(JSON.stringify(it, null, 4));
   }).then(function(){

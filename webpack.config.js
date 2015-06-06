@@ -49,7 +49,9 @@ module.exports = {
     loaders: [
       {
         test: /\.less?$/,
-        loader: ExtractTextPlugin.extract('css!less')
+        loader: RELEASE ?
+          ExtractTextPlugin.extract('css!less') :
+          'style!css!less'
       },
       {
         test: /\.gif$/,

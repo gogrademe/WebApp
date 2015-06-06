@@ -15,7 +15,7 @@
     displayName: "CreateClassModal",
     handleSubmit(){
       var this$ = this;
-      api['class'].create(this.state['class']).then(function(){
+      api.course.create(this.state['class']).then(function(){
         return this$.props.onRequestHide();
       }).error(function(it){
         return this$.setState({

@@ -17,6 +17,9 @@ let promisifyReq = function (req) {
       .set('Authorization', auth.token ? 'Bearer ' + auth.token : null)
       .end((error, res) => {
         if (error || res.status >= 400) {
+          if (res.status === 401) {
+            types.session.del();
+          }
           return reject(res) || error;
         } else {
           return resolve(res.body);
@@ -134,7 +137,7 @@ let baseApi = {
 };
 let types = {
   person: {},
-  'class': {},
+  course: {},
   enrollment: {},
   term: {},
   schoolYear: {},

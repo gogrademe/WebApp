@@ -21,7 +21,7 @@ let View = React.createClass({
   componentWillMount() {
     let params = this.context.router.getCurrentParams();
 
-    api['class'].get(params.resourceId).then((data) => {
+    api.course.get(params.resourceId).then((data) => {
       this.setState({
         'class': data
       });

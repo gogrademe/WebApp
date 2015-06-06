@@ -1,57 +1,77 @@
 
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Grid, CrudActions} from '../../components/NewTable';
-// import SemanticModal from '../../components/SemanticModal';
-import {AssignmentGradesBtn} from '../../molecules/ModalButtons';
+import {AssignmentBtn} from '../../molecules/ModalButtons';
 import api from '../../api/api';
 
 
-import AssignmentGrades from './AssignmentGrades';
-var AssignmentBtn = require('../../molecules/ModalButtons').AssignmentBtn;
+// var AssignmentLink = React.createClass({
+//   modal(){
+//     return new AssignmentGrades({
+//       assignmentId: this.props.row.id
+//     });
+//   },
+//   render(){
+//     return (
+//       <div>
+//         <AssignmentGradesBtn primary={true} icon={true} assignmentId={this.props.row.id}>
+//           {this.props.value}
+//         </AssignmentGradesBtn>
+//       </div>
+//     );
+//   }
+// });
 
-var AssignmentLink = React.createClass({
-  modal(){
-    return new AssignmentGrades({
-      assignmentId: this.props.row.id
-    });
+const AssignmentEdit = React.createClass({
+  propTypes: {
+    row: PropTypes.object
   },
-  render(){
-    return (
-      <div>
-        <AssignmentGradesBtn primary={true} icon={true} assignmentId={this.props.row.id}>
-          {this.props.value}
-        </AssignmentGradesBtn>
-      </div>
-    );
+  render() {
+      return (
+        <div className="btn-group">
+          <CrudActions {... this.props}/>
+          <AssignmentBtn
+            label='Edit'
+            classId={this.props.row.classId}
+            termId={this.props.row.termId}
+            assignmentId={this.props.row.id}
+            className='btn btn-primary'/>
+        </div>
+      );
   }
 });
+
 var assignmentCols = [
   {
     key: 'name',
     display: 'Name',
-    className: 'assignment.student',
-    renderer: AssignmentLink
-  }, {
+    className: 'assignment.student'
+  },
+  {
     key: 'dueDate',
     display: 'Due Date',
     format: 'date'
-  }, {
+  },
+  {
     key: 'group.name',
     display: 'Type'
-  }, {
+  },
+  {
     key: 'maxScore',
     display: 'Out Of'
-  }, {
+  },
+  {
     key: 'group.weight',
     display: 'Weight',
     format: 'decimalPercent',
     className: 'col-md-1'
-  }, {
-    display: 'Actions',
-    className: 'text-right',
-    tdClassName: 'text-right col-md-2',
-    resourceType: 'assignment',
-    renderer: CrudActions
+  },
+  {
+      display: '',
+      renderer: AssignmentEdit,
+      resourceType: 'assignmentGroup',
+      className: 'text-right',
+      tdClassName: 'text-right col-md-2'
   }
 ];
 var ClassAssignments = React.createClass({

@@ -41,7 +41,7 @@ let ClassList = React.createClass({
     },
     componentWillMount(){
       var this$ = this;
-      api['class'].find().then(function(it){
+      api.course.find().then(function(it){
         return this$.setState({
           classes: it
         });

@@ -7,7 +7,7 @@
   Dom = React.DOM;
   div = Dom.div;
   PersonDetail = React.createClass({
-    displayName: "PersonDetail",
+    displayName: 'PersonDetail',
     getInitialState(){
       return {
         person: {}
@@ -24,19 +24,19 @@
     title: function(it){
       switch (false) {
       case !it.middleName:
-        return it.firstName + " " + it.middleName + " " + it.lastName;
+        return it.firstName + ' ' + it.middleName + ' ' + it.lastName;
       case !it.firstName:
-        return it.firstName + " " + it.lastName;
+        return it.firstName + ' ' + it.lastName;
       default:
-        return "Loading...";
+        return 'Loading...';
       }
     },
     render(){
       return div(null, Header({
         title: this.title(this.state.person)
       }), div({
-        className: "main container"
-      }, "Detail page!"));
+        className: 'main container'
+      }, 'Detail page!'));
     }
   });
   module.exports = PersonDetail;

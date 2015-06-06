@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 
 var PageHeader = React.createClass({
@@ -18,8 +16,3 @@ var PageHeader = React.createClass({
 });
 
 module.exports = PageHeader;
-
-//
-// <span className="sub header">
-//   {this.props.secondary}
-// </span>

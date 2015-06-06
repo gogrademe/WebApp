@@ -10,7 +10,13 @@ import {AssignmentGroup} from '../molecules/AutoCompleteFor';
 export default React.createClass({
   propTypes: {
     classId: React.PropTypes.string.isRequired,
-    termId: React.PropTypes.string.isRequired
+    termId: React.PropTypes.string.isRequired,
+    assignmentId: React.PropTypes.string
+  },
+  getInitialState() {
+    return {
+      assignment: {}
+    };
   },
   onSubmit(model) {
     model.classId = this.props.classId;
@@ -20,13 +26,20 @@ export default React.createClass({
 
     return api.assignment.create(model);
   },
+  componentWillMount() {
+    if (this.props.assignmentId) {
+      api.assignment
+        .get(this.props.assignmentId)
+        .then(res => this.setState({assignment: res}));
+    }
+  },
   render() {
     return (
       <ModalForm {... this.props} title="Assignment" onSubmitAsync={this.onSubmit}>
         <LabeledField name="name" label="Name"/>
         <div className="field">
           <div className="ui two fields">
-            <AssignmentGroup name="typeId" classId={this.props.classId} termId={this.props.termId} label="Type"/>
+            <AssignmentGroup name="groupId" classId={this.props.classId} termId={this.props.termId} label="Type"/>
             <LabeledField name="dueDate" validation="isDate" label="Due Date"/>
           </div>
         </div>

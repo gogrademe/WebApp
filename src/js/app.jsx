@@ -8,9 +8,8 @@ import HeaderNav from './components/Header';
 import ModalHost from './host/ModalHost';
 
 import api from './api/api';
-import auth from './api/auth';
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   api.baseUrl = 'http://api.gogrademe.com';
 } else {
   api.baseUrl = 'http://localhost:5005';
@@ -23,8 +22,8 @@ export default React.createClass({
     }
   },
   render() {
-    const className = api.session.get() ? "main container" : "";
-    
+    const className = api.session.get() ? 'main container' : '';
+
     return (
       <DocumentTitle title='GoGradeMe'>
         <div>

@@ -1,7 +1,5 @@
 @import "../../node_modules/bootstrap/less/bootstrap.less";
 
-// @import "../../node_modules/material-ui/src/less/scaffolding.less";
-// @import "../../node_modules/material-ui/src/less/components.less";
 @import "../../node_modules/fixed-data-table/dist/fixed-data-table.css";
 @import "../../node_modules/react-select/less/select.less";
 
@@ -14,7 +12,8 @@ body {
     background-color: @brand-primary;
 }
 .main.container {
-    padding-top: 40px;
+    padding-top: 50px;
+    padding-bottom: 15px;
     background-color: white;
 }
 
@@ -47,8 +46,33 @@ nav.app-nav {
     }
 }
 
+.grade-input:extend(.input-group all) {
+  border: 1px solid #cccccc;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  border-radius:3px;
+  
+  .form-control {
+    max-width: 50px;
+    text-align: right;
+    border-radius: @border-radius-base;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background-color: transparent;
+
+  }
+  .input-group-addon,
+  .input-group-btn {
+    background-color: transparent;
+    padding: 5px;
+    width: 10px;
+    border: 0;
+  }
+}
+
 .page-header {
     background-color: white;
+    margin: 20px 0 15px;
 }
 
 .form-control {
@@ -87,4 +111,12 @@ nav.app-nav {
     width: 124px;
     margin: 0 auto 10px;
     display: block;
+}
+
+.main .table td {
+   vertical-align: middle;
+}
+
+.table {
+  margin-bottom: 0;
 }

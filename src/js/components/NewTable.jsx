@@ -41,20 +41,20 @@ let formatVal = function(val, format){
           editing: false
         };
       },
-      handleChange: function(event){
-        ({
-          value: event.target.value,
-          column: this.props.column,
-          row: this.props.row
-        });
-      },
+      // handleChange: function(event){
+      //   ({
+      //     value: event.target.value,
+      //     column: this.props.column,
+      //     row: this.props.row
+      //   });
+      // },
       render() {
         const val = formatVal(this.props.value, this.props.column.format);
         return (
           <div>
             {val}
           </div>
-        )
+        );
       }
       // render(){
       //   var val;
@@ -87,16 +87,11 @@ let formatVal = function(val, format){
     });
 
 let Grid = React.createClass({
-    getInitialState(){
-      return {
-        sortByIndex: null,
-        sortDirection: true
-      };
-    },
     render(){
       const data = this.props.data;
       const cols = this.props.columns;
 
+      const shouldRenderFooter = cols.some(x => !!x.footerRenderer);
       return (
         <div className="table-responsive">
           <table className="table" {... this.props}>
@@ -129,11 +124,14 @@ let Grid = React.createClass({
                 );
               })}
             </tbody>
-            <tfoot>
-              <tr>
-                {cols.map(this.renderFooter)}
-              </tr>
-            </tfoot>
+            {shouldRenderFooter ? (
+              <tfoot>
+                <tr>
+                  {cols.map(this.renderFooter)}
+                </tr>
+              </tfoot>
+            ) : null}
+
           </table>
         </div>
       );
@@ -182,14 +180,14 @@ let Grid = React.createClass({
   });
 
 let CrudActions = React.createClass({
-    'delete': function(e){
+    handleDelete: function(e){
       e.preventDefault();
       return api[this.props.column.resourceType].del(this.props.row.id);
     },
     render(){
       // const EditButton = this.props.editButton || (<span></span>);
       return (
-          <DeleteBtn onClick={this.delete}/>
+        <DeleteBtn onClick={this.handleDelete}/>
       );
       // return div(null, DeleteBtn({
       //   onClick: this['delete']
@@ -200,7 +198,7 @@ let CrudActions = React.createClass({
 let CellLink = React.createClass({
     render(){
       let linkTo = this.props.column.linkTo;
-      let params = {termId: termId, resourceId: this.props.row.id}
+      let params = {termId: termId, resourceId: this.props.row.id};
 
       return (
         <div>
