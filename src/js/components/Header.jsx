@@ -1,37 +1,46 @@
 import React from 'react';
 
 import Router from 'react-router';
-import {Navbar, Nav, DropdownButton, CollapsibleNav} from 'react-bootstrap';
-import {NavItemLink} from 'react-router-bootstrap';
+import {
+  Navbar,
+  Nav,
+  DropdownButton,
+  CollapsibleNav
+} from 'react-bootstrap';
+
+import {
+  NavItemLink
+} from 'react-router-bootstrap';
 
 import api from '../api/api';
 import auth from '../api/auth';
 
 const HeaderNav = React.createClass({
-  mixins: [Router.Navigation, Router.State],
-  userDisplayName(){
-    return this.state.person.firstName + ' ' + this.state.person.lastName;
+  mixins: [
+    Router.Navigation, Router.State
+  ],
+  userDisplayName() {
+    const person = this.state.person;
+    return `${person.firstName} ${person.lastName}`;
   },
-  componentWillMount(){
+  componentWillMount() {
     const personId = auth.currentUser().personId;
     if (personId) {
-      api.person
-        .get(personId)
-        .then((it) => {
-          this.setState({
-            person: it
-          });
+      api.person.get(personId).then((it) => {
+        this.setState({
+          person: it
         });
+      });
     }
   },
-  getInitialState(){
+  getInitialState() {
     return {
-      person: {},
+      person: {}
     };
   },
   render() {
     return (
-      <Navbar className="app-nav" brand="GoGradeMe" toggleNavKey={0}>
+      <Navbar brand="GoGradeMe" className="app-nav" toggleNavKey={0}>
         <CollapsibleNav eventKey={0}>
           <Nav navbar>
             <NavItemLink to="dashboard">

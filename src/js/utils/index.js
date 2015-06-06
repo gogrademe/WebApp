@@ -56,7 +56,6 @@ module.exports = {
   forUpload: dateForUpload,
   pathToObj: pathToObj,
   pathReduce: pathReduce,
-  valueFromPath: valueFromPath,
-  FormLink: require('./FormLink.js')
+  valueFromPath: valueFromPath
 };
 function not$(x){ return !x; }

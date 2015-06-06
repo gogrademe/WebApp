@@ -1,11 +1,9 @@
 import React, {PropTypes} from 'react';
-// import moment from 'moment';
-// import Panel from '../../components/Panel';
+
 import {Grid, CrudActions} from '../../components/NewTable';
 import api from '../../api/api';
-// import CreateClassModal from './CreateClassModal';
+
 import {Link} from 'react-router';
-// import SemanticModal from '../../components/SemanticModal';
 import Header from '../../components/PageHeader';
 import Select from 'react-select';
 
@@ -83,18 +81,26 @@ let ClassList = React.createClass({
       case !!xs:
         return 'Loading...';
       default:
-        return Select({
-          className: 'inline',
-          onChange: this.updateSelect,
-          value: this.state.term,
-          autoload: false,
-          options: xs.map(function(x){
-            return {
-              label: 'Year ' + (x != null ? x.schoolYear.start : void 8) + '-' + (x != null ? x.schoolYear.end : void 8) + ' - ' + (x != null ? x.name : void 8),
-              value: x != null ? x.id : void 8
-            };
-          })
-        });
+        return (
+          <Select
+            className='inline'
+            onChange={this.updateSelect}
+            value={this.state.term}
+            autoload={false}
+            options={xs.map(x => {return {label: 'Year', value: x.id}; })}/>
+        );
+        // return Select({
+        //   className: 'inline',
+        //   onChange: this.updateSelect,
+        //   value: this.state.term,
+        //   autoload: false,
+        //   options: xs.map(function(x){
+        //     return {
+        //       label: 'Year ' + (x != null ? x.schoolYear.start : void 8) + '-' + (x != null ? x.schoolYear.end : void 8) + ' - ' + (x != null ? x.name : void 8),
+        //       value: x != null ? x.id : void 8
+        //     };
+        //   })
+        // });
       }
     },
     rightButtons(){
