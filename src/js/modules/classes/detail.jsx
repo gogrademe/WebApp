@@ -302,6 +302,7 @@ let ClassDetail = React.createClass({
         <Grid columns={this.buildCols()} data={this.buildData()} />
       </div>
     );
+
   }
 });
 module.exports = ClassDetail;

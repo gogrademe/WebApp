@@ -103,10 +103,13 @@ let Grid = React.createClass({
       return column.renderer || StringRenderer;
     },
     renderHeader: function(obj, index){
+      // const Header = obj.display;
+      //{obj.display || obj.key}
       return (
         <th key={'col-' + index}
           className={obj.className}>
           {obj.display || obj.key}
+
         </th>
       );
     },

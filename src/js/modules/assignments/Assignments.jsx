@@ -4,24 +4,6 @@ import {Grid, CrudActions} from '../../components/NewTable';
 import {AssignmentBtn} from '../../molecules/ModalButtons';
 import api from '../../api/api';
 
-
-// var AssignmentLink = React.createClass({
-//   modal(){
-//     return new AssignmentGrades({
-//       assignmentId: this.props.row.id
-//     });
-//   },
-//   render(){
-//     return (
-//       <div>
-//         <AssignmentGradesBtn primary={true} icon={true} assignmentId={this.props.row.id}>
-//           {this.props.value}
-//         </AssignmentGradesBtn>
-//       </div>
-//     );
-//   }
-// });
-
 const AssignmentEdit = React.createClass({
   propTypes: {
     row: PropTypes.object
