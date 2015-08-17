@@ -5,8 +5,9 @@ import api from '../../api/api';
 
 import {Link} from 'react-router';
 import Header from '../../components/PageHeader';
-import Select from 'react-select';
+// import Select from 'react-select';
 
+import {Combobox as Select} from 'react-widgets';
 let ClassName = React.createClass({
     propTypes: {
         column: PropTypes.object,
@@ -14,14 +15,14 @@ let ClassName = React.createClass({
         value: PropTypes.string
     },
     render(){
-      const termId = this.props.column.term || '';
+      const termID = this.props.column.term || '';
       return (
         <div>
           <Link
-            to='class.grades'
+            to='course.grades'
             params={{
-              termId: termId,
-              resourceId: this.props.row.id}}>
+              termID: termID,
+              resourceID: this.props.row.id}}>
           {this.props.value}
           </Link>
         </div>
@@ -32,7 +33,7 @@ let ClassName = React.createClass({
 let ClassList = React.createClass({
     getInitialState(){
       return {
-        classes: [],
+        courses: [],
         terms: null,
         term: null
       };
@@ -41,7 +42,7 @@ let ClassList = React.createClass({
       var this$ = this;
       api.course.find().then(function(it){
         return this$.setState({
-          classes: it
+          courses: it
         });
       });
       return api.term.find().then(function(it){
@@ -73,9 +74,6 @@ let ClassList = React.createClass({
         }
       ];
     },
-    updateSelect: function(it){
-      this.setState({term: it});
-    },
     selectRender: function(xs){
       switch (false) {
       case !!xs:
@@ -84,10 +82,13 @@ let ClassList = React.createClass({
         return (
           <Select
             className='inline'
-            onChange={this.updateSelect}
+            onChange={val => this.setState({term: val.id})}
             value={this.state.term}
             autoload={false}
-            options={xs.map(x => {return {label: `Year ${x.schoolYear.start}-${x.schoolYear.end} - ${x.name}`, value: x.id}; })}/>
+            data={this.state.terms}
+            valueField='id'
+            textField={item => `${item.schoolYear} - ${item.name}`}
+            />
         );
         // return Select({
         //   className: 'inline',
@@ -115,7 +116,7 @@ let ClassList = React.createClass({
           <div>
             <Grid
               columns={this.cols()}
-              data={this.state.classes}/>
+              data={this.state.courses}/>
           </div>
         </div>
       );

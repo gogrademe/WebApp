@@ -15,7 +15,7 @@
     },
     componentWillMount(){
       var this$ = this;
-      return api.person.get(this.props.params.resourceId).then(function(it){
+      return api.person.get(this.props.params.resourceID).then(function(it){
         return this$.setState({
           person: it
         });

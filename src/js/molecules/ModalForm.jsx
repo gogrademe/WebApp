@@ -57,7 +57,7 @@ export default React.createClass({
     return (
       <Modal {...props} bsStyle="primary">
         <div className="modal-body">
-          <Formsy.Form ref="form" className="ui form" onSubmit={this.onSubmitPushed} onValid={this.enableButton} onInvalid={this.disableButton}>
+          <Formsy.Form ref="form" className="form-horizontal" onSubmit={this.onSubmitPushed} onValid={this.enableButton} onInvalid={this.disableButton}>
             {children}
           </Formsy.Form>
         </div>

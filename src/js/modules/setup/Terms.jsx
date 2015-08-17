@@ -10,24 +10,12 @@ import {TermBtn} from '../../molecules/ModalButtons';
 var Terms = React.createClass({
     tableColumns: [
     {
-        key: "start",
-        display: "Start"
+        key: 'name',
+        display: 'Name'
     },
     {
-        key: "end",
-        display: "End"
-    },
-    {
-        key: "terms",
-        display: "School Year Start"
-    },
-    {
-        display: '',
-        resourceType: "schoolYear",
-        renderer: NewTable.CrudActions,
-        linkTo: "schoolYear",
-        className: 'text-right',
-        tdClassName: 'text-right'
+        key: 'schoolYear',
+        display: 'School Year'
     }
     ],
     getInitialState() {
@@ -36,7 +24,7 @@ var Terms = React.createClass({
         };
     },
     fetch() {
-        api.schoolYear.find()
+        api.term.find()
             .then((xs) => {
               this.setState({
                 data: xs

@@ -21,7 +21,7 @@ getInitialState() {
   };
 },
 fetch() {
-  api.user.find().then((xs) => {
+  api.account.find().then((xs) => {
     this.setState({
       data: xs
     });
@@ -33,7 +33,7 @@ componentWillMount() {
 render() {
   return (
     <div>
-      <Header primary='All Users'/>
+      <Header primary='All Accounts'/>
       <div>
         <NewTable.Grid columns={this.tableColumns} data={this.state.data}/>
       </div>

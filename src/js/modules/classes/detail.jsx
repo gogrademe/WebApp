@@ -36,8 +36,8 @@ let GradeInput = React.createClass({
       // this.setState({showInput: false});
       if (this.state.value !== this.state.initialValue) {
         api.grade.create({
-          assignmentId: this.props.column.assignmentId,
-          personId: this.props.row.student.personId,
+          assignmentID: this.props.column.assignmentID,
+          personID: this.props.row.student.personID,
           score: this.getValue()
         });
       }
@@ -195,32 +195,32 @@ let ClassDetail = React.createClass({
   getGrades(){
     const params = this.context.router.getCurrentParams();
     api.grade.find({
-      classId: params.resourceId,
-      termId: params.termId
+      courseID: params.resourceID,
+      termID: params.termID
     })
     .then(xs => this.setState({attempts: xs}));
   },
   getStudents(){
     const params = this.context.router.getCurrentParams();
     api.enrollment.find({
-      classId: params.resourceId,
-      termId: params.termId
+      courseID: params.resourceID,
+      termID: params.termID
     })
     .then(xs => this.setState({students: xs}));
   },
   getAssignments(){
     const params = this.context.router.getCurrentParams();
     api.assignment.find({
-      classId: params.resourceId,
-      termId: params.termId
+      courseID: params.resourceID,
+      termID: params.termID
     })
     .then(xs => this.setState({assignments: xs}));
   },
   getAssignmentGroups(){
     const params = this.context.router.getCurrentParams();
     api.assignmentGroup.find({
-      classId: params.resourceId,
-      termId: params.termId
+      courseID: params.resourceID,
+      termID: params.termID
     })
     .then(xs => this.setState({assignmentGroups: xs}));
   },
@@ -233,8 +233,9 @@ let ClassDetail = React.createClass({
     for (let x of this.state.assignments) {
       cols.push({
         key: `attempts.${x.id}.latestAttempt.score`,
+        editMode: true,
         renderer: GradeInput,
-        assignmentId: x.id,
+        assignmentID: x.id,
         maxScore: x.maxScore,
         display: x.name
       });
@@ -254,8 +255,8 @@ let ClassDetail = React.createClass({
     let results = [];
     for (let a of this.state.attempts) {
       const result = {
-        student: this.state.students.find(x => a.personId === x.personId),
-        attempts: a.assignmentAttempts.map((x) => ({key: x.assignmentId, value: x})).reduce(setKeyValue, {}),
+        student: this.state.students.find(x => a.personID === x.personID),
+        attempts: a.assignmentAttempts.map((x) => ({key: x.assignmentID, value: x})).reduce(setKeyValue, {}),
         groups: this.state.assignmentGroups
       };
 
@@ -274,8 +275,8 @@ let ClassDetail = React.createClass({
     //
     //   for (let a of this.state.assignments) {
     //     let grade = this.state.grades
-    //       .filter(x => x.assignmentId === a.id)
-    //       .find(x => x.personId === s.personId);
+    //       .filter(x => x.assignmentID === a.id)
+    //       .find(x => x.personID === s.personID);
     //
     //     result.assignments[a.id] = {
     //       grade: grade,

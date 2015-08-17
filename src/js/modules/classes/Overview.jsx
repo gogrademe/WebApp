@@ -21,24 +21,24 @@ var GradeOverview = React.createClass({
   },
   getGrades(){
     api.grade.find({
-      classId: this.props.classId,
-      termId: this.props.termId
+      courseID: this.props.courseID,
+      termID: this.props.termID
     }).then((data) => {
       this.setState({grades: data});
     });
   },
   getStudents(){
     api.enrollment.find({
-      classId: this.props.classId,
-      termId: this.props.termId
+      courseID: this.props.courseID,
+      termID: this.props.termID
     }).then((data) =>{
       this.setState({students: data});
     });
   },
   getAssignments(){
     api.assignment.find({
-      classId: this.props.classId,
-      termId: this.props.termId
+      courseID: this.props.courseID,
+      termID: this.props.termID
     }).then((data) => {
       this.setState({assignments: data});
     });
@@ -89,15 +89,15 @@ var GradeOverview = React.createClass({
       }
     }
   },
-  gradeFor: function(studentId, assignmentId) {
+  gradeFor: function(studentId, assignmentID) {
     return _.chain(this.state.grades)
       .filter((x) => {
-        // console.log(x, assignmentId);
-        return x.assignmentId === assignmentId;
+        // console.log(x, assignmentID);
+        return x.assignmentID === assignmentID;
       })
       .value();
       // .find((x) => {
-      //     return x.personId == studentId;
+      //     return x.personID == studentId;
       // }).value();
 
   },
@@ -118,7 +118,7 @@ var GradeOverview = React.createClass({
       //     // console.log(type);
       //     console.log(res.student.id, type[0].id);
       //     // res.types[type[0].typeId]
-      //     // console.log(this.gradeFor(res.student.id, type[0].assignmentId))
+      //     // console.log(this.gradeFor(res.student.id, type[0].assignmentID))
       //     // res.types[type[0].typeId] = 100
       //   });
 

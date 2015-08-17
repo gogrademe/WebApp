@@ -4,13 +4,13 @@ import api from '../api/api';
 
 //Molecules
 import ModalForm from '../molecules/ModalForm';
-import LabeledField from '../molecules/LabeledField';
+import {Input} from 'formsy-react-components';
 
 export default React.createClass({
   propTypes: {
-    classId: PropTypes.string.isRequired,
-    termId: PropTypes.string.isRequired,
-    groupId: PropTypes.string
+    courseID: PropTypes.number.isRequired,
+    termID: PropTypes.number.isRequired,
+    groupID: PropTypes.number
   },
   getInitialState() {
     return {
@@ -19,11 +19,11 @@ export default React.createClass({
   },
   onSubmit(model) {
     model.weight = Number(model.weight / 100);
-    model.classId = this.props.classId;
-    model.termId = this.props.termId;
+    model.courseID = Number(this.props.courseID);
+    model.termID = Number(this.props.termID);
 
-    if (this.props.groupId) {
-      model.id = this.props.groupId;
+    if (this.props.groupID) {
+      model.id = this.props.groupID;
       return api.assignmentGroup.update(model.id, model);
     } else {
       return api.assignmentGroup.create(model);
@@ -32,9 +32,9 @@ export default React.createClass({
 
   },
   componentWillMount() {
-    if (this.props.groupId) {
+    if (this.props.groupID) {
       api.assignmentGroup
-        .get(this.props.groupId)
+        .get(this.props.groupID)
         .then(res => this.setState({group: res}));
     }
   },
@@ -42,8 +42,8 @@ export default React.createClass({
     const weight = Number(this.state.group.weight * 100) || '';
     return (
       <ModalForm {... this.props} title="Assignment Group" onSubmitAsync={this.onSubmit}>
-        <LabeledField label="Name" name="name" value={this.state.group.name} placeholder="Name"/>
-        <LabeledField label="Weight" name="weight" value={weight} validationError="must be between .5% and 100%" validations="isWeight"/>
+        <Input label="Name" name="name" value={this.state.group.name} placeholder="Name"/>
+        <Input label="Weight" name="weight" value={weight} validationError="must be between .5% and 100%" validations="isWeight"/>
       </ModalForm>
     );
   }

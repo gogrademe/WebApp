@@ -15,7 +15,7 @@ export default React.createClass({
       return this.state.data[index];
     },
     fetch() {
-      api.user.find()
+      api.account.find()
         .then((xs) => {
           this.setState({
             data: xs
@@ -28,7 +28,7 @@ export default React.createClass({
     render() {
         return (
           <div>
-            <Header primary="All Users" />
+            <Header primary="All Accounts" />
             <div className="main container">
               <Table
                 rowHeight={50}

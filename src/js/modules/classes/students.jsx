@@ -2,6 +2,8 @@ import React from 'react';
 import {Grid} from '../../components/NewTable';
 // import ActionRenderer from '../../components/ActionRenderer';
 // import {Autocomplete, Option} from '../../components/autocomplete';
+import {DropdownList} from 'react-widgets';
+
 import api from '../../api/api';
 
 let StudentActions = React.createClass({
@@ -36,6 +38,7 @@ const cols = [
       tdClassName: 'text-right col-md-2'
     }
   ];
+
 let ClassStudents = React.createClass({
     getInitialState(){
       return {
@@ -44,37 +47,38 @@ let ClassStudents = React.createClass({
     },
     getEnrollments(){
       api.enrollment.find({
-        classId: this.props.classId,
-        termId: this.props.termId
-      }).then(xs => { this.setState({students: xs}); });
+        courseID: this.props.courseID,
+        termID: this.props.termID
+      }).then(xs => this.setState({students: xs}));
     },
     componentWillMount(){
       api.enrollment.events.addListener('change', this.getEnrollments);
       this.getEnrollments();
 
       api.person.find()
-        .then(xs => { this.setState({people: xs}); });
+        .then(xs => this.setState({people: xs}));
     },
     componentWillUnmount(){
       return api.enrollment.events.removeListener('change', this.getEnrollments);
     },
-    studentSelected: function(it){
-      return this.setState({
-        selectedStudent: it.target.value
-      });
-    },
     enrollStudent(){
       api.enrollment.create({
-        personId: this.state.selectedStudent,
-        classId: this.props.classId,
-        termId: this.props.termId
+        personID: Number(this.state.selected.id),
+        courseID: Number(this.props.courseID),
+        termID: Number(this.props.termID)
       });
     },
     render(){
       return (
         <div>
           <div className="input-group">
-            <input className="form-control"/>
+            <DropdownList
+              valueField='id'
+              textField={item => item.firstName + ' ' + item.lastName}
+              onChange={val => this.setState({selected: val})}
+              data={this.state.people}
+              placeholder="Student"
+              filter='contains' />
             <div className="input-group-btn">
               <button className="btn btn-primary" onClick={this.enrollStudent}>
                 Enroll

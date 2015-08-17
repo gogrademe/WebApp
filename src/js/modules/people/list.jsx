@@ -11,7 +11,7 @@ import {filter} from 'prelude-ls';
 
 const customActions = function(props){
   return (
-    <AccountBtn primary={true} icon={true} personId={props.row.id}>
+    <AccountBtn primary={true} icon={true} personID={props.row.id}>
       <i className="icon settings"/>
     </AccountBtn>
   );

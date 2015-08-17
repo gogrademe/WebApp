@@ -3,6 +3,7 @@
 import request from 'superagent';
 import Promise from 'bluebird';
 import EventEmitter from 'eventemitter3';
+import humps from 'humps';
 
 let toString$ = {}.toString;
 let auth = {
@@ -22,7 +23,7 @@ let promisifyReq = function (req) {
           }
           return reject(res) || error;
         } else {
-          return resolve(res.body);
+          return resolve(humps.camelizeKeys(res.body));
         }
       });
   });
@@ -43,8 +44,9 @@ let httpDel = (uri) => {
 let url = function (type, id) {
   var parts;
   parts = [module.exports.baseUrl || '/api', type, id].filter(function (it) {
-    return it && it.length;
+    return it !== undefined;
   });
+
   return parts.join('/');
 };
 let statusByName = {
@@ -99,7 +101,7 @@ let baseApi = {
       return baseApi.doDel.call(this, this.type, id);
     },
     doGet(type, id, opts) {
-      return httpGet(url(this.type, id), opts).then(responseToCaches);
+      return httpGet(url(this.type, id), opts).then(d => responseToCaches(type, d));
     },
     doPost(type, data) {
       var this$ = this;
@@ -112,8 +114,8 @@ let baseApi = {
           message: ((ref1$ = it.body) != null ? ref1$.message : void 8) || statusByName[status]
         };
         throw mergeInto(data, it);
-      }).then(responseToCaches).then(function (it) {
-        return this$.get(it[0].id);
+      }).then((d) => responseToCaches(type,d)).then(function (it) {
+        return this$.get(it.id);
       });
     },
     doPut(type, id, data) {
@@ -127,7 +129,7 @@ let baseApi = {
           message: ((ref1$ = it.body) != null ? ref1$.message : void 8) || statusByName[status]
         };
         throw mergeInto(data, it);
-      }).then(responseToCaches).then(function () {
+      }).then((d) => responseToCaches(type,d)).then(function () {
         return this$.get(data.id);
       });
     },
@@ -145,7 +147,7 @@ let types = {
   assignment: {},
   grade: {},
   school: {},
-  user: {}
+  account: {}
 };
 let cacheSet = function (cache, data) {
   switch (false) {
@@ -157,16 +159,20 @@ let cacheSet = function (cache, data) {
     throw new Error('cannot set item without id .' + JSON.stringify(data));
   }
 };
-let responseToCaches = function (data) {
-  var type, items, i$, len$, item;
-  for (type in data) {
-    items = data[type];
-    for (i$ = 0, len$ = items.length; i$ < len$; ++i$) {
-      item = items[i$];
-      cacheSet(types[type].cache, item);
-    }
+let responseToCaches = function (type, data) {
+  var i$, len$, item;
+  if (data === null) {
+    return;
   }
-  return items;
+  if (!Array.isArray(data)) {
+    data = [data];
+  }
+  for (i$ = 0, len$ = data.length; i$ < len$; ++i$) {
+    item = data[i$];
+    cacheSet(types[type].cache, item);
+  }
+
+  return data;
 };
 let mergeInto = function (source, target) {
   var key, value;
@@ -227,8 +233,8 @@ types.session = {
             message: message
           });
         } else {
-          auth.token = resp != null ? resp.body.session[0].token : void 8;
-          types.session.cache[0] = resp != null ? resp.body.session[0] : void 8;
+          auth.token = resp != null ? resp.body.token : void 8;
+          types.session.cache[0] = resp != null ? resp.body : void 8;
           return resolve(resp);
         }
       });

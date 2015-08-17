@@ -19,24 +19,25 @@ const HeaderNav = React.createClass({
   mixins: [
     Router.Navigation, Router.State
   ],
+  getInitialState() {
+    return {
+      person: {}
+    };
+  },
   userDisplayName() {
     const person = this.state.person;
     return `${person.firstName} ${person.lastName}`;
   },
   componentWillMount() {
-    const personId = auth.currentUser().personId;
-    if (personId) {
-      api.person.get(personId).then((it) => {
+    const personID = auth.currentUser().personID;
+
+    if (personID) {
+      api.person.get(personID).then((it) => {
         this.setState({
           person: it
         });
       });
     }
-  },
-  getInitialState() {
-    return {
-      person: {}
-    };
   },
   render() {
     return (
@@ -46,8 +47,8 @@ const HeaderNav = React.createClass({
             <NavItemLink to="dashboard">
               Dashboard
             </NavItemLink>
-            <NavItemLink to="class">
-              Classes
+            <NavItemLink to="course">
+              Courses
             </NavItemLink>
             <NavItemLink to="people">
               People

@@ -12,7 +12,7 @@ import api from './api/api';
 if (process.env.NODE_ENV === 'production') {
   api.baseUrl = 'http://api.gogrademe.com';
 } else {
-  api.baseUrl = 'http://localhost:5005';
+  api.baseUrl = 'http://localhost:5000';
 }
 
 export default React.createClass({

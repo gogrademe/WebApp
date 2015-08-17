@@ -14,9 +14,9 @@ const AssignmentEdit = React.createClass({
           <CrudActions {... this.props}/>
           <AssignmentBtn
             label='Edit'
-            classId={this.props.row.classId}
-            termId={this.props.row.termId}
-            assignmentId={this.props.row.id}
+            courseID={this.props.row.courseID}
+            termID={this.props.row.termID}
+            assignmentID={this.props.row.id}
             className='btn btn-primary'/>
         </div>
       );
@@ -75,8 +75,8 @@ var ClassAssignments = React.createClass({
   },
   getAssignments(){
     api.assignment.find({
-      classId: this.props.classId,
-      termId: this.props.termId
+      courseID: this.props.courseID,
+      termID: this.props.termID
     }).then((data) => {
       this.setState({
         assignments: data
@@ -90,8 +90,8 @@ var ClassAssignments = React.createClass({
           <AssignmentBtn
             label="New"
             className="btn btn-primary pull-right"
-            classId={this.props.classId}
-            termId={this.props.termId} />
+            courseID={this.props.courseID}
+            termID={this.props.termID} />
         </div>
         <Grid
           columns={assignmentCols}

@@ -19,14 +19,14 @@ export default (
       <Route name="logout" handler={LogoutModule} />
       <Route name="people" handler={People.List} />
       <Route name="users" handler={UserList} />
-      <Route name="people.detail" path="people/:resourceId" handler={People.Detail} />
-      <Route name="class" handler={Classes.List} />
-      <Route path="class/:termId/:resourceId" handler={Classes.View}>
-        <Route name="class.overview" title="Overview" path="overview" handler={Classes.Overview} />
-        <Route name="class.grades" title="Grades" path="grades" handler={Classes.Grades} />
-        <Route name="class.students" title="Students" path="students" handler={Classes.Students} />
-        <Route name="class.assignments" title="Assignments" path="assignments" handler={Classes.Assignments} />
-        <Route name="class.settings" title="Settings" path="settings" handler={Classes.Settings} />
+      <Route name="people.detail" path="people/:resourceID" handler={People.Detail} />
+      <Route name="course" handler={Classes.List} />
+      <Route path="course/:termID/:resourceID" handler={Classes.View}>
+        <Route name="course.overview" title="Overview" path="overview" handler={Classes.Overview} />
+        <Route name="course.grades" title="Grades" path="grades" handler={Classes.Grades} />
+        <Route name="course.students" title="Students" path="students" handler={Classes.Students} />
+        <Route name="course.assignments" title="Assignments" path="assignments" handler={Classes.Assignments} />
+        <Route name="course.settings" title="Settings" path="settings" handler={Classes.Settings} />
       </Route>
       <Route name="setup" handler={Setup.Container}>
         <Route name="setup.terms" path="terms" handler={Setup.Terms} />

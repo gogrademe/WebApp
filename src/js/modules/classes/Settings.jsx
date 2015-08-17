@@ -16,9 +16,9 @@ const AssignmentEdit = React.createClass({
           <CrudActions {... this.props}/>
           <AssignmentGroupBtn
             label='Edit'
-            classId={this.props.row.classId}
-            termId={this.props.row.termId}
-            groupId={this.props.row.id}
+            courseID={this.props.row.courseID}
+            termID={this.props.row.termID}
+            groupID={this.props.row.id}
             className='btn btn-primary'/>
         </div>
       );
@@ -44,8 +44,8 @@ const WeightFooter = React.createClass({
 
 export default React.createClass({
   propTypes: {
-    classId: PropTypes.string,
-    termId: PropTypes.string
+    courseID: PropTypes.string,
+    termID: PropTypes.string
   },
   getInitialState() {
     return {
@@ -54,7 +54,7 @@ export default React.createClass({
   },
   fetch() {
     api.assignmentGroup
-      .find({classId: this.props.classId, termId: this.props.termId})
+      .find({courseID: this.props.courseID, termID: this.props.termID})
       .then((xs) => {
           this.setState({
               data: xs
@@ -97,8 +97,8 @@ export default React.createClass({
         <div className='btn-toolbar' role='toolbar'>
           <AssignmentGroupBtn
               label='New'
-              classId={this.props.classId}
-              termId={this.props.termId}
+              courseID={this.props.courseID}
+              termID={this.props.termID}
               className='btn btn-primary pull-right'/>
         </div>
         <Grid columns={this.tableColumns} data={this.state.data} />

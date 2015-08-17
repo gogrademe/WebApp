@@ -4,14 +4,15 @@ import api from '../api/api';
 import utils from '../utils';
 
 import ModalForm from '../molecules/ModalForm';
-import LabeledField from '../molecules/LabeledField';
 import {AssignmentGroup} from '../molecules/AutoCompleteFor';
+import {Input} from 'formsy-react-components';
+// import {DateTimePicker} from 'react-widgets';
 
 export default React.createClass({
   propTypes: {
-    classId: React.PropTypes.string.isRequired,
-    termId: React.PropTypes.string.isRequired,
-    assignmentId: React.PropTypes.string
+    courseID: React.PropTypes.number.isRequired,
+    termID: React.PropTypes.number.isRequired,
+    assignmentID: React.PropTypes.number
   },
   getInitialState() {
     return {
@@ -19,33 +20,32 @@ export default React.createClass({
     };
   },
   onSubmit(model) {
-    model.classId = this.props.classId;
-    model.termId = this.props.termId;
+    model.courseID = Number(this.props.courseID);
+    model.termID = Number(this.props.termID);
+    model.groupID = Number(model.groupID);
     model.dueDate = utils.forUpload(model.dueDate);
     model.maxScore = Number(model.maxScore);
 
     return api.assignment.create(model);
   },
   componentWillMount() {
-    if (this.props.assignmentId) {
+    if (this.props.assignmentID) {
       api.assignment
-        .get(this.props.assignmentId)
+        .get(this.props.assignmentID)
         .then(res => this.setState({assignment: res}));
     }
   },
   render() {
+    const assignment = this.state.assignment;
     return (
       <ModalForm {... this.props} title="Assignment" onSubmitAsync={this.onSubmit}>
-        <LabeledField name="name" label="Name"/>
-        <div className="field">
-          <div className="ui two fields">
-            <AssignmentGroup name="groupId" classId={this.props.classId} termId={this.props.termId} label="Type"/>
-            <LabeledField name="dueDate" validation="isDate" label="Due Date"/>
-          </div>
-        </div>
-        <LabeledField name="maxScore" validations="isNumeric" validationError="must be a number" label="Out Of"/>
+        <Input name="name" value={assignment.name} label="Name" />
+        <AssignmentGroup name="groupID" value={assignment.groupID} courseID={this.props.courseID} termID={this.props.termID} label="Type"/>
+        <Input name="dueDate" value={assignment.dueDate} validation="isDate" label="Due Date" />
+        <Input name="maxScore" value={assignment.maxScore} validations="isNumeric" validationError="must be a number" label="Out Of" />
       </ModalForm>
-
     );
   }
 });
+
+// <Input  value={assignment.dueDate} validation="isDate" label="Due Date" />
