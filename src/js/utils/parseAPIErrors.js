@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 // parseAPIErrors will parse an error that looks like the following.
 // [{
-//     "fieldNames":["name", "lastName"],
+//     "fieldNames":["name", "last_name"],
 //     "message":"missing required field"
 //   },
 //   {

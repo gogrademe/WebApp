@@ -23,10 +23,10 @@
     },
     title: function(it){
       switch (false) {
-      case !it.middleName:
-        return it.firstName + ' ' + it.middleName + ' ' + it.lastName;
-      case !it.firstName:
-        return it.firstName + ' ' + it.lastName;
+      case !it.middle_name:
+        return it.first_name + ' ' + it.middle_name + ' ' + it.last_name;
+      case !it.first_name:
+        return it.first_name + ' ' + it.last_name;
       default:
         return 'Loading...';
       }

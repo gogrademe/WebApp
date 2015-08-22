@@ -3,7 +3,6 @@
 import request from 'superagent';
 import Promise from 'bluebird';
 import EventEmitter from 'eventemitter3';
-import humps from 'humps';
 
 let toString$ = {}.toString;
 let auth = {
@@ -23,7 +22,7 @@ let promisifyReq = function (req) {
           }
           return reject(res) || error;
         } else {
-          return resolve(humps.camelizeKeys(res.body));
+          return resolve(res.body);
         }
       });
   });
@@ -65,84 +64,82 @@ for (let key in statusByName) {
 let statusByNumber = res$;
 let baseApi = {
   get(id) {
-      var that, this$ = this;
-      switch (false) {
-      case !(that = this.cache[id]):
-        return Promise.resolve(that);
-      default:
-        return baseApi.doGet.call(this, this.type, id).then(function () {
-          return this$.cache[id];
-        }).catch((e, a) => {
-          console.log(e, a);
-        });
-      }
-    },
-    find(opts = {}) {
-      return baseApi.doGet.call(this, this.type, void 8, opts);
-    },
-    update(id, data) {
-      var this$ = this;
-      return baseApi.doPut.call(this, this.type, id, data).then(function () {
+    var that, this$ = this;
+    switch (false) {
+    case !(that = this.cache[id]):
+      return Promise.resolve(that);
+    default:
+      return baseApi.doGet.call(this, this.type, id).then(function () {
         return this$.cache[id];
-      });
-    },
-    create(data) {
-      switch (false) {
-      case !(this.findSimilar && this.findSimilar(data)):
-        return Promise.reject({
-          status: status.conflict,
-          message: 'This ' + this.type + ' already exists'
-        });
-      default:
-        return baseApi.doPost.call(this, this.type, data);
-      }
-    },
-    del(id) {
-      return baseApi.doDel.call(this, this.type, id);
-    },
-    doGet(type, id, opts) {
-      return httpGet(url(this.type, id), opts).then(d => responseToCaches(type, d));
-    },
-    doPost(type, data) {
-      var this$ = this;
-      return httpPost(url(type), data)['catch'](function (it) {
-        var status, ref$, data, ref1$;
-        status = it.status || ((ref$ = it.body) != null ? ref$.status : void 8);
-        data = {
-          statusCode: status,
-          status: statusByNumber[status],
-          message: ((ref1$ = it.body) != null ? ref1$.message : void 8) || statusByName[status]
-        };
-        throw mergeInto(data, it);
-      }).then((d) => responseToCaches(type,d)).then(function (it) {
-        return this$.get(it.id);
-      });
-    },
-    doPut(type, id, data) {
-      var this$ = this;
-      return httpPut(url(this.type, id), data)['catch'](function (it) {
-        var status, ref$, data, ref1$;
-        status = it.status || it.statusCode || ((ref$ = it.body) != null ? ref$.status : void 8);
-        data = {
-          statusCode: status,
-          status: statusByNumber[status],
-          message: ((ref1$ = it.body) != null ? ref1$.message : void 8) || statusByName[status]
-        };
-        throw mergeInto(data, it);
-      }).then((d) => responseToCaches(type,d)).then(function () {
-        return this$.get(data.id);
-      });
-    },
-    doDel(type, id) {
-      return httpDel(url(type, id));
+      }).catch((e, a) => console.log(e, a));
     }
+  },
+  find(opts = {}) {
+    return baseApi.doGet.call(this, this.type, void 8, opts);
+  },
+  update(id, data) {
+    var this$ = this;
+    return baseApi.doPut.call(this, this.type, id, data).then(function () {
+      return this$.cache[id];
+    });
+  },
+  create(data) {
+    switch (false) {
+    case !(this.findSimilar && this.findSimilar(data)):
+      return Promise.reject({
+        status: status.conflict,
+        message: 'This ' + this.type + ' already exists'
+      });
+    default:
+      return baseApi.doPost.call(this, this.type, data);
+    }
+  },
+  del(id) {
+    return baseApi.doDel.call(this, this.type, id);
+  },
+  doGet(type, id, opts) {
+    return httpGet(url(this.type, id), opts).then(d => responseToCaches(type, d));
+  },
+  doPost(type, data) {
+    var this$ = this;
+    return httpPost(url(type), data)['catch'](function (it) {
+      var status, ref$, data, ref1$;
+      status = it.status || ((ref$ = it.body) != null ? ref$.status : void 8);
+      data = {
+        statusCode: status,
+        status: statusByNumber[status],
+        message: ((ref1$ = it.body) != null ? ref1$.message : void 8) || statusByName[status]
+      };
+      throw mergeInto(data, it);
+    }).then((d) => responseToCaches(type,d)).then(function (it) {
+      return this$.get(it.id);
+    });
+  },
+  doPut(type, id, data) {
+    var this$ = this;
+    return httpPut(url(this.type, id), data)['catch'](function (it) {
+      var status, ref$, data, ref1$;
+      status = it.status || it.statusCode || ((ref$ = it.body) != null ? ref$.status : void 8);
+      data = {
+        statusCode: status,
+        status: statusByNumber[status],
+        message: ((ref1$ = it.body) != null ? ref1$.message : void 8) || statusByName[status]
+      };
+      throw mergeInto(data, it);
+    }).then((d) => responseToCaches(type,d)).then(function () {
+      return this$.get(data.id);
+    });
+  },
+  doDel(type, id) {
+    return httpDel(url(type, id));
+  }
 };
 let types = {
   person: {},
   course: {},
   enrollment: {},
   term: {},
-  schoolYear: {},
+  school_year: {},
   assignmentGroup: {},
   assignment: {},
   grade: {},

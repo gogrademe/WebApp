@@ -4,8 +4,6 @@ import cx from 'react/lib/cx';
 
 import Formsy from 'formsy-react';
 
-import LabeledField from './LabeledField';
-
 var TermInput = React.createClass({
     // Add the Formsy Mixin
     mixins: [Formsy.Mixin],
@@ -38,13 +36,13 @@ var TermInput = React.createClass({
         <div className={cx({
           'field': true,
           'required': this.showRequired(),
-          'error':  this.showError()
+          'error': this.showError()
           })}>
           <label>
             {this.props.label}
           </label>
           <div className="two fields">
-            <input name="startDate" onChange={this.changeValue} value={this.getVal("startDate")} validations="isDate" placeholder="Start Date" required/>
+            <input name="startDate" onChange={this.changeValue} value={this.getVal('startDate')} validations="isDate" placeholder="Start Date" required/>
             <input name="endDate" onChange={this.changeValue} validations="isDate" placeholder="End Date" required/>
             {error}
           </div>

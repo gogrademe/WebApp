@@ -13,6 +13,7 @@
   "parser": "babel-eslint",
   "rules": {
     "strict": 0,
+    "camelcase": 0,
     "quotes": [2, "single"],
     "react/jsx-boolean-value": 1,
     "react/jsx-quotes": 1,

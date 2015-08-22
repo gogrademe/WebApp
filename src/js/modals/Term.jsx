@@ -9,14 +9,14 @@ import LabeledField from '../molecules/LabeledField';
 
 export default React.createClass({
   onSubmit(model) {
-    model.schoolYear = Number(model.schoolYear);
+    model.school_year = Number(model.school_year);
     return api.term.create(model);
   },
   render() {
     return (
       <ModalForm {... this.props} title="School Year" onSubmitAsync={this.onSubmit}>
         <LabeledField label="Name" name="name" required placeholder="Term 1" />
-        <LabeledField label="School Year" name="schoolYear" validations="isNumeric" placeholder="End" />
+        <LabeledField label="School Year" name="school_year" validations="isNumeric" placeholder="End" />
       </ModalForm>
     );
   }

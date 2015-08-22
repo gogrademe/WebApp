@@ -14,7 +14,7 @@ var Terms = React.createClass({
         display: 'Name'
     },
     {
-        key: 'schoolYear',
+        key: 'school_year',
         display: 'School Year'
     }
     ],

@@ -57,8 +57,8 @@ var ProfileTypes = React.createClass({
 var AssignmentGroup = React.createClass({
   mixins: [Formsy.Mixin],
   propTypes: {
-    courseID: PropTypes.number.isRequired,
-    termID: PropTypes.number.isRequired
+    course_id: PropTypes.number.isRequired,
+    term_id: PropTypes.number.isRequired
   },
   getInitialState() {
     return {
@@ -67,7 +67,7 @@ var AssignmentGroup = React.createClass({
   },
   componentWillMount() {
     api.assignmentGroup
-      .find({courseID: this.props.courseID, termID: this.props.termID})
+      .find({course_id: this.props.course_id, term_id: this.props.term_id})
       .then(xs => {
         let types = xs.map(function(type){
           return {

@@ -15,13 +15,13 @@ let ClassName = React.createClass({
         value: PropTypes.string
     },
     render(){
-      const termID = this.props.column.term || '';
+      const term_id = this.props.column.term || '';
       return (
         <div>
           <Link
             to='course.grades'
             params={{
-              termID: termID,
+              term_id: term_id,
               resourceID: this.props.row.id}}>
           {this.props.value}
           </Link>
@@ -87,7 +87,7 @@ let ClassList = React.createClass({
             autoload={false}
             data={this.state.terms}
             valueField='id'
-            textField={item => `${item.schoolYear} - ${item.name}`}
+            textField={item => `${item.school_year} - ${item.name}`}
             />
         );
         // return Select({
@@ -97,7 +97,7 @@ let ClassList = React.createClass({
         //   autoload: false,
         //   options: xs.map(function(x){
         //     return {
-        //       label: 'Year ' + (x != null ? x.schoolYear.start : void 8) + '-' + (x != null ? x.schoolYear.end : void 8) + ' - ' + (x != null ? x.name : void 8),
+        //       label: 'Year ' + (x != null ? x.school_year.start : void 8) + '-' + (x != null ? x.school_year.end : void 8) + ' - ' + (x != null ? x.name : void 8),
         //       value: x != null ? x.id : void 8
         //     };
         //   })

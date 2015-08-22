@@ -8,9 +8,9 @@ import LabeledField from '../molecules/LabeledField';
 
 export default React.createClass({
   propTypes: {
-    courseID: React.PropTypes.number,
-    termID: React.PropTypes.number.isRequired,
-    assignmentID: React.PropTypes.number
+    course_id: React.PropTypes.number,
+    term_id: React.PropTypes.number.isRequired,
+    assignment_id: React.PropTypes.number
   },
   getInitialState() {
     return {
@@ -18,17 +18,17 @@ export default React.createClass({
     };
   },
   onSubmit(model) {
-    // model.courseID = Number(this.props.courseID);
-    // model.termID = Number(this.props.termID);
-    // model.dueDate = utils.forUpload(model.dueDate);
-    // model.maxScore = Number(model.maxScore);
+    // model.course_id = Number(this.props.course_id);
+    // model.term_id = Number(this.props.term_id);
+    // model.due_date = utils.forUpload(model.due_date);
+    // model.max_score = Number(model.max_score);
 
     return api.course.create(model);
   },
   componentWillMount() {
-    // if (this.props.assignmentID) {
+    // if (this.props.assignment_id) {
     //   api.assignment
-    //     .get(this.props.assignmentID)
+    //     .get(this.props.assignment_id)
     //     .then(res => this.setState({assignment: res}));
     // }
   },

@@ -8,9 +8,9 @@ import {Input} from 'formsy-react-components';
 
 export default React.createClass({
   propTypes: {
-    courseID: PropTypes.number.isRequired,
-    termID: PropTypes.number.isRequired,
-    groupID: PropTypes.number
+    course_id: PropTypes.number.isRequired,
+    term_id: PropTypes.number.isRequired,
+    group_id: PropTypes.number
   },
   getInitialState() {
     return {
@@ -19,11 +19,11 @@ export default React.createClass({
   },
   onSubmit(model) {
     model.weight = Number(model.weight / 100);
-    model.courseID = Number(this.props.courseID);
-    model.termID = Number(this.props.termID);
+    model.course_id = Number(this.props.course_id);
+    model.term_id = Number(this.props.term_id);
 
-    if (this.props.groupID) {
-      model.id = this.props.groupID;
+    if (this.props.group_id) {
+      model.id = this.props.group_id;
       return api.assignmentGroup.update(model.id, model);
     } else {
       return api.assignmentGroup.create(model);
@@ -32,9 +32,9 @@ export default React.createClass({
 
   },
   componentWillMount() {
-    if (this.props.groupID) {
+    if (this.props.group_id) {
       api.assignmentGroup
-        .get(this.props.groupID)
+        .get(this.props.group_id)
         .then(res => this.setState({group: res}));
     }
   },

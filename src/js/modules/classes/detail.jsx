@@ -14,7 +14,7 @@ let GradeInput = React.createClass({
       this.setValue(event.currentTarget.value);
     },
     getValue() {
-      // return this.props.value / this.props.column.maxScore * 100 || '-';
+      // return this.props.value / this.props.column.max_score * 100 || '-';
       return this.state.value;
     },
     setValue(value) {
@@ -36,8 +36,8 @@ let GradeInput = React.createClass({
       // this.setState({showInput: false});
       if (this.state.value !== this.state.initialValue) {
         api.grade.create({
-          assignmentID: this.props.column.assignmentID,
-          personID: this.props.row.student.personID,
+          assignment_id: this.props.column.assignment_id,
+          person_id: this.props.row.student.person_id,
           score: this.getValue()
         });
       }
@@ -59,7 +59,7 @@ let GradeInput = React.createClass({
             placeholder="score"
             value={this.getValue()}
             onChange={this.changeValue} />
-          <span className="input-group-addon">/ {this.props.column.maxScore}</span>
+          <span className="input-group-addon">/ {this.props.column.max_score}</span>
         </div>
       ) : (<div>{this.getValue()}</div>);
     }
@@ -195,38 +195,38 @@ let ClassDetail = React.createClass({
   getGrades(){
     const params = this.context.router.getCurrentParams();
     api.grade.find({
-      courseID: params.resourceID,
-      termID: params.termID
+      course_id: params.resourceID,
+      term_id: params.term_id
     })
     .then(xs => this.setState({attempts: xs}));
   },
   getStudents(){
     const params = this.context.router.getCurrentParams();
     api.enrollment.find({
-      courseID: params.resourceID,
-      termID: params.termID
+      course_id: params.resourceID,
+      term_id: params.term_id
     })
     .then(xs => this.setState({students: xs}));
   },
   getAssignments(){
     const params = this.context.router.getCurrentParams();
     api.assignment.find({
-      courseID: params.resourceID,
-      termID: params.termID
+      course_id: params.resourceID,
+      term_id: params.term_id
     })
     .then(xs => this.setState({assignments: xs}));
   },
   getAssignmentGroups(){
     const params = this.context.router.getCurrentParams();
     api.assignmentGroup.find({
-      courseID: params.resourceID,
-      termID: params.termID
+      course_id: params.resourceID,
+      term_id: params.term_id
     })
     .then(xs => this.setState({assignmentGroups: xs}));
   },
   buildCols(){
     let cols = [{
-      key: 'student.person.firstName',
+      key: 'student.person.first_name',
       display: 'Student'
     }];
 
@@ -235,8 +235,8 @@ let ClassDetail = React.createClass({
         key: `attempts.${x.id}.latestAttempt.score`,
         editMode: true,
         renderer: GradeInput,
-        assignmentID: x.id,
-        maxScore: x.maxScore,
+        assignment_id: x.id,
+        max_score: x.max_score,
         display: x.name
       });
     }
@@ -255,8 +255,8 @@ let ClassDetail = React.createClass({
     let results = [];
     for (let a of this.state.attempts) {
       const result = {
-        student: this.state.students.find(x => a.personID === x.personID),
-        attempts: a.assignmentAttempts.map((x) => ({key: x.assignmentID, value: x})).reduce(setKeyValue, {}),
+        student: this.state.students.find(x => a.person_id === x.person_id),
+        attempts: a.assignmentAttempts.map((x) => ({key: x.assignment_id, value: x})).reduce(setKeyValue, {}),
         groups: this.state.assignmentGroups
       };
 
@@ -266,7 +266,7 @@ let ClassDetail = React.createClass({
     //   let result = {
     //     student: {
     //       id: s.person.id,
-    //       name: `${s.person.firstName} ${s.person.lastName}`
+    //       name: `${s.person.first_name} ${s.person.last_name}`
     //     },
     //     assignments: {},
     //     groups: this.state.assignmentGroups
@@ -275,8 +275,8 @@ let ClassDetail = React.createClass({
     //
     //   for (let a of this.state.assignments) {
     //     let grade = this.state.grades
-    //       .filter(x => x.assignmentID === a.id)
-    //       .find(x => x.personID === s.personID);
+    //       .filter(x => x.assignment_id === a.id)
+    //       .find(x => x.person_id === s.person_id);
     //
     //     result.assignments[a.id] = {
     //       grade: grade,

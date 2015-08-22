@@ -20,13 +20,13 @@ let StudentActions = React.createClass({
 
 const cols = [
     {
-      key: 'person.firstName',
+      key: 'person.first_name',
       display: 'First Name'
     }, {
-      key: 'person.middleName',
+      key: 'person.middle_name',
       display: 'Middle Name'
     }, {
-      key: 'person.lastName',
+      key: 'person.last_name',
       display: 'Last Name'
     }, {
       key: 'person.gradeLevel',
@@ -47,8 +47,8 @@ let ClassStudents = React.createClass({
     },
     getEnrollments(){
       api.enrollment.find({
-        courseID: this.props.courseID,
-        termID: this.props.termID
+        course_id: this.props.course_id,
+        term_id: this.props.term_id
       }).then(xs => this.setState({students: xs}));
     },
     componentWillMount(){
@@ -63,9 +63,9 @@ let ClassStudents = React.createClass({
     },
     enrollStudent(){
       api.enrollment.create({
-        personID: Number(this.state.selected.id),
-        courseID: Number(this.props.courseID),
-        termID: Number(this.props.termID)
+        person_id: Number(this.state.selected.id),
+        course_id: Number(this.props.course_id),
+        term_id: Number(this.props.term_id)
       });
     },
     render(){
@@ -74,7 +74,7 @@ let ClassStudents = React.createClass({
           <div className="input-group">
             <DropdownList
               valueField='id'
-              textField={item => item.firstName + ' ' + item.lastName}
+              textField={item => item.first_name + ' ' + item.last_name}
               onChange={val => this.setState({selected: val})}
               data={this.state.people}
               placeholder="Student"
@@ -101,7 +101,7 @@ let ClassStudents = React.createClass({
       //   return Option({
       //     key: key,
       //     value: p.id,
-      //     label: p.firstName + " " + p.lastName
+      //     label: p.first_name + " " + p.last_name
       //   });
       // }) : "Loading..."), div({
       //   className: "ui primary button",

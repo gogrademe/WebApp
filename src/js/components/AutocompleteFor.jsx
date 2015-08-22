@@ -69,7 +69,7 @@
           return Option({
             key: rId,
             value: item.id,
-            label: item.name + " - " + item.schoolYear
+            label: item.name + " - " + item.school_year
           });
         });
       } else {

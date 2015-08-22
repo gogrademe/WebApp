@@ -24,9 +24,9 @@ export default React.createClass({
               Name
             </label>
             <div className="row">
-              <LabeledField name="firstName" placeholder="First Name" size="col-xs-4"/>
-              <LabeledField name="middleName" placeholder="Middle Name" required={false} size="col-xs-4"/>
-              <LabeledField name="lastName" placeholder="Last Name" size="col-xs-4"/>
+              <LabeledField name="first_name" placeholder="First Name" size="col-xs-4"/>
+              <LabeledField name="middle_name" placeholder="Middle Name" required={false} size="col-xs-4"/>
+              <LabeledField name="last_name" placeholder="Last Name" size="col-xs-4"/>
             </div>
           </div>
           <LabeledField label="Email" name="email" required={false}/>
@@ -61,9 +61,9 @@ export default React.createClass({
 //               label null,
 //                 "Name"
 //               div class-name: "three fields",
-//                 @input-for 'firstName' placeholder: 'First'
-//                 @input-for 'middleName' placeholder: 'Middle'
-//                 @input-for 'lastName' placeholder: 'Last'
+//                 @input-for 'first_name' placeholder: 'First'
+//                 @input-for 'middle_name' placeholder: 'Middle'
+//                 @input-for 'last_name' placeholder: 'Last'
 //             @input-for 'email' label: 'Email' type: 'email'
 //             div class-name: "field",
 //               label null, "Type"

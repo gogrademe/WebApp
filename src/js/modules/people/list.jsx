@@ -11,20 +11,20 @@ import {filter} from 'prelude-ls';
 
 const customActions = function(props){
   return (
-    <AccountBtn primary={true} icon={true} personID={props.row.id}>
+    <AccountBtn primary={true} icon={true} person_id={props.row.id}>
       <i className="icon settings"/>
     </AccountBtn>
   );
 };
 const cols = [
   {
-    key: 'firstName',
+    key: 'first_name',
     display: 'First Name'
   }, {
-    key: 'middleName',
+    key: 'middle_name',
     display: 'Middle Name'
   }, {
-    key: 'lastName',
+    key: 'last_name',
     display: 'Last Name'
   }, {
     key: 'types',

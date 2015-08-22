@@ -21,7 +21,7 @@ export default (
       <Route name="users" handler={UserList} />
       <Route name="people.detail" path="people/:resourceID" handler={People.Detail} />
       <Route name="course" handler={Classes.List} />
-      <Route path="course/:termID/:resourceID" handler={Classes.View}>
+      <Route path="course/:term_id/:resourceID" handler={Classes.View}>
         <Route name="course.overview" title="Overview" path="overview" handler={Classes.Overview} />
         <Route name="course.grades" title="Grades" path="grades" handler={Classes.Grades} />
         <Route name="course.students" title="Students" path="students" handler={Classes.Students} />

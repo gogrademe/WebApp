@@ -26,13 +26,13 @@ const HeaderNav = React.createClass({
   },
   userDisplayName() {
     const person = this.state.person;
-    return `${person.firstName} ${person.lastName}`;
+    return `${person.first_name} ${person.last_name}`;
   },
   componentWillMount() {
-    const personID = auth.currentUser().personID;
+    const person_id = auth.currentUser().person_id;
 
-    if (personID) {
-      api.person.get(personID).then((it) => {
+    if (person_id) {
+      api.person.get(person_id).then((it) => {
         this.setState({
           person: it
         });

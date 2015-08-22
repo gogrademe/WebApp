@@ -21,24 +21,24 @@ var GradeOverview = React.createClass({
   },
   getGrades(){
     api.grade.find({
-      courseID: this.props.courseID,
-      termID: this.props.termID
+      course_id: this.props.course_id,
+      term_id: this.props.term_id
     }).then((data) => {
       this.setState({grades: data});
     });
   },
   getStudents(){
     api.enrollment.find({
-      courseID: this.props.courseID,
-      termID: this.props.termID
+      course_id: this.props.course_id,
+      term_id: this.props.term_id
     }).then((data) =>{
       this.setState({students: data});
     });
   },
   getAssignments(){
     api.assignment.find({
-      courseID: this.props.courseID,
-      termID: this.props.termID
+      course_id: this.props.course_id,
+      term_id: this.props.term_id
     }).then((data) => {
       this.setState({assignments: data});
     });
@@ -89,15 +89,15 @@ var GradeOverview = React.createClass({
       }
     }
   },
-  gradeFor: function(studentId, assignmentID) {
+  gradeFor: function(studentId, assignment_id) {
     return _.chain(this.state.grades)
       .filter((x) => {
-        // console.log(x, assignmentID);
-        return x.assignmentID === assignmentID;
+        // console.log(x, assignment_id);
+        return x.assignment_id === assignment_id;
       })
       .value();
       // .find((x) => {
-      //     return x.personID == studentId;
+      //     return x.person_id == studentId;
       // }).value();
 
   },
@@ -106,7 +106,7 @@ var GradeOverview = React.createClass({
       var res = {
         student: {
           id: x.person.id,
-          name: x.person.firstName + " " + x.person.lastName
+          name: x.person.first_name + " " + x.person.last_name
         },
         types: {}
       };
@@ -118,7 +118,7 @@ var GradeOverview = React.createClass({
       //     // console.log(type);
       //     console.log(res.student.id, type[0].id);
       //     // res.types[type[0].typeId]
-      //     // console.log(this.gradeFor(res.student.id, type[0].assignmentID))
+      //     // console.log(this.gradeFor(res.student.id, type[0].assignment_id))
       //     // res.types[type[0].typeId] = 100
       //   });
 

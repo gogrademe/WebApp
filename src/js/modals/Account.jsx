@@ -11,7 +11,7 @@ import LabeledField from '../molecules/LabeledField';
 
 export default React.createClass({
   propTypes: {
-    personID: React.PropTypes.number.isRequired
+    person_id: React.PropTypes.number.isRequired
   },
   getInitialState() {
     return {
@@ -22,7 +22,7 @@ export default React.createClass({
     return api.user.create(model);
   },
   fetchPerson() {
-    api.person.get(this.props.personID)
+    api.person.get(this.props.person_id)
       .then((person)=>{
         this.setState({person: person});
       });
@@ -31,7 +31,7 @@ export default React.createClass({
     this.fetchPerson();
   },
   render() {
-    const {firstName, lastName, email} = this.state.person;
+    const {first_name, last_name, email} = this.state.person;
     return (
       <ModalForm {... this.props} title="User Account" onSubmitAsync={this.onSubmit}>
         <div className="field">
@@ -39,7 +39,7 @@ export default React.createClass({
             Name
           </label>
           <span>
-            {firstName} {lastName}
+            {first_name} {last_name}
           </span>
         </div>
         <LabeledField name="email" label="Email" value={email}/>
