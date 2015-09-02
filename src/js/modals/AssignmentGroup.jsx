@@ -24,16 +24,16 @@ export default React.createClass({
 
     if (this.props.group_id) {
       model.id = this.props.group_id;
-      return api.assignmentGroup.update(model.id, model);
+      return api.assignment_group.update(model.id, model);
     } else {
-      return api.assignmentGroup.create(model);
+      return api.assignment_group.create(model);
     }
 
 
   },
   componentWillMount() {
     if (this.props.group_id) {
-      api.assignmentGroup
+      api.assignment_group
         .get(this.props.group_id)
         .then(res => this.setState({group: res}));
     }

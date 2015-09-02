@@ -22,7 +22,7 @@ let ClassName = React.createClass({
             to='course.grades'
             params={{
               term_id: term_id,
-              resourceID: this.props.row.id}}>
+              resourceID: this.props.row.course_id}}>
           {this.props.value}
           </Link>
         </div>
@@ -47,7 +47,7 @@ let ClassList = React.createClass({
       });
       return api.term.find().then(function(it){
         this$.setState({
-          term: it[0].id
+          term: it[0].term_id
         });
         return this$.setState({
           terms: it
@@ -82,11 +82,11 @@ let ClassList = React.createClass({
         return (
           <Select
             className='inline'
-            onChange={val => this.setState({term: val.id})}
+            onChange={val => this.setState({term: val.term_id})}
             value={this.state.term}
             autoload={false}
             data={this.state.terms}
-            valueField='id'
+            valueField='term_id'
             textField={item => `${item.school_year} - ${item.name}`}
             />
         );

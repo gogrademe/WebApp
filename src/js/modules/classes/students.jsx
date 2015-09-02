@@ -9,7 +9,7 @@ import api from '../../api/api';
 let StudentActions = React.createClass({
     unEnroll: function(e){
       e.preventDefault();
-      api.enrollment.del(this.props.row.id);
+      api.enrollment.del(this.props.row.enrollment_id);
     },
     render(){
       return (
@@ -63,7 +63,7 @@ let ClassStudents = React.createClass({
     },
     enrollStudent(){
       api.enrollment.create({
-        person_id: Number(this.state.selected.id),
+        person_id: Number(this.state.selected.person_id),
         course_id: Number(this.props.course_id),
         term_id: Number(this.props.term_id)
       });
@@ -73,7 +73,7 @@ let ClassStudents = React.createClass({
         <div>
           <div className="input-group">
             <DropdownList
-              valueField='id'
+              valueField='person_id'
               textField={item => item.first_name + ' ' + item.last_name}
               onChange={val => this.setState({selected: val})}
               data={this.state.people}

@@ -140,18 +140,19 @@ let types = {
   enrollment: {},
   term: {},
   school_year: {},
-  assignmentGroup: {},
+  assignment_group: {},
   assignment: {},
   grade: {},
   school: {},
   account: {}
 };
-let cacheSet = function (cache, data) {
+let cacheSet = function (type, cache, data) {
+  const id = data[type+"_id"];
   switch (false) {
-  case !cache[data.id]:
-    return mergeInto(data, cache[data.id]);
-  case !data.id:
-    return cache[data.id] = data;
+  case !cache[id]:
+    return mergeInto(data, cache[id]);
+  case !id:
+    return cache[id] = data;
   default:
     throw new Error('cannot set item without id .' + JSON.stringify(data));
   }
@@ -166,7 +167,7 @@ let responseToCaches = function (type, data) {
   }
   for (i$ = 0, len$ = data.length; i$ < len$; ++i$) {
     item = data[i$];
-    cacheSet(types[type].cache, item);
+    cacheSet(type, types[type].cache, item);
   }
 
   return data;

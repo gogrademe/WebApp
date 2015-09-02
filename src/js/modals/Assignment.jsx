@@ -22,7 +22,7 @@ export default React.createClass({
   onSubmit(model) {
     model.course_id = Number(this.props.course_id);
     model.term_id = Number(this.props.term_id);
-    model.group_id = Number(model.group_id);
+    model.assignment_group_id = Number(model.assignment_group_id);
     model.due_date = utils.forUpload(model.due_date);
     model.max_score = Number(model.max_score);
 
@@ -40,7 +40,7 @@ export default React.createClass({
     return (
       <ModalForm {... this.props} title="Assignment" onSubmitAsync={this.onSubmit}>
         <Input name="name" value={assignment.name} label="Name" />
-        <AssignmentGroup name="group_id" value={assignment.group_id} course_id={this.props.course_id} term_id={this.props.term_id} label="Type"/>
+        <AssignmentGroup name="assignment_group_id" value={assignment.assignment_group_id} course_id={this.props.course_id} term_id={this.props.term_id} label="Type"/>
         <Input name="due_date" value={assignment.due_date} validation="isDate" label="Due Date" />
         <Input name="max_score" value={assignment.max_score} validations="isNumeric" validationError="must be a number" label="Out Of" />
       </ModalForm>

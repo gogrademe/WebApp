@@ -31,19 +31,18 @@ let View = React.createClass({
     case !!this.state.course:
       return 'Loading...';
     default:
-      return this.state.course.name + ' - Grade ' + this.state.course.gradeLevel;
+      return this.state.course.name + ' - Grade ' + this.state.course.grade_level;
     }
   },
   renderSecondary(){
     if (!!!this.state.course.term) {return ''; }
-    const term = this.state.course.terms.find(t => t.id == this.props.params.term_id);
+    const term = this.state.course.terms.find(t => t.term_id == this.props.params.term_id);
     return `Year ${term.school_year} - ${term.name}`;
   },
   render(){
-    const ctxParam = this.context.router.getCurrentParams();
-    let params = {
-      term_id: ctxParam.term_id,
-      resourceID: ctxParam.resourceID
+    const params = {
+      term_id: this.props.params.term_id,
+      resourceID: this.props.params.resourceID
     };
     return (
       <div>
@@ -60,8 +59,8 @@ let View = React.createClass({
             </div>
             <div className="col-sm-12 col-md-10">
               <RouteHandler
-                course_id={ctxParam.resourceID}
-                term_id={ctxParam.term_id}
+                course_id={params.resourceID}
+                term_id={params.term_id}
                 terms={this.state.terms}
                 term={this.state.term}
                 />

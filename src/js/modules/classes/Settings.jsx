@@ -53,7 +53,7 @@ export default React.createClass({
     };
   },
   fetch() {
-    api.assignmentGroup
+    api.assignment_group
       .find({course_id: this.props.course_id, term_id: this.props.term_id})
       .then((xs) => {
           this.setState({
@@ -82,10 +82,10 @@ export default React.createClass({
       tdClassName: 'text-right col-md-2'
   }],
   componentDidMount() {
-      api.assignmentGroup.events.addListener('change', this.fetch);
+      api.assignment_group.events.addListener('change', this.fetch);
   },
   componentWillUnmount() {
-      api.assignmentGroup.events.removeListener('change', this.fetch);
+      api.assignment_group.events.removeListener('change', this.fetch);
   },
 
   render() {

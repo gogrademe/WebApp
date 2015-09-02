@@ -218,7 +218,7 @@ let ClassDetail = React.createClass({
   },
   getAssignmentGroups(){
     const params = this.context.router.getCurrentParams();
-    api.assignmentGroup.find({
+    api.assignment_group.find({
       course_id: params.resourceID,
       term_id: params.term_id
     })

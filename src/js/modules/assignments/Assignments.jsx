@@ -16,7 +16,7 @@ const AssignmentEdit = React.createClass({
             label='Edit'
             course_id={this.props.row.course_id}
             term_id={this.props.row.term_id}
-            assignment_id={this.props.row.id}
+            assignment_id={this.props.row.assignment_id}
             className='btn btn-primary'/>
         </div>
       );
@@ -64,11 +64,11 @@ var ClassAssignments = React.createClass({
   },
   componentDidMount(){
     api.assignment.events.addListener('change', this.getAssignments);
-    api.assignmentGroup.events.addListener('change', this.getAssignments);
+    api.assignment_group.events.addListener('change', this.getAssignments);
   },
   componentWillUnmount(){
     api.assignment.events.removeListener('change', this.getAssignments);
-    api.assignmentGroup.events.removeListener('change', this.getAssignments);
+    api.assignment_group.events.removeListener('change', this.getAssignments);
   },
   componentWillMount(){
     this.getAssignments();
