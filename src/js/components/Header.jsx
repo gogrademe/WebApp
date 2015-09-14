@@ -4,7 +4,7 @@ import Router from 'react-router';
 import {
   Navbar,
   Nav,
-  DropdownButton,
+  NavDropdown,
   CollapsibleNav
 } from 'react-bootstrap';
 
@@ -61,11 +61,11 @@ const HeaderNav = React.createClass({
             </NavItemLink>
           </Nav>
           <Nav navbar right>
-            <DropdownButton title={this.userDisplayName()}>
+            <NavDropdown title={this.userDisplayName()} id='account-dropdown'>
               <NavItemLink to="logout">
                 Logout
               </NavItemLink>
-            </DropdownButton>
+            </NavDropdown>
           </Nav>
         </CollapsibleNav>
       </Navbar>
