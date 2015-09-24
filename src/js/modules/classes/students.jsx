@@ -42,7 +42,8 @@ const cols = [
 let ClassStudents = React.createClass({
     getInitialState(){
       return {
-        students: []
+        students: [],
+        people: []
       };
     },
     getEnrollments(){
@@ -76,6 +77,7 @@ let ClassStudents = React.createClass({
               valueField='person_id'
               textField={item => item.first_name + ' ' + item.last_name}
               onChange={val => this.setState({selected: val})}
+              value={this.state.selected}
               data={this.state.people}
               placeholder="Student"
               filter='contains' />

@@ -18,7 +18,7 @@ const AssignmentEdit = React.createClass({
             label='Edit'
             course_id={this.props.row.course_id}
             term_id={this.props.row.term_id}
-            group_id={this.props.row.id}
+            group_id={this.props.row.group_id}
             className='btn btn-primary'/>
         </div>
       );
@@ -53,7 +53,7 @@ export default React.createClass({
     };
   },
   fetch() {
-    api.assignment_group
+    api.group
       .find({course_id: this.props.course_id, term_id: this.props.term_id})
       .then((xs) => {
           this.setState({
@@ -82,10 +82,10 @@ export default React.createClass({
       tdClassName: 'text-right col-md-2'
   }],
   componentDidMount() {
-      api.assignment_group.events.addListener('change', this.fetch);
+      api.group.events.addListener('change', this.fetch);
   },
   componentWillUnmount() {
-      api.assignment_group.events.removeListener('change', this.fetch);
+      api.group.events.removeListener('change', this.fetch);
   },
 
   render() {

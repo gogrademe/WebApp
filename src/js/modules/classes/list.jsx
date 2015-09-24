@@ -62,7 +62,7 @@ let ClassList = React.createClass({
           renderer: ClassName,
           term: this.state.term
         }, {
-          key: 'gradeLevel',
+          key: 'grade_level',
           display: 'Grade Level'
         }, {
           display: '',

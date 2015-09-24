@@ -23,17 +23,17 @@ export default React.createClass({
     model.term_id = Number(this.props.term_id);
 
     if (this.props.group_id) {
-      model.id = this.props.group_id;
-      return api.assignment_group.update(model.id, model);
+      model.group_id = this.props.group_id;
+      return api.group.update(model.group_id, model);
     } else {
-      return api.assignment_group.create(model);
+      return api.group.create(model);
     }
 
 
   },
   componentWillMount() {
     if (this.props.group_id) {
-      api.assignment_group
+      api.group
         .get(this.props.group_id)
         .then(res => this.setState({group: res}));
     }

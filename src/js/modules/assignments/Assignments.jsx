@@ -64,11 +64,11 @@ var ClassAssignments = React.createClass({
   },
   componentDidMount(){
     api.assignment.events.addListener('change', this.getAssignments);
-    api.assignment_group.events.addListener('change', this.getAssignments);
+    api.group.events.addListener('change', this.getAssignments);
   },
   componentWillUnmount(){
     api.assignment.events.removeListener('change', this.getAssignments);
-    api.assignment_group.events.removeListener('change', this.getAssignments);
+    api.group.events.removeListener('change', this.getAssignments);
   },
   componentWillMount(){
     this.getAssignments();

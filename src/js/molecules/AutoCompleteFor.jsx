@@ -66,12 +66,12 @@ var AssignmentGroup = React.createClass({
     };
   },
   componentWillMount() {
-    api.assignment_group
+    api.group
       .find({course_id: this.props.course_id, term_id: this.props.term_id})
       .then(xs => {
         let types = xs.map(function(type){
           return {
-            value: type.assignment_group_id,
+            value: type.group_id,
             label: type.name
           };
         });

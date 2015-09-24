@@ -140,9 +140,9 @@ let types = {
   enrollment: {},
   term: {},
   school_year: {},
-  assignment_group: {},
+  group: {},
   assignment: {},
-  grade: {},
+  attempt: {},
   school: {},
   account: {}
 };
@@ -160,7 +160,7 @@ let cacheSet = function (type, cache, data) {
 let responseToCaches = function (type, data) {
   var i$, len$, item;
   if (data === null) {
-    return;
+    return [];
   }
   if (!Array.isArray(data)) {
     data = [data];

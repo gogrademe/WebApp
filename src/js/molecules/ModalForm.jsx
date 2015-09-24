@@ -10,7 +10,7 @@ import parseAPIErrors from '../utils/parseAPIErrors';
 export default React.createClass({
   propTypes: {
     onSubmit: PropTypes.func,
-    onRequestHide: PropTypes.func,
+    onHide: PropTypes.func,
     onSubmitAsync: PropTypes.func
   },
   getDefaultProps() {
@@ -37,7 +37,7 @@ export default React.createClass({
     if (this.props.onSubmitAsync !== undefined) {
       this.props.onSubmitAsync(model)
         .then(() => {
-          this.props.onRequestHide();
+          this.props.onHide();
         })
         .error((res) => {
           let parsedErrs = parseAPIErrors(res.body);
@@ -56,13 +56,16 @@ export default React.createClass({
 
     return (
       <Modal {...props} bsStyle="primary">
-        <div className="modal-body">
+        <Modal.Header closeButton>
+          <Modal.Title>{props.title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <Formsy.Form ref="form" className="form-horizontal" onSubmit={this.onSubmitPushed} onValid={this.enableButton} onInvalid={this.disableButton}>
             {children}
           </Formsy.Form>
-        </div>
-        <div className="modal-footer">
-          <a className="btn btn-default" onClick={this.props.onRequestHide}>
+        </Modal.Body>
+        <Modal.Footer>
+          <a className="btn btn-default" onClick={this.props.onHide}>
             <i className="cancel icon" />
             Cancel
           </a>
@@ -75,7 +78,7 @@ export default React.createClass({
             <i className="save icon" />
             Save
           </a>
-        </div>
+        </Modal.Footer>
       </Modal>
     );
   }

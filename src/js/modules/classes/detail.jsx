@@ -35,7 +35,7 @@ let GradeInput = React.createClass({
 
       // this.setState({showInput: false});
       if (this.state.value !== this.state.initialValue) {
-        api.grade.create({
+        api.attempt.create({
           assignment_id: this.props.column.assignment_id,
           person_id: this.props.row.student.person_id,
           score: this.getValue()
@@ -194,7 +194,7 @@ let ClassDetail = React.createClass({
   },
   getGrades(){
     const params = this.context.router.getCurrentParams();
-    api.grade.find({
+    api.attempt.find({
       course_id: params.resourceID,
       term_id: params.term_id
     })
@@ -218,7 +218,7 @@ let ClassDetail = React.createClass({
   },
   getAssignmentGroups(){
     const params = this.context.router.getCurrentParams();
-    api.assignment_group.find({
+    api.group.find({
       course_id: params.resourceID,
       term_id: params.term_id
     })
@@ -226,13 +226,14 @@ let ClassDetail = React.createClass({
   },
   buildCols(){
     let cols = [{
-      key: 'student.person.first_name',
+      key: 'student.display_name',
       display: 'Student'
     }];
 
     for (let x of this.state.assignments) {
       cols.push({
-        key: `attempts.${x.id}.latestAttempt.score`,
+        // key: `attempts.${x.id}.latestAttempt.score`,
+        key: 'score',
         editMode: true,
         renderer: GradeInput,
         assignment_id: x.id,
@@ -288,19 +289,25 @@ let ClassDetail = React.createClass({
     return results;
   },
   componentWillMount() {
-    api.grade.events.addListener('change', this.getGrades);
-    this.getGrades();
+    api.attempt.events.addListener('change', this.getGrades);
+    const params = this.context.router.getCurrentParams();
+    api.attempt.find({
+      course_id: params.resourceID,
+      term_id: params.term_id
+    })
+    .then(xs => this.setState({attempts: xs}));
+    // this.getGrades();
     this.getAssignments();
-    this.getAssignmentGroups();
-    this.getStudents();
+    // this.getAssignmentGroups();
+    // this.getStudents();
   },
   componentWillUnmount(){
-    api.grade.events.removeListener('change', this.getGrades);
+    api.attempt.events.removeListener('change', this.getGrades);
   },
   render(){
     return (
       <div>
-        <Grid columns={this.buildCols()} data={this.buildData()} />
+        <Grid columns={this.buildCols()} data={this.state.attempts} />
       </div>
     );
 

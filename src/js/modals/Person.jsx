@@ -1,15 +1,12 @@
 
-/** @flow */
-
 import React from 'react';
 
 import api from '../api/api';
 
-//Molecules
+import AutocompleteFor from '../molecules/AutoCompleteFor.jsx';
 import ModalForm from '../molecules/ModalForm';
 import LabeledField from '../molecules/LabeledField';
-
-import AutocompleteFor from '../molecules/AutoCompleteFor.jsx';
+import {Input} from 'formsy-react-components';
 
 export default React.createClass({
   onSubmit(model) {
@@ -18,58 +15,12 @@ export default React.createClass({
   render() {
     return (
       <ModalForm {... this.props} title="Person" onSubmitAsync={this.onSubmit}>
-        <div>
-          <div className="form-group">
-            <label>
-              Name
-            </label>
-            <div className="row">
-              <LabeledField name="first_name" placeholder="First Name" size="col-xs-4"/>
-              <LabeledField name="middle_name" placeholder="Middle Name" required={false} size="col-xs-4"/>
-              <LabeledField name="last_name" placeholder="Last Name" size="col-xs-4"/>
-            </div>
-          </div>
-          <LabeledField label="Email" name="email" required={false}/>
-          <AutocompleteFor.ProfileTypes label="Types" name="types" placeholder="First Name"/>
-
-        </div>
+        <Input name="first_name" label="First Name" required/>
+        <Input name="middle_name" label="Middle Name"/>
+        <Input name="last_name" label="Last Name" required/>
+        <Input name="email" label="Email"/>
+        <AutocompleteFor.ProfileTypes label="Types" name="types" required/>
       </ModalForm>
     );
   }
 });
-// <AutocompleteFor.ProfileTypes name="types"/>
-
-
-//   render-student-section: ->
-//     #if @state.data.types.index-of('Student') > -1 then
-//     if 'Student' in @state.data.types then
-//       div class-name: "field",
-//         h4 class-name: "ui dividing header",
-//           "Student Info"
-//         div class-name: "field",
-//           label null, "Grade Level"
-//           @updatable-for AutocompleteFor.GradeLevel, "gradeLevel", null
-//
-//   render: ->
-//     @transfer-props-to do
-//       Modal.SemanticModal title: "Create Person",
-//         div class-name: "content",
-//           form class-name: "ui form",
-//             h4 class-name: "ui dividing header",
-//               "Personal Info"
-//             div class-name: "field",
-//               label null,
-//                 "Name"
-//               div class-name: "three fields",
-//                 @input-for 'first_name' placeholder: 'First'
-//                 @input-for 'middle_name' placeholder: 'Middle'
-//                 @input-for 'last_name' placeholder: 'Last'
-//             @input-for 'email' label: 'Email' type: 'email'
-//             div class-name: "field",
-//               label null, "Type"
-//               @updatable-for AutocompleteFor.ProfileTypes, "types", null
-//             @render-student-section!
-//             @actions on-submit: @handle-submit, on-cancel: @props.on-request-hide
-//               #FormFor.Input label: "Grade Level" obj-id: "student.gradeLevel"
-//
-// module.exports = PersonModal

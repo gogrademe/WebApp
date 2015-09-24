@@ -20,7 +20,7 @@ var GradeOverview = React.createClass({
     };
   },
   getGrades(){
-    api.grade.find({
+    api.attempt.find({
       course_id: this.props.course_id,
       term_id: this.props.term_id
     }).then((data) => {
@@ -132,10 +132,10 @@ var GradeOverview = React.createClass({
     this.getStudents();
   },
   componentDidMount() {
-    api.grade.events.addListener("change", this.getGrades);
+    api.attempt.events.addListener("change", this.getGrades);
   },
   componentWillUnmount(){
-    api.grade.events.removeListener("change", this.getGrades);
+    api.attempt.events.removeListener("change", this.getGrades);
   },
   render(){
     return (

@@ -15,7 +15,7 @@
     },
     componentWillMount(){
       var this$ = this;
-      return api.assignment_group.find().then(function(it){
+      return api.group.find().then(function(it){
         return this$.setState({
           types: it
         });
