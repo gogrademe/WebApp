@@ -111,7 +111,7 @@ let ClassList = React.createClass({
       return (
         <div>
           <Header
-            primary='All Classes'
+            primary='All Courses'
             right={this.rightButtons()}/>
           <div>
             <Grid

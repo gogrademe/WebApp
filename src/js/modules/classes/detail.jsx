@@ -2,6 +2,8 @@
 import React from 'react';
 import {Grid} from '../../components/NewTable';
 import api from '../../api/api';
+import { loadAssignments } from '../../actions';
+import { connect } from 'react-redux';
 
 let GradeInput = React.createClass({
     getInitialState() {
@@ -179,6 +181,10 @@ let GradeAverage = React.createClass({
   }
 });
 
+// function loadData(props) {
+//   props.loadAssignments();
+// }
+
 let ClassDetail = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
@@ -192,14 +198,14 @@ let ClassDetail = React.createClass({
       editColumn: null
     };
   },
-  getGrades(){
-    const params = this.context.router.getCurrentParams();
-    api.attempt.find({
-      course_id: params.resourceID,
-      term_id: params.term_id
-    })
-    .then(xs => this.setState({attempts: xs}));
-  },
+  // getGrades(){
+  //   const params = this.context.router.getCurrentParams();
+  //   api.attempt.find({
+  //     course_id: params.resourceID,
+  //     term_id: params.term_id
+  //   })
+  //   .then(xs => this.setState({attempts: xs}));
+  // },
   getStudents(){
     const params = this.context.router.getCurrentParams();
     api.enrollment.find({
@@ -252,45 +258,41 @@ let ClassDetail = React.createClass({
   },
 
   buildData(){
-    const setKeyValue = (obj, {key, value}) => {obj[key] = value; return obj; };
+    // const setKeyValue = (obj, {key, value}) => {obj[key] = value; return obj; };
     let results = [];
-    for (let a of this.state.attempts) {
-      const result = {
-        student: this.state.students.find(x => a.person_id === x.person_id),
-        attempts: a.assignmentAttempts.map((x) => ({key: x.assignment_id, value: x})).reduce(setKeyValue, {}),
-        groups: this.state.assignmentGroups
-      };
-
-      results.push(result);
-    }
-    // for (let s of this.state.students) {
-    //   let result = {
-    //     student: {
-    //       id: s.person.id,
-    //       name: `${s.person.first_name} ${s.person.last_name}`
-    //     },
-    //     assignments: {},
+    // for (let a of this.state.attempts) {
+    //   const result = {
+    //     student: this.state.students.find(x => a.person_id === x.person_id),
+    //     attempts: a.assignmentAttempts.map((x) => ({key: x.assignment_id, value: x})).reduce(setKeyValue, {}),
     //     groups: this.state.assignmentGroups
     //   };
     //
-    //
-    //   for (let a of this.state.assignments) {
-    //     let grade = this.state.grades
-    //       .filter(x => x.assignment_id === a.id)
-    //       .find(x => x.person_id === s.person_id);
-    //
-    //     result.assignments[a.id] = {
-    //       grade: grade,
-    //       assignment: a
-    //     };
-    //   }
     //   results.push(result);
     // }
+    for (let s of this.state.students) {
+      let result = {
+        student: s.person,
+        assignments: {}
+      };
+
+      for (let a of this.state.assignments) {
+        let grade = this.state.attempts
+          .filter(x => x.assignment_id === a.assignment_id)
+          .find(x => x.person_id === s.person_id);
+        console.log(s,a,grade);
+        result.assignments[a.assignment_id] = {
+          grade: grade,
+          assignment: a
+        };
+      }
+      results.push(result);
+    }
     return results;
   },
   componentWillMount() {
-    api.attempt.events.addListener('change', this.getGrades);
-    const params = this.context.router.getCurrentParams();
+    // loadData(this.props);
+    // api.attempt.events.addListener('change', this.getGrades);
+    const params = this.props.params;
     api.attempt.find({
       course_id: params.resourceID,
       term_id: params.term_id
@@ -299,18 +301,47 @@ let ClassDetail = React.createClass({
     // this.getGrades();
     this.getAssignments();
     // this.getAssignmentGroups();
-    // this.getStudents();
+    this.getStudents();
   },
   componentWillUnmount(){
-    api.attempt.events.removeListener('change', this.getGrades);
+    // api.attempt.events.removeListener('change', this.getGrades);
   },
   render(){
     return (
       <div>
-        <Grid columns={this.buildCols()} data={this.state.attempts} />
+        <Grid columns={this.buildCols()} data={this.buildData()} />
       </div>
     );
 
   }
 });
-module.exports = ClassDetail;
+
+// function mapStateToProps(state, ownProps) {
+//   const { login, name } = ownProps.params;
+//   const {
+//     pagination: { stargazersByRepo },
+//     entities: { users, repos }
+//   } = state;
+//
+//   const fullName = `${login}/${name}`;
+//   const stargazersPagination = stargazersByRepo[fullName] || { ids: [] };
+//   const stargazers = stargazersPagination.ids.map(id => users[id]);
+//
+//   return {
+//     fullName,
+//     name,
+//     stargazers,
+//     stargazersPagination,
+//     repo: repos[fullName],
+//     owner: users[login]
+//   };
+// }
+function select(state) {
+  return {
+    assign: loadAssignments()
+  };
+}
+
+export default connect(select)(ClassDetail);
+
+// module.exports = ClassDetail;
