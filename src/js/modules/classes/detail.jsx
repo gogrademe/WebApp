@@ -2,7 +2,7 @@
 import React from 'react';
 import {Grid} from '../../components/NewTable';
 import api from '../../api/api';
-import { loadAssignments } from '../../actions';
+import { loadAssignments, loadGradebook } from '../../actions';
 import { connect } from 'react-redux';
 
 let GradeInput = React.createClass({
@@ -189,6 +189,9 @@ let ClassDetail = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
+  propTypes: {
+    assignments: React.PropTypes.object.isRequired,
+  },
   getInitialState(){
     return {
       students: [],
@@ -232,17 +235,16 @@ let ClassDetail = React.createClass({
   },
   buildCols(){
     let cols = [{
-      key: 'student.display_name',
+      key: 'student.person.display_name',
       display: 'Student'
     }];
 
     for (let x of this.state.assignments) {
       cols.push({
-        // key: `attempts.${x.id}.latestAttempt.score`,
-        key: 'score',
+        key: `assignments.${x.assignment_id}.grade.score`,
         editMode: true,
         renderer: GradeInput,
-        assignment_id: x.id,
+        assignment_id: x.assignment_id,
         max_score: x.max_score,
         display: x.name
       });
@@ -271,7 +273,7 @@ let ClassDetail = React.createClass({
     // }
     for (let s of this.state.students) {
       let result = {
-        student: s.person,
+        student: s,
         assignments: {}
       };
 
@@ -279,7 +281,6 @@ let ClassDetail = React.createClass({
         let grade = this.state.attempts
           .filter(x => x.assignment_id === a.assignment_id)
           .find(x => x.person_id === s.person_id);
-        console.log(s,a,grade);
         result.assignments[a.assignment_id] = {
           grade: grade,
           assignment: a
@@ -289,10 +290,16 @@ let ClassDetail = React.createClass({
     }
     return results;
   },
+  componentDidMount() {
+
+  },
   componentWillMount() {
+    const params = this.props.params;
+    this.props.loadAssignments();
+    this.props.loadGradebook(params.resourceID,params.term_id);
     // loadData(this.props);
     // api.attempt.events.addListener('change', this.getGrades);
-    const params = this.props.params;
+
     api.attempt.find({
       course_id: params.resourceID,
       term_id: params.term_id
@@ -336,12 +343,16 @@ let ClassDetail = React.createClass({
 //     owner: users[login]
 //   };
 // }
-function select(state) {
-  return {
-    assign: loadAssignments()
-  };
-}
+// function select(state) {
+//   return {
+//     assign: loadAssignments()
+//   };
+// }
+// //
+// export default connect(select)(ClassDetail);
 
-export default connect(select)(ClassDetail);
-
+export default connect(state => ({
+  assignments: state.entities.assignments,
+  attempts: state.entities.attempts
+}),{loadAssignments,loadGradebook})(ClassDetail)
 // module.exports = ClassDetail;

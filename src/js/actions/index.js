@@ -1,24 +1,40 @@
 import { CALL_API, Schemas } from '../middleware/api';
 
+export const GRADEBOOK_REQUEST = 'GRADEBOOK_REQUEST';
+export const GRADEBOOK_SUCCESS = 'GRADEBOOK_SUCCESS';
+export const GRADEBOOK_FAILURE = 'GRADEBOOK_FAILURE';
+
+function fetchGradebook(courseId,termId) {
+  return {
+    [CALL_API]: {
+      types: [GRADEBOOK_REQUEST, GRADEBOOK_SUCCESS, GRADEBOOK_FAILURE],
+      endpoint: `course/${courseId}/term/${termId}/gradebook`,
+      schema: Schemas.ATTEMPT_ARRAY
+    }
+  };
+}
+
+export function loadGradebook(courseId,termId) {
+  return (dispatch, getState) => {
+    return dispatch(fetchGradebook(courseId,termId));
+  };
+}
+
+
 export const ASSIGNMENT_REQUEST = 'ASSIGNMENT_REQUEST';
 export const ASSIGNMENT_SUCCESS = 'ASSIGNMENT_SUCCESS';
 export const ASSIGNMENT_FAILURE = 'ASSIGNMENT_FAILURE';
 
-// Fetches a single user from Github API.
-// Relies on the custom API middleware defined in ../middleware/api.js.
 function fetchAssignments() {
   return {
     [CALL_API]: {
       types: [ASSIGNMENT_REQUEST, ASSIGNMENT_SUCCESS, ASSIGNMENT_FAILURE],
       endpoint: `assignment`,
-      schema: Schemas.ASSIGNMENT
+      schema: Schemas.ASSIGNMENT_ARRAY
     }
   };
 }
 
-// Fetches a page of stargazers for a particular repo.
-// Bails out if page is cached and user didn’t specifically request next page.
-// Relies on Redux Thunk middleware.
 export function loadAssignments() {
   return (dispatch, getState) => {
     return dispatch(fetchAssignments());

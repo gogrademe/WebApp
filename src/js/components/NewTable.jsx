@@ -27,7 +27,7 @@ let formatVal = function(val, format){
     case 'decimalPercent':
       return Math.round(val * 100) || '';
     case val === undefined:
-      return "empty";
+      return 'empty';
     default:
       return val;
     }
@@ -103,8 +103,6 @@ let Grid = React.createClass({
       return column.renderer || StringRenderer;
     },
     renderHeader: function(obj, index){
-      // const Header = obj.display;
-      //{obj.display || obj.key}
       return (
         <th key={'col-' + index}
           className={obj.className}>
@@ -130,13 +128,9 @@ let CrudActions = React.createClass({
       return api[this.props.column.resourceType].del(this.props.row.id);
     },
     render(){
-      // const EditButton = this.props.editButton || (<span></span>);
       return (
         <DeleteBtn onClick={this.handleDelete}/>
       );
-      // return div(null, DeleteBtn({
-      //   onClick: this['delete']
-      // }), typeof (ref$ = this.props.column).customActions == 'function' ? ref$.customActions(this.props) : void 8);
     }
 });
 

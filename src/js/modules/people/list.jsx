@@ -11,7 +11,7 @@ import {filter} from 'prelude-ls';
 
 const customActions = function(props){
   return (
-    <AccountBtn primary={true} icon={true} person_id={props.row.id}>
+    <AccountBtn primary icon person_id={props.row.id}>
       <i className="icon settings"/>
     </AccountBtn>
   );
@@ -87,10 +87,6 @@ let PeopleList = React.createClass({
         {name}
       </div>
     );
-    // return div({
-    //   className: btnClassName,
-    //   onClick: setActive
-    // }, name);
   },
   renderGridTop(){
     return (

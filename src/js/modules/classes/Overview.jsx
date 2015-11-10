@@ -61,14 +61,14 @@ var GradeOverview = React.createClass({
   buildCols(){
     var i$, ref$, len$, x;
     var cols = [{
-      key: "student.name",
-      display: "Student",
+      key: 'student.name',
+      display: 'Student',
     }];
 
     _(this.groupTypes())
       .forEach((x, key) => {
         cols.push({
-          key: "types." + x.id,
+          key: 'types.' + x.id,
           display: x.name
         });
       });
@@ -77,15 +77,15 @@ var GradeOverview = React.createClass({
   },
   whatItShouldLookLike: {
     student: {
-      id: "Something",
-      name: "Jake Price"
+      id: 'Something',
+      name: 'Jake Price'
     },
     types: {
       typeId1: {
-        total: "100%"
+        total: '100%'
       },
       typeId2: {
-        total: "100%"
+        total: '100%'
       }
     }
   },
@@ -132,10 +132,10 @@ var GradeOverview = React.createClass({
     this.getStudents();
   },
   componentDidMount() {
-    api.attempt.events.addListener("change", this.getGrades);
+    api.attempt.events.addListener('change', this.getGrades);
   },
   componentWillUnmount(){
-    api.attempt.events.removeListener("change", this.getGrades);
+    api.attempt.events.removeListener('change', this.getGrades);
   },
   render(){
     return (

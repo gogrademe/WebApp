@@ -23,8 +23,15 @@ const API_ROOT = 'http://localhost:5000/';
 // This makes every API response have the same shape, regardless of how nested it was.
 function callApi(endpoint, schema) {
   const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint;
+  const opts = {
+    headers: {
+      'Authorization': `Bearer ${localStorage.token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  };
 
-  return fetch(fullUrl)
+  return fetch(fullUrl,opts)
     .then(response =>
       response.json().then(json => ({ json, response }))
     ).then(({ json, response }) => {
@@ -53,9 +60,18 @@ const attemptSchema = new Schema('attempts', {
   idAttribute: 'attemptId'
 });
 
+const groupSchema = new Schema('groups', {
+  idAttribute: 'groupId'
+});
+
 const assignmentSchema = new Schema('assignments', {
   idAttribute: 'assignmentId'
 });
+
+assignmentSchema.define({
+  group: groupSchema
+});
+
 
 const userSchema = new Schema('users', {
   idAttribute: 'login'
@@ -75,6 +91,8 @@ export const Schemas = {
   ATTEMPT_ARRAY: arrayOf(attemptSchema),
   ASSIGNMENT: assignmentSchema,
   ASSIGNMENT_ARRAY: arrayOf(assignmentSchema),
+  GROUP: groupSchema,
+  GROUP_ARRAY: arrayOf(groupSchema),
   USER: userSchema,
   USER_ARRAY: arrayOf(userSchema),
   REPO: repoSchema,
