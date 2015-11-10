@@ -1,145 +1,121 @@
-@import "../semantic/src/semantic.less";
-@import "grid";
-@import "datepicker";
+@import "~bootstrap/less/bootstrap.less";
 
-// @import "pikaday";
+@import "~react-select/less/select.less";
 
-@import "~react-select/less/default.less";
+@import "~react-widgets/lib/less/react-widgets.less";
+@rw-font-path: "~react-widgets/lib/fonts/";
 
-// This is required to make 'rem' work properly.
-html, body {
- font-size: 14px;
-}
+@border-radius-base: 0;
 
 body {
-  background: #FFF;
+    background-color: @brand-primary;
+}
+.main.container {
+    padding-top: 50px;
+    padding-bottom: 15px;
+    background-color: white;
 }
 
-.main .ui.table,
-.main .ui.segment,
-.main .ui.table.attached,
-.main .ui.attached.segment,
-.main .ui.attached.header, {
-  border: none;
-  box-shadow: 0 0 3px #dadada;
-  border-radius: 4px;
-}
+nav.app-nav {
+    &:extend(
+        .navbar all,
+        .navbar-default all,
+        .navbar-fixed-top all);
 
-.ui.top.attached.segment, {
-  border-radius: 4px 4px 0 0;
-}
+    background-color: @brand-primary;
+    border-bottom: 0;
+    margin-bottom: 0;
 
-.main .ui.segment.fitted {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-.ui.action.input .ui.search input {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0px;
-  margin-bottom: 1px;
-}
-
-.full.height {
-  padding-bottom: 2rem;
-}
-
-.main .ui.menu:not(.main) {
-  box-shadow: 0 0 3px #dadada;
-  border-radius: 4px;
-}
-
-.main.menu {
-  top: 0px;
-}
-
-.page {
-  padding-top: 2.5em;
-}
-
-.login.container {
-  max-width: 320px;
-  width: auto;
-}
-
-.container {
-  max-width: 980px;
-  margin: 0px auto;
-  position: relative;
-}
-
-.header.segment {
-  margin: 0em;
-  padding-top: 1em;
-  padding-bottom: 1em;
-  margin-bottom: 1em;
-  background-color: #FFF;
-  border-bottom: 1px solid #DDD;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-
-  h3 {
-    span {
-      padding-right: .5em;
+    .navbar-brand {
+        &:hover {color: darken(white, 15%);}
+        color: white;
     }
+    .navbar-nav {
+        font-weight:500;
+
+        & > li > a {
+            &:hover {color: darken(white, 15%);}
+            color: white;
+        }
+        & > .active > a,
+        & > .active > a:focus {
+            background-color: white;
+            color: @brand-primary;
+        }
+    }
+}
+
+.grade-input:extend(.input-group all) {
+  border: 1px solid #cccccc;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  border-radius:3px;
+
+  .form-control {
+    max-width: 50px;
+    text-align: right;
+    border-radius: @border-radius-base;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background-color: transparent;
+
   }
-  .right.actions {
-    margin-left: 0;
-    margin-right: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
+  .input-group-addon,
+  .input-group-btn {
+    background-color: transparent;
+    padding: 5px;
+    width: 10px;
+    border: 0;
   }
-
 }
 
-.ui.modal .content .actions {
-  margin-left: -2em;
-  margin-right: -2em;
-  margin-bottom: -2em;
+.page-header {
+    background-color: white;
+    margin: 20px 0 15px;
 }
 
-.ui.fitted.segment .button {
-  margin-right: 0;
+.form-control {
+    border-color: @gray-lighter
+    // background-color: @gray-lighter;
+    // border: 0;
+    // color: white;
+    // background-color: @brand-primary;
 }
 
-.ui.menu .item.title {
-  padding-left: 0;
+.card-container.card {
+    width: 350px;
+    // padding: 40px 40px;
+    padding: 20px;
 }
 
-.ui.search .results {
-  max-height: 6em;
-  overflow-y: scroll !important;
+// .btn {
+//     font-weight: 700;
+//     height: 36px;
+//     user-select: none;
+//     cursor: default;
+// }
+
+.card {
+    background-color: white;
+    /* just in case there no content*/
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    // margin-top: 50px;
+    border-radius: 2px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.ui.very.basic.table td > div {
-    margin-right: .8em;
+.profile-img-card {
+    height: 124px;
+    width: 124px;
+    margin: 0 auto 10px;
+    display: block;
 }
 
-.icon.logo {
-  z-index: 502;
-  position: relative;
-  overflow: hidden;
-  width: 2rem;
-  height: 2rem;
-  -webkit-transition: width .5s .2s cubic-bezier(0.175,.885,.32,1);
-  transition: width .5s .2s cubic-bezier(0.175,.885,.32,1);
+.main .table td {
+   vertical-align: middle;
 }
 
-.icon.wrapper {
-  width: 2rem;
-  height: 2rem;
-}
-
-.Icon-container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.ui.modal > table {
-  border: none;
-  border-radius: 0;
-  margin: 0;
+.table {
+  margin-bottom: 0;
 }

@@ -1,15 +1,13 @@
 FROM gliderlabs/alpine
-RUN apk-install nginx
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 COPY . /usr/src/app/
 
-RUN mkdir build \
-  && apk-install -t build-deps nodejs build-base python \
+RUN apk-install -t build-deps nodejs build-base git python \
   && npm install -g npm \
   && npm install \
-  && ./node_modules/gulp/bin/gulp.js --release \
+  && npm run build \
   && npm cache clean \
   && apk del --purge build-deps
