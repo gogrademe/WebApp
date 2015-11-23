@@ -1,4 +1,4 @@
-require('babel/polyfill');
+
 require('../less/main.less');
 
 import React from 'react';
