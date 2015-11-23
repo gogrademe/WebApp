@@ -18,8 +18,8 @@ let View = React.createClass({
     };
   },
   componentWillMount() {
-    let params = this.context.router.getCurrentParams();
 
+    let params = this.context.router.getCurrentParams();
     api.course.get(params.resourceID).then((data) => {
       this.setState({
         course: data
