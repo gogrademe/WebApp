@@ -2,7 +2,7 @@
 
 import Reflux from 'reflux';
 
-import invariant from 'react/lib/invariant';
+import invariant from 'invariant';
 
 import actions from '../actions/ModalActions';
 import ModalTypes from '../constants/ModalTypes';

@@ -1,7 +1,6 @@
 
 
 import React from 'react';
-import cx from 'react/lib/cx';
 
 // var Button = require('react-semantic-ui').Button;
 

@@ -14,13 +14,14 @@ FormsyValidators();
 
 window.React = React;
 const store = configureStore();
-// const DevTools = require('./containers/DevTools');
+const DevTools = require('./containers/DevTools');
 Router.run(AppRoutes, (Handler) => {
   React.render(
     <Provider store={store} key="provider">
       {() =>
         <div>
           <Handler/>
+          <DevTools/>
         </div>
       }
     </Provider>,

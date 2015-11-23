@@ -1,4 +1,4 @@
-import keyMirror from 'react/lib/keyMirror';
+import keyMirror from 'keyMirror';
 
 module.exports = keyMirror({
   TERM: null,
