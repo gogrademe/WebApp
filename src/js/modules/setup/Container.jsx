@@ -3,8 +3,8 @@
 import React from 'react';
 import Header from '../../components/PageHeader';
 import {RouteHandler} from 'react-router';
-import {Nav} from 'react-bootstrap';
-import {NavItemLink} from 'react-router-bootstrap';
+import {Nav, NavItem} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 
 var Container = React.createClass({
   render() {
@@ -15,13 +15,13 @@ var Container = React.createClass({
           <div className="row">
             <div className="col-sm-12 col-md-2">
               <Nav bsStyle='pills' stacked>
-                <NavItemLink to="setup.terms">
-                  Terms
-                </NavItemLink>
+                <LinkContainer to="/app/setup/terms">
+                  <NavItem>Terms</NavItem>
+                </LinkContainer>
               </Nav>
             </div>
             <div className="col-sm-12 col-md-10">
-              <RouteHandler />
+              {this.props.children}
             </div>
           </div>
         </div>

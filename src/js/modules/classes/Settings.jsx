@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import api from '../../api/api';
 import {Grid, CrudActions} from '../../components/NewTable';
 
@@ -42,16 +42,16 @@ const WeightFooter = React.createClass({
   }
 });
 
-export default React.createClass({
+class Settings extends Component  {
   propTypes: {
     course_id: PropTypes.string,
     term_id: PropTypes.string
-  },
-  getInitialState() {
-    return {
-        data: []
-    };
-  },
+  }
+
+  state = {
+    data:[]
+  };
+
   fetch() {
     api.group
       .find({course_id: this.props.course_id, term_id: this.props.term_id})
@@ -60,11 +60,11 @@ export default React.createClass({
               data: xs
           });
       });
-  },
+  }
   componentWillMount() {
       this.fetch();
-  },
-  tableColumns: [{
+  }
+  tableColumns = [{
       key: 'name',
       display: 'Name'
   },
@@ -77,16 +77,16 @@ export default React.createClass({
   {
       display: '',
       renderer: AssignmentEdit,
-      resourceType: 'assignmentGroup',
+      resourceType: 'group',
       className: 'text-right',
       tdClassName: 'text-right col-md-2'
-  }],
+  }]
   componentDidMount() {
       api.group.events.addListener('change', this.fetch);
-  },
+  }
   componentWillUnmount() {
       api.group.events.removeListener('change', this.fetch);
-  },
+  }
 
   render() {
     const weights = this.state.data.map(x => x.weight * 100);
@@ -105,4 +105,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+};
+
+export default Settings;

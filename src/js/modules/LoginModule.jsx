@@ -6,7 +6,7 @@ require('./LoginModule.less');
 require('../../assets/logo.svg');
 
 const LoginPage = React.createClass({
-  mixins: [Navigation],
+  // mixins: [Navigation],
   getInitialState(){
     return {
       error: null,
@@ -18,14 +18,15 @@ const LoginPage = React.createClass({
     this.setState({
       isLoggingIn: true
     });
-    const email = this.refs.email.getDOMNode().value.trim();
-    const password = this.refs.password.getDOMNode().value.trim();
+    console.log(this.refs.email.value)
+    const email = this.refs.email.value.trim();
+    const password = this.refs.password.value.trim();
 
     auth.login({
       email: email,
       password: password
     }).then(() => {
-      this.transitionTo('dashboard');
+      
     }).error((it) => {
       this.setState({
         isLoggingIn: false,

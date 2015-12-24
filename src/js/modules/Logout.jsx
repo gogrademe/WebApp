@@ -1,14 +1,12 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Navigation} from 'react-router';
 import api from '../api/api';
 import Header from '../components/Header';
 
-export default React.createClass({
-  mixins: [Navigation],
+export default class Logout extends Component {
   componentDidMount(){
     api.session.del();
-    return this.replaceWith('/login');
-  },
+  }
   render() {
     return (
       <div>
@@ -27,4 +25,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+};

@@ -202,7 +202,7 @@ let ClassDetail = React.createClass({
     };
   },
   // getGrades(){
-  //   const params = this.context.router.getCurrentParams();
+  //   const params = this.props.params;
   //   api.attempt.find({
   //     course_id: params.resourceID,
   //     term_id: params.term_id
@@ -210,7 +210,7 @@ let ClassDetail = React.createClass({
   //   .then(xs => this.setState({attempts: xs}));
   // },
   getStudents(){
-    const params = this.context.router.getCurrentParams();
+    const params = this.props.params;
     api.enrollment.find({
       course_id: params.resourceID,
       term_id: params.term_id
@@ -218,7 +218,7 @@ let ClassDetail = React.createClass({
     .then(xs => this.setState({students: xs}));
   },
   getAssignments(){
-    const params = this.context.router.getCurrentParams();
+    const params = this.props.params;
     api.assignment.find({
       course_id: params.resourceID,
       term_id: params.term_id
@@ -226,7 +226,7 @@ let ClassDetail = React.createClass({
     .then(xs => this.setState({assignments: xs}));
   },
   getAssignmentGroups(){
-    const params = this.context.router.getCurrentParams();
+    const params = this.props.params;
     api.group.find({
       course_id: params.resourceID,
       term_id: params.term_id
@@ -351,8 +351,10 @@ let ClassDetail = React.createClass({
 // //
 // export default connect(select)(ClassDetail);
 
+
+
 export default connect(state => ({
   assignments: state.entities.assignments,
   attempts: state.entities.attempts
-}),{loadAssignments,loadGradebook})(ClassDetail)
+}),{loadAssignments,loadGradebook})(ClassDetail);
 // module.exports = ClassDetail;

@@ -16,13 +16,10 @@ let ClassName = React.createClass({
     },
     render(){
       const term_id = this.props.column.term || '';
+      const resource_id = this.props.row.course_id;
       return (
         <div>
-          <Link
-            to='course.grades'
-            params={{
-              term_id: term_id,
-              resourceID: this.props.row.course_id}}>
+          <Link to={`/app/course/${term_id}/${resource_id}/grades`}>
           {this.props.value}
           </Link>
         </div>

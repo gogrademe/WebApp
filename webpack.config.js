@@ -1,57 +1,37 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
-var shell = require('shelljs');
 
-const RELEASE = process.env.NODE_ENV === 'production';
-const VERSION = shell.exec('git describe --tags --always').output;
 
-const entry = './src/js/index';
 module.exports = {
-  devtool: RELEASE ? false : 'eval',
+  devtool: 'cheap-module-eval-source-map',
   stats: { colors: true },
-  entry: RELEASE ? [
-    entry
-  ] : [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    entry
+  entry: [
+    'webpack-hot-middleware/client',
+    './src/js/index'
   ],
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/'
+    // filename: '[name]-[hash].js',
+    // chunkFilename: '[name]-[chunkhash].js',
+    // publicPath: 'http://' + host + ':' + port + '/dist/'
+    publicPath: '/static/'
   },
 
-  plugins: RELEASE ? [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': "'production'",
-      __VERSION__: JSON.stringify(VERSION)
-    }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: { warnings: false }
-    }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new ExtractTextPlugin('[name].css')
-  ]:[
-    new webpack.DefinePlugin({
-      __VERSION__: JSON.stringify(VERSION + '-dev')
-    }),
+  plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin('[name].css')
   ],
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
+  // resolve: {
+  //   extensions: ['', '.js', '.jsx']
+  // },
   module: {
     loaders: [
       {
         test: /\.less?$/,
-        loader: RELEASE ?
-          ExtractTextPlugin.extract('css!less') :
-          'style!css!less'
+        loader: 'style!css!less'
       },
       {
         test: /\.gif$/,

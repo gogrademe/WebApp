@@ -3,13 +3,10 @@ import Header from '../../components/PageHeader';
 import {RouteHandler} from 'react-router';
 import api from '../../api/api';
 
-import {Nav} from 'react-bootstrap';
-import {NavItemLink} from 'react-router-bootstrap';
+import {Nav,NavItem} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 
 let View = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.func
-  },
   getInitialState() {
     return {
       term: null,
@@ -19,7 +16,7 @@ let View = React.createClass({
   },
   componentWillMount() {
 
-    let params = this.context.router.getCurrentParams();
+    let params = this.props.params;
     api.course.get(params.resourceID).then((data) => {
       this.setState({
         course: data
@@ -40,10 +37,7 @@ let View = React.createClass({
     return `Year ${term.school_year} - ${term.name}`;
   },
   render(){
-    const params = {
-      term_id: this.props.params.term_id,
-      resourceID: this.props.params.resourceID
-    };
+    const {term_id,resourceID} = this.props.params;
     return (
       <div>
         <Header primary={this.renderPrimary()} secondary={this.renderSecondary()} />
@@ -51,19 +45,21 @@ let View = React.createClass({
           <div className="row">
             <div className="col-sm-12 col-md-2">
               <Nav bsStyle='pills' stacked>
-                <NavItemLink to="course.grades" params={params}>Grades</NavItemLink>
-                <NavItemLink to="course.students" params={params}>Students</NavItemLink>
-                <NavItemLink to="course.assignments" params={params}>Assignments</NavItemLink>
-                <NavItemLink to="course.settings" params={params}>Settings</NavItemLink>
+                {['grades','students','assignments','settings'].map((name,id) => (
+                  <LinkContainer key={id} to={`/app/course/${term_id}/${resourceID}/${name}`}>
+                    <NavItem>{name}</NavItem>
+                  </LinkContainer>
+                ))}
               </Nav>
             </div>
             <div className="col-sm-12 col-md-10">
-              <RouteHandler
+              {this.props.children}
+              {/*<RouteHandler
                 course_id={params.resourceID}
                 term_id={params.term_id}
                 terms={this.state.terms}
                 term={this.state.term}
-                />
+                /> */}
             </div>
           </div>
         </div>
@@ -74,9 +70,7 @@ let View = React.createClass({
 module.exports = {
   View: View,
   List: require('./list'),
-  Grades: require('./detail'),
   Overview: require('./Overview'),
   Assignments: require('../assignments/Assignments'),
-  Students: require('./students'),
-  Settings: require('./Settings')
+  Students: require('./students')
 };
