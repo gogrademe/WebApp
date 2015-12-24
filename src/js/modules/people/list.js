@@ -39,7 +39,7 @@ const cols = [
     customActions: customActions
   }
 ];
-let PeopleList = React.createClass({
+const PeopleList = React.createClass({
   getInitialState(){
     return {
       currentFilter: 'All',

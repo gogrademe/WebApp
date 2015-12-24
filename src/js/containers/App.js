@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import DocumentTitle from 'react-document-title';
 import {connect} from 'react-redux';
+import { pushState } from 'redux-router';
 
 import HeaderNav from './components/Header';
 
@@ -14,7 +15,8 @@ const App = React.createClass({
   propTypes: {
     children: PropTypes.node,
     user: PropTypes.object,
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    pushState: PropTypes.func.isRequired
   },
   contextTypes: {
     store: PropTypes.object.isRequired
@@ -48,11 +50,11 @@ const App = React.createClass({
           <div className={className}>
             {this.props.children}
           </div>
-          {/*<ModalHost /> */}
+          <ModalHost />
         </div>
       </DocumentTitle>
     );
   }
 });
 
-export default connect(state => ({user: state.auth.user},{logout}))(App)
+export default connect(state => ({user: state.auth.user},{logout,pushState}))(App)

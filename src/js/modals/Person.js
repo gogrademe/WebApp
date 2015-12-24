@@ -3,7 +3,7 @@ import React from 'react';
 
 import api from '../api/api';
 
-import AutocompleteFor from '../molecules/AutoCompleteFor.jsx';
+import AutocompleteFor from '../molecules/AutoCompleteFor';
 import ModalForm from '../molecules/ModalForm';
 import LabeledField from '../molecules/LabeledField';
 import {Input} from 'formsy-react-components';

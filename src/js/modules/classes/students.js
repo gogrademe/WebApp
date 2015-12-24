@@ -1,7 +1,5 @@
 import React from 'react';
 import {Grid} from '../../components/NewTable';
-// import ActionRenderer from '../../components/ActionRenderer';
-// import {Autocomplete, Option} from '../../components/autocomplete';
 import {DropdownList} from 'react-widgets';
 
 import api from '../../api/api';

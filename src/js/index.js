@@ -1,4 +1,6 @@
 
+require('file?name=favicon.ico!../assets/favicon.ico');
+
 require('../less/main.less');
 
 import 'babel-polyfill';
