@@ -8,24 +8,13 @@ import Header from '../../components/PageHeader';
 
 import {Combobox as Select} from 'react-widgets';
 
-let ClassName = React.createClass({
-    propTypes: {
-        column: PropTypes.object,
-        row: PropTypes.object,
-        value: PropTypes.string
-    },
-    render(){
-      const term_id = this.props.column.term || '';
-      const resource_id = this.props.row.course_id;
-      return (
-        <div>
-          <Link to={`/app/course/${term_id}/${resource_id}/grades`}>
-          {this.props.value}
-          </Link>
-        </div>
-      );
-    }
-});
+const CourseLink = ({column, row, value}) => (
+  <div>
+    <Link to={`/app/course/${column.term}/${row.course_id}/grades`}>
+      {value}
+    </Link>
+  </div>
+);
 
 let ClassList = React.createClass({
     getInitialState(){
@@ -56,7 +45,7 @@ let ClassList = React.createClass({
         {
           key: 'name',
           display: 'Class Name',
-          renderer: ClassName,
+          renderer: CourseLink,
           term: this.state.term
         }, {
           key: 'grade_level',
