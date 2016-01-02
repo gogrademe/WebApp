@@ -1,25 +1,23 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import {
+  createStore, applyMiddleware, compose
+} from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import apiMiddleware from '../redux/middleware/api';
-import clientMiddleware from '../redux/middleware/clientMiddleware';
+import apiMiddleware from './middleware/api';
+import clientMiddleware from './middleware/clientMiddleware';
 import createLogger from 'redux-logger';
-import rootReducer from '../redux/reducers';
+import rootReducer from './reducers';
 
 import DevTools from '../containers/DevTools';
 
-const logger = createLogger();
-// const createStoreWithMiddleware = applyMiddleware(
-//   thunkMiddleware,
-//   apiMiddleware,
-//   logger
-// )(createStore);
+const logger = createLogger({
+  collapsed: true
+});
 
 
-export default function configureStore(reduxReactRouter, getRoutes, createHistory,client, data) {
+export default function configureStore(client, initialState) {
   const middleware = [thunkMiddleware, apiMiddleware, clientMiddleware(client), logger];
   const store = compose(
     applyMiddleware(...middleware),
-    reduxReactRouter({getRoutes, createHistory}),
     DevTools.instrument()
   )(createStore)(rootReducer);
 

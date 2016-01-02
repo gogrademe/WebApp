@@ -2,8 +2,11 @@
 import React from 'react';
 import {Grid} from '../../components/NewTable';
 import api from '../../api/api';
-import { loadAssignments, loadGradebook } from '../../actions';
+import { loadAssignments } from '../../redux/modules/assignment';
+import { loadGradebook } from '../../redux/modules/gradebook';
 import { connect } from 'react-redux';
+
+
 
 let GradeInput = React.createClass({
     getInitialState() {
@@ -185,12 +188,18 @@ let GradeAverage = React.createClass({
 //   props.loadAssignments();
 // }
 
+
+function loadData(props) {
+  props.loadAssignments();
+  props.loadGradebook(props.params.resourceID,props.params.term_id);
+}
 let ClassDetail = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
   propTypes: {
     assignments: React.PropTypes.object.isRequired,
+    attempts: React.PropTypes.array.isRequired,
   },
   getInitialState(){
     return {
@@ -276,8 +285,8 @@ let ClassDetail = React.createClass({
         student: s,
         assignments: {}
       };
-
       for (let a of this.state.assignments) {
+
         let grade = this.state.attempts
           .filter(x => x.assignment_id === a.assignment_id)
           .find(x => x.person_id === s.person_id);
@@ -294,17 +303,15 @@ let ClassDetail = React.createClass({
 
   },
   componentWillMount() {
-    const params = this.props.params;
-    this.props.loadAssignments();
-    this.props.loadGradebook(params.resourceID,params.term_id);
-    // loadData(this.props);
+
+    loadData(this.props);
     // api.attempt.events.addListener('change', this.getGrades);
 
-    api.attempt.find({
-      course_id: params.resourceID,
-      term_id: params.term_id
-    })
-    .then(xs => this.setState({attempts: xs}));
+    // api.attempt.find({
+    //   course_id: params.resourceID,
+    //   term_id: params.term_id
+    // })
+    // .then(xs => this.setState({attempts: xs}));
     // this.getGrades();
     this.getAssignments();
     // this.getAssignmentGroups();

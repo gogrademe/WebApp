@@ -1,18 +1,13 @@
-import React from 'react';
 
-var PageHeader = React.createClass({
-  render(){
-    return (
-      <div className="page-header">
-        <h3>
-          {this.props.primary} <small>{this.props.secondary}</small>
-        </h3>
-        <div className="right actions">
-          {this.props.right}
-        </div>
-      </div>
-    );
-  }
-});
+ const PageHeader = ({primary, secondary, right}) => (
+  <div className="page-header">
+    <h3>
+      {primary} <small>{secondary}</small>
+    </h3>
+    <div className="right actions">
+      {right}
+    </div>
+  </div>
+);
 
-module.exports = PageHeader;
+export default PageHeader;

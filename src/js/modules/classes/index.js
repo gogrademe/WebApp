@@ -6,7 +6,7 @@ import api from '../../api/api';
 import {Nav,NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 
-let View = React.createClass({
+const View = React.createClass({
   getInitialState() {
     return {
       term: null,
@@ -15,9 +15,8 @@ let View = React.createClass({
     };
   },
   componentWillMount() {
-
-    let params = this.props.params;
-    api.course.get(params.resourceID).then((data) => {
+    const {resourceID} = this.props.params;
+    api.course.get(resourceID).then((data) => {
       this.setState({
         course: data
       });
@@ -54,12 +53,6 @@ let View = React.createClass({
             </div>
             <div className="col-sm-12 col-md-10">
               {this.props.children}
-              {/*<RouteHandler
-                course_id={params.resourceID}
-                term_id={params.term_id}
-                terms={this.state.terms}
-                term={this.state.term}
-                /> */}
             </div>
           </div>
         </div>

@@ -5,9 +5,9 @@ import api from '../../api/api';
 
 import {Link} from 'react-router';
 import Header from '../../components/PageHeader';
-// import Select from 'react-select';
 
 import {Combobox as Select} from 'react-widgets';
+
 let ClassName = React.createClass({
     propTypes: {
         column: PropTypes.object,
@@ -87,18 +87,6 @@ let ClassList = React.createClass({
             textField={item => `${item.school_year} - ${item.name}`}
             />
         );
-        // return Select({
-        //   className: 'inline',
-        //   onChange: this.updateSelect,
-        //   value: this.state.term,
-        //   autoload: false,
-        //   options: xs.map(function(x){
-        //     return {
-        //       label: 'Year ' + (x != null ? x.school_year.start : void 8) + '-' + (x != null ? x.school_year.end : void 8) + ' - ' + (x != null ? x.name : void 8),
-        //       value: x != null ? x.id : void 8
-        //     };
-        //   })
-        // });
       }
     },
     rightButtons(){

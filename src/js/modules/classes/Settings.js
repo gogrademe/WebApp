@@ -89,6 +89,7 @@ class Settings extends Component  {
   }
 
   render() {
+    const {term_id, resourceID} = this.props.params;
     const weights = this.state.data.map(x => x.weight * 100);
     // this.state.data.map((x) => x.weight)
 
@@ -97,8 +98,8 @@ class Settings extends Component  {
         <div className='btn-toolbar' role='toolbar'>
           <AssignmentGroupBtn
               label='New'
-              course_id={this.props.course_id}
-              term_id={this.props.term_id}
+              course_id={Number(resourceID)}
+              term_id={Number(term_id)}
               className='btn btn-primary pull-right'/>
         </div>
         <Grid columns={this.tableColumns} data={this.state.data} />

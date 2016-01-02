@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Redirect, IndexRedirect, IndexRoute} from 'react-router';
 
-import App from './app';
+import App from './containers/App';
 import LoginModule from './modules/LoginModule';
 import LogoutModule from './modules/Logout';
 import DashboardModule from './modules/DashboardModule';
@@ -26,14 +26,16 @@ export default(store) => {
       }
       cb();
     }
-    if (!isAuthLoaded(store.getState())) {store.dispatch(loadAuth()).then(checkAuth);} else {
+    if (!isAuthLoaded(store.getState())) {
+      store.dispatch(loadAuth()).then(checkAuth);
+    } else {
       checkAuth();
     }
   };
   return (
     <Route path="/" component={App}>
-      <Route path="login" component={LoginModule}/>
-      <Route path="app" onEnter={requireLogin}>
+      <Route path="/login" component={LoginModule}/>
+      <Route path="/app" onEnter={requireLogin}>
         <IndexRoute
           title="Dashboard"
           component={DashboardModule}/>

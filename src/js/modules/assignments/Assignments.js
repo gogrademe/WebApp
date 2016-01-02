@@ -74,9 +74,10 @@ var ClassAssignments = React.createClass({
     this.getAssignments();
   },
   getAssignments(){
+    const {term_id, resourceID} = this.props.params;
     api.assignment.find({
-      course_id: this.props.course_id,
-      term_id: this.props.term_id
+      course_id: resourceID,
+      term_id: term_id
     }).then((data) => {
       this.setState({
         assignments: data
@@ -84,14 +85,15 @@ var ClassAssignments = React.createClass({
     });
   },
   render(){
+    const {term_id, resourceID} = this.props.params;
     return (
       <div>
         <div className="btn-toolbar" role="toolbar">
           <AssignmentBtn
             label="New"
             className="btn btn-primary pull-right"
-            course_id={this.props.course_id}
-            term_id={this.props.term_id} />
+            course_id={Number(resourceID)}
+            term_id={Number(term_id)} />
         </div>
         <Grid
           columns={assignmentCols}

@@ -5,19 +5,22 @@ require('../less/main.less');
 
 import 'babel-polyfill';
 import React,{Component} from 'react';
+
+import { Router, IndexRoute } from 'react-router'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux';
-import {reduxReactRouter, ReduxRouter} from 'redux-router';
-import createHistory from 'history/lib/createBrowserHistory'
+import { syncReduxAndRouter } from 'redux-simple-router'
+
+import createBrowserHistory from 'history/lib/createBrowserHistory'
 import axios from 'axios';
-import App from './app'
+
 import api from './api/api';
+
 import DevTools from './containers/DevTools';
 
-import configureStore from './store/configureStore';
+import configureStore from './redux/configureStore';
 
 import getRoutes from './routes';
-import makeRouteHooksSafe from './helpers/makeRouteHooksSafe';
 
 import FormsyValidators from './utils/validators';
 FormsyValidators();
@@ -40,14 +43,17 @@ const client = axios.create({
   }
 });
 
-const store = configureStore(reduxReactRouter, makeRouteHooksSafe(getRoutes), createHistory, client, window.__data);
+const history = createBrowserHistory();
+const store = configureStore(client, window.__data);
+syncReduxAndRouter(history, store, (state) => state.router)
 
+const mountNode = document.getElementById('app')
 render(
   <Provider store={store} key="provider">
     <div>
-      <ReduxRouter routes={getRoutes(store)} />
+      <Router history={history} routes={getRoutes(store)}/>
       <DevTools />
     </div>
   </Provider>,
-  document.getElementById('app')
+  mountNode
 );

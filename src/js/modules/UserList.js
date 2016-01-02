@@ -4,8 +4,7 @@ import Header from '../components/PageHeader';
 
 import NewTable from '../components/NewTable';
 
-export
-default React.createClass({
+export default React.createClass({
 tableColumns: [
   {
     key: 'email',

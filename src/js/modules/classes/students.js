@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Grid} from '../../components/NewTable';
 import {DropdownList} from 'react-widgets';
 
 import api from '../../api/api';
 
-let StudentActions = React.createClass({
+const StudentActions = React.createClass({
     unEnroll: function(e){
       e.preventDefault();
       api.enrollment.del(this.props.row.enrollment_id);
@@ -37,7 +37,11 @@ const cols = [
     }
   ];
 
-let ClassStudents = React.createClass({
+let CourseStudents = React.createClass({
+    propTypes: {
+      course_id: PropTypes.string,
+      term_id: PropTypes.string
+    },
     getInitialState(){
       return {
         students: [],
@@ -45,9 +49,10 @@ let ClassStudents = React.createClass({
       };
     },
     getEnrollments(){
+      const {term_id, resourceID} = this.props.params;
       api.enrollment.find({
-        course_id: this.props.course_id,
-        term_id: this.props.term_id
+        course_id: resourceID,
+        term_id: term_id
       }).then(xs => this.setState({students: xs}));
     },
     componentWillMount(){
@@ -61,10 +66,11 @@ let ClassStudents = React.createClass({
       return api.enrollment.events.removeListener('change', this.getEnrollments);
     },
     enrollStudent(){
+      const {term_id, resourceID} = this.props.params;
       api.enrollment.create({
         person_id: Number(this.state.selected.person_id),
-        course_id: Number(this.props.course_id),
-        term_id: Number(this.props.term_id)
+        course_id: Number(resourceID),
+        term_id: Number(term_id)
       });
     },
     render(){
@@ -113,4 +119,4 @@ let ClassStudents = React.createClass({
       // }));
     }
   });
-  module.exports = ClassStudents;
+  module.exports = CourseStudents;

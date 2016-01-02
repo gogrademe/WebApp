@@ -9,10 +9,21 @@ import {
   CollapsibleNav
 } from 'react-bootstrap';
 
-import {IndexLinkContainer, LinkContainer} from 'react-router-bootstrap';
-
 import api from '../api/api';
 import auth from '../api/auth';
+
+
+import {IndexLinkContainer, LinkContainer} from 'react-router-bootstrap';
+const Link = ({to,display}) => (
+  <LinkContainer to={to}>
+    <NavItem>{display}</NavItem>
+  </LinkContainer>
+);
+const IndexLink = ({to,display}) => (
+  <IndexLinkContainer to={to}>
+    <NavItem>{display}</NavItem>
+  </IndexLinkContainer>
+);
 
 const HeaderNav = React.createClass({
   getInitialState() {
@@ -45,29 +56,17 @@ const HeaderNav = React.createClass({
         </Navbar.Header>
         <Navbar.Collapse eventKey={0}>
           <Nav navbar>
-            <IndexLinkContainer to="/app">
-              <NavItem>
-                Dashboard
-              </NavItem>
-            </IndexLinkContainer>
-            <LinkContainer to="/app/course">
-              <NavItem>Courses</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/app/people">
-              <NavItem>People</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/app/users">
-              <NavItem>Users</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/app/setup">
-              <NavItem>App Setup</NavItem>
-            </LinkContainer>
+            <IndexLink to="/app"   display="Dashboard" />
+            <Link to="/app/course" display="Courses" />
+            <Link to="/app/people" display="People" />
+            <Link to="/app/users"  display="Users" />
+            <Link to="/app/setup"  display="Settings" />
           </Nav>
           <Nav navbar pullRight>
-            <NavDropdown title={this.userDisplayName()} id='account-dropdown'>
-              <LinkContainer to="/app/logout">
-                <NavItem>Logout</NavItem>
-              </LinkContainer>
+            <NavDropdown
+              title={this.userDisplayName()}
+              id='account-dropdown'>
+              <Link to="/app/logout" display="Logout" />
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

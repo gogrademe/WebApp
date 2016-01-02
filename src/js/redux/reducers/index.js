@@ -1,13 +1,25 @@
-import * as ActionTypes from '../../actions';
+import * as ActionTypes from '../modules/error';
 import merge from 'lodash/object/merge';
 
-import { combineReducers } from 'redux';
-import { routerStateReducer } from 'redux-router';
+import {
+  combineReducers
+} from 'redux';
+
+import {
+  routeReducer as router
+} from 'redux-simple-router'
 
 import auth from './../modules/auth';
 
 // Updates an entity cache in response to any action with response.entities.
-function entities(state = { users: {}, repos: {}, assignments:{}, groups:{}, attempts:{} }, action) {
+function entities(state = {
+  attempts: {},
+  users: {},
+  repos: {},
+  assignments: {},
+  groups: {},
+  session: {}
+}, action) {
   if (action.response && action.response.entities) {
     return merge({}, state, action.response.entities);
   }
@@ -17,7 +29,9 @@ function entities(state = { users: {}, repos: {}, assignments:{}, groups:{}, att
 
 // Updates error message to notify about the failed fetches.
 function errorMessage(state = null, action) {
-  const { type, error } = action;
+  const {
+    type, error
+  } = action;
 
   if (type === ActionTypes.RESET_ERROR_MESSAGE) {
     return null;
@@ -29,7 +43,7 @@ function errorMessage(state = null, action) {
 }
 
 export default combineReducers({
-  router: routerStateReducer,
+  router,
   auth,
   entities,
   errorMessage

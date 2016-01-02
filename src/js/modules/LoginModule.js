@@ -1,52 +1,55 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Navigation} from 'react-router';
+import {connect} from 'react-redux';
 import auth from '../api/auth';
 
-require('./LoginModule.less');
-require('../../assets/logo.svg');
+import { login } from '../redux/modules/auth';
 
-const LoginPage = React.createClass({
-  // mixins: [Navigation],
-  getInitialState(){
-    return {
-      error: null,
-      isLoggingIn: false
-    };
-  },
+require('./LoginModule.less');
+
+const logo = require('../../assets/logo.svg');
+
+class LoginPage extends Component {
+  constructor(props) {
+    super(props)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
   handleSubmit(e){
     e.preventDefault();
-    this.setState({
-      isLoggingIn: true
-    });
-    console.log(this.refs.email.value)
+    // this.setState({
+    //   isLoggingIn: true
+    // });
+
     const email = this.refs.email.value.trim();
     const password = this.refs.password.value.trim();
 
-    auth.login({
-      email: email,
-      password: password
-    }).then(() => {
-      
-    }).error((it) => {
-      this.setState({
-        isLoggingIn: false,
-        error: it
-      });
-    });
-  },
+    const { dispatch } = this.props;
+    dispatch(login(email,password));
+    // auth.login({
+    //   email: email,
+    //   password: password
+    // }).then(() => {
+    // }).error((it) => {
+    //   this.setState({
+    //     isLoggingIn: false,
+    //     error: it
+    //   });
+    // });
+  }
   renderMessages(){
-    if (this.state.error !== null) {
+    if (this.props.error) {
       return (
         <div>
-          {this.state.error.statusCode + ': ' + this.state.error.message}
+          {this.props.error.data}
         </div>
       );
     }
-  },
+  }
   render(){
     return (
       <div>
-        <img className='profile-img-card' src='logo.svg' />
+        <img className='profile-img-card' src={logo} />
         <div className='login container'>
           <div className='card card-container'>
             <form className='form-signin' onSubmit={this.handleSubmit}>
@@ -66,7 +69,7 @@ const LoginPage = React.createClass({
                 required />
               <button
                 className='btn btn-lg btn-success btn-block btn-signin'
-                disabled={this.state.isLoggingIn}
+                disabled={this.props.loggingIn}
                 type='submit'
                 value='Post'>
                 Sign in
@@ -77,7 +80,7 @@ const LoginPage = React.createClass({
       </div>
     );
   }
-});
+};
 
 // const LoginLoading = React.createClass({
 //   render(){
@@ -92,5 +95,8 @@ const LoginPage = React.createClass({
 //     });
 //   }
 // });
+LoginPage.contextTypes = {
+  store: PropTypes.object.isRequired
+}
 
-module.exports = LoginPage;
+export default connect(state => ({loggingIn: state.auth.loggingIn, error:state.auth.loginError}))(LoginPage)
