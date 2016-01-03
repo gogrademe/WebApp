@@ -11,6 +11,7 @@ import {
 
 import auth from './../modules/auth';
 
+// const initialState 
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = {
   attempts: {},

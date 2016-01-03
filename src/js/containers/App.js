@@ -3,7 +3,7 @@ import DocumentTitle from 'react-document-title';
 import { pushPath } from 'redux-simple-router'
 import {connect} from 'react-redux';
 
-import HeaderNav from '../components/Header';
+import AppNav from '../components/AppNav';
 
 // Hosts
 import ModalHost from '../host/ModalHost';
@@ -27,7 +27,7 @@ class App extends Component {
     dispatch(loadAuth());
   }
   componentWillReceiveProps(nextProps) {
-    const {currentUser } = this.props;
+    const {currentUser} = this.props;
 
     if (!currentUser && nextProps.user) {
       // login
@@ -39,7 +39,7 @@ class App extends Component {
   }
 
   loggedIn() {
-    if (api.session.get()) {return <HeaderNav/>;}
+    if (api.session.get()) {return <AppNav personName="Matt"/>;}
   }
   renderErrorMessage() {
     const { errorMessage } = this.props
@@ -83,7 +83,6 @@ App.propTypes = {
   // Injected by React Redux
   errorMessage: PropTypes.string,
   // resetErrorMessage: PropTypes.func.isRequired,
-  // pushState: PropTypes.func.isRequired,
   // inputValue: PropTypes.string.isRequired,
   // Injected by React Router
   children: PropTypes.node

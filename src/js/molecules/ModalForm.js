@@ -52,7 +52,7 @@ export default React.createClass({
     return;
   },
   render() {
-    let {children, ...props} = this.props;
+    const {children, ...props} = this.props;
 
     return (
       <Modal {...props} bsStyle="primary">

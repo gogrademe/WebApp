@@ -5,6 +5,20 @@ import 'isomorphic-fetch';
 
 import {API_ROOT, CALL_API} from '../const';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
 function callApi(endpoint, schema) {
@@ -25,6 +39,7 @@ function callApi(endpoint, schema) {
       if (!response.ok) {
         return Promise.reject(json);
       }
+      // return json;
       const camelizedJson = camelizeKeys(json);
       return Object.assign({},
         normalize(camelizedJson, schema)
@@ -42,6 +57,8 @@ export default store => next => action => {
 
   let { endpoint } = callAPI;
   const { schema, types } = callAPI;
+
+  console.log(schema,types);
 
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState());
@@ -61,8 +78,11 @@ export default store => next => action => {
   }
 
   function actionWith(data) {
+    console.log(action,data);
     const finalAction = Object.assign({}, action, data);
+    console.log(finalAction);
     delete finalAction[CALL_API];
+
     return finalAction;
   }
 

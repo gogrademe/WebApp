@@ -3,7 +3,7 @@
   var React, api, Header, Dom, div, PersonDetail;
   React = require('react');
   api = require('../../api/api');
-  Header = require('../../components/Header');
+  // Header = require('../../components/Header');
   Dom = React.DOM;
   div = Dom.div;
   PersonDetail = React.createClass({

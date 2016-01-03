@@ -1,5 +1,7 @@
 import jwtDecode from 'jwt-decode';
 
+import { Map } from 'immutable';
+
 const LOAD = 'auth/LOAD';
 const LOAD_SUCCESS = 'auth/LOAD_SUCCESS';
 const LOAD_FAIL = 'auth/LOAD_FAIL';
@@ -8,63 +10,52 @@ const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 const LOGIN_FAIL = 'auth/LOGIN_FAIL';
 const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 
-const initialState = {
+const initialState = Map({
   loaded: false,
   token: null,
   user: null
-};
+});
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
-      return {
-        ...state,
-        loading: true
-      };
+      return state.set('loading', true);
     case LOAD_SUCCESS:
      const t = localStorage.getItem('token');
-      return {
-        ...state,
+      return state.merge({
         loading: false,
         loaded: true,
         token: t,
         user: jwtDecode(t)
-      };
+      });
     case LOAD_FAIL:
-      return {
-        ...state,
+      return state.merge({
         loading: false,
         loaded: false,
         error: action.error
-      };
+      });
     case LOGIN:
-      return {
-        ...state,
-        loggingIn: true
-      };
+      return state.set('loggingIn', true);
     case LOGIN_SUCCESS:
       const {token} = action.result.data;
       localStorage.setItem('token', token);
-      return {
-        ...state,
+      return state.merge({
         loggingIn: false,
         token: token,
         user: action.result
-      };
+      });
     case LOGIN_FAIL:
-      return {
-        ...state,
+      return state.merge({
         loggingIn: false,
         user: null,
         loginError: action.error
-      };
+      });
     case LOGOUT_SUCCESS:
-      return {
-        ...state,
+      return state.merge({
         loggingOut: false,
         token: null,
         user: null
-      };
+      });
     default:
       return state;
   }

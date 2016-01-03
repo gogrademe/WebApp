@@ -9,13 +9,19 @@ import Header from '../../components/PageHeader';
 import {AccountBtn, PersonBtn} from '../../molecules/ModalButtons';
 import {filter} from 'prelude-ls';
 
-const customActions = function(props){
-  return (
-    <AccountBtn primary icon person_id={props.row.id}>
+// const customActions = function(props){
+//   return (
+//     <AccountBtn primary icon person_id={props.row.id}>
+//       <i className="icon settings"/>
+//     </AccountBtn>
+//   );
+// };
+const customActions = ({row}) => (
+    <AccountBtn primary icon person_id={row.id}>
       <i className="icon settings"/>
     </AccountBtn>
-  );
-};
+);
+
 const cols = [
   {
     key: 'first_name',

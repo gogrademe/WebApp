@@ -5,38 +5,38 @@ import Header from '../components/PageHeader';
 import NewTable from '../components/NewTable';
 
 export default React.createClass({
-tableColumns: [
-  {
-    key: 'email',
-    display: 'Email'
-  }, {
-    key: 'disabled',
-    display: 'Disabled'
-  }
-],
-getInitialState() {
-  return {
-    data: []
-  };
-},
-fetch() {
-  api.account.find().then((xs) => {
-    this.setState({
-      data: xs
+  tableColumns: [
+    {
+      key: 'email',
+      display: 'Email'
+    }, {
+      key: 'disabled',
+      display: 'Disabled'
+    }
+  ],
+  getInitialState() {
+    return {
+      data: []
+    };
+  },
+  fetch() {
+    api.account.find().then((xs) => {
+      this.setState({
+        data: xs
+      });
     });
-  });
-},
-componentWillMount() {
-  this.fetch();
-},
-render() {
-  return (
-    <div>
-      <Header primary='All Accounts'/>
+  },
+  componentWillMount() {
+    this.fetch();
+  },
+  render() {
+    return (
       <div>
-        <NewTable.Grid columns={this.tableColumns} data={this.state.data}/>
+        <Header primary='All Accounts'/>
+        <div>
+          <NewTable.Grid columns={this.tableColumns} data={this.state.data}/>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 });

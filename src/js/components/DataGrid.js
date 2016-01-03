@@ -5,7 +5,7 @@ import DeleteBtn from '../atoms/DeleteButton';
 
 import api from '../api/api';
 
-let get = function(obj, prop){
+const get = function(obj, prop){
     var parts, last;
     parts = prop.split('.');
     last = parts.pop();
@@ -17,7 +17,7 @@ let get = function(obj, prop){
     }
     return obj[last];
   };
-let formatVal = function(val, format){
+const formatVal = function(val, format){
     if (typeof format === 'function') {
       return format(val);
     }
@@ -33,7 +33,7 @@ let formatVal = function(val, format){
     }
   };
 
-  let StringRenderer = React.createClass({
+  const StringRenderer = React.createClass({
       getInitialState(){
         return {
           editing: false

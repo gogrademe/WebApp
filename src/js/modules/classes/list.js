@@ -25,20 +25,16 @@ let ClassList = React.createClass({
       };
     },
     componentWillMount(){
-      var this$ = this;
-      api.course.find().then(function(it){
-        return this$.setState({
-          courses: it
-        });
-      });
-      return api.term.find().then(function(it){
-        this$.setState({
-          term: it[0].term_id
-        });
-        return this$.setState({
+      api.course.find().then(
+        it => this.setState({courses: it})
+      );
+
+      api.term.find().then(
+        it => this.setState({
+          term: it[0].term_id,
           terms: it
-        });
-      });
+        })
+      );
     },
     cols(){
       return [

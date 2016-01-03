@@ -41,13 +41,11 @@ var AssignmentGroupBtn = React.createClass({
     );
   }
 });
-var AssignmentBtn = React.createClass({
-  render(){
-    return (
-      <ModalButton modal={ModalTypes.ASSIGNMENT} {...this.props}/>
-    );
-  }
-});
+
+const AssignmentBtn = (props) => (
+  <ModalButton modal={ModalTypes.ASSIGNMENT} {... props}/>
+);
+
 var AssignmentGradesBtn = React.createClass({
   render(){
     return (

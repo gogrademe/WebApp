@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Navigation} from 'react-router';
 import api from '../api/api';
-import Header from '../components/Header';
 
 export default class Logout extends Component {
   componentDidMount(){
@@ -10,7 +9,6 @@ export default class Logout extends Component {
   render() {
     return (
       <div>
-        <Header title='Logging Out...'/>
         <div className='main'>
           <div className='ui grid'>
             <div className='column'>

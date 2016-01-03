@@ -6,7 +6,6 @@ import ModalActions from '../actions/ModalActions';
 import modalStore from '../stores/ModalStore';
 import ModalTypes from '../constants/ModalTypes';
 
-
 // Modals
 import TermModal from '../modals/Term';
 import AssignmentModal from '../modals/Assignment';

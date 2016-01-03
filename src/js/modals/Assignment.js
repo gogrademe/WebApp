@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 import api from '../api/api';
 import utils from '../utils';
@@ -10,9 +10,9 @@ import {DateTimePicker} from 'react-widgets';
 
 export default React.createClass({
   propTypes: {
-    course_id: React.PropTypes.number.isRequired,
-    term_id: React.PropTypes.number.isRequired,
-    assignment_id: React.PropTypes.number
+    course_id: PropTypes.number.isRequired,
+    term_id: PropTypes.number.isRequired,
+    assignment_id: PropTypes.number
   },
   getInitialState() {
     return {

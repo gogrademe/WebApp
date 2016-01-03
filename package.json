@@ -37,6 +37,7 @@
     "formsy-react-components": "^0.6.3",
     "history": "^1.17.0",
     "humps": "^1.0.0",
+    "immutable": "^3.7.6",
     "invariant": "^2.2.0",
     "isomorphic-fetch": "^2.2.0",
     "jwt-decode": "^1.4.0",
