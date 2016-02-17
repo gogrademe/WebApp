@@ -63,7 +63,6 @@ const View = React.createClass({
 module.exports = {
   View: View,
   List: require('./list'),
-  Overview: require('./Overview'),
   Assignments: require('../assignments/Assignments'),
   Students: require('./students')
 };

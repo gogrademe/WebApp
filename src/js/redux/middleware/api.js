@@ -6,26 +6,13 @@ import 'isomorphic-fetch';
 import {API_ROOT, CALL_API} from '../const';
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
 function callApi(endpoint, schema) {
   const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint;
   const opts = {
     headers: {
-      'Authorization': `Bearer ${localStorage.token}`,
+      'Authorization': `Bearer ${localStorage.id_token}`,
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     }

@@ -194,9 +194,6 @@ function loadData(props) {
   props.loadGradebook(props.params.resourceID,props.params.term_id);
 }
 let ClassDetail = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.func
-  },
   propTypes: {
     assignments: React.PropTypes.object.isRequired,
     attempts: React.PropTypes.array.isRequired,
@@ -298,9 +295,6 @@ let ClassDetail = React.createClass({
       results.push(result);
     }
     return results;
-  },
-  componentDidMount() {
-
   },
   componentWillMount() {
 

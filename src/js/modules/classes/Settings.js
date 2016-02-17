@@ -43,11 +43,6 @@ const WeightFooter = React.createClass({
 });
 
 class Settings extends Component  {
-  propTypes: {
-    course_id: PropTypes.string,
-    term_id: PropTypes.string
-  }
-
   state = {
     data:[]
   };
@@ -80,7 +75,7 @@ class Settings extends Component  {
       resourceType: 'group',
       className: 'text-right',
       tdClassName: 'text-right col-md-2'
-  }]
+  }];
   componentDidMount() {
       api.group.events.addListener('change', this.fetch);
   }
@@ -90,9 +85,6 @@ class Settings extends Component  {
 
   render() {
     const {term_id, resourceID} = this.props.params;
-    const weights = this.state.data.map(x => x.weight * 100);
-    // this.state.data.map((x) => x.weight)
-
     return (
       <div>
         <div className='btn-toolbar' role='toolbar'>
@@ -106,6 +98,11 @@ class Settings extends Component  {
       </div>
     );
   }
+};
+
+Settings.propTypes = {
+    course_id: PropTypes.string,
+    term_id: PropTypes.string
 };
 
 export default Settings;

@@ -5,17 +5,12 @@ import api from '../../api/api';
 
 import {Grid, CrudActions} from '../../components/NewTable';
 import Header from '../../components/PageHeader';
+import { loadPeople } from '../../redux/modules/person';
 
 import {AccountBtn, PersonBtn} from '../../molecules/ModalButtons';
 import {filter} from 'prelude-ls';
+import { connect } from 'react-redux';
 
-// const customActions = function(props){
-//   return (
-//     <AccountBtn primary icon person_id={props.row.id}>
-//       <i className="icon settings"/>
-//     </AccountBtn>
-//   );
-// };
 const customActions = ({row}) => (
     <AccountBtn primary icon person_id={row.id}>
       <i className="icon settings"/>
@@ -45,29 +40,15 @@ const cols = [
     customActions: customActions
   }
 ];
-const PeopleList = React.createClass({
+let PeopleList = React.createClass({
   getInitialState(){
     return {
       currentFilter: 'All',
-      people: []
     };
   },
-  componentDidMount(){
-    api.person.events.addListener('change', this.getPeople);
-  },
-  componentWillUnmount(){
-    api.person.events.removeListener('change', this.getPeople);
-  },
-  getPeople(){
-    api.person.find()
-      .then((it) =>{
-        this.setState({
-          people: it
-      });
-    });
-  },
   componentWillMount(){
-    this.getPeople();
+    this.props.loadPeople();
+    // this.getPeople();
   },
   modal(){
     return CreatePersonModal(null);
@@ -110,24 +91,25 @@ const PeopleList = React.createClass({
       </div>
     );
   },
-  filteredData(){
-    var format, this$ = this;
-    format = function(){
-      return function(it){
-        return it.slice(0, -1);
-      }(
-      this$.state.currentFilter);
-    };
-    if (this.state.currentFilter === 'All') {
-      return this.state.people;
-    } else {
-      return filter(function(it){
-        return in$(format(this$.state.currentFilter), it.types);
-      })(
-      this.state.people);
-    }
-  },
+  // filteredData(){
+  //   var format, this$ = this;
+  //   format = function(){
+  //     return function(it){
+  //       return it.slice(0, -1);
+  //     }(
+  //     this$.state.currentFilter);
+  //   };
+  //   if (this.state.currentFilter === 'All') {
+  //     return this.state.people;
+  //   } else {
+  //     return filter(function(it){
+  //       return in$(format(this$.state.currentFilter), it.types);
+  //     })(
+  //     this.state.people);
+  //   }
+  // },
   render(){
+    const {people} = this.props;
     return (
       <div>
         <Header primary="All People"/>
@@ -135,13 +117,21 @@ const PeopleList = React.createClass({
           <div>
             {this.renderGridTop()}
           </div>
-          <Grid columns={cols} data={this.filteredData()}/>
+          {
+            people ?
+            <Grid columns={cols} data={people}/> :
+            <div>Loading...</div>
+          }
         </div>
       </div>
     )
   }
 });
-module.exports = PeopleList;
+
+export default connect(state => ({
+  people: state.person.people
+}),{loadPeople})(PeopleList);
+
 function in$(x, xs){
   var i = -1, l = xs.length >>> 0;
   while (++i < l) if (x === xs[i]) return true;

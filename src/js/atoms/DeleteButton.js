@@ -34,12 +34,3 @@ export default React.createClass({
     );
   }
 });
-
-      // var error = this.showError() && this.getErrorMessage() !== undefined ? (
-      //   <div className="ui red pointing above label">
-      //     {this.getErrorMessage()}
-      //   </div>
-      // ) : null;
-
-              // a class-name: "ui icon red button tiny" on-click: @delete,
-              //   i class-name: "icon trash"

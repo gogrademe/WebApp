@@ -6,7 +6,7 @@ import EventEmitter from 'eventemitter3';
 
 let toString$ = {}.toString;
 let auth = {
-  token: localStorage.token || null
+  token: localStorage.id_token || null
 };
 
 let promisifyReq = function (req) {

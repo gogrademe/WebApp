@@ -6,12 +6,10 @@ require('../less/main.less');
 import 'babel-polyfill';
 import React,{Component} from 'react';
 
-import { Router, IndexRoute } from 'react-router'
+import { Router, IndexRoute, browserHistory } from 'react-router'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux';
-import { syncReduxAndRouter } from 'redux-simple-router'
 
-import createBrowserHistory from 'history/lib/createBrowserHistory'
 import axios from 'axios';
 
 import api from './api/api';
@@ -37,21 +35,20 @@ const client = axios.create({
   baseURL: api.baseUrl,
   timeout: 1000,
   headers: {
-    'Authorization': `Bearer ${localStorage.token}`,
+    'Authorization': `Bearer ${localStorage.id_token}`,
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   }
 });
 
-const history = createBrowserHistory();
-const store = configureStore(client, window.__data);
-syncReduxAndRouter(history, store, (state) => state.router)
+
+const store = configureStore(client, browserHistory);
 
 const mountNode = document.getElementById('app')
 render(
   <Provider store={store} key="provider">
     <div>
-      <Router history={history} routes={getRoutes(store)}/>
+      <Router history={browserHistory} routes={getRoutes(store)}/>
       <DevTools />
     </div>
   </Provider>,

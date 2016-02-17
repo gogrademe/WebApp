@@ -1,5 +1,5 @@
 import * as ActionTypes from '../modules/error';
-import merge from 'lodash/object/merge';
+import merge from 'lodash/merge';
 
 import {
   combineReducers
@@ -9,9 +9,10 @@ import {
   routeReducer as router
 } from 'redux-simple-router'
 
-import auth from './../modules/auth';
+import auth0 from './../modules/auth0';
+import person from './../modules/person';
 
-// const initialState 
+// const initialState
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = {
   attempts: {},
@@ -45,7 +46,8 @@ function errorMessage(state = null, action) {
 
 export default combineReducers({
   router,
-  auth,
+  auth0,
+  person,
   entities,
   errorMessage
 });

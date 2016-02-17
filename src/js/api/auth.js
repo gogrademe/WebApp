@@ -3,6 +3,7 @@
   var React, api, Auth;
   React = require('react');
   api = require('./api');
+  console.error("deprecated!!");
   Auth = {
     isLoggedIn(){
       switch (false) {

@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import DocumentTitle from 'react-document-title';
-import { pushPath } from 'redux-simple-router'
+import { routeActions } from 'react-router-redux'
 import {connect} from 'react-redux';
 
 import AppNav from '../components/AppNav';
@@ -8,8 +8,7 @@ import AppNav from '../components/AppNav';
 // Hosts
 import ModalHost from '../host/ModalHost';
 
-import api from '../api/api';
-import { isLoaded as isAuthLoaded, load as loadAuth, logout } from '../redux/modules/auth';
+import { load as loadAuth, login } from '../redux/modules/auth0';
 
 class App extends Component {
   constructor(props) {
@@ -23,24 +22,23 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(loadAuth());
+    const {loadAuth} = this.props;
+    loadAuth();
   }
-  componentWillReceiveProps(nextProps) {
-    const {currentUser} = this.props;
+  // componentWillReceiveProps(nextProps) {
+  //   const {user,push} = this.props;
+  //   if (!user && nextProps.user) {
+  //     // login
+  //     push('/app');
+  //   } else if (user && !nextProps.user) {
+  //     // logout
+  //     push('/');
+  //   }
+  // }
 
-    if (!currentUser && nextProps.user) {
-      // login
-      dispatch(pushPath('/app'));
-    } else if (currentUser && !nextProps.user) {
-      // logout
-      dispatch(pushPath('/'));
-    }
-  }
-
-  loggedIn() {
-    if (api.session.get()) {return <AppNav personName="Matt"/>;}
-  }
+  // loggedIn() {
+  //   if (this.props.isAuthenticated) {return ;}
+  // }
   renderErrorMessage() {
     const { errorMessage } = this.props
     if (!errorMessage) {
@@ -60,17 +58,14 @@ class App extends Component {
   }
 
   render() {
-    const className = api.session.get()
-      ? 'main container'
-      : '';
-
+    const {children, isAuthenticated,login, profile} = this.props
     return (
       <DocumentTitle title='GoGradeMe'>
         <div>
-          {this.loggedIn()}
+          <AppNav handleLoginClick={login} isLoggedIn={isAuthenticated} fullName={profile.name}/>
           {this.renderErrorMessage()}
-          <div className={className}>
-            {this.props.children}
+          <div className="main container">
+            {children}
           </div>
           <ModalHost />
         </div>
@@ -91,5 +86,14 @@ App.propTypes = {
 App.contextTypes = {
   store: PropTypes.object.isRequired
 }
+//
+//
+// export default connect(state => ({
+//   assignments: state.entities.assignments,
+//   attempts: state.entities.attempts
+// }),{loadAssignments,loadGradebook})(ClassDetail);
 
-export default connect(state => ({user: state.auth.user},{logout}))(App)
+export default connect(state => ({
+  profile: state.auth0.profile,
+  isAuthenticated: state.auth0.isAuthenticated
+}),{loadAuth,...routeActions, login})(App)
