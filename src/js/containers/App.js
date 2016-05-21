@@ -40,7 +40,7 @@ class App extends Component {
   //   if (this.props.isAuthenticated) {return ;}
   // }
   renderErrorMessage() {
-    const { errorMessage } = this.props
+    const { errorMessage } = this.props;
     if (!errorMessage) {
       return null
     }
@@ -58,11 +58,15 @@ class App extends Component {
   }
 
   render() {
-    const {children, isAuthenticated,login, profile} = this.props
+    const {children, isAuthenticated,login, profile={}} = this.props;
+    var name;
+    if (profile) {
+      name = profile.name;
+    }
     return (
       <DocumentTitle title='GoGradeMe'>
         <div>
-          <AppNav handleLoginClick={login} isLoggedIn={isAuthenticated} fullName={profile.name}/>
+          <AppNav handleLoginClick={login} isLoggedIn={isAuthenticated} fullName={name}/>
           {this.renderErrorMessage()}
           <div className="main container">
             {children}

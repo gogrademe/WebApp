@@ -1,8 +1,8 @@
-import jwtDecode from 'jwt-decode';
+
 import merge from 'lodash/merge';
 
 import * as api from '../api'
-// import { Map } from 'immutable';
+
 export const SHOW_LOCK = 'auth/SHOW_LOCK'
 export const LOCK_SUCCESS = 'auth/LOCK_SUCCESS'
 export const LOCK_ERROR = 'auth/LOCK_ERROR'
@@ -10,9 +10,6 @@ export const LOCK_ERROR = 'auth/LOCK_ERROR'
 const LOAD = 'auth/LOAD';
 const LOAD_SUCCESS = 'auth/LOAD_SUCCESS';
 const LOAD_FAIL = 'auth/LOAD_FAIL';
-const LOGIN = 'auth/LOGIN';
-const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
-const LOGIN_FAIL = 'auth/LOGIN_FAIL';
 const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 
 const initialState = {

@@ -45,8 +45,6 @@ export default store => next => action => {
   let { endpoint } = callAPI;
   const { schema, types } = callAPI;
 
-  console.log(schema,types);
-
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState());
   }
@@ -65,9 +63,7 @@ export default store => next => action => {
   }
 
   function actionWith(data) {
-    console.log(action,data);
     const finalAction = Object.assign({}, action, data);
-    console.log(finalAction);
     delete finalAction[CALL_API];
 
     return finalAction;

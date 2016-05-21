@@ -3,7 +3,6 @@ import {Route, Redirect, IndexRedirect, IndexRoute} from 'react-router';
 
 import App from './containers/App';
 import Home from './components/Home';
-import LoginModule from './modules/LoginModule';
 import LogoutModule from './modules/Logout';
 import DashboardModule from './modules/DashboardModule';
 import NotFoundModule from './modules/NotFoundModule';
@@ -11,6 +10,7 @@ import Course from './modules/classes';
 import Grades from './modules/classes/detail';
 import CourseSettings from './modules/classes/Settings';
 import Setup from './modules/setup/Container';
+import Terms from './modules/setup/Terms';
 import People from './modules/people/index';
 import PeopleList from './modules/people/list';
 import UserList from './modules/UserList';
@@ -86,7 +86,7 @@ export default(store) => {
             component={CourseSettings}/>
         </Route>
         <Route path="setup" component={Setup.Container}>
-          <Route path="terms" component={Setup.Terms}/>
+          <Route path="terms" component={Terms}/>
         </Route>
       </Route>
     </Route>

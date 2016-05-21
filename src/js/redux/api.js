@@ -6,7 +6,7 @@ import axios from 'axios';
 // }, error => Promise.reject(error));
 
 const client = axios.create({
-  // baseURL: api.baseUrl,
+  baseURL: 'http://localhost:5000',
   timeout: 1000,
   headers: {
     'Authorization': `Bearer ${localStorage.getItem('id_token')}`,
@@ -27,4 +27,9 @@ export function login(email, password) {
     email,
     password,
   });
+}
+
+
+export function getGrades(courseId, termId) {
+  return client.get(`/course/${courseId}/term/${termId}/gradebook`)
 }

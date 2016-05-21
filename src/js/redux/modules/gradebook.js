@@ -1,18 +1,39 @@
 import {CALL_API} from '../const';
 import {Schemas} from '../const/schema';
 
+import * as api from '../api';
+
 // Constants
 const LOAD = 'gradebook/LOAD';
 const LOAD_SUCCESS = 'gradebook/LOAD_SUCCESS';
 const LOAD_FAIL = 'gradebook/LOAD_FAIL';
 
+export default function reducer(state = initialState, action = {}) {
+  switch (action.type) {
+    case LOAD:
+      return Object.assign({}, state, {
+        isFetching: true
+      });
+    case LOAD_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        grades: action.result.data,
+      });
+    case LOAD_FAIL:
+      return Object.assign({}, state, {
+        isFetching: false,
+        error: action.error
+      });
+    default:
+      return state;
+  }
+}
+
+
 function fetchGradebook(courseId,termId) {
   return {
-    [CALL_API]: {
       types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-      endpoint: `course/${courseId}/term/${termId}/gradebook`,
-      schema: Schemas.ATTEMPT_ARRAY
-    }
+      promise: () => api.getGrades(courseId,termId)
   };
 }
 

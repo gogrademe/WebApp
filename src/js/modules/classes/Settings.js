@@ -43,6 +43,10 @@ const WeightFooter = React.createClass({
 });
 
 class Settings extends Component  {
+  constructor(props) {
+    super(props)
+    this.fetch = this.fetch.bind(this)
+  }
   state = {
     data:[]
   };

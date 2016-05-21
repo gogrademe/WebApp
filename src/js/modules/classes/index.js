@@ -44,11 +44,18 @@ const View = React.createClass({
           <div className="row">
             <div className="col-sm-12 col-md-2">
               <Nav bsStyle='pills' stacked>
-                {['grades','students','assignments','settings'].map((name,id) => (
-                  <LinkContainer key={id} to={`/app/course/${term_id}/${resourceID}/${name}`}>
-                    <NavItem>{name}</NavItem>
-                  </LinkContainer>
-                ))}
+                <LinkContainer to={`/app/course/${term_id}/${resourceID}/grades`}>
+                  <NavItem>Grades</NavItem>
+                </LinkContainer>
+                <LinkContainer to={`/app/course/${term_id}/${resourceID}/students`}>
+                  <NavItem>Students</NavItem>
+                </LinkContainer>
+                <LinkContainer to={`/app/course/${term_id}/${resourceID}/assignments`}>
+                  <NavItem>Assignments</NavItem>
+                </LinkContainer>
+                <LinkContainer to={`/app/course/${term_id}/${resourceID}/settingss`}>
+                  <NavItem>Settings</NavItem>
+                </LinkContainer>
               </Nav>
             </div>
             <div className="col-sm-12 col-md-10">

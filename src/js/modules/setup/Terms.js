@@ -6,6 +6,8 @@ import api from '../../api/api';
 import NewTable from '../../components/NewTable';
 
 import {TermBtn} from '../../molecules/ModalButtons';
+import {PromiseState } from 'react-refetch';
+import connect from '../../api-connector';
 
 var Terms = React.createClass({
     tableColumns: [
@@ -35,15 +37,27 @@ var Terms = React.createClass({
         this.fetch();
     },
     render() {
-        return (
-          <div>
-              <div className="btn-toolbar" role="toolbar">
-              <TermBtn label="New" primary className="btn btn-primary pull-right"/>
-            </div>
-            <NewTable.Grid columns={this.tableColumns} data={this.state.data} />
-          </div>
-        );
+       const { termsFetch } = this.props
+       if (termsFetch.pending) {
+         return <div>Loading</div>
+       }
+       else if (termsFetch.rejected) {
+         return <div>Error!: {termsFetch.reason}</div>
+       }
+       else if (termsFetch.fulfilled) {
+         return(
+           <div>
+               <div className="btn-toolbar" role="toolbar">
+               <TermBtn label="New" primary className="btn btn-primary pull-right"/>
+             </div>
+             <NewTable.Grid columns={this.tableColumns} data={termsFetch.value} />
+           </div>
+         )
+       }
     }
 });
 
-module.exports = Terms;
+// module.exports = Terms;
+export default connect(props => ({
+  termsFetch: '/term'
+}))(Terms)
