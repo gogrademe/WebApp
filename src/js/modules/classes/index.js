@@ -53,7 +53,7 @@ const View = React.createClass({
                 <LinkContainer to={`/app/course/${term_id}/${resourceID}/assignments`}>
                   <NavItem>Assignments</NavItem>
                 </LinkContainer>
-                <LinkContainer to={`/app/course/${term_id}/${resourceID}/settingss`}>
+                <LinkContainer to={`/app/course/${term_id}/${resourceID}/settings`}>
                   <NavItem>Settings</NavItem>
                 </LinkContainer>
               </Nav>

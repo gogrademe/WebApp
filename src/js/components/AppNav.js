@@ -21,13 +21,14 @@ const IndexLink = ({to,display}) => (
   </IndexLinkContainer>
 );
 
-const Login = ({onClick}) => (
+const LoginButton = ({onClick}) => (
   <Nav navbar pullRight>
     <NavItem onClick={onClick}>Login</NavItem>
   </Nav>
 )
 
-const Authenticated = ({fullName}) => (
+
+const Authenticated = ({fullName, onLogoutClick}) => (
   <div>
     <Nav navbar>
       <IndexLink to="/app"   display="Dashboard" />
@@ -40,13 +41,13 @@ const Authenticated = ({fullName}) => (
       <NavDropdown
         title={fullName}
         id='account-dropdown'>
-        <Link to="/app/logout" display="Logout" />
+        <NavItem onClick={onLogoutClick}>Logout</NavItem>
       </NavDropdown>
     </Nav>
   </div>
 )
 
-const AppNav = ({isLoggedIn,handleLoginClick,fullName}) => (
+const AppNav = ({isLoggedIn, handleLoginClick, handleLogoutClick, fullName}) => (
   <Navbar className="app-nav">
     <Navbar.Header>
       <Navbar.Brand>
@@ -55,8 +56,8 @@ const AppNav = ({isLoggedIn,handleLoginClick,fullName}) => (
     </Navbar.Header>
     <Navbar.Collapse eventKey={0}>
       {isLoggedIn ?
-        <Authenticated fullName={fullName}/> :
-        <Login onClick={handleLoginClick}/>
+        <Authenticated fullName={fullName} onLogoutClick={handleLogoutClick} /> :
+        <LoginButton onClick={handleLoginClick}/>
       }
     </Navbar.Collapse>
   </Navbar>

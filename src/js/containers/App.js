@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import DocumentTitle from 'react-document-title';
-import { routeActions } from 'react-router-redux'
 import {connect} from 'react-redux';
 
 import AppNav from '../components/AppNav';
@@ -8,7 +7,7 @@ import AppNav from '../components/AppNav';
 // Hosts
 import ModalHost from '../host/ModalHost';
 
-import { load as loadAuth, login } from '../redux/modules/auth0';
+import { load as loadAuth, login, logout } from '../redux/modules/auth0';
 
 class App extends Component {
   constructor(props) {
@@ -25,16 +24,17 @@ class App extends Component {
     const {loadAuth} = this.props;
     loadAuth();
   }
-  // componentWillReceiveProps(nextProps) {
-  //   const {user,push} = this.props;
-  //   if (!user && nextProps.user) {
-  //     // login
-  //     push('/app');
-  //   } else if (user && !nextProps.user) {
-  //     // logout
-  //     push('/');
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    const {profile,isAuthenticated} = this.props;
+    const {push} = this.context.router;
+    if (!isAuthenticated && nextProps.isAuthenticated) {
+      // login
+      push('/app');
+    } else if (isAuthenticated && !nextProps.isAuthenticated) {
+      // logout
+      push('/');
+    }
+  }
 
   // loggedIn() {
   //   if (this.props.isAuthenticated) {return ;}
@@ -58,7 +58,7 @@ class App extends Component {
   }
 
   render() {
-    const {children, isAuthenticated,login, profile={}} = this.props;
+    const {children, isAuthenticated,login, logout, profile={}} = this.props;
     var name;
     if (profile) {
       name = profile.name;
@@ -66,7 +66,7 @@ class App extends Component {
     return (
       <DocumentTitle title='GoGradeMe'>
         <div>
-          <AppNav handleLoginClick={login} isLoggedIn={isAuthenticated} fullName={name}/>
+          <AppNav handleLoginClick={login} handleLogoutClick={logout} isLoggedIn={isAuthenticated} fullName={name}/>
           {this.renderErrorMessage()}
           <div className="main container">
             {children}
@@ -88,6 +88,7 @@ App.propTypes = {
 }
 
 App.contextTypes = {
+  router: React.PropTypes.object.isRequired,
   store: PropTypes.object.isRequired
 }
 //
@@ -100,4 +101,4 @@ App.contextTypes = {
 export default connect(state => ({
   profile: state.auth0.profile,
   isAuthenticated: state.auth0.isAuthenticated
-}),{loadAuth,...routeActions, login})(App)
+}),{loadAuth, login, logout})(App)

@@ -5,9 +5,6 @@ import {
   combineReducers
 } from 'redux';
 
-import {
-  routeReducer as router
-} from 'redux-simple-router'
 
 import auth0 from './../modules/auth0';
 import person from './../modules/person';
@@ -45,7 +42,6 @@ function errorMessage(state = null, action) {
 }
 
 export default combineReducers({
-  router,
   auth0,
   person,
   entities,

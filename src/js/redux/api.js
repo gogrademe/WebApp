@@ -5,15 +5,23 @@ import axios from 'axios';
 //   return Object.assign({}, config, { headers });
 // }, error => Promise.reject(error));
 
-const client = axios.create({
+export const client = axios.create({
   baseURL: 'http://localhost:5000',
   timeout: 1000,
   headers: {
-    'Authorization': `Bearer ${localStorage.getItem('id_token')}`,
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   }
 });
+
+client.interceptors.request.use(function (config) {
+    // Do something before request is sent
+    config.headers.Authorization = `Bearer ${localStorage.getItem('id_token')}`;
+    return config;
+  }, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  });
 
 export function logout() {
   return client.delete('/session');

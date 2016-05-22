@@ -26,8 +26,7 @@ const AssignmentEdit = React.createClass({
 var assignmentCols = [
   {
     key: 'name',
-    display: 'Name',
-    className: 'assignment.student'
+    display: 'Name'
   },
   {
     key: 'due_date',

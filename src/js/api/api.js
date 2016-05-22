@@ -14,7 +14,7 @@ let promisifyReq = function (req) {
     return req
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
-      .set('Authorization', auth.token ? 'Bearer ' + auth.token : null)
+      .set('Authorization', localStorage.getItem('id_token') ? 'Bearer ' + localStorage.getItem('id_token') : null)
       .end((error, res) => {
         if (error || res.status >= 400) {
           if (res.status === 401) {

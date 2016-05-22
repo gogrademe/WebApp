@@ -10,7 +10,7 @@ import { Router, IndexRoute, browserHistory } from 'react-router'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux';
 
-import axios from 'axios';
+import {client} from './redux/api';
 
 import api from './api/api';
 
@@ -31,15 +31,6 @@ if (process.env.NODE_ENV === 'production') {
   api.baseUrl = 'http://localhost:5000';
 }
 
-const client = axios.create({
-  baseURL: api.baseUrl,
-  timeout: 1000,
-  headers: {
-    'Authorization': `Bearer ${localStorage.id_token}`,
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  }
-});
 
 
 const store = configureStore(client, browserHistory);

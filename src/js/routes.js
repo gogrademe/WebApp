@@ -47,7 +47,9 @@ export default(store) => {
   // };
   return (
     <Route path="/" component={App}>
-      <IndexRoute component={Home} onEnter={redirectIfLoggedIn} />
+      <IndexRoute
+        component={Home}
+        onEnter={redirectIfLoggedIn} />
       <Route path="/app" onEnter={requireAuth}>
         <IndexRoute
           title="Dashboard"

@@ -13,7 +13,7 @@ const LOAD_FAIL = 'auth/LOAD_FAIL';
 const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 
 const initialState = {
-  id_token: localStorage.getItem('id_token'),
+  token: localStorage.getItem('id_token'),
   isAuthenticated: localStorage.getItem('id_token') ? true : false,
   profile: JSON.parse(localStorage.getItem('profile'))
 };
@@ -36,15 +36,15 @@ export default function reducer(state = initialState, action = {}) {
         loading: false,
         loaded: false,
         isAuthenticated: false,
+        profile: null,
         error: action.error
       });
     case LOCK_SUCCESS:
-      const {data} = action.result;
       return Object.assign({}, state, {
         loggingIn: false,
         isAuthenticated: true,
-        token: data.token,
-        profile: data.account
+        token: action.token,
+        profile: action.profile
       });
     case LOCK_ERROR:
       return Object.assign({}, state, {
@@ -64,13 +64,7 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function load() {
-  const token = localStorage.getItem('id_token')
-  return {
-    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: () => api.tokenInfo(token)
-  };
-}
+
 
 
 function showLock() {
@@ -91,6 +85,32 @@ function lockError(err) {
   return {
     type: LOCK_ERROR,
     err
+  }
+}
+
+function logoutSuccess() {
+  return {
+    type: LOGOUT_SUCCESS
+  }
+}
+
+export function load() {
+  const token = localStorage.getItem('id_token');
+  return {
+    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+    promise: () => api.tokenInfo(token).catch(err => {
+      localStorage.removeItem('id_token');
+      localStorage.removeItem('profile');
+      return Promise.reject(err);
+    })
+  };
+}
+
+export function logout() {
+  return dispatch => {
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('profile');
+    dispatch(logoutSuccess());
   }
 }
 
