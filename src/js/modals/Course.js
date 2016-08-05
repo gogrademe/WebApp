@@ -4,39 +4,56 @@ import api from '../api/api';
 
 import ModalForm from '../molecules/ModalForm';
 import LabeledField from '../molecules/LabeledField';
+import {GradeLevel} from '../molecules/AutoCompleteFor';
 // import {AssignmentGroup} from '../molecules/AutoCompleteFor';
+
+import reformed from 'react-reformed'
+
+const MyForm = ({ bindInput }) => {
+  return (
+    <form>
+    <input type='text' {...bindInput('name')} />
+    <input type='date' {...bindInput('dob')} />
+    <textarea {...bindInput('bio')} />
+    <button type='submit'>Submit</button>
+  </form>
+)
+}
+
+const MyFormContainer = reformed()(MyForm)
+
 
 export default React.createClass({
   propTypes: {
-    course_id: React.PropTypes.number,
-    term_id: React.PropTypes.number.isRequired,
-    assignment_id: React.PropTypes.number
+    course_id: React.PropTypes.number
   },
   getInitialState() {
     return {
-      assignment: {}
+      course: {}
     };
   },
   onSubmit(model) {
-    // model.course_id = Number(this.props.course_id);
-    // model.term_id = Number(this.props.term_id);
-    // model.due_date = utils.forUpload(model.due_date);
-    // model.max_score = Number(model.max_score);
-
     return api.course.create(model);
   },
   componentWillMount() {
-    // if (this.props.assignment_id) {
-    //   api.assignment
-    //     .get(this.props.assignment_id)
-    //     .then(res => this.setState({assignment: res}));
-    // }
+    if (this.props.course_id) {
+      api.course
+        .get(this.props.course_id)
+        .then(res => this.setState({course: res}));
+    }
   },
   render() {
+    const {course} = this.state;
     return (
       <ModalForm {... this.props} title="Course" onSubmitAsync={this.onSubmit}>
-        <LabeledField name="name" label="Name"/>
-        <LabeledField name="levelID" label="Grade Level"/>
+        <LabeledField name="name" label="Name" value={course.name} />
+        <div className="field">
+          <label>Grade Level</label>
+          <GradeLevel name="level_id" value={course.level_id}
+          selection
+          fluid
+          search/>
+        </div>
       </ModalForm>
 
     );

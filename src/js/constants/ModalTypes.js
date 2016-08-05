@@ -6,5 +6,6 @@ module.exports = keyMirror({
   ASSIGNMENT_GRADES: null,
   ASSIGNMENT: null,
   ACCOUNT: null,
-  PERSON: null
+  PERSON: null,
+  COURSE: null
 });

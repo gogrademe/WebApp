@@ -33,7 +33,7 @@ var LabeledInput = React.createClass({
       ) : null;
 
       const renderLabel = label ? (
-          <label className="control-label">
+          <label>
             {label}
           </label>
         ) : null;
@@ -43,24 +43,16 @@ var LabeledInput = React.createClass({
 
       return (
         <div className={cx(
-          'form-group',
-          this.props.size,
-          {'has-error': this.showError()})}>
+          'field',
+          {'has-error': this.showError()},
+          {'required': this.isRequired()})}>
           {renderLabel}
           <Field
-            className="form-control"
             type={type}
             onChange={this.changeValue}
             value={this.getValue()}
             placeholder={placeholder || label}
             />
-
-          {this.isRequired() ?
-            (
-              <div className="ui corner label">
-                <i className="red asterisk icon" />
-              </div>
-            ): null}
             {error}
         </div>
       );

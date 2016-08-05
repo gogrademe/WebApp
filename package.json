@@ -12,7 +12,7 @@
   },
   "author": "Matt Aitchison",
   "devDependencies": {
-    "axios": "^0.8.1",
+    "axios": "^0.11.1",
     "babel": "^6.5.2",
     "babel-core": "^6.9.0",
     "babel-eslint": "^6.0.4",
@@ -35,7 +35,7 @@
     "font-awesome": "^4.6.1",
     "formsy-react": "^0.17.0",
     "formsy-react-components": "^0.6.6",
-    "history": "^1.17.0",
+    "history": "^2.1.1",
     "humps": "^1.1.0",
     "immutable": "^3.8.1",
     "invariant": "^2.2.1",
@@ -50,8 +50,6 @@
     "node-libs-browser": "^0.5.3",
     "normalizr": "^2.1.0",
     "prelude-ls": "^1.1.2",
-    "react": "^0.14.8",
-    "react-addons-test-utils": "^0.14.8",
     "react-bootstrap": "^0.28.5",
     "react-document-title": "^2.0.1",
     "react-dom": "^0.14.8",
@@ -60,10 +58,8 @@
     "react-refetch": "^1.0.0-beta.4",
     "react-router": "^2.4.1",
     "react-router-bootstrap": "^0.20.1",
-    "react-select": "^0.9.1",
     "react-transform-hmr": "^1.0.4",
     "react-widgets": "^3.3.1",
-    "redux": "^3.5.2",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.11",
@@ -84,6 +80,21 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
-    "react-refetch": "^1.0.0-beta.4"
+    "babel-core": "^6.11.4",
+    "bootstrap": "^3.3.7",
+    "eslint": "^3.1.1",
+    "formsy-react": "^0.18.1",
+    "lodash": "^4.14.0",
+    "normalizr": "^2.2.1",
+    "react": "^15.2.1",
+    "react-bootstrap": "^0.30.0",
+    "react-dom": "^15.2.1",
+    "react-refetch": "^1.0.0-beta.4",
+    "react-reformed": "^0.4.2",
+    "react-router": "^2.6.0",
+    "react-select": "^0.9.1",
+    "react-widgets": "^3.4.3",
+    "reflux": "^0.4.1",
+    "stardust": "^0.27.1"
   }
 }

@@ -144,10 +144,11 @@ let types = {
   assignment: {},
   attempt: {},
   school: {},
-  account: {}
+  account: {},
+  level: {}
 };
 let cacheSet = function (type, cache, data) {
-  const id = data[type+"_id"];
+  const id = data[type+'_id'];
   switch (false) {
   case !cache[id]:
     return mergeInto(data, cache[id]);

@@ -1,9 +1,4 @@
 import axios from 'axios';
-//
-// axios.interceptors.request.use(config => {
-//   const headers = Object.assign({}, config.headers, { 'X-CSRF-Token': window.__DATA__.csrfToken });
-//   return Object.assign({}, config, { headers });
-// }, error => Promise.reject(error));
 
 export const client = axios.create({
   baseURL: 'http://localhost:5000',
@@ -15,7 +10,6 @@ export const client = axios.create({
 });
 
 client.interceptors.request.use(function (config) {
-    // Do something before request is sent
     config.headers.Authorization = `Bearer ${localStorage.getItem('id_token')}`;
     return config;
   }, function (error) {
@@ -27,9 +21,6 @@ export function logout() {
   return client.delete('/session');
 }
 
-export function tokenInfo(id_token) {
-  return client.post('https://gogrademe.auth0.com/tokeninfo', {id_token: id_token})
-}
 export function login(email, password) {
   return client.post('/session', {
     email,
@@ -37,7 +28,14 @@ export function login(email, password) {
   });
 }
 
+export function tokenInfo(id_token) {
+  return client.post('https://gogrademe.auth0.com/tokeninfo', {id_token: id_token})
+}
+
 
 export function getGrades(courseId, termId) {
   return client.get(`/course/${courseId}/term/${termId}/gradebook`)
+}
+export function getTerms() {
+  return client.get(`/term`)
 }

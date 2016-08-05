@@ -6,7 +6,6 @@ import api from '../api/api';
 import AutocompleteFor from '../molecules/AutoCompleteFor';
 import ModalForm from '../molecules/ModalForm';
 import LabeledField from '../molecules/LabeledField';
-import {Input} from 'formsy-react-components';
 
 export default React.createClass({
   onSubmit(model) {
@@ -15,10 +14,15 @@ export default React.createClass({
   render() {
     return (
       <ModalForm {... this.props} title="Person" onSubmitAsync={this.onSubmit}>
-        <Input name="first_name" label="First Name" required/>
-        <Input name="middle_name" label="Middle Name"/>
-        <Input name="last_name" label="Last Name" required/>
-        <Input name="email" label="Email"/>
+        <div className="field">
+          <label>Name</label>
+          <div className="three fields required">
+            <LabeledField name="first_name" placeholder="First" required/>
+            <LabeledField name="middle_name" placeholder="Middle" />
+            <LabeledField name="last_name" placeholder="Last" required/>
+          </div>
+        </div>
+        <LabeledField name="email" label="Email"/>
         <AutocompleteFor.ProfileTypes label="Types" name="types" required/>
       </ModalForm>
     );

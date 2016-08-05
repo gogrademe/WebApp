@@ -60,7 +60,7 @@ export default React.createClass({
           <Modal.Title>{props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Formsy.Form ref="form" className="form-horizontal" onSubmit={this.onSubmitPushed} onValid={this.enableButton} onInvalid={this.disableButton}>
+          <Formsy.Form ref="form" className="ui form" onSubmit={this.onSubmitPushed} onValid={this.enableButton} onInvalid={this.disableButton}>
             {children}
           </Formsy.Form>
         </Modal.Body>

@@ -42,20 +42,3 @@ export default React.createClass({
     );
   }
 });
-
-
-//
-// <div className="actions">
-//   <a className="ui labeled icon button" onClick={this.props.onRequestHide}>
-//     <i className="cancel icon" />
-//     Cancel
-//   </a>
-//   <a className={cx({
-//       'ui labeled icon primary button': true,
-//       'disabled': !this.state.canSubmit
-//     })}
-//     onClick={this.submitForm}>
-//     <i className="save icon" />
-//     Save
-//   </a>
-// </div>

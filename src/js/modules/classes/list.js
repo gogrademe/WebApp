@@ -8,6 +8,7 @@ import Header from '../../components/PageHeader';
 
 import {Combobox as Select} from 'react-widgets';
 
+import {CourseBtn} from '../../molecules/ModalButtons';
 const CourseLink = ({column, row, value}) => (
   <div>
     <Link to={`/app/course/${column.term}/${row.course_id}/grades`}>
@@ -16,7 +17,19 @@ const CourseLink = ({column, row, value}) => (
   </div>
 );
 
-let ClassList = React.createClass({
+const Actions = (props) => (
+  <div className="btn-group">
+    <CrudActions {...props}/>
+    <CourseBtn
+      label='Edit'
+      course_id={props.row.course_id}
+      term_id={props.row.term_id}
+      group_id={props.row.group_id}
+      className='btn btn-primary'/>
+  </div>
+);
+
+let CourseList = React.createClass({
     getInitialState(){
       return {
         courses: [],
@@ -49,7 +62,7 @@ let ClassList = React.createClass({
         }, {
           display: '',
           resourceType: 'class',
-          renderer: CrudActions,
+          renderer: Actions,
           className: 'text-right',
           tdClassName: 'text-right col-md-2',
           linkTo: 'class'
@@ -83,6 +96,11 @@ let ClassList = React.createClass({
           <Header
             primary='All Courses'
             right={this.rightButtons()}/>
+            <div>
+            <CourseBtn
+              className="btn btn-primary pull-right"
+              label="New" />
+            </div>
           <div>
             <Grid
               columns={this.cols()}
@@ -93,7 +111,4 @@ let ClassList = React.createClass({
     }
   });
 
-  // <SemanticModal.ModalTrigger modal={CreateClassModal()}>
-  //   <a className='ui primary tiny button'>New Class</a>
-  // </SemanticModal.ModalTrigger>
-  module.exports = ClassList;
+  module.exports = CourseList;

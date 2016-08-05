@@ -54,7 +54,6 @@ export default(store) => {
         <IndexRoute
           title="Dashboard"
           component={DashboardModule}/>
-        <Route path="logout" component={LogoutModule}/>
         <Route path="people">
           <IndexRoute component={PeopleList}/>
           <Route

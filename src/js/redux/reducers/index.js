@@ -13,6 +13,8 @@ import person from './../modules/person';
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = {
   attempts: {},
+  terms: {},
+  people: {},
   users: {},
   repos: {},
   assignments: {},

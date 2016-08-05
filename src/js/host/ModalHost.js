@@ -12,6 +12,7 @@ import AssignmentModal from '../modals/Assignment';
 import AssignmentGroupModal from '../modals/AssignmentGroup';
 import AccountModal from '../modals/Account';
 import PersonModal from '../modals/Person';
+import CourseModal from '../modals/Course';
 
 export default React.createClass({
   mixins: [Reflux.ListenerMixin],
@@ -29,7 +30,7 @@ export default React.createClass({
       this.listenTo(modalStore, this.onModalStoreChange);
   },
   render() {
-    var modal = this.getModal();
+    const modal = this.getModal();
     return (
       <div>
         {modal}
@@ -59,6 +60,8 @@ export default React.createClass({
         return <PersonModal {...props} {...modal.options}/>
       case ModalTypes.ASSIGNMENT:
         return <AssignmentModal {...props}{...modal.options} />
+      case ModalTypes.COURSE:
+        return <CourseModal {...props}{...modal.options} />
       case null:
         return null;
       default:

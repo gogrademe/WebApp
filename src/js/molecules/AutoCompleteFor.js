@@ -4,19 +4,24 @@ import Formsy from 'formsy-react';
 
 import {Multiselect} from 'react-widgets';
 import {Select} from 'formsy-react-components';
+import { Dropdown } from 'stardust'
 
 import api from '../api/api';
+
+const GradeLevel = () => {
+
+}
 
 var ProfileTypes = React.createClass({
   mixins: [Formsy.Mixin],
   getInitialState() {
     return {
       types: [
-        {label: 'Student', value: 'student'},
-        {label: 'Teacher', value: 'teacher'},
-        {label: 'Parent', value: 'parent'},
-        {label: 'Other', value: 'other'},
-        {label: 'Admin', value: 'admin'}
+        {text: 'Student', value: 'student'},
+        {text: 'Teacher', value: 'teacher'},
+        {text: 'Parent', value: 'parent'},
+        {text: 'Other', value: 'other'},
+        {text: 'Admin', value: 'admin'}
       ]
     };
   },
@@ -34,18 +39,18 @@ var ProfileTypes = React.createClass({
   },
   render() {
     return (
-        <div className="form-group">
+        <div className="field">
           <label>
             Types
           </label>
-          <Multiselect
+          <Dropdown
               {... this.props}
               placeholder="Types"
               value={this.getVal()}
-              valueField='value'
-              textField='label'
-              data={this.state.types}
+              options={this.state.types}
               onChange={this.changeValue}
+              fluid
+              selection
           />
         </div>
     );
@@ -72,10 +77,10 @@ var AssignmentGroup = React.createClass({
         let types = xs.map(function(type){
           return {
             value: type.group_id,
-            label: type.name
+            text: type.name
           };
         });
-        types.unshift({value: '', label: 'Please select…'});
+        types.unshift({value: '', text: 'Please select…'});
         this.setState({
           types: types
         });
@@ -83,16 +88,86 @@ var AssignmentGroup = React.createClass({
   },
   render() {
     return (
-      <Select
+      <Dropdown
           {...this.props}
           placeholder="Group"
           options={this.state.types}
+          fluid
+          selection
       />
     );
   }
 });
 
+
+
+
+
+
+
+
+function thenPromise (promise, callback) {
+	if (!promise || typeof promise.then !== 'function') return;
+	return promise.then((data) => {
+		callback(null, data);
+	}, (err) => {
+		callback(err);
+	});
+}
+
+
+class DropdownAsync extends React.Component {
+  static propTypes = {
+    loadOptions: React.PropTypes.func.isRequired
+  }
+
+  state = {
+    isLoading: false,
+    options: []
+  }
+
+  componentDidMount() {
+    this.loadOptions('');
+  }
+
+  handleResponse = (err, data) => {
+    if (err) throw err;
+    this.setState({
+			isLoading: false,
+			options: data || []
+		});
+  }
+
+  loadOptions = (input) => {
+    this.setState({
+      isLoading: true,
+    });
+    const inputPromise = thenPromise(this.props.loadOptions(input, this.handleResponse), this.handleResponse);
+    return inputPromise ? inputPromise.then(() => {
+      return input;
+    }) : input;
+  }
+
+  render() {
+    const {options, isLoading} = this.state
+
+    return (
+        <Dropdown
+          options={options}
+          disabled={isLoading}
+          loading={isLoading}
+          {...this.props}
+        />
+    )
+  }
+}
+
+
+const loadGradeLevels = () => api.level.find().then(data => data.map(level => ({value: level.level_id, text: level.name})));
+
 module.exports = {
   ProfileTypes: ProfileTypes,
-  AssignmentGroup: AssignmentGroup
+  AssignmentGroup: AssignmentGroup,
+  DropdownAsync: DropdownAsync,
+  GradeLevel: (props) => <DropdownAsync loadOptions={loadGradeLevels} {...props} />
 };

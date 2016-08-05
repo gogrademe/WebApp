@@ -6,7 +6,7 @@ require('../less/main.less');
 import 'babel-polyfill';
 import React,{Component} from 'react';
 
-import { Router, IndexRoute, browserHistory } from 'react-router'
+import { Router, browserHistory } from 'react-router'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux';
 

@@ -125,7 +125,8 @@ let Grid = React.createClass({
 let CrudActions = React.createClass({
     handleDelete: function(e){
       e.preventDefault();
-      return api[this.props.column.resourceType].del(this.props.row.id);
+      const resourceType = this.props.column.resourceType;
+      return api[resourceType].del(this.props.row[resourceType+'_id']);
     },
     render(){
       return (

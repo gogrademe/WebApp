@@ -1,9 +1,4 @@
-
-
 import React from 'react';
-
-// var Button = require('react-semantic-ui').Button;
-
 import ModalActions from '../actions/ModalActions';
 import ModalTypes from '../constants/ModalTypes';
 
@@ -26,48 +21,13 @@ var ModalButton = React.createClass({
   }
 });
 
-var TermBtn = React.createClass({
-  render(){
-    return (
-      <ModalButton modal={ModalTypes.TERM} {...this.props}/>
-    );
-  }
-});
-
-var AssignmentGroupBtn = React.createClass({
-  render(){
-    return (
-      <ModalButton modal={ModalTypes.ASSIGNMENT_TYPE} {...this.props}/>
-    );
-  }
-});
-
-const AssignmentBtn = (props) => (
-  <ModalButton modal={ModalTypes.ASSIGNMENT} {... props}/>
-);
-
-var AssignmentGradesBtn = React.createClass({
-  render(){
-    return (
-      <ModalButton modal={ModalTypes.ASSIGNMENT_GRADES} {...this.props}/>
-    );
-  }
-});
-var AccountBtn = React.createClass({
-  render(){
-    return (
-      <ModalButton modal={ModalTypes.ACCOUNT} {...this.props}/>
-    );
-  }
-});
-var PersonBtn = React.createClass({
-  render(){
-    return (
-      <ModalButton modal={ModalTypes.PERSON} {...this.props}/>
-    );
-  }
-});
-
+const TermBtn = (props) => <ModalButton modal={ModalTypes.TERM} {...props}/>
+const AssignmentGroupBtn = (props) => <ModalButton modal={ModalTypes.ASSIGNMENT_TYPE} {...props}/>
+const AssignmentBtn = (props) => <ModalButton modal={ModalTypes.ASSIGNMENT} {...props}/>
+const AssignmentGradesBtn = (props) => <ModalButton modal={ModalTypes.ASSIGNMENT_GRADES} {...props}/>
+const AccountBtn = (props) => <ModalButton modal={ModalTypes.ACCOUNT} {...props}/>
+const PersonBtn = (props) => <ModalButton modal={ModalTypes.PERSON} {...props}/>
+const CourseBtn = (props) => <ModalButton modal={ModalTypes.COURSE} {...props}/>
 
 module.exports = {
   TermBtn: TermBtn,
@@ -75,5 +35,6 @@ module.exports = {
   AssignmentGroupBtn: AssignmentGroupBtn,
   AssignmentBtn: AssignmentBtn,
   AssignmentGradesBtn: AssignmentGradesBtn,
-  AccountBtn: AccountBtn
+  AccountBtn: AccountBtn,
+  CourseBtn: CourseBtn
 };

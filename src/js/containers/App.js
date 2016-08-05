@@ -35,10 +35,6 @@ class App extends Component {
       push('/');
     }
   }
-
-  // loggedIn() {
-  //   if (this.props.isAuthenticated) {return ;}
-  // }
   renderErrorMessage() {
     const { errorMessage } = this.props;
     if (!errorMessage) {
@@ -58,7 +54,7 @@ class App extends Component {
   }
 
   render() {
-    const {children, isAuthenticated,login, logout, profile={}} = this.props;
+    const {children, isAuthenticated,login, logout, profile} = this.props;
     var name;
     if (profile) {
       name = profile.name;
@@ -91,12 +87,6 @@ App.contextTypes = {
   router: React.PropTypes.object.isRequired,
   store: PropTypes.object.isRequired
 }
-//
-//
-// export default connect(state => ({
-//   assignments: state.entities.assignments,
-//   attempts: state.entities.attempts
-// }),{loadAssignments,loadGradebook})(ClassDetail);
 
 export default connect(state => ({
   profile: state.auth0.profile,

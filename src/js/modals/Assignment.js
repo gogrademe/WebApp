@@ -48,10 +48,15 @@ export default React.createClass({
     return (
       <ModalForm {... this.props} title="Assignment" onSubmitAsync={this.onSubmit}>
         <Input name="name" value={assignment.name} label="Name" />
-        <AssignmentGroup name="group_id" label="Type"
-          value={assignment.group_id}
-          course_id={this.props.course_id}
-          term_id={this.props.term_id} />
+        <div className="field">
+          <label>
+            Types
+          </label>
+          <AssignmentGroup name="group_id" label="Type"
+            value={assignment.group_id}
+            course_id={this.props.course_id}
+            term_id={this.props.term_id} />
+        </div>
         <Input name="due_date" value={assignment.due_date} validation="isDate" label="Due Date" />
         <Input name="max_score" value={assignment.max_score} validations="isNumeric" validationError="must be a number" label="Out Of" />
       </ModalForm>
