@@ -1,0 +1,7 @@
+/*******************************
+     User Global Variables
+*******************************/
+@fontPath : '../assets/fonts';
+
+// @primaryColor: @violet;
+@pageBackground: @primaryColor;

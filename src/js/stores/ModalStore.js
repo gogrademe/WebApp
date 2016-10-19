@@ -26,6 +26,7 @@ var ModalStore = Reflux.createStore({
       shouldHide: false,
       options: options
     };
+    console.log('show modal', id)
 
     this.trigger(this.modal);
   },

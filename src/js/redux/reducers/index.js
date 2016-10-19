@@ -1,3 +1,5 @@
+/* @flow */
+
 import * as ActionTypes from '../modules/error';
 import merge from 'lodash/merge';
 
@@ -5,9 +7,14 @@ import {
   combineReducers
 } from 'redux';
 
+import {
+  reducer as formReducer
+} from 'redux-form'
+
 
 import auth0 from './../modules/auth0';
 import person from './../modules/person';
+import gradebook from './../modules/gradebook';
 
 // const initialState
 // Updates an entity cache in response to any action with response.entities.
@@ -46,6 +53,8 @@ function errorMessage(state = null, action) {
 export default combineReducers({
   auth0,
   person,
+  gradebook,
   entities,
-  errorMessage
+  errorMessage,
+  form: formReducer
 });

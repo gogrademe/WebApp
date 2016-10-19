@@ -11,6 +11,9 @@ import {AccountBtn, PersonBtn} from '../../molecules/ModalButtons';
 import {filter} from 'prelude-ls';
 import { connect } from 'react-redux';
 
+import MenuLink from '../../components/MenuLink';
+import {Menu, Button} from 'semantic-ui-react';
+
 const customActions = ({row}) => (
     <AccountBtn primary icon person_id={row.id}>
       <i className="icon settings"/>
@@ -56,39 +59,28 @@ let PeopleList = React.createClass({
   renderFilterButton: function(name){
     var isActive, btnClassName, setActive, this$ = this;
     isActive = this.state.currentFilter === name;
-    btnClassName = (function(){
-      switch (isActive) {
-      case true:
-        return 'btn btn-default active';
-      default:
-        return 'btn btn-default';
-      }
-    }());
     setActive = function(){
       return this$.setState({
         currentFilter: name
       });
     };
     return (
-      <div className={btnClassName} onClick={setActive}>
+      <Menu.Item active={isActive} onClick={setActive}>
         {name}
-      </div>
+      </Menu.Item>
     );
   },
   renderGridTop(){
     return (
-      <div className="btn-toolbar" role="toolbar">
-        <div className="btn-group">
+      <Menu text attached>
+        <Menu.Item header>Filter</Menu.Item>
           {this.renderFilterButton('All')}
           {this.renderFilterButton('Students')}
           {this.renderFilterButton('Teachers')}
           {this.renderFilterButton('Parents')}
           {this.renderFilterButton('Admins')}
-        </div>
-        <PersonBtn
-          className="btn btn-primary pull-right"
-          label="New" />
-      </div>
+        <Menu.Item position='right' as={PersonBtn} name="New"/>
+      </Menu>
     );
   },
   // filteredData(){
@@ -113,16 +105,8 @@ let PeopleList = React.createClass({
     return (
       <div>
         <Header primary="All People"/>
-        <div>
-          <div>
-            {this.renderGridTop()}
-          </div>
-          {
-            people ?
-            <Grid columns={cols} data={people}/> :
-            <div>Loading...</div>
-          }
-        </div>
+        {this.renderGridTop()}
+        {people&& <Grid attached columns={cols} data={people}/>}
       </div>
     )
   }

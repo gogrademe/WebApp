@@ -20,9 +20,6 @@ import configureStore from './redux/configureStore';
 
 import getRoutes from './routes';
 
-import FormsyValidators from './utils/validators';
-FormsyValidators();
-
 window.React = React;
 
 if (process.env.NODE_ENV === 'production') {
@@ -30,12 +27,13 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   api.baseUrl = 'http://localhost:5000';
 }
+// Disable logging for semantic-ui-react
+localStorage.debug = null;
 
 
+const store = configureStore(client);
 
-const store = configureStore(client, browserHistory);
-
-const mountNode = document.getElementById('app')
+const mountNode = document.getElementById('app');
 render(
   <Provider store={store} key="provider">
     <div>

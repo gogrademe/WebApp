@@ -31,6 +31,7 @@ export default React.createClass({
   },
   render() {
     const modal = this.getModal();
+    console.log('render modal', modal)
     return (
       <div>
         {modal}

@@ -2,7 +2,7 @@
 import React from 'react';
 import utils from '../utils/index';
 import DeleteBtn from '../atoms/DeleteButton';
-
+import { Table } from 'semantic-ui-react'
 import api from '../api/api';
 
 let get = function(obj, prop){
@@ -51,13 +51,10 @@ let formatVal = function(val, format){
 
 let Grid = React.createClass({
     render(){
-      const data = this.props.data;
-      const cols = this.props.columns;
-
+      const {data, columns: cols, ...props} = this.props;
       const shouldRenderFooter = cols.some(x => !!x.footerRenderer);
       return (
-        <div className="table-responsive">
-          <table className="table" {... this.props}>
+          <Table className="table" {...props}>
             <thead>
               <tr>
                 {cols.map(this.renderHeader)}
@@ -95,8 +92,7 @@ let Grid = React.createClass({
               </tfoot>
             ) : null}
 
-          </table>
-        </div>
+          </Table>
       );
     },
     getRenderer: function(column){

@@ -14,7 +14,7 @@ var ModalButton = React.createClass({
   render(){
     var {modal, className, icon, ...otherProps} = this.props;
     return (
-      <a onClick={this.handleOnClick} {...this.props}>
+      <a onClick={this.handleOnClick} className={className} >
         {this.props.label || this.props.children}
       </a>
     );

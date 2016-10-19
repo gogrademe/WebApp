@@ -7,8 +7,8 @@ import {Link} from 'react-router';
 import Header from '../../components/PageHeader';
 
 import {Combobox as Select} from 'react-widgets';
-
-import {CourseBtn} from '../../molecules/ModalButtons';
+import {Button} from 'semantic-ui-react';
+import CourseModal from '../../modals/Course';
 const CourseLink = ({column, row, value}) => (
   <div>
     <Link to={`/app/course/${column.term}/${row.course_id}/grades`}>
@@ -20,12 +20,10 @@ const CourseLink = ({column, row, value}) => (
 const Actions = (props) => (
   <div className="btn-group">
     <CrudActions {...props}/>
-    <CourseBtn
-      label='Edit'
+    <CourseModal trigger={<Button primary content="Edit"/>}
       course_id={props.row.course_id}
       term_id={props.row.term_id}
-      group_id={props.row.group_id}
-      className='btn btn-primary'/>
+      group_id={props.row.group_id} />
   </div>
 );
 
@@ -79,30 +77,27 @@ let CourseList = React.createClass({
             className='inline'
             onChange={val => this.setState({term: val.term_id})}
             value={this.state.term}
-            autoload={false}
             data={this.state.terms}
             valueField='term_id'
-            textField={item => `${item.school_year} - ${item.name}`}
-            />
+            textField={item => `${item.school_year} - ${item.name}`} />
         );
       }
-    },
-    rightButtons(){
-      return this.selectRender(this.state.terms);
     },
     render(){
       return (
         <div>
           <Header
             primary='All Courses'
-            right={this.rightButtons()}/>
+            secondary='Test'
+            right={this.selectRender(this.state.terms)}/>
             <div>
-            <CourseBtn
+            <CourseModal trigger={<Button primary content="New"/>} />
+            {/* <CourseBtn
               className="btn btn-primary pull-right"
-              label="New" />
+              label="New" /> */}
             </div>
           <div>
-            <Grid
+            <Grid attached
               columns={this.cols()}
               data={this.state.courses}/>
           </div>

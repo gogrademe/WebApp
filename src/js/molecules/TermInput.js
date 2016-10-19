@@ -2,11 +2,11 @@
 import React from 'react';
 import cx from 'react/lib/cx';
 
-import Formsy from 'formsy-react';
+// import Formsy from 'formsy-react';
 
 var TermInput = React.createClass({
     // Add the Formsy Mixin
-    mixins: [Formsy.Mixin],
+    // mixins: [Formsy.Mixin],
 
     getDefaultProps() {
         return {

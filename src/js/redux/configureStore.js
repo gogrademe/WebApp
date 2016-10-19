@@ -8,15 +8,14 @@ import createLogger from 'redux-logger';
 
 import rootReducer from './reducers';
 
-import { syncHistory } from 'redux-simple-router';
 import DevTools from '../containers/DevTools';
 
 const logger = createLogger({
   collapsed: true
 });
 
-export default function configureStore(client, history) {
-  const middleware = [syncHistory(history), thunkMiddleware, apiMiddleware, clientMiddleware(client), logger];
+export default function configureStore(client) {
+  const middleware = [thunkMiddleware, apiMiddleware, clientMiddleware(client), logger];
   const store = compose(
     applyMiddleware(...middleware),
     DevTools.instrument()

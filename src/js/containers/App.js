@@ -1,13 +1,11 @@
 import React, {Component, PropTypes} from 'react';
+import { Container, Segment } from 'semantic-ui-react'
 import DocumentTitle from 'react-document-title';
 import {connect} from 'react-redux';
 
 import AppNav from '../components/AppNav';
 
-// Hosts
-import ModalHost from '../host/ModalHost';
-
-import { load as loadAuth, login, logout } from '../redux/modules/auth0';
+import { load as loadAuth, lock, logout } from '../redux/modules/auth0';
 
 class App extends Component {
   constructor(props) {
@@ -25,14 +23,13 @@ class App extends Component {
     loadAuth();
   }
   componentWillReceiveProps(nextProps) {
-    const {profile,isAuthenticated} = this.props;
+    const {profile,isAuthenticated, authLoading} = this.props;
     const {push} = this.context.router;
     if (!isAuthenticated && nextProps.isAuthenticated) {
       // login
       push('/app');
-    } else if (isAuthenticated && !nextProps.isAuthenticated) {
-      // logout
-      push('/');
+    } else if (!nextProps.isAuthenticated && !nextProps.authLoading) {
+      // this.props.lock()
     }
   }
   renderErrorMessage() {
@@ -54,21 +51,22 @@ class App extends Component {
   }
 
   render() {
-    const {children, isAuthenticated,login, logout, profile} = this.props;
+    const {children, isAuthenticated, authLoading,lock, logout, profile} = this.props;
     var name;
     if (profile) {
       name = profile.name;
     }
+
     return (
       <DocumentTitle title='GoGradeMe'>
         <div>
-          <AppNav handleLoginClick={login} handleLogoutClick={logout} isLoggedIn={isAuthenticated} fullName={name}/>
+          <AppNav handleLoginClick={lock} handleLogoutClick={logout} isLoggedIn={isAuthenticated} fullName={name}/>
           {this.renderErrorMessage()}
-          <div className="main container">
-            {children}
-          </div>
-          <ModalHost />
+          <Container className="main">
+            <Segment attached>{children}</Segment>
+          </Container>
         </div>
+
       </DocumentTitle>
     );
   }
@@ -90,5 +88,6 @@ App.contextTypes = {
 
 export default connect(state => ({
   profile: state.auth0.profile,
-  isAuthenticated: state.auth0.isAuthenticated
-}),{loadAuth, login, logout})(App)
+  isAuthenticated: state.auth0.isAuthenticated,
+  authLoading: state.auth0.loading
+}),{loadAuth, lock, logout})(App)

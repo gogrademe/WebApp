@@ -1,12 +1,14 @@
-import {CALL_API} from '../const';
-import {Schemas} from '../const/schema';
-
 import * as api from '../api';
 
 // Constants
 const LOAD = 'gradebook/LOAD';
 const LOAD_SUCCESS = 'gradebook/LOAD_SUCCESS';
 const LOAD_FAIL = 'gradebook/LOAD_FAIL';
+
+const initialState = {
+  isFetching: false,
+  grades: null
+};
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {

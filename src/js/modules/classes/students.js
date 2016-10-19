@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react';
 import {Grid} from '../../components/NewTable';
-import {DropdownList} from 'react-widgets';
+// import {DropdownList} from 'react-widgets';
+import {Students} from '../../molecules/AutoCompleteFor';
+import {Segment} from 'semantic-ui-react';
 
 import api from '../../api/api';
 
@@ -45,7 +47,8 @@ let CourseStudents = React.createClass({
     getInitialState(){
       return {
         students: [],
-        people: []
+        people: [],
+        selected: {}
       };
     },
     getEnrollments(){
@@ -68,7 +71,7 @@ let CourseStudents = React.createClass({
     enrollStudent(){
       const {term_id, resourceID} = this.props.params;
       api.enrollment.create({
-        person_id: Number(this.state.selected.person_id),
+        person_id: Number(this.state.selected),
         course_id: Number(resourceID),
         term_id: Number(term_id)
       });
@@ -76,22 +79,16 @@ let CourseStudents = React.createClass({
     render(){
       return (
         <div>
-          <div className="input-group">
-            <DropdownList
-              valueField='person_id'
-              textField={item => item.first_name + ' ' + item.last_name}
-              onChange={val => this.setState({selected: val})}
-              value={this.state.selected}
-              data={this.state.people}
-              placeholder="Student"
-              filter='contains' />
+          <Segment attached>
+            <Students input={{onChange: selected => this.setState({selected: selected.value}), selection: true, inline: true}}
+              value={this.state.selected} onChange={selected => this.setState({selected: selected.value})} />
             <div className="input-group-btn">
-              <button className="btn btn-primary" onClick={this.enrollStudent}>
+              <button className="ui button" onClick={this.enrollStudent}>
                 Enroll
               </button>
             </div>
-          </div>
-          <Grid columns={cols} data={this.state.students} />
+          </Segment>
+          <Grid attached columns={cols} data={this.state.students} />
         </div>
       );
       // return div(null, div({

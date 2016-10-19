@@ -1,6 +1,7 @@
+import logo from '../../../assets/logo-only.svg'
 
-import merge from 'lodash/merge';
-
+import merge from 'lodash/merge'
+import Auth0Lock from 'auth0-lock'
 import * as api from '../api'
 
 export const SHOW_LOCK = 'auth/SHOW_LOCK'
@@ -114,17 +115,34 @@ export function logout() {
   }
 }
 
-export function login() {
-  const lock = new Auth0Lock('KKoWyimC679JIx36NlF5mGBkydZquya8', 'gogrademe.auth0.com');
+export function lock() {
+  const cfg = {
+    theme: {
+      logo: logo,
+      primaryColor: '#2185D0'
+    },
+    languageDictionary: {
+       title: 'GoGradeMe'
+     }
+  }
+  const locker = new Auth0Lock('KKoWyimC679JIx36NlF5mGBkydZquya8', 'gogrademe.auth0.com', cfg);
+
   return dispatch => {
-    lock.show((err, profile, id_token) => {
-      if(err) {
-        dispatch(lockError(err))
-        return
-      }
-      localStorage.setItem('profile', JSON.stringify(profile))
-      localStorage.setItem('id_token', id_token)
-      dispatch(lockSuccess(profile, id_token))
+    locker.on('authenticated', res => {
+      console.log(res)
+      localStorage.setItem('id_token', res.idToken)
+      dispatch(lockSuccess({}, res.idToken))
     })
+    locker.show()
+    // locker.show((err, profile, id_token) => {
+    //   if(err) {
+    //     dispatch(lockError(err))
+    //     return
+    //   }
+    //   // console.log(profile, id_token)
+    //   localStorage.setItem('profile', JSON.stringify(profile))
+    //   localStorage.setItem('id_token', id_token)
+    //   dispatch(lockSuccess(profile, id_token))
+    // })
   }
 }

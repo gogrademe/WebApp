@@ -266,25 +266,14 @@ let ClassDetail = React.createClass({
   },
 
   buildData(){
-    // const setKeyValue = (obj, {key, value}) => {obj[key] = value; return obj; };
     let results = [];
-    // for (let a of this.state.attempts) {
-    //   const result = {
-    //     student: this.state.students.find(x => a.person_id === x.person_id),
-    //     attempts: a.assignmentAttempts.map((x) => ({key: x.assignment_id, value: x})).reduce(setKeyValue, {}),
-    //     groups: this.state.assignmentGroups
-    //   };
-    //
-    //   results.push(result);
-    // }
     for (let s of this.state.students) {
       let result = {
         student: s,
         assignments: {}
       };
       for (let a of this.state.assignments) {
-
-        let grade = this.state.attempts
+        let grade = this.props.attempts
           .filter(x => x.assignment_id === a.assignment_id)
           .find(x => x.person_id === s.person_id);
         result.assignments[a.assignment_id] = {
@@ -297,65 +286,19 @@ let ClassDetail = React.createClass({
     return results;
   },
   componentWillMount() {
-
     loadData(this.props);
-    // api.attempt.events.addListener('change', this.getGrades);
-
-    // api.attempt.find({
-    //   course_id: params.resourceID,
-    //   term_id: params.term_id
-    // })
-    // .then(xs => this.setState({attempts: xs}));
-    // this.getGrades();
     this.getAssignments();
-    // this.getAssignmentGroups();
     this.getStudents();
-  },
-  componentWillUnmount(){
-    // api.attempt.events.removeListener('change', this.getGrades);
   },
   render(){
     return (
-      <div>
-        <Grid columns={this.buildCols()} data={this.buildData()} />
-      </div>
+      <Grid attached columns={this.buildCols()} data={this.buildData()} />
     );
 
   }
 });
 
-// function mapStateToProps(state, ownProps) {
-//   const { login, name } = ownProps.params;
-//   const {
-//     pagination: { stargazersByRepo },
-//     entities: { users, repos }
-//   } = state;
-//
-//   const fullName = `${login}/${name}`;
-//   const stargazersPagination = stargazersByRepo[fullName] || { ids: [] };
-//   const stargazers = stargazersPagination.ids.map(id => users[id]);
-//
-//   return {
-//     fullName,
-//     name,
-//     stargazers,
-//     stargazersPagination,
-//     repo: repos[fullName],
-//     owner: users[login]
-//   };
-// }
-// function select(state) {
-//   return {
-//     assign: loadAssignments()
-//   };
-// }
-// //
-// export default connect(select)(ClassDetail);
-
-
-
 export default connect(state => ({
   assignments: state.entities.assignments,
-  attempts: state.entities.attempts
+  attempts: state.gradebook.grades || []
 }),{loadAssignments,loadGradebook})(ClassDetail);
-// module.exports = ClassDetail;

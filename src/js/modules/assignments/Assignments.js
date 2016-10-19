@@ -1,7 +1,9 @@
 
 import React, {PropTypes} from 'react';
 import {Grid, CrudActions} from '../../components/NewTable';
-import {AssignmentBtn} from '../../molecules/ModalButtons';
+// import {AssignmentBtn} from '../../molecules/ModalButtons';
+import AssignmentModal from '../../modals/Assignment';
+import {Button} from 'semantic-ui-react';
 import api from '../../api/api';
 
 const AssignmentEdit = React.createClass({
@@ -10,14 +12,13 @@ const AssignmentEdit = React.createClass({
   },
   render() {
       return (
-        <div className="btn-group">
+        <div>
           <CrudActions {... this.props}/>
-          <AssignmentBtn
-            label='Edit'
+          <AssignmentModal
+            trigger={<Button primary content="Edit"/>}
             course_id={this.props.row.course_id}
             term_id={this.props.row.term_id}
-            assignment_id={this.props.row.assignment_id}
-            className='btn btn-primary'/>
+            assignment_id={this.props.row.assignment_id} />
         </div>
       );
   }
@@ -48,11 +49,11 @@ var assignmentCols = [
     className: 'col-md-1'
   },
   {
-      display: '',
-      renderer: AssignmentEdit,
-      resourceType: 'assignmentGroup',
-      className: 'text-right',
-      tdClassName: 'text-right col-md-2'
+    display: (<AssignmentModal trigger={<Button primary content="New"/>} />),
+    renderer: AssignmentEdit,
+    resourceType: 'assignmentGroup',
+    tdClassName: 'right aligned',
+    className: 'right aligned'
   }
 ];
 var ClassAssignments = React.createClass({
@@ -87,14 +88,14 @@ var ClassAssignments = React.createClass({
     const {term_id, resourceID} = this.props.params;
     return (
       <div>
-        <div className="btn-toolbar" role="toolbar">
-          <AssignmentBtn
+        {/* <div className="btn-toolbar" role="toolbar">
+          <AssignmentModal
             label="New"
             className="btn btn-primary pull-right"
             course_id={Number(resourceID)}
             term_id={Number(term_id)} />
-        </div>
-        <Grid
+        </div> */}
+        <Grid attached
           columns={assignmentCols}
           data={this.state.assignments} />
       </div>

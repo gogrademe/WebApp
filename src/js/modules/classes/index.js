@@ -1,7 +1,9 @@
 import React from 'react';
 import Header from '../../components/PageHeader';
-import {RouteHandler} from 'react-router';
+import MenuLink from '../../components/MenuLink';
 import api from '../../api/api';
+
+import {Grid, Menu, Segment } from 'semantic-ui-react';
 
 import {Nav,NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
@@ -40,29 +42,13 @@ const View = React.createClass({
     return (
       <div>
         <Header primary={this.renderPrimary()} secondary={this.renderSecondary()} />
-        <div>
-          <div className="row">
-            <div className="col-sm-12 col-md-2">
-              <Nav bsStyle='pills' stacked>
-                <LinkContainer to={`/app/course/${term_id}/${resourceID}/grades`}>
-                  <NavItem>Grades</NavItem>
-                </LinkContainer>
-                <LinkContainer to={`/app/course/${term_id}/${resourceID}/students`}>
-                  <NavItem>Students</NavItem>
-                </LinkContainer>
-                <LinkContainer to={`/app/course/${term_id}/${resourceID}/assignments`}>
-                  <NavItem>Assignments</NavItem>
-                </LinkContainer>
-                <LinkContainer to={`/app/course/${term_id}/${resourceID}/settings`}>
-                  <NavItem>Settings</NavItem>
-                </LinkContainer>
-              </Nav>
-            </div>
-            <div className="col-sm-12 col-md-10">
-              {this.props.children}
-            </div>
-          </div>
-        </div>
+        <Menu pointing attached>
+          <MenuLink to={`/app/course/${term_id}/${resourceID}/grades`} name="Grades" />
+          <MenuLink to={`/app/course/${term_id}/${resourceID}/students`} name="Students"/>
+          <MenuLink to={`/app/course/${term_id}/${resourceID}/assignments`} name="Assignments"/>
+          <MenuLink to={`/app/course/${term_id}/${resourceID}/settings`} name="Settings"/>
+        </Menu>
+        {this.props.children}
       </div>
     );
   }

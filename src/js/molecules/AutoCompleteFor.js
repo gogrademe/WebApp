@@ -1,19 +1,15 @@
 import React, {PropTypes} from 'react';
 
-import Formsy from 'formsy-react';
+// import Formsy from 'formsy-react';
 
 import {Multiselect} from 'react-widgets';
-import {Select} from 'formsy-react-components';
-import { Dropdown } from 'stardust'
+// import {Select} from 'formsy-react-components';
+import { Dropdown } from 'semantic-ui-react'
 
 import api from '../api/api';
 
-const GradeLevel = () => {
-
-}
 
 var ProfileTypes = React.createClass({
-  mixins: [Formsy.Mixin],
   getInitialState() {
     return {
       types: [
@@ -60,7 +56,6 @@ var ProfileTypes = React.createClass({
 
 
 var AssignmentGroup = React.createClass({
-  mixins: [Formsy.Mixin],
   propTypes: {
     course_id: PropTypes.number.isRequired,
     term_id: PropTypes.number.isRequired
@@ -99,13 +94,6 @@ var AssignmentGroup = React.createClass({
   }
 });
 
-
-
-
-
-
-
-
 function thenPromise (promise, callback) {
 	if (!promise || typeof promise.then !== 'function') return;
 	return promise.then((data) => {
@@ -118,7 +106,8 @@ function thenPromise (promise, callback) {
 
 class DropdownAsync extends React.Component {
   static propTypes = {
-    loadOptions: React.PropTypes.func.isRequired
+    loadOptions: React.PropTypes.func.isRequired,
+    onChange: React.PropTypes.func.isRequired
   }
 
   state = {
@@ -149,25 +138,43 @@ class DropdownAsync extends React.Component {
   }
 
   render() {
-    const {options, isLoading} = this.state
-
+    const {options, isLoading} = this.state;
+    const { input: { onChange, ...inputProps }, loadOptions, ...props } = this.props;
     return (
         <Dropdown
           options={options}
           disabled={isLoading}
           loading={isLoading}
-          {...this.props}
+          {...inputProps}
+          onChange={(event, value) => onChange(value)}
         />
     )
   }
 }
 
+// const WrappedDropdown = ({ input: { onChange, ...inputProps }, ...props }) => ({
+//    ...mapError(props),
+//    ...inputProps,
+//    onChange: (event, index, value) => onChange(value)
+//  })
 
 const loadGradeLevels = () => api.level.find().then(data => data.map(level => ({value: level.level_id, text: level.name})));
+const loadStudents = () => api.person.find().then(data => data.map(s => ({value: s.person_id, text: s.display_name})));
 
 module.exports = {
   ProfileTypes: ProfileTypes,
   AssignmentGroup: AssignmentGroup,
   DropdownAsync: DropdownAsync,
-  GradeLevel: (props) => <DropdownAsync loadOptions={loadGradeLevels} {...props} />
+  GradeLevel: (props) => <DropdownAsync {...props} loadOptions={loadGradeLevels} />,
+  Students: (props) => <DropdownAsync {...props} loadOptions={loadStudents} />
 };
+
+//
+// <DropdownList
+//   valueField='person_id'
+//   textField={item => item.first_name + ' ' + item.last_name}
+//   onChange={val => this.setState({selected: val})}
+//   value={this.state.selected}
+//   data={this.state.people}
+//   placeholder="Student"
+//   filter='contains' />

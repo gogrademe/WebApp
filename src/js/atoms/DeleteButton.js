@@ -1,6 +1,7 @@
 import React from 'react';
 
-import {ButtonGroup, Button, Glyphicon} from 'react-bootstrap';
+// import {ButtonGroup, Button, Glyphicon} from 'react-bootstrap';
+import {Button} from 'semantic-ui-react';
 
 export default React.createClass({
   getInitialState() {
@@ -19,18 +20,13 @@ export default React.createClass({
   },
   render() {
     return !this.state.confirm ? (
-      <Button bsStyle="danger" onClick={this.toggle}>
-        <Glyphicon glyph="trash" />
-      </Button>
+      <Button negative icon="trash" onClick={this.toggle}/>
     ) : (
-      <ButtonGroup>
-        <Button onClick={this.toggle}>
-          <Glyphicon glyph="remove" />
-        </Button>
-        <Button bsStyle="danger" onClick={this.handleConfirm}>
-          <Glyphicon glyph="ok" />
-        </Button>
-      </ButtonGroup>
+      <Button.Group>
+        <Button icon='remove' onClick={this.toggle}/>
+        <Button.Or />
+        <Button negative icon='ok' onClick={this.handleConfirm}/>
+      </Button.Group>
     );
   }
 });
