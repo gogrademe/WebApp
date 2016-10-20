@@ -51,6 +51,7 @@
     "webpack-manifest-plugin": "^1.1.0"
   },
   "dependencies": {
+    "auth0-lock": "^10.4.0",
     "axios": "^0.11.1",
     "bluebird": "^2.10.2",
     "bootstrap": "^3.3.7",
