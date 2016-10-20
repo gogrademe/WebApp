@@ -54,7 +54,6 @@
     "auth0-lock": "^10.4.0",
     "axios": "^0.11.1",
     "bluebird": "^2.10.2",
-    "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
     "eventemitter3": "^0.1.6",
     "font-awesome": "^4.6.1",
@@ -97,7 +96,6 @@
     "reflux": "^0.4.1",
     "semantic-ui": "^2.1.8",
     "semantic-ui-react": "^0.56.4",
-    "stardust": "^0.52.3",
     "superagent": "^0.21.0"
   }
 }
