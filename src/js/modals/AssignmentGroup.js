@@ -4,7 +4,8 @@ import api from '../api/api';
 
 //Molecules
 import ModalForm from '../molecules/ModalForm';
-import {Input} from 'formsy-react-components';
+import {Form} from 'semantic-ui-react';
+// import {Input} from 'formsy-react-components';
 
 export default React.createClass({
   propTypes: {
@@ -42,8 +43,8 @@ export default React.createClass({
     const weight = Number(this.state.group.weight * 100) || '';
     return (
       <ModalForm {... this.props} title="Assignment Group" onSubmitAsync={this.onSubmit}>
-        <Input label="Name" name="name" value={this.state.group.name} placeholder="Name"/>
-        <Input label="Weight" name="weight" value={weight} validationError="must be between .5% and 100%" validations="isWeight"/>
+        <Form.Input label="Name" name="name" value={this.state.group.name} placeholder="Name"/>
+        <Form.Input label="Weight" name="weight" value={weight} validationError="must be between .5% and 100%" validations="isWeight"/>
       </ModalForm>
     );
   }

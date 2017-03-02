@@ -42,7 +42,7 @@ const WeightFooter = React.createClass({
   }
 });
 
-class Settings extends Component  {
+class Settings extends React.Component<any,any>  {
   constructor(props) {
     super(props)
     this.fetch = this.fetch.bind(this)
@@ -104,9 +104,9 @@ class Settings extends Component  {
   }
 };
 
-Settings.propTypes = {
-    course_id: PropTypes.string,
-    term_id: PropTypes.string
-};
+// Settings.propTypes = {
+//     course_id: PropTypes.string,
+//     term_id: PropTypes.string
+// };
 
 export default Settings;

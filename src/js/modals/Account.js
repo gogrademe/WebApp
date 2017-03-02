@@ -4,8 +4,8 @@ import api from '../api/api';
 
 //Molecules
 import ModalForm from '../molecules/ModalForm';
-import LabeledField from '../molecules/LabeledField';
-
+// import LabeledField from '../molecules/LabeledField';
+import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from 'semantic-ui-react'
 export default React.createClass({
   propTypes: {
     person_id: React.PropTypes.number.isRequired
@@ -39,7 +39,7 @@ export default React.createClass({
             {first_name} {last_name}
           </span>
         </div>
-        <LabeledField name="email" label="Email" value={email}/>
+        <Input name="email" label="Email" value={email}/>
       </ModalForm>
 
     );

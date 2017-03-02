@@ -53,4 +53,5 @@ var DashboardModule = React.createClass({
     );
   }
 });
-module.exports = DashboardModule;
+
+export default DashboardModule

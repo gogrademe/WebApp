@@ -115,8 +115,9 @@ export function logout() {
   }
 }
 
-export function lock() {
+export function lock(container) {
   const cfg = {
+    container: container,
     theme: {
       logo: logo,
       primaryColor: '#2185D0'

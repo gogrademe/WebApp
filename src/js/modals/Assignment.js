@@ -66,7 +66,7 @@ import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from 
 //   }
 // });
 
-let AssignmentModal = ({handleSubmit, ...rest}) => (
+let AssignmentModal = ({handleSubmit, course_id, term_id, ...rest}) => (
   <ModalForm title="Assignment" onSubmit={handleSubmit} {...rest}>
     <Form.Input label='Name' name='name' placeholder='Name' />
     <div className="field">
@@ -74,9 +74,9 @@ let AssignmentModal = ({handleSubmit, ...rest}) => (
         Types
       </label>
       {/* <Field name="group_id" component={AssignmentGroup} type="text" /> */}
-      {/* <AssignmentGroup name="group_id" label="Type"
-        course_id={this.props.course_id}
-        term_id={this.props.term_id} /> */}
+      <AssignmentGroup name="group_id" label="Type"
+        course_id={course_id}
+        term_id={term_id} />
     </div>
     <Form.Group widths='2'>
       <Form.Input label='Due Date' name='due_date' placeholder='Date' />

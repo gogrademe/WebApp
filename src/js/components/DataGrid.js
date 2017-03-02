@@ -17,6 +17,7 @@ const get = function(obj, prop){
     }
     return obj[last];
   };
+
 const formatVal = function(val, format){
     if (typeof format === 'function') {
       return format(val);

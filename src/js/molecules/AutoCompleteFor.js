@@ -4,7 +4,7 @@ import React, {PropTypes} from 'react';
 
 import {Multiselect} from 'react-widgets';
 // import {Select} from 'formsy-react-components';
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Select, Form } from 'semantic-ui-react'
 
 import api from '../api/api';
 
@@ -107,7 +107,7 @@ function thenPromise (promise, callback) {
 class DropdownAsync extends React.Component {
   static propTypes = {
     loadOptions: React.PropTypes.func.isRequired,
-    onChange: React.PropTypes.func.isRequired
+    onChange: React.PropTypes.func
   }
 
   state = {
@@ -139,14 +139,15 @@ class DropdownAsync extends React.Component {
 
   render() {
     const {options, isLoading} = this.state;
-    const { input: { onChange, ...inputProps }, loadOptions, ...props } = this.props;
+    // const { name, input: { ...inputProps }} = this.props;
+    const { name, ...rest} = this.props;
     return (
-        <Dropdown
+        <Form.Select
+          name={name}
           options={options}
           disabled={isLoading}
           loading={isLoading}
-          {...inputProps}
-          onChange={(event, value) => onChange(value)}
+          {...rest}
         />
     )
   }

@@ -1,8 +1,8 @@
 
 import React, {PropTypes} from 'react';
 import {Grid, CrudActions} from '../../components/NewTable';
-// import {AssignmentBtn} from '../../molecules/ModalButtons';
-import AssignmentModal from '../../modals/Assignment';
+import {AssignmentBtn} from '../../molecules/ModalButtons';
+// import AssignmentBtn from '../../molecules/Moda';
 import {Button} from 'semantic-ui-react';
 import api from '../../api/api';
 
@@ -14,8 +14,8 @@ const AssignmentEdit = React.createClass({
       return (
         <div>
           <CrudActions {... this.props}/>
-          <AssignmentModal
-            trigger={<Button primary content="Edit"/>}
+          <AssignmentBtn
+            label="Edit"
             course_id={this.props.row.course_id}
             term_id={this.props.row.term_id}
             assignment_id={this.props.row.assignment_id} />
@@ -49,7 +49,7 @@ var assignmentCols = [
     className: 'col-md-1'
   },
   {
-    display: (<AssignmentModal trigger={<Button primary content="New"/>} />),
+    display: <AssignmentBtn label="New" />,
     renderer: AssignmentEdit,
     resourceType: 'assignmentGroup',
     tdClassName: 'right aligned',
@@ -89,7 +89,7 @@ var ClassAssignments = React.createClass({
     return (
       <div>
         {/* <div className="btn-toolbar" role="toolbar">
-          <AssignmentModal
+          <AssignmentBtn
             label="New"
             className="btn btn-primary pull-right"
             course_id={Number(resourceID)}

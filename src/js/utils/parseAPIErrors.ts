@@ -1,6 +1,4 @@
 
-/* @flow */
-
 import _ from 'lodash';
 
 // parseAPIErrors will parse an error that looks like the following.
@@ -21,5 +19,5 @@ function parseAPIErrors(errors: Array<Object>): Object {
   });
   return newErrs;
 }
-
-module.exports = parseAPIErrors;
+export default parseAPIErrors;
+// module.exports = parseAPIErrors;

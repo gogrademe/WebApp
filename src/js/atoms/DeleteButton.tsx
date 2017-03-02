@@ -3,21 +3,29 @@ import React from 'react';
 // import {ButtonGroup, Button, Glyphicon} from 'react-bootstrap';
 import {Button} from 'semantic-ui-react';
 
-export default React.createClass({
+interface DeleteButtonProps {
+  onClick(any)
+}
+
+interface DeleteButtonState {
+  confirm: boolean
+}
+
+export default class DeleteButton extends React.Component<DeleteButtonProps, DeleteButtonState> {
   getInitialState() {
     return {
       confirm: false
     };
-  },
-  toggle(e) {
+  }
+  toggle = (e) => {
     e.preventDefault();
     var conf = !this.state.confirm;
     this.setState({confirm: conf});
-  },
-  handleConfirm(e) {
+  }
+  handleConfirm = (e) => {
     e.preventDefault();
     return this.props.onClick(e);
-  },
+  }
   render() {
     return !this.state.confirm ? (
       <Button negative icon="trash" onClick={this.toggle}/>
@@ -29,4 +37,4 @@ export default React.createClass({
       </Button.Group>
     );
   }
-});
+}

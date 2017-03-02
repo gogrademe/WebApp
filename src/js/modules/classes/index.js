@@ -6,7 +6,7 @@ import api from '../../api/api';
 import {Grid, Menu, Segment } from 'semantic-ui-react';
 
 import {Nav,NavItem} from 'react-bootstrap';
-import {LinkContainer} from 'react-router-bootstrap';
+// import {LinkContainer} from 'react-router-bootstrap';
 
 const View = React.createClass({
   getInitialState() {

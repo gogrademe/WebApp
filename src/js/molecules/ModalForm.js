@@ -4,29 +4,43 @@ import { Button, Header, Icon, Image, Modal, Form } from 'semantic-ui-react'
 import parseAPIErrors from '../utils/parseAPIErrors';
 
 
-// class ModalForm extends Component {
-//   render() {
+class ModalForm extends Component {
+  handleSubmit = (e,state) => {
+    e.preventDefault();
+    console.log(e, state);
+
+    // FIXME: handle null
+    const {onSubmitAsync} = this.props;
+    onSubmitAsync(state);
+  }
+  render() {
 // export default ({open, onHide, trigger, label, title, children, handleSubmit, pristine, submitting }) => (
-export default ({trigger, label, title, children, handleSubmit, pristine, submitting }) => (
-  <Modal trigger={trigger || <Button>{label || title}</Button>}>
-    <Modal.Header>{title}</Modal.Header>
-    <Modal.Content>
-      <Form>
-        {children}
-      </Form>
-    </Modal.Content>
-    <Modal.Actions>
-      <Button>
-        <Icon name="close" />
-        Cancel
-      </Button>
-      <Button primary icon disabled={pristine || submitting} type="submit">
-        <Icon name="save" />
-        Save
-      </Button>
-    </Modal.Actions>
-  </Modal>
-);
+// export default ({trigger, label, title, children, handleSubmit, pristine, submitting }) => (
+    const {trigger, label, title, children, requestClose, handleSubmit, pristine, submitting, open, onClose, defaultValues} = this.props;
+    return (
+      <Modal {...{open, onClose}}>
+        <Modal.Header>{title}</Modal.Header>
+        <Modal.Content>
+          <Form ref='form' id="modal-form" onSubmit={this.handleSubmit} defaultValues={defaultValues}>
+            {children}
+          </Form>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button onClick={requestClose}>
+            <Icon name="close" />
+            Cancel
+          </Button>
+          <Button primary icon form="modal-form" disabled={pristine || submitting} type="submit">
+            <Icon name="save" />
+            Save
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    );
+  }
+}
+
+export default ModalForm
 
 // }
 

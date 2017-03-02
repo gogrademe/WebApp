@@ -27,19 +27,23 @@ import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from 
 //     )
 //   }
 // }
-
-let CourseModal = ({handleSubmit, ...rest}) => (
-  <ModalForm title="Course" onSubmit={handleSubmit} {...rest}>
+const handleSubmit = (data) => {
+    data.level_id = Number(data.gradeLevel);
+    return api.course.create(data);
+  }
+const CourseModal = ({ ...rest}) => (
+  <ModalForm title="Course" onSubmitAsync={handleSubmit} {...rest} resource='course'>
     <Form.Input label='Name' name='name' placeholder='Name' />
-    <div className="field">
+    <GradeLevel label='Grade Level' name='gradeLevel' selection fluid search />
+    {/* <div className="field">
       <label>Grade Level</label>
       <Field name="level_id" component={GradeLevel} selection fluid search />
-    </div>
+    </div> */}
   </ModalForm>
 );
-export default CourseModal = reduxForm({
-  form: 'course' // a unique name for this form
-})(CourseModal);
+export default CourseModal
+
+
 // export default React.createClass({
 //   propTypes: {
 //     course_id: React.PropTypes.number

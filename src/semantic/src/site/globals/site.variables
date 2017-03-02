@@ -3,5 +3,6 @@
 *******************************/
 @fontPath : '../assets/fonts';
 
+@primaryColor: #377BB5;
 // @primaryColor: @violet;
 @pageBackground: @primaryColor;

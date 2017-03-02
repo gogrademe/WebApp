@@ -1,7 +1,7 @@
 import React from 'react';
 import { Segment, Header } from 'semantic-ui-react'
 
-const PageHeader = ({primary, secondary, right}) => (
+const PageHeader = (primary, secondary, right) => (
   <Segment basic clearing>
     <Header as='h2' floated='left'>
       {primary}

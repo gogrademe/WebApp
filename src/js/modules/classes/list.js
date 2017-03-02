@@ -8,7 +8,7 @@ import Header from '../../components/PageHeader';
 
 import {Combobox as Select} from 'react-widgets';
 import {Button} from 'semantic-ui-react';
-import CourseModal from '../../modals/Course';
+import {CourseBtn} from '../../molecules/ModalButtons';
 const CourseLink = ({column, row, value}) => (
   <div>
     <Link to={`/app/course/${column.term}/${row.course_id}/grades`}>
@@ -20,10 +20,12 @@ const CourseLink = ({column, row, value}) => (
 const Actions = (props) => (
   <div className="btn-group">
     <CrudActions {...props}/>
-    <CourseModal trigger={<Button primary content="Edit"/>}
-      course_id={props.row.course_id}
-      term_id={props.row.term_id}
-      group_id={props.row.group_id} />
+    <CourseBtn label="Edit"
+      values={{
+        course_id: props.row.course_id,
+        term_id: props.row.term_id,
+        group_id: props.row.group_id
+    }} />
   </div>
 );
 
@@ -91,10 +93,7 @@ let CourseList = React.createClass({
             secondary='Test'
             right={this.selectRender(this.state.terms)}/>
             <div>
-            <CourseModal trigger={<Button primary content="New"/>} />
-            {/* <CourseBtn
-              className="btn btn-primary pull-right"
-              label="New" /> */}
+            <CourseBtn label="New" />
             </div>
           <div>
             <Grid attached
