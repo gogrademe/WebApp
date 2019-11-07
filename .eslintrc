@@ -4,9 +4,7 @@
     "node": true,
     "es6": true
   },
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
   "ecmaFeatures": {
     "jsx": true
   },
@@ -16,7 +14,6 @@
     "camelcase": 0,
     "quotes": [2, "single"],
     "react/jsx-boolean-value": 1,
-    # "react/jsx-quotes": 1,
     "react/jsx-no-undef": 1,
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 1,

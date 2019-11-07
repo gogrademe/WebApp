@@ -16,16 +16,17 @@ var date = function(x){
   var ref$;
   switch (ref$ = [x], false) {
   case !not$(ref$[0]):
-    return "";
+    return '';
   case !invalidDate(ref$[0]):
-    return "";
+    return '';
   default:
     return moment(x).format('L');
   }
 };
 var dateForUpload = function(it){
-  //return moment(it).format("YYYY-DD-MM");
-  return moment(it).toDate();
+  console.log(it)
+  return moment(it).format('YYYY-DD-MM');
+  // return moment(it).toDate();
 };
 
 var pathToObj = function(path, value){

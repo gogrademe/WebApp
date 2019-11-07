@@ -9,7 +9,7 @@ function fetchAssignments() {
   return {
     [CALL_API]: {
       types: [ASSIGNMENT_REQUEST, ASSIGNMENT_SUCCESS, ASSIGNMENT_FAILURE],
-      endpoint: `assignment`,
+      endpoint: 'assignment',
       schema: Schemas.ASSIGNMENT_ARRAY
     }
   };

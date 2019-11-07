@@ -8,18 +8,18 @@ import {
 
 import {LinkContainer} from 'react-router-bootstrap';
 
-export default ({course_id, term_id}) => (
+export default ({courseId, termId}) => (
   <Nav bsStyle='pills' stacked>
-    <LinkContainer to={`/app/course/${term_id}/${resourceID}/grades`}>
+    <LinkContainer to={`/course/${termId}/${resourceID}/grades`}>
       <NavItem>Grades</NavItem>
     </LinkContainer>
-    <LinkContainer to={`/app/course/${term_id}/${resourceID}/students`}>
+    <LinkContainer to={`/course/${termId}/${resourceID}/students`}>
       <NavItem>Students</NavItem>
     </LinkContainer>
-    <LinkContainer to={`/app/course/${term_id}/${resourceID}/assignments`}>
+    <LinkContainer to={`/course/${termId}/${resourceID}/assignments`}>
       <NavItem>Assignments</NavItem>
     </LinkContainer>
-    <LinkContainer to={`/app/course/${term_id}/${resourceID}/settings`}>
+    <LinkContainer to={`/course/${termId}/${resourceID}/settings`}>
       <NavItem>Settings</NavItem>
     </LinkContainer>
   </Nav>

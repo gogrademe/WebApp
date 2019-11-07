@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import api from '../api/api';
+import api from "../api/api";
 
 //Molecules
-import ModalForm from '../molecules/ModalForm';
-// import LabeledField from '../molecules/LabeledField';
-import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from 'semantic-ui-react'
+import ModalForm from "../components/ModalForm";
+
+import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from "semantic-ui-react";
 export default React.createClass({
   propTypes: {
-    person_id: React.PropTypes.number.isRequired
+    personId: React.PropTypes.number.isRequired
   },
   getInitialState() {
     return {
@@ -19,29 +19,25 @@ export default React.createClass({
     return api.user.create(model);
   },
   fetchPerson() {
-    api.person.get(this.props.person_id)
-      .then((person)=>{
-        this.setState({person: person});
-      });
+    api.person.get(this.props.personId).then(person => {
+      this.setState({ person: person });
+    });
   },
   componentWillMount() {
     this.fetchPerson();
   },
   render() {
-    const {first_name, last_name, email} = this.state.person;
+    const { firstName, lastName, email } = this.state.person;
     return (
-      <ModalForm {... this.props} title="User Account" onSubmitAsync={this.onSubmit}>
+      <ModalForm {...this.props} title="User Account" onSubmitAsync={this.onSubmit}>
         <div className="field">
-          <label>
-            Name
-          </label>
+          <label>Name</label>
           <span>
-            {first_name} {last_name}
+            {firstName} {lastName}
           </span>
         </div>
-        <Input name="email" label="Email" value={email}/>
+        <Input name="email" label="Email" value={email} />
       </ModalForm>
-
     );
   }
 });

@@ -4,5 +4,6 @@ build
 stage
 src/bower
 
+.env*
 .DS_Store
 npm-debug.log

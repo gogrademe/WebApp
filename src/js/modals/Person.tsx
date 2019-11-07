@@ -1,55 +1,56 @@
+import * as React from "react";
 
-import * as React from 'react';
-
-import * as api from '../api/api';
-import asForm from '../components/AsForm';
-
-// import * as AutocompleteFor from '../molecules/AutoCompleteFor';
-import ModalForm from '../molecules/ModalForm';
-import { Input } from 'semantic-ui-react';
-import { inject,observer } from 'mobx-react';
-import { action, observable } from 'mobx';
-import {PersonStore, Person} from '../stores';
+import * as api from "../api/api";
+import asForm from "../components/AsForm";
+import ModalForm from "../components/ModalForm";
+import { Input } from "semantic-ui-react";
+import { inject, observer } from "mobx-react";
+import { action, observable } from "mobx";
+import { PersonStore, Person } from "../stores";
 
 interface PersonModalProps {
-  person_id: number;
+  personId: number;
   personStore: PersonStore;
   updateProperty: any;
 }
 
-@inject('personStore') @observer
+@inject("personStore")
+@observer
 class PersonModal extends React.Component<PersonModalProps, undefined> {
   @observable person;
 
-  @action updateProperty = (event) => {
+  @action updateProperty = event => {
     this.person[event.target.name] = event.target.value;
-  }
+  };
 
-  onSubmit = (model) => {
+  onSubmit = model => {
     this.props.personStore.create(model);
-    // return api.person.create(model);
-  }
+  };
 
   componentWillMount() {
-    this.person = this.props.personStore.people.find(p => p.person_id === this.props.person_id) || new Person();
+    this.person = this.props.personStore.people.find(p => p.personId === this.props.personId) || new Person();
   }
 
   render() {
-    // const values = this.props.personStore.people.find(p => p.person_id === this.props.person_id) || new Person();
+    // const values = this.props.personStore.people.find(p => p.personId === this.props.personId) || new Person();
     return (
-      // <ModalForm {... this.props} title="Person" onSubmitAsync={this.onSubmit}>
       <div>
         <div className="field">
           <label>Name</label>
           <div className="three fields required">
-            <Input name="first_name" placeholder="First" value={this.person.first_name} onChange={this.updateProperty} />
-            <Input name="middle_name" placeholder="Middle" value={this.person.middle_name} onChange={this.updateProperty}/>
-            <Input name="last_name" placeholder="Last" value={this.person.last_name} onChange={this.updateProperty} />
+            <Input name="firstName" placeholder="First" value={this.person.firstName} onChange={this.updateProperty} />
+            <Input
+              name="middleName"
+              placeholder="Middle"
+              value={this.person.middleName}
+              onChange={this.updateProperty}
+            />
+            <Input name="lastName" placeholder="Last" value={this.person.lastName} onChange={this.updateProperty} />
           </div>
         </div>
-        <Input name="email" label="Email"/>
+        <Input name="email" label="Email" />
         {/* <AutocompleteFor.ProfileTypes label="Types" name="types" required/> */}
-        </div>
+      </div>
       // </ModalForm>
     );
   }

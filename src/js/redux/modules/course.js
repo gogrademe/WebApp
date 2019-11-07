@@ -1,45 +1,48 @@
-const LOAD = 'course/LOAD';
-const LOAD_SUCCESS = 'course/LOAD_SUCCESS';
-const LOAD_FAIL = 'course/LOAD_FAIL';
+import {CALL_API} from '../const';
+import {Schemas} from '../const/schema';
 
+const COURSE_REQUEST = 'course/REQUEST';
+const COURSE_SUCCESS = 'course/SUCCESS';
+const COURSE_FAILURE = 'course/FAILURE';
 
-const initialState = {
-  loaded: false
-};
-
-export default function reducer(state = initialState, action = {}) {
-  switch (action.type) {
-    case LOAD:
-      return {
-        ...state,
-        loading: true
-      };
-    case LOAD_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        user: action.result
-      };
-    case LOAD_FAIL:
-      return {
-        ...state,
-        loading: false,
-        loaded: false,
-        error: action.error
-      };
-    default:
-      return state;
-  }
-}
-
-export function isLoaded(globalState) {
-  return globalState.course && globalState.course.loaded;
-}
-
-export function load() {
+function fetchCourses() {
   return {
-    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: (client) => client.get('/course')
+    [CALL_API]: {
+      types: [COURSE_REQUEST, COURSE_SUCCESS, COURSE_FAILURE],
+      endpoint: 'course',
+      schema: Schemas.COURSE_ARRAY
+    }
+  };
+}
+
+export function loadCourses() {
+  return (dispatch, getState) => {
+    return dispatch(fetchCourses());
+  };
+}
+
+export function fetchCourse(courseId) {
+  return {
+    [CALL_API]: {
+      types: [COURSE_REQUEST, COURSE_SUCCESS, COURSE_FAILURE],
+      endpoint: `course/${courseId}`,
+      schema: Schemas.COURSE
+    }
+  };
+}
+
+const CREATE_COURSE_REQUEST = 'course.create/REQUEST';
+const CREATE_COURSE_SUCCESS = 'course.create/SUCCESS';
+const CREATE_COURSE_FAILURE = 'course.create/FAILURE';
+
+export function createCourse(course) {
+  return {
+    [CALL_API]: {
+      types: [CREATE_COURSE_REQUEST, CREATE_COURSE_SUCCESS, CREATE_COURSE_FAILURE],
+      endpoint: 'course',
+      method: 'POST',
+      body: course,
+      schema: Schemas.COURSE
+    }
   };
 }

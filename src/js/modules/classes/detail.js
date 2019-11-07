@@ -1,124 +1,112 @@
-
-import React from 'react';
-import {Grid} from '../../components/NewTable';
-import api from '../../api/api';
-import { loadAssignments } from '../../redux/modules/assignment';
-import { loadGradebook } from '../../redux/modules/gradebook';
-import { connect } from 'react-redux';
-
-
+import React from "react";
+import { Grid } from "../../components/NewTable";
+import api from "../../api/api";
+import { loadAssignments } from "../../redux/modules/assignment";
+import { loadGradebook } from "../../redux/modules/gradebook";
+import { connect } from "react-redux";
 
 let GradeInput = React.createClass({
-    getInitialState() {
-      return {
-        value: this.props.value,
-        initialValue: this.props.value
-      };
-    },
-    changeValue(event) {
-      this.setValue(event.currentTarget.value);
-    },
-    getValue() {
-      // return this.props.value / this.props.column.max_score * 100 || '-';
-      return this.state.value;
-    },
-    setValue(value) {
-      this.setState({value: value});
-    },
-    componentDidUpdate(prevProps) {
-      if (this.props.value !== prevProps.value) {
-        this.setValue(this.props.value);
-      }
-    },
-    // toggleInput() {
-    //   const newVal = !this.state.showInput;
-    //   this.setState({value: newVal});
-    // },
-    handleBlur(e) {
-      e.preventDefault();
-      // const val = e.currentTarget.value;
-
-      // this.setState({showInput: false});
-      if (this.state.value !== this.state.initialValue) {
-        api.attempt.create({
-          assignment_id: this.props.column.assignment_id,
-          person_id: this.props.row.student.person_id,
-          score: this.getValue()
-        });
-      }
-
-    },
-    // render(){
-    //   return this.state.showInput ?
-    //     this.renderInput() :
-    //     (<div onClick={this.toggleInput}>
-    //       {this.getValue()} %
-    //     </div>);
-    // },
-    render() {
-      return this.props.column.editMode ? (
-        <div className="grade-input" onBlur={this.handleBlur} >
-          <input
-            type="text"
-            className="form-control"
-            placeholder="score"
-            value={this.getValue()}
-            onChange={this.changeValue} />
-          <span className="input-group-addon">/ {this.props.column.max_score}</span>
-        </div>
-      ) : (<div>{this.getValue()}</div>);
-    }
-  });
-
-let GradeAverage = React.createClass({
-  calcIbGrade(x){
-    switch (false) {
-      case !(x > 94):
-      return 7;
-      case !(x > 84):
-      return 6;
-      case !(x > 74):
-      return 5;
-      case !(x > 64):
-      return 4;
-      case !(x > 54):
-      return 3;
-      case !(x > 44):
-      return 2;
-      case !(x >= 1):
-      return 1;
-      default:
-      return 0;
+  getInitialState() {
+    return {
+      value: this.props.value,
+      initialValue: this.props.value
+    };
+  },
+  changeValue(event) {
+    this.setValue(event.currentTarget.value);
+  },
+  getValue() {
+    // return this.props.value / this.props.column.maxScore * 100 || '-';
+    return this.state.value;
+  },
+  setValue(value) {
+    this.setState({ value: value });
+  },
+  componentDidUpdate(prevProps) {
+    if (this.props.value !== prevProps.value) {
+      this.setValue(this.props.value);
     }
   },
-  calcUsLetterGrade(x){
+  handleBlur(e) {
+    e.preventDefault();
+    // const val = e.currentTarget.value;
+
+    // this.setState({showInput: false});
+    if (this.state.value !== this.state.initialValue) {
+      api.attempt.create({
+        assignmentId: this.props.column.assignmentId,
+        personId: this.props.row.student.personId,
+        score: this.getValue()
+      });
+    }
+  },
+  render() {
+    return this.props.column.editMode ? (
+      <div className="grade-input" onBlur={this.handleBlur}>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="score"
+          value={this.getValue()}
+          onChange={this.changeValue}
+        />
+        <span className="input-group-addon">/ {this.props.column.maxScore}</span>
+      </div>
+    ) : (
+      <div>{this.getValue()}</div>
+    );
+  }
+});
+
+let GradeAverage = React.createClass({
+  calcIbGrade(x) {
+    switch (false) {
+      case !(x > 94):
+        return 7;
+      case !(x > 84):
+        return 6;
+      case !(x > 74):
+        return 5;
+      case !(x > 64):
+        return 4;
+      case !(x > 54):
+        return 3;
+      case !(x > 44):
+        return 2;
+      case !(x >= 1):
+        return 1;
+      default:
+        return 0;
+    }
+  },
+  calcUsLetterGrade(x) {
     switch (false) {
       case !(x > 96):
-      return 'A+';
+        return "A+";
       case !(x > 92):
-      return 'A';
+        return "A";
       case !(x > 90):
-      return 'A-';
+        return "A-";
       case !(x > 87):
-      return 'B+';
+        return "B+";
       case !(x > 84):
-      return 'B';
+        return "B";
       case !(x > 79):
-      return 'B-';
+        return "B-";
       case !(x > 76):
-      return 'C+';
+        return "C+";
       case !(x > 72):
-      return 'C';
+        return "C";
       case !(x > 69):
-      return 'C-';
+        return "C-";
       case !(x > 66):
-      return 'D+';
+        return "D+";
       case !(x > 62):
-      return 'D';
+        return "D";
       case !(x > 59):
-      return 'D-';
+        return "D-";
       default:
-      return 'F';
+        return "F";
     }
   },
   // I need all weights for a class which must total up to 100%
@@ -174,13 +162,10 @@ let GradeAverage = React.createClass({
     //   }
     return 0;
   },
-  render(){
-    const body = this.calcGrade() + ' | ' + this.calcIbGrade(this.calcGrade()) + ' | ' + this.calcUsLetterGrade(this.calcGrade());
-    return (
-      <div>
-        {body}
-      </div>
-    );
+  render() {
+    const body =
+      this.calcGrade() + " | " + this.calcIbGrade(this.calcGrade()) + " | " + this.calcUsLetterGrade(this.calcGrade());
+    return <div>{body}</div>;
   }
 });
 
@@ -188,17 +173,16 @@ let GradeAverage = React.createClass({
 //   props.loadAssignments();
 // }
 
-
 function loadData(props) {
   props.loadAssignments();
-  props.loadGradebook(props.params.resourceID,props.params.term_id);
+  props.loadGradebook(props.match.params.resourceID, props.match.params.termId);
 }
 let ClassDetail = React.createClass({
   propTypes: {
     assignments: React.PropTypes.object.isRequired,
-    attempts: React.PropTypes.array.isRequired,
+    attempts: React.PropTypes.array.isRequired
   },
-  getInitialState(){
+  getInitialState() {
     return {
       students: [],
       attempts: [],
@@ -208,64 +192,69 @@ let ClassDetail = React.createClass({
     };
   },
   // getGrades(){
-  //   const params = this.props.params;
+  //   const params = this.props.match.params;
   //   api.attempt.find({
-  //     course_id: params.resourceID,
-  //     term_id: params.term_id
+  //     courseId: params.resourceID,
+  //     termId: params.termId
   //   })
   //   .then(xs => this.setState({attempts: xs}));
   // },
-  getStudents(){
-    const params = this.props.params;
-    api.enrollment.find({
-      course_id: params.resourceID,
-      term_id: params.term_id
-    })
-    .then(xs => this.setState({students: xs}));
+  getStudents() {
+    const params = this.props.match.params;
+    api.enrollment
+      .find({
+        courseId: params.resourceID,
+        termId: params.termId
+      })
+      .then(xs => this.setState({ students: xs }));
   },
-  getAssignments(){
-    const params = this.props.params;
-    api.assignment.find({
-      course_id: params.resourceID,
-      term_id: params.term_id
-    })
-    .then(xs => this.setState({assignments: xs}));
+  getAssignments() {
+    const params = this.props.match.params;
+    api.assignment
+      .find({
+        courseId: params.resourceID,
+        termId: params.termId
+      })
+      .then(xs => this.setState({ assignments: xs }));
   },
-  getAssignmentGroups(){
-    const params = this.props.params;
-    api.group.find({
-      course_id: params.resourceID,
-      term_id: params.term_id
-    })
-    .then(xs => this.setState({assignmentGroups: xs}));
+  getAssignmentGroups() {
+    const params = this.props.match.params;
+    api.group
+      .find({
+        courseId: params.resourceID,
+        termId: params.termId
+      })
+      .then(xs => this.setState({ assignmentGroups: xs }));
   },
-  buildCols(){
-    let cols = [{
-      key: 'student.person.display_name',
-      display: 'Student'
-    }];
+  buildCols() {
+    let cols = [
+      {
+        key: "student.person.displayName",
+        display: "Student"
+      }
+    ];
 
     for (let x of this.state.assignments) {
       cols.push({
-        key: `assignments.${x.assignment_id}.grade.score`,
+        key: `assignments.${x.assignmentId}.grade.score`,
         editMode: true,
         renderer: GradeInput,
-        assignment_id: x.assignment_id,
-        max_score: x.max_score,
+        assignmentId: x.assignmentId,
+        maxScore: x.maxScore,
         display: x.name
       });
     }
 
     cols.push({
-      display: 'Avg - IB - US',
-      tdClassName: 'success',
+      display: "Avg - IB - US",
+      tdClassName: "success",
       renderer: GradeAverage
     });
 
     return cols;
   },
 
-  buildData(){
+  buildData() {
     let results = [];
     for (let s of this.state.students) {
       let result = {
@@ -274,9 +263,9 @@ let ClassDetail = React.createClass({
       };
       for (let a of this.state.assignments) {
         let grade = this.props.attempts
-          .filter(x => x.assignment_id === a.assignment_id)
-          .find(x => x.person_id === s.person_id);
-        result.assignments[a.assignment_id] = {
+          .filter(x => x.assignmentId === a.assignmentId)
+          .find(x => x.personId === s.personId);
+        result.assignments[a.assignmentId] = {
           grade: grade,
           assignment: a
         };
@@ -290,15 +279,15 @@ let ClassDetail = React.createClass({
     this.getAssignments();
     this.getStudents();
   },
-  render(){
-    return (
-      <Grid attached columns={this.buildCols()} data={this.buildData()} />
-    );
-
+  render() {
+    return <Grid attached columns={this.buildCols()} data={this.buildData()} />;
   }
 });
 
-export default connect(state => ({
-  assignments: state.entities.assignments,
-  attempts: state.gradebook.grades || []
-}),{loadAssignments,loadGradebook})(ClassDetail);
+export default connect(
+  state => ({
+    assignments: state.entities.assignments,
+    attempts: state.gradebook.grades || []
+  }),
+  { loadAssignments, loadGradebook }
+)(ClassDetail);

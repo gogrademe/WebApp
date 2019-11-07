@@ -11,6 +11,14 @@ const attemptSchema = new Schema('attempts', {
   idAttribute: 'attemptId'
 });
 
+const courseSchema = new Schema('courses', {
+  idAttribute: 'courseId'
+});
+
+const termSchema = new Schema('terms', {
+  idAttribute: 'termId'
+});
+
 const personSchema = new Schema('people', {
   idAttribute: 'personId'
 });
@@ -33,6 +41,10 @@ assignmentSchema.define({
 export const Schemas = {
   ATTEMPT: attemptSchema,
   ATTEMPT_ARRAY: arrayOf(attemptSchema),
+  COURSE: courseSchema,
+  COURSE_ARRAY: arrayOf(courseSchema),
+  TERM: termSchema,
+  TERM_ARRAY: arrayOf(termSchema),
   PERSON: personSchema,
   PERSON_ARRAY: arrayOf(personSchema),
   ASSIGNMENT: assignmentSchema,

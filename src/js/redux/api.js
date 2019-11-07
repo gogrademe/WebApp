@@ -36,6 +36,5 @@ export function tokenInfo(id_token) {
 export function getGrades(courseId, termId) {
   return client.get(`/course/${courseId}/term/${termId}/gradebook`)
 }
-export function getTerms() {
-  return client.get(`/term`)
-}
+
+export const getTerms = () => client.get('/term')

@@ -2,7 +2,6 @@ import React from 'react';
 import api from '../api/api';
 import Header from '../components/PageHeader';
 
-// import NewTable from '../components/NewTable';
 import {Table, Column} from 'fixed-data-table';
 
 export default React.createClass({

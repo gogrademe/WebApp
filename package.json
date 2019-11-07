@@ -5,9 +5,6 @@
   "repository": {
     "type": "git"
   },
-  "engines": {
-    "node": "6"
-  },
   "scripts": {
     "start": "node scripts/devServer.js",
     "build:webpack": "NODE_ENV=production webpack --config config/webpack.config.prod.js",

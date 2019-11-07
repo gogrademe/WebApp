@@ -25,13 +25,13 @@ var ModalButton = inject('modalStore')(React.createClass({
   }
 }));
 
-// const TermBtn = (props) => <ModalButton modal={ModalTypes.TERM} {...props}/>
-const TermBtn = (props) => <Button as={Link} to="/app/setup/terms/new" {...props}>Add Term</Button>
+const TermBtn = (props) => <ModalButton modal={ModalTypes.TERM} {...props}/>
+// const TermBtn = (props) => <Button as={Link} to="/setup/terms/new" {...props}>Add Term</Button>
 const AssignmentGroupBtn = (props) => <ModalButton modal={ModalTypes.ASSIGNMENT_TYPE} {...props}/>
 const AssignmentBtn = (props) => <ModalButton modal={ModalTypes.ASSIGNMENT} {...props}/>
 const AssignmentGradesBtn = (props) => <ModalButton modal={ModalTypes.ASSIGNMENT_GRADES} {...props}/>
 const AccountBtn = (props) => <ModalButton modal={ModalTypes.ACCOUNT} {...props}/>
-// const PersonBtn = (props) => <Button as={Link} to="/app/people/new" {...props}>Add Person</Button>
+// const PersonBtn = (props) => <Button as={Link} to="/people/new" {...props}>Add Person</Button>
 const PersonBtn = (props) => <ModalButton modal={ModalTypes.PERSON} {...props}/>
 const CourseBtn = (props) => <ModalButton modal={ModalTypes.COURSE} {...props}/>
 

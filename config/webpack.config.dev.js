@@ -63,8 +63,7 @@ module.exports = {
     loaders: [
       {
         test: /\.(tsx|ts)?$/,
-        loader: 'awesome-typescript-loader',
-
+        loader: 'ts-loader',
       },
       {
         test: /\.less?$/,

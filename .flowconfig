@@ -1,7 +1,0 @@
-[ignore]
-.*/build/.*
-.*/stage/.*
-
-[include]
-./node_modules/
-./src/scripts/lib/

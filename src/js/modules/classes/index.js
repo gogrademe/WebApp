@@ -2,60 +2,65 @@ import React from 'react';
 import Header from '../../components/PageHeader';
 import MenuLink from '../../components/MenuLink';
 import api from '../../api/api';
-
+import _ from 'lodash';
 import {Grid, Menu, Segment } from 'semantic-ui-react';
 
-import {Nav,NavItem} from 'react-bootstrap';
-// import {LinkContainer} from 'react-router-bootstrap';
+import {Route, Switch} from 'react-router-dom'
 
-const View = React.createClass({
-  getInitialState() {
-    return {
-      term: null,
-      terms: null,
-      course: {}
-    };
-  },
-  componentWillMount() {
-    const {resourceID} = this.props.params;
-    api.course.get(resourceID).then((data) => {
-      this.setState({
-        course: data
-      });
-    });
-  },
-  renderPrimary() {
+import Students from './students';
+import Grades from './detail';
+import Assignments from '../assignments/Assignments';
+import Settings from './Settings';
+
+import { connect } from 'react-redux';
+import { fetchCourse } from '../../redux/modules/course';
+
+class View extends React.Component {
+  componentDidMount() {
+    const { dispatch, match } = this.props;
+    dispatch(fetchCourse(match.params.resourceID));
+  }
+  renderPrimary = () => {
     switch (false) {
-    case !!this.state.course:
+    case !!this.props.course:
       return 'Loading...';
     default:
-      return this.state.course.name + ' - Grade ' + this.state.course.grade_level;
+      return this.props.course.name + ' - Grade ' + this.props.course.gradeLevel;
     }
-  },
-  renderSecondary(){
-    if (!!!this.state.course.term) {return ''; }
-    const term = this.state.course.terms.find(t => t.term_id == this.props.params.term_id);
+  }
+  renderSecondary = () => {
+    if (!!!this.props.course.term) {return ''; }
+    const term = this.state.course.terms.find(t => t.termId == this.props.match.params.termId);
     return `Year ${term.school_year} - ${term.name}`;
-  },
+  }
   render(){
-    const {term_id,resourceID} = this.props.params;
+    const {match} = this.props;
+    const {termId,resourceID} = this.props.match.params;
     return (
       <div>
         <Header primary={this.renderPrimary()} secondary={this.renderSecondary()} />
         <Menu pointing attached>
-          <MenuLink to={`/app/course/${term_id}/${resourceID}/grades`} name="Grades" />
-          <MenuLink to={`/app/course/${term_id}/${resourceID}/students`} name="Students"/>
-          <MenuLink to={`/app/course/${term_id}/${resourceID}/assignments`} name="Assignments"/>
-          <MenuLink to={`/app/course/${term_id}/${resourceID}/settings`} name="Settings"/>
+          <MenuLink to={`${match.url}/grades`} name="Grades" />
+          <MenuLink to={`${match.url}/students`} name="Students"/>
+          <MenuLink to={`${match.url}/assignments`} name="Assignments"/>
+          <MenuLink to={`${match.url}/settings`} name="Settings"/>
         </Menu>
-        {this.props.children}
+        <Switch>
+          <Route path={`${match.path}/grades`} component={Grades} resourceID={resourceID}/>
+          <Route path={`${match.path}/students`} component={Students}/>
+          <Route path={`${match.path}/assignments`} component={Assignments}/>
+          <Route path={`${match.path}/settings`} component={Settings}/>
+        </Switch>
       </div>
     );
   }
-});
-module.exports = {
-  View: View,
-  List: require('./list'),
-  Assignments: require('../assignments/Assignments'),
-  Students: require('./students')
-};
+}
+
+const mapStateToProps = (state, ownProps) => {
+  const {resourceID} = ownProps.match.params;
+  return {
+    course: _.get(state.entities.courses, resourceID,{}),
+  }
+}
+const mapDispatchToProps = dispatch => ({dispatch});
+export default connect(mapStateToProps,  mapDispatchToProps)(View);

@@ -1,51 +1,33 @@
-import * as React from 'react';
+import * as React from "react";
 
-import api from '../api/api';
+import api from "../api/api";
 
 //Molecules
-import ModalForm from '../molecules/ModalForm';
-import LabeledField from '../molecules/LabeledField';
+import ModalForm from "../components/ModalForm";
+
+import { Field, reduxForm } from "redux-form";
 // import connect from '../api-connector';
 
-import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from 'semantic-ui-react'
+import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from "semantic-ui-react";
 
- class TermModal extends React.Component<any,any> {
-  onSubmit = (model) => {
-    model.school_year = Number(model.school_year);
+class TermModal extends React.Component<any, any> {
+  onSubmit = model => {
+    model.schoolYear = Number(model.schoolYear);
     return api.term.create(model);
-  }
+  };
 
   render() {
     return (
-      // <ModalForm {... this.props} title="School Year" onSubmitAsync={this.submit}>
-      <div>
-        <Form.Input label="Name" name="name" required placeholder="Term 1" />
-        <Form.Input label="School Year" name="school_year" validations="isNumeric" placeholder="End" />
-      </div>
-      // </ModalForm>
+      <ModalForm {...this.props} title="School Year" onSubmitAsync={this.onSubmit}>
+        <div>
+          <Field label="Name" name="name" required placeholder="Term 1" component={Form.Input} />
+          <Field label="School Year" name="schoolYear" placeholder="End" component={Form.Input} />
+        </div>
+      </ModalForm>
     );
   }
 }
-
-export default TermModal;
-// connect(props => ({
-//   postLike: subject => ({
-//     postLikeResponse: {
-//       url: `/users/${props.userId}/likes`
-//       method: 'POST'
-//       body: JSON.stringify({ subject })
-//     }
-//   })
-// }))(Profile)
-
-
-
-// export default connect(props => ({
-//   postTerm: model => ({
-//     postTermResponse: {
-//      url: '/term',
-//      method: 'POST',
-//      body: JSON.stringify({ model })
-//    }
-//   })
-// }))(TermModal)
+// export default TermModal;
+export default reduxForm({
+  form: "termModal"
+})(TermModal);

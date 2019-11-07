@@ -7,11 +7,11 @@ const AppNav = ({handleLogoutClick, fullName=''}) => (
   <Menu attached borderless stackable>
     <Container>
       <Menu.Item header>GoGradeMe</Menu.Item>
-      <MenuLink to="/app" name="Dashboard" onlyActiveOnIndex />
-      <MenuLink to="/app/course" name="Courses" />
-      <MenuLink to="/app/people" name="People" />
-      <MenuLink to="/app/users"  name="Users" />
-      <MenuLink to="/app/setup"  name="Settings" />
+      <MenuLink to="/" name="Dashboard" exact />
+      <MenuLink to="/course" name="Courses" />
+      <MenuLink to="/people" name="People" />
+      <MenuLink to="/users"  name="Users" />
+      <MenuLink to="/setup"  name="Settings" />
       <Menu.Menu position='right'>
       <Dropdown as={Menu.Item} text={fullName} simple>
         <Dropdown.Menu>

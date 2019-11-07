@@ -1,80 +1,61 @@
-/* @flow weak */
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import api from '../api/api';
+import React from "react";
+import { Field, reduxForm } from "redux-form";
+import api from "../api/api";
+import { Combobox as Select } from "react-widgets";
+import ModalForm from "../components/ModalForm";
+import { Term, GradeLevel } from "../molecules/AutoCompleteFor";
+import { connect } from "react-redux";
+import { createCourse } from "../redux/modules/course";
 
-import ModalForm from '../molecules/ModalForm';
-import LabeledField from '../molecules/LabeledField';
-import {GradeLevel} from '../molecules/AutoCompleteFor';
-
-import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from 'semantic-ui-react'
-// class CourseModal extends React.Component {
-//   handleSubmit(data) {
-//     return api.course.create(data);
-//   }
-//   render() {
-//     return (
-//       <ModalForm {... this.props} title="Course" onSubmit={this.props.handleSubmit}>
-//         <div className="field">
-//           <label>Name</label>
-//           <Field name="name" component="input" type="text"/>
-//         </div>
-//         <div className="field">
-//           <label>Grade Level</label>
-//           <Field name="level_id" component={GradeLevel} selection fluid search />
-//         </div>
-//       </ModalForm>
-//     )
-//   }
-// }
-const handleSubmit = (data) => {
-    data.level_id = Number(data.gradeLevel);
-    return api.course.create(data);
+class CourseModal extends React.Component {
+  // handleSubmit = data => {
+  //   data.terms = [data.termId];
+  //   return this.props.create(data);
+  // };
+  render() {
+    return (
+      // <ModalForm {...this.props} title="Course" onSubmitAsync={this.handleSubmit}>
+      <ModalForm {...this.props} title="Course">
+        <div className="field">
+          <label>Name</label>
+          <Field name="name" component="input" type="text" />
+        </div>
+        <div className="field">
+          <label>Grade Level</label>
+          <Field name="levelId" component={GradeLevel} />
+        </div>
+        <div className="field">
+          <label>Terms</label>
+          <Field name="termId" className="inline" component={Term} />
+        </div>
+      </ModalForm>
+    );
   }
-const CourseModal = ({ ...rest}) => (
-  <ModalForm title="Course" onSubmitAsync={handleSubmit} {...rest} resource='course'>
-    <Form.Input label='Name' name='name' placeholder='Name' />
-    <GradeLevel label='Grade Level' name='gradeLevel' selection fluid search />
-    {/* <div className="field">
-      <label>Grade Level</label>
-      <Field name="level_id" component={GradeLevel} selection fluid search />
-    </div> */}
-  </ModalForm>
+}
+const mapStateToProps = (state, ownProps) => {
+  // const {resourceID} = ownProps.match.params;
+  return {
+    terms: Object.values(state.entities.terms),
+    initialValues: {
+      ...ownProps.initialValues,
+      ...ownProps.termId,
+      ..._.get(state.entities.courses, ownProps.courseId, {})
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  dispatch => {
+    return {
+      create: course => {
+        course.terms = [{ termId: course.termId }];
+        dispatch(createCourse(course));
+      }
+    };
+  }
+)(
+  reduxForm({
+    form: "course" // a unique identifier for this form
+  })(CourseModal)
 );
-export default CourseModal
-
-
-// export default React.createClass({
-//   propTypes: {
-//     course_id: React.PropTypes.number
-//   },
-//   getInitialState() {
-//     return {
-//       course: {}
-//     };
-//   },
-//   onSubmit(model) {
-//     return api.course.create(model);
-//   },
-//   componentWillMount() {
-//     if (this.props.course_id) {
-//       api.course
-//         .get(this.props.course_id)
-//         .then(res => this.setState({course: res}));
-//     }
-//   },
-//   render() {
-//     const {course} = this.state;
-//     return (
-//       <ModalForm {... this.props} title="Course" onSubmitAsync={this.onSubmit}>
-//         <LabeledField name="name" label="Name" value={course.name} />
-//         <div className="field">
-//           <label>Grade Level</label>
-//           <GradeLevel name="level_id" value={course.level_id}
-//             selection fluid search/>
-//         </div>
-//       </ModalForm>
-//
-//     );
-//   }
-// });

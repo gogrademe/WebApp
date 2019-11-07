@@ -1,6 +1,4 @@
-import React from 'react';
-
-// import {ButtonGroup, Button, Glyphicon} from 'react-bootstrap';
+import * as React from 'react';
 import {Button} from 'semantic-ui-react';
 
 interface DeleteButtonProps {
@@ -12,10 +10,8 @@ interface DeleteButtonState {
 }
 
 export default class DeleteButton extends React.Component<DeleteButtonProps, DeleteButtonState> {
-  getInitialState() {
-    return {
-      confirm: false
-    };
+  state = {
+    confirm: false
   }
   toggle = (e) => {
     e.preventDefault();
@@ -33,7 +29,7 @@ export default class DeleteButton extends React.Component<DeleteButtonProps, Del
       <Button.Group>
         <Button icon='remove' onClick={this.toggle}/>
         <Button.Or />
-        <Button negative icon='ok' onClick={this.handleConfirm}/>
+        <Button negative icon='trash' onClick={this.handleConfirm}/>
       </Button.Group>
     );
   }

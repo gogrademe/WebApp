@@ -10,8 +10,8 @@ class AuthService {
       return !!this.token && !isTokenExpired(this.token)
   }
 
-  private lock: Auth0LockStatic;
-  constructor(clientId: string, domain: string) {
+  // private lock: Auth0LockStatic;
+  constructor(clientId, domain) {
     // Configure Auth0
 
     this.lock = new Auth0Lock(clientId, domain, {

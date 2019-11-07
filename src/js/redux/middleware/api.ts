@@ -1,21 +1,23 @@
 import { normalize } from 'normalizr';
 import { camelizeKeys } from 'humps';
-import '../schema.js';
-import 'isomorphic-fetch';
+import '../const/schema';
+import * as fetch from 'isomorphic-fetch';
 
 import {API_ROOT, CALL_API} from '../const';
 
 
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
-function callApi(endpoint, schema) {
+function callApi(endpoint: string, schema: any, method = 'GET', body?:Object) {
   const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint;
   const opts = {
     headers: {
-      'Authorization': `Bearer ${localStorage.id_token}`,
+      'Authorization': `Bearer ${localStorage.getItem('id_token')}`,
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-    }
+    },
+    method,
+    body: JSON.stringify(body)
   };
 
   return fetch(fullUrl,opts)
@@ -26,9 +28,9 @@ function callApi(endpoint, schema) {
       if (!response.ok) {
         return Promise.reject(json);
       }
-      // return json;
       const camelizedJson = camelizeKeys(json);
       return Object.assign({},
+        // normalize will put all objects under a 'entities' key
         normalize(camelizedJson, schema)
       );
     });
@@ -43,7 +45,7 @@ export default store => next => action => {
   }
 
   let { endpoint } = callAPI;
-  const { schema, types } = callAPI;
+  const { schema, types, method, body } = callAPI;
 
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState());
@@ -72,7 +74,7 @@ export default store => next => action => {
   const [requestType, successType, failureType] = types;
   next(actionWith({ type: requestType }));
 
-  return callApi(endpoint, schema).then(
+  return callApi(endpoint, schema, method, body).then(
     response => next(actionWith({
       response,
       type: successType

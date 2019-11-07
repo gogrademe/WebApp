@@ -20,6 +20,7 @@ import gradebook from './../modules/gradebook';
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = {
   attempts: {},
+  courses: {},
   terms: {},
   people: {},
   users: {},
@@ -54,6 +55,7 @@ export default combineReducers({
   auth0,
   person,
   gradebook,
+  // course,
   entities,
   errorMessage,
   form: formReducer

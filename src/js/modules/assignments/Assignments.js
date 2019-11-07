@@ -1,105 +1,116 @@
-
-import React, {PropTypes} from 'react';
-import {Grid, CrudActions} from '../../components/NewTable';
-import {AssignmentBtn} from '../../molecules/ModalButtons';
+import React, { PropTypes } from "react";
+import { Grid, CrudActions } from "../../components/NewTable";
+import { AssignmentBtn } from "../../molecules/ModalButtons";
 // import AssignmentBtn from '../../molecules/Moda';
-import {Button} from 'semantic-ui-react';
-import api from '../../api/api';
+import { Button } from "semantic-ui-react";
+import api from "../../api/api";
+
+import { loadAssignments } from "../../redux/modules/assignment";
+import { connect } from "react-redux";
 
 const AssignmentEdit = React.createClass({
   propTypes: {
     row: PropTypes.object
   },
   render() {
-      return (
-        <div>
-          <CrudActions {... this.props}/>
-          <AssignmentBtn
-            label="Edit"
-            course_id={this.props.row.course_id}
-            term_id={this.props.row.term_id}
-            assignment_id={this.props.row.assignment_id} />
-        </div>
-      );
+    return (
+      <div>
+        <CrudActions {...this.props} />
+        <AssignmentBtn
+          label="Edit"
+          values={{
+            courseId: this.props.row.courseId,
+            termId: this.props.row.termId,
+            assignmentId: this.props.row.assignmentId
+          }}
+        />
+      </div>
+    );
   }
 });
 
 var assignmentCols = [
   {
-    key: 'name',
-    display: 'Name'
+    key: "name",
+    display: "Name"
   },
   {
-    key: 'due_date',
-    display: 'Due Date',
-    format: 'date'
+    key: "dueDate",
+    display: "Due Date",
+    format: "date"
   },
   {
-    key: 'group.name',
-    display: 'Type'
+    key: "group.name",
+    display: "Type"
   },
   {
-    key: 'max_score',
-    display: 'Out Of'
+    key: "maxScore",
+    display: "Out Of"
   },
   {
-    key: 'group.weight',
-    display: 'Weight',
-    format: 'decimalPercent',
-    className: 'col-md-1'
+    key: "group.weight",
+    display: "Weight",
+    format: "decimalPercent",
+    className: "col-md-1"
   },
   {
     display: <AssignmentBtn label="New" />,
     renderer: AssignmentEdit,
-    resourceType: 'assignmentGroup',
-    tdClassName: 'right aligned',
-    className: 'right aligned'
+    resourceType: "assignmentGroup",
+    tdClassName: "collapsing right aligned"
   }
 ];
 var ClassAssignments = React.createClass({
-  getInitialState(){
+  getInitialState() {
     return {
       assignments: []
     };
   },
-  componentDidMount(){
-    api.assignment.events.addListener('change', this.getAssignments);
-    api.group.events.addListener('change', this.getAssignments);
+  componentDidMount() {
+    this.props.loadAssignments();
+    api.assignment.events.addListener("change", this.getAssignments);
+    api.group.events.addListener("change", this.getAssignments);
   },
-  componentWillUnmount(){
-    api.assignment.events.removeListener('change', this.getAssignments);
-    api.group.events.removeListener('change', this.getAssignments);
+  componentWillUnmount() {
+    api.assignment.events.removeListener("change", this.getAssignments);
+    api.group.events.removeListener("change", this.getAssignments);
   },
-  componentWillMount(){
+  componentWillMount() {
     this.getAssignments();
   },
-  getAssignments(){
-    const {term_id, resourceID} = this.props.params;
-    api.assignment.find({
-      course_id: resourceID,
-      term_id: term_id
-    }).then((data) => {
-      this.setState({
-        assignments: data
+  getAssignments() {
+    const { termId, resourceID } = this.props.match.params;
+    api.assignment
+      .find({
+        courseId: resourceID,
+        termId: termId
+      })
+      .then(data => {
+        this.setState({
+          assignments: data
+        });
       });
-    });
   },
-  render(){
-    const {term_id, resourceID} = this.props.params;
+  render() {
+    const { termId, resourceID } = this.props.match.params;
     return (
       <div>
-        {/* <div className="btn-toolbar" role="toolbar">
+        <div className="btn-toolbar" role="toolbar">
           <AssignmentBtn
             label="New"
             className="btn btn-primary pull-right"
-            course_id={Number(resourceID)}
-            term_id={Number(term_id)} />
-        </div> */}
-        <Grid attached
-          columns={assignmentCols}
-          data={this.state.assignments} />
+            values={{ courseId: Number(resourceID), termId: Number(termId) }}
+          />
+        </div>
+        <Grid attached columns={assignmentCols} data={this.state.assignments} />
       </div>
     );
   }
 });
-module.exports = ClassAssignments;
+
+export default connect(
+  state => ({
+    assignments: Object.values(state.entities.assignments)
+  }),
+  { loadAssignments }
+)(ClassAssignments);
