@@ -24,7 +24,7 @@ let formatVal = function(val, format) {
     case "date":
       return utils.formatDate(val);
     case "decimalPercent":
-      return Math.round(val * 100) || "";
+      return Math.round(val * 100);
     case val === undefined:
       return "empty";
     default:

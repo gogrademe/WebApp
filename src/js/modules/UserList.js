@@ -1,17 +1,18 @@
-import React from 'react';
-import api from '../api/api';
-import Header from '../components/PageHeader';
+import React from "react";
+import api from "../api/api";
+import Header from "../components/PageHeader";
 
-import NewTable from '../components/NewTable';
+import { Grid } from "../components/NewTable";
 
 export default React.createClass({
   tableColumns: [
     {
-      key: 'email',
-      display: 'Email'
-    }, {
-      key: 'disabled',
-      display: 'Disabled'
+      key: "email",
+      display: "Email"
+    },
+    {
+      key: "disabled",
+      display: "Disabled"
     }
   ],
   getInitialState() {
@@ -20,7 +21,7 @@ export default React.createClass({
     };
   },
   fetch() {
-    api.account.find().then((xs) => {
+    api.account.find().then(xs => {
       this.setState({
         data: xs
       });
@@ -32,9 +33,9 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <Header primary='All Accounts'/>
+        <Header primary="All Accounts" />
         <div>
-          <NewTable.Grid columns={this.tableColumns} data={this.state.data}/>
+          <Grid columns={this.tableColumns} data={this.state.data} />
         </div>
       </div>
     );

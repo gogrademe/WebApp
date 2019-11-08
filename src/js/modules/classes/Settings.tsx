@@ -12,7 +12,11 @@ import * as cx from "classnames";
 const AssignmentEdit = props => (
   <div className="btn-group">
     <CrudActions {...props} />
-    <AssignmentGroupBtn label="Edit" values={{ groupId: props.row.groupId }} className="btn btn-primary" />
+    <AssignmentGroupBtn
+      label="Edit"
+      values={{ groupId: props.row.groupId, termId: props.row.termId, courseId: props.row.courseId }}
+      className="btn btn-primary"
+    />
   </div>
 );
 

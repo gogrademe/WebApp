@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import * as api from "../api/api";
-import asForm from "../components/AsForm";
 import ModalForm from "../components/ModalForm";
 import { Input } from "semantic-ui-react";
 import { inject, observer } from "mobx-react";
