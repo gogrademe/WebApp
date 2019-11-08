@@ -1,10 +1,13 @@
 import React from "react";
+import createReactClass from 'create-react-class';
 import api from "../api/api";
 import Header from "../components/PageHeader";
 
 import { Grid } from "../components/NewTable";
 
-export default React.createClass({
+export default createReactClass({
+  displayName: 'UserList',
+
   tableColumns: [
     {
       key: "email",
@@ -15,11 +18,13 @@ export default React.createClass({
       display: "Disabled"
     }
   ],
+
   getInitialState() {
     return {
       data: []
     };
   },
+
   fetch() {
     api.account.find().then(xs => {
       this.setState({
@@ -27,9 +32,11 @@ export default React.createClass({
       });
     });
   },
+
   componentWillMount() {
     this.fetch();
   },
+
   render() {
     return (
       <div>
@@ -39,5 +46,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  }
+  },
 });

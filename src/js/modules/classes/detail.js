@@ -5,29 +5,32 @@ import { loadAssignments } from "../../redux/modules/assignment";
 import { loadGradebook } from "../../redux/modules/gradebook";
 import { connect } from "react-redux";
 
-let GradeInput = React.createClass({
-  getInitialState() {
-    return {
-      value: this.props.value,
-      initialValue: this.props.value
-    };
-  },
-  changeValue(event) {
+class GradeInput extends React.Component {
+  state = {
+    value: this.props.value,
+    initialValue: this.props.value
+  };
+
+  changeValue = (event) => {
     this.setValue(event.currentTarget.value);
-  },
-  getValue() {
+  };
+
+  getValue = () => {
     // return this.props.value / this.props.column.maxScore * 100 || '-';
     return this.state.value;
-  },
-  setValue(value) {
+  };
+
+  setValue = (value) => {
     this.setState({ value: value });
-  },
+  };
+
   componentDidUpdate(prevProps) {
     if (this.props.value !== prevProps.value) {
       this.setValue(this.props.value);
     }
-  },
-  handleBlur(e) {
+  }
+
+  handleBlur = (e) => {
     e.preventDefault();
     // const val = e.currentTarget.value;
 
@@ -39,7 +42,8 @@ let GradeInput = React.createClass({
         score: this.getValue()
       });
     }
-  },
+  };
+
   render() {
     return this.props.column.editMode ? (
       <div className="grade-input" onBlur={this.handleBlur}>
@@ -56,10 +60,10 @@ let GradeInput = React.createClass({
       <div>{this.getValue()}</div>
     );
   }
-});
+}
 
-let GradeAverage = React.createClass({
-  calcIbGrade(x) {
+class GradeAverage extends React.Component {
+  calcIbGrade = (x) => {
     switch (false) {
       case !(x > 94):
         return 7;
@@ -78,8 +82,9 @@ let GradeAverage = React.createClass({
       default:
         return 0;
     }
-  },
-  calcUsLetterGrade(x) {
+  };
+
+  calcUsLetterGrade = (x) => {
     switch (false) {
       case !(x > 96):
         return "A+";
@@ -108,14 +113,15 @@ let GradeAverage = React.createClass({
       default:
         return "F";
     }
-  },
+  };
+
   // I need all weights for a class which must total up to 100%
   // Ex
   // 20%
   // 40%
   // 10%
   // 30%
-  calcGrade() {
+  calcGrade = () => {
     //   const assignments = this.props.row.assignments;
     //   let groups = this.props.row.groups;
     //   let groupGrades = {};
@@ -161,33 +167,34 @@ let GradeAverage = React.createClass({
     //     return Math.round(weighted.reduce((total,num) => total + num) * 100);
     //   }
     return 0;
-  },
+  };
+
   render() {
     const body =
       this.calcGrade() + " | " + this.calcIbGrade(this.calcGrade()) + " | " + this.calcUsLetterGrade(this.calcGrade());
     return <div>{body}</div>;
   }
-});
+}
 
 function loadData(props) {
   props.loadAssignments();
   props.loadGradebook(props.match.params.resourceID, props.match.params.termId);
 }
 
-let ClassDetail = React.createClass({
-  propTypes: {
+class ClassDetail extends React.Component {
+  static propTypes = {
     assignments: React.PropTypes.object.isRequired,
     attempts: React.PropTypes.array.isRequired
-  },
-  getInitialState() {
-    return {
-      students: [],
-      attempts: [],
-      assignments: [],
-      assignmentGroups: [],
-      editColumn: null
-    };
-  },
+  };
+
+  state = {
+    students: [],
+    attempts: [],
+    assignments: [],
+    assignmentGroups: [],
+    editColumn: null
+  };
+
   // getGrades(){
   //   const params = this.props.match.params;
   //   api.attempt.find({
@@ -196,7 +203,7 @@ let ClassDetail = React.createClass({
   //   })
   //   .then(xs => this.setState({attempts: xs}));
   // },
-  getStudents() {
+  getStudents = () => {
     const params = this.props.match.params;
     api.enrollment
       .find({
@@ -204,8 +211,9 @@ let ClassDetail = React.createClass({
         termId: params.termId
       })
       .then(xs => this.setState({ students: xs }));
-  },
-  getAssignments() {
+  };
+
+  getAssignments = () => {
     const params = this.props.match.params;
     api.assignment
       .find({
@@ -213,8 +221,9 @@ let ClassDetail = React.createClass({
         termId: params.termId
       })
       .then(xs => this.setState({ assignments: xs }));
-  },
-  getAssignmentGroups() {
+  };
+
+  getAssignmentGroups = () => {
     const params = this.props.match.params;
     api.group
       .find({
@@ -222,8 +231,9 @@ let ClassDetail = React.createClass({
         termId: params.termId
       })
       .then(xs => this.setState({ assignmentGroups: xs }));
-  },
-  buildCols() {
+  };
+
+  buildCols = () => {
     let cols = [
       {
         key: "student.person.displayName",
@@ -249,9 +259,9 @@ let ClassDetail = React.createClass({
     });
 
     return cols;
-  },
+  };
 
-  buildData() {
+  buildData = () => {
     let results = [];
     for (let s of this.state.students) {
       let result = {
@@ -270,16 +280,18 @@ let ClassDetail = React.createClass({
       results.push(result);
     }
     return results;
-  },
+  };
+
   componentWillMount() {
     loadData(this.props);
     this.getAssignments();
     this.getStudents();
-  },
+  }
+
   render() {
     return <Grid attached columns={this.buildCols()} data={this.buildData()} />;
   }
-});
+}
 
 export default connect(
   state => ({

@@ -8,10 +8,11 @@ import api from "../../api/api";
 import { loadAssignments } from "../../redux/modules/assignment";
 import { connect } from "react-redux";
 
-const AssignmentEdit = React.createClass({
-  propTypes: {
+class AssignmentEdit extends React.Component {
+  static propTypes = {
     row: PropTypes.object
-  },
+  };
+
   render() {
     return (
       <div>
@@ -27,7 +28,7 @@ const AssignmentEdit = React.createClass({
       </div>
     );
   }
-});
+}
 
 var assignmentCols = [
   {
@@ -60,25 +61,28 @@ var assignmentCols = [
     tdClassName: "collapsing right aligned"
   }
 ];
-var ClassAssignments = React.createClass({
-  getInitialState() {
-    return {
-      assignments: []
-    };
-  },
+
+class ClassAssignments extends React.Component {
+  state = {
+    assignments: []
+  };
+
   componentDidMount() {
     this.props.loadAssignments();
     api.assignment.events.addListener("change", this.getAssignments);
     api.group.events.addListener("change", this.getAssignments);
-  },
+  }
+
   componentWillUnmount() {
     api.assignment.events.removeListener("change", this.getAssignments);
     api.group.events.removeListener("change", this.getAssignments);
-  },
+  }
+
   componentWillMount() {
     this.getAssignments();
-  },
-  getAssignments() {
+  }
+
+  getAssignments = () => {
     const { termId, resourceID } = this.props.match.params;
     api.assignment
       .find({
@@ -90,7 +94,8 @@ var ClassAssignments = React.createClass({
           assignments: data
         });
       });
-  },
+  };
+
   render() {
     const { termId, resourceID } = this.props.match.params;
     return (
@@ -106,7 +111,7 @@ var ClassAssignments = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default connect(
   state => ({

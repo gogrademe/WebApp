@@ -6,11 +6,12 @@ import { Segment } from "semantic-ui-react";
 
 import api from "../../api/api";
 
-const StudentActions = React.createClass({
-  unEnroll: function(e) {
+class StudentActions extends React.Component {
+  unEnroll = (e) => {
     e.preventDefault();
     api.enrollment.del(this.props.row.enrollmentId);
-  },
+  };
+
   render() {
     return (
       <button className="btn btn-danger" onClick={this.unEnroll}>
@@ -18,7 +19,7 @@ const StudentActions = React.createClass({
       </button>
     );
   }
-});
+}
 
 const cols = [
   {
@@ -45,19 +46,19 @@ const cols = [
   }
 ];
 
-let CourseStudents = React.createClass({
-  propTypes: {
+class CourseStudents extends React.Component {
+  static propTypes = {
     courseId: PropTypes.string,
     termId: PropTypes.string
-  },
-  getInitialState() {
-    return {
-      students: [],
-      people: [],
-      selected: {}
-    };
-  },
-  getEnrollments() {
+  };
+
+  state = {
+    students: [],
+    people: [],
+    selected: {}
+  };
+
+  getEnrollments = () => {
     const { termId, resourceID } = this.props.match.params;
     api.enrollment
       .find({
@@ -65,24 +66,28 @@ let CourseStudents = React.createClass({
         termId: termId
       })
       .then(xs => this.setState({ students: xs }));
-  },
+  };
+
   componentWillMount() {
     api.enrollment.events.addListener("change", this.getEnrollments);
     this.getEnrollments();
 
     api.person.find().then(xs => this.setState({ people: xs }));
-  },
+  }
+
   componentWillUnmount() {
     return api.enrollment.events.removeListener("change", this.getEnrollments);
-  },
-  enrollStudent() {
+  }
+
+  enrollStudent = () => {
     const { termId, resourceID } = this.props.match.params;
     api.enrollment.create({
       personId: Number(this.state.selected),
       courseId: Number(resourceID),
       termId: Number(termId)
     });
-  },
+  };
+
   render() {
     return (
       <div>
@@ -109,5 +114,6 @@ let CourseStudents = React.createClass({
       </div>
     );
   }
-});
+}
+
 module.exports = CourseStudents;

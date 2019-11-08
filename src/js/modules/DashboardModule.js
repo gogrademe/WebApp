@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from '../components/PageHeader';
 
-var DashboardModule = React.createClass({
-  renderItem({header, time, description, author}){
+class DashboardModule extends React.Component {
+  renderItem = ({header, time, description, author}) => {
     return (
       <div className="item">
         <div className="content">
@@ -23,8 +23,9 @@ var DashboardModule = React.createClass({
         </div>
       </div>
     );
-  },
-  render(){
+  };
+
+  render() {
     return (
       <div>
         <Header primary="Dashboard"/>
@@ -52,6 +53,6 @@ var DashboardModule = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default DashboardModule
