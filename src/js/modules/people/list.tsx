@@ -5,7 +5,7 @@ import Header from "../../components/PageHeader";
 import { AccountBtn, PersonBtn } from "../../molecules/ModalButtons";
 import { observer, inject } from "mobx-react";
 
-import { Menu, Button, Icon, Table } from "semantic-ui-react";
+import { Menu, Icon, Table } from "semantic-ui-react";
 import DeleteBtn from "../../components/DeleteButton";
 
 // const Item: React.StatelessComponent<{}> = observer(({store,person}) => (

@@ -69,7 +69,6 @@ class CourseList extends React.Component {
       <div>
         <Header
           primary="All Courses"
-          // secondary='Test'
           right={
             <Select
               className="inline"

@@ -9,19 +9,15 @@ import { connect } from "react-redux";
 
 import * as cx from "classnames";
 
-class AssignmentEdit extends React.Component<any, any> {
-  render() {
-    return (
-      <div className="btn-group">
-        <CrudActions {...this.props} />
-        <AssignmentGroupBtn label="Edit" values={{ groupId: this.props.row.groupId }} className="btn btn-primary" />
-      </div>
-    );
-  }
-}
+const AssignmentEdit = props => (
+  <div className="btn-group">
+    <CrudActions {...props} />
+    <AssignmentGroupBtn label="Edit" values={{ groupId: props.row.groupId }} className="btn btn-primary" />
+  </div>
+);
 
-const WeightFooter = props => {
-  const weights = props.data.map(x => x.weight * 100);
+const WeightFooter = ({ data }) => {
+  const weights = data.map(x => x.weight * 100);
   const weight = weights.length ? weights.reduce((a, b) => a + b) : 0;
   return (
     <div>
@@ -70,13 +66,6 @@ class Settings extends React.Component<any, any> {
     );
   }
 }
-
-// Settings.propTypes = {
-//     courseId: PropTypes.string,
-//     termId: PropTypes.string
-// };
-
-// export default Settings;
 
 export default connect(
   (state, ownProps) => ({

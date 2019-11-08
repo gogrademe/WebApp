@@ -1,28 +1,25 @@
-import * as React from "react";
-
-import api from "../api/api";
-
 import * as _ from "lodash";
-//Molecules
-import ModalForm from "../components/ModalForm";
-import { Form } from "semantic-ui-react";
-// import {Input} from 'formsy-react-components';
+import * as React from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
+import { Form } from "semantic-ui-react";
+import api from "../api/api";
+import ModalForm from "../components/ModalForm";
 
 interface AssignmentGroupProps {
   courseId: number;
   termId: number;
   groupId: number;
 }
-export class AssignmentGroup extends React.Component<any, any> {
-  onSubmit = model => {
-    model.weight = Number(model.weight / 100);
-    model.courseId = Number(this.props.courseId);
-    model.termId = Number(this.props.termId);
 
-    if (this.props.groupId) {
-      model.groupId = this.props.groupId;
+export class AssignmentGroup extends React.Component<AssignmentGroupProps, any> {
+  onSubmit = model => {
+    const { courseId, termId, groupId } = this.props;
+    model = { ...model, courseId: Number(courseId), termId: Number(termId), weight: Number(model.weight) };
+    // model.weight = Number(model.weight / 100);
+
+    if (groupId) {
+      model.groupId = groupId;
       return api.group.update(model.groupId, model);
     } else {
       return api.group.create(model);
@@ -36,14 +33,15 @@ export class AssignmentGroup extends React.Component<any, any> {
         <Field
           label="Weight"
           name="weight"
-          validationError="must be between .5% and 100%"
           validations="isWeight"
+          validationError="must be between .5% and 100%"
           component={Form.Input}
         />
       </ModalForm>
     );
   }
 }
+
 const mapStateToProps = (state, ownProps) => {
   return {
     initialValues: {
@@ -52,6 +50,7 @@ const mapStateToProps = (state, ownProps) => {
     }
   };
 };
+
 export default connect(mapStateToProps)(
   reduxForm({
     form: "assignmentGroup" // a unique identifier for this form

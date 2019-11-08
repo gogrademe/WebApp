@@ -169,14 +169,11 @@ let GradeAverage = React.createClass({
   }
 });
 
-// function loadData(props) {
-//   props.loadAssignments();
-// }
-
 function loadData(props) {
   props.loadAssignments();
   props.loadGradebook(props.match.params.resourceID, props.match.params.termId);
 }
+
 let ClassDetail = React.createClass({
   propTypes: {
     assignments: React.PropTypes.object.isRequired,
