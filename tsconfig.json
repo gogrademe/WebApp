@@ -7,8 +7,11 @@
     "allowJs": false,
     "jsx": "react",
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "lib": ["dom", "es6", "dom.iterable", "scripthost", "esnext.asynciterable"],
+    "typeRoots": ["./types", "./node_modules/@types"]
   }
+
   // "include": ["src/**/*.ts", "src/**/*.tsx"],
   // "exclude": ["node_modules", "src/semantic"]
   // "filesGlob": ["src/**/*.ts", "src/**/*.tsx", "!node_modules/**", "!src/semantic/**"]

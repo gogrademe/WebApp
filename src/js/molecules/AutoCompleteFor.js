@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import { Dropdown, Form } from "semantic-ui-react";
 
 import api from "../api/api";
@@ -14,7 +15,7 @@ class ProfileTypes extends React.Component {
     ]
   };
 
-  changeValue = (newVal) => {
+  changeValue = newVal => {
     this.setValue(newVal.map(v => v.value));
   };
 
@@ -60,8 +61,8 @@ function thenPromise(promise, callback) {
 
 class DropdownAsync extends React.Component {
   static propTypes = {
-    loadOptions: React.PropTypes.func.isRequired,
-    onChange: React.PropTypes.func
+    loadOptions: PropTypes.func.isRequired,
+    onChange: PropTypes.func
   };
 
   state = {
@@ -129,10 +130,7 @@ export const AssignmentGroup = ({ courseId, termId, ...rest }) => (
   <DropdownAsync {...rest} loadOptions={() => loadAssignmentGroups(courseId, termId)} />
 );
 
-module.exports = {
-  ProfileTypes: ProfileTypes,
-  DropdownAsync: DropdownAsync,
-  GradeLevel: props => <DropdownAsync {...props} loadOptions={loadGradeLevels} />,
-  Term: props => <DropdownAsync {...props} loadOptions={loadTerms} />,
-  Students: props => <DropdownAsync {...props} loadOptions={loadStudents} />
-};
+export const GradeLevel = props => <DropdownAsync {...props} loadOptions={loadGradeLevels} />;
+export const Term = props => <DropdownAsync {...props} loadOptions={loadTerms} />;
+export const Students = props => <DropdownAsync {...props} loadOptions={loadStudents} />;
+export { ProfileTypes, DropdownAsync };

@@ -8,24 +8,24 @@ interface ModalFormProps {
   pristine?: boolean;
   onClose?: () => void;
   requestClose?: () => void;
-  handleSubmit?: (fn: (x: any) => void) => void;
+  // handleSubmit?: (fn: (x: any) => void) => void;
+  handleSubmit?: any;
   onSubmitAsync?: (any) => void;
   defaultValues?: any[];
 }
 export default class ModalForm extends React.Component<ModalFormProps, any> {
   handleSubmit = fields => {
     // FIXME: handle null
-    const { onSubmitAsync } = this.props;
+    const { onSubmitAsync, handleSubmit } = this.props;
     onSubmitAsync(fields);
   };
   render() {
-    const { title, children, requestClose, handleSubmit, pristine, submitting, open, onClose } = this.props;
+    const { title, children, handleSubmit, requestClose, pristine, submitting, open, onClose } = this.props;
     return (
       <Modal {...{ open, onClose }}>
         <Modal.Header>{title}</Modal.Header>
         <Modal.Content>
-          {/* <Form ref="form" id="modal-form" onSubmit={handleSubmit(this.handleSubmit)}> */}
-          <Form ref="form" id="modal-form" onSubmit={this.handleSubmit}>
+          <Form ref="form" id="modal-form" onSubmit={handleSubmit(this.handleSubmit)}>
             {children}
           </Form>
         </Modal.Content>

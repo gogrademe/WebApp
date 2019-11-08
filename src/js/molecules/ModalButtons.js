@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import { Button } from "semantic-ui-react";
 import ModalTypes from "../constants/ModalTypes";
 import { inject } from "mobx-react";
@@ -10,11 +11,11 @@ class ModalButton extends React.Component {
   // propTypes: {
   //   modal: React.PropTypes.string.isRequired
   // },
-  handleOnClick() {
-    var { modalStore, modal, values } = this.props;
+  handleOnClick = () => {
+    const { modalStore, modal, values } = this.props;
 
     modalStore.showModal(modal, values);
-  }
+  };
   render() {
     var { label, children } = this.props;
     return <Button onClick={this.handleOnClick}>{label || children}</Button>;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Grid } from "./NewTable";
 import api from "../api/api";
@@ -14,7 +15,7 @@ class GradeInput extends React.Component {
     initialValue: this.props.value
   };
 
-  changeValue = (event) => {
+  changeValue = event => {
     this.setValue(event.currentTarget.value);
   };
 
@@ -22,7 +23,7 @@ class GradeInput extends React.Component {
     return this.state.value;
   };
 
-  setValue = (value) => {
+  setValue = value => {
     this.setState({ value: value });
   };
 
@@ -32,7 +33,7 @@ class GradeInput extends React.Component {
     }
   }
 
-  handleBlur = (e) => {
+  handleBlur = e => {
     e.preventDefault();
     if (this.state.value !== this.state.initialValue) {
       api.attempt.create({
@@ -76,12 +77,12 @@ function loadData(props) {
 
 class ClassDetail extends React.Component {
   static contextTypes = {
-    router: React.PropTypes.func
+    router: PropTypes.func
   };
 
   static propTypes = {
-    assignments: React.PropTypes.object.isRequired,
-    attempts: React.PropTypes.array.isRequired
+    assignments: PropTypes.object.isRequired,
+    attempts: PropTypes.array.isRequired
   };
 
   state = {

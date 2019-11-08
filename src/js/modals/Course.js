@@ -7,14 +7,13 @@ import { connect } from "react-redux";
 import { createCourse } from "../redux/modules/course";
 
 class CourseModal extends React.Component {
-  // handleSubmit = data => {
-  //   data.terms = [data.termId];
-  //   return this.props.create(data);
-  // };
+  handleSubmit = data => {
+    data.terms = [data.termId];
+    return this.props.create(data);
+  };
   render() {
     return (
-      // <ModalForm {...this.props} title="Course" onSubmitAsync={this.handleSubmit}>
-      <ModalForm {...this.props} title="Course">
+      <ModalForm {...this.props} title="Course" onSubmitAsync={this.handleSubmit}>
         <div className="field">
           <label>Name</label>
           <Field name="name" component="input" type="text" />

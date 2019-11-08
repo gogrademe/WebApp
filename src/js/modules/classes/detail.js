@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from "react";
 import { Grid } from "../../components/NewTable";
 import api from "../../api/api";
@@ -183,8 +184,8 @@ function loadData(props) {
 
 class ClassDetail extends React.Component {
   static propTypes = {
-    assignments: React.PropTypes.object.isRequired,
-    attempts: React.PropTypes.array.isRequired
+    assignments: PropTypes.object.isRequired,
+    attempts: PropTypes.array.isRequired
   };
 
   state = {

@@ -17,11 +17,9 @@ export default class UserList extends React.Component<any, any> {
     }
   ];
 
-  getInitialState() {
-    return {
-      data: []
-    };
-  }
+  state = {
+    data: []
+  };
 
   fetch() {
     api.account.find().then(xs => {

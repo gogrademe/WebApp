@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from "react";
 
 import api from "../api/api";
@@ -8,7 +9,7 @@ import ModalForm from "../components/ModalForm";
 import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from "semantic-ui-react";
 export default class extends React.Component {
   static propTypes = {
-    personId: React.PropTypes.number.isRequired
+    personId: PropTypes.number.isRequired
   };
 
   state = {

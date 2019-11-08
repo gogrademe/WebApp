@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as utils from "../utils/index";
 import DeleteBtn from "./DeleteButton";
-import { Table } from "semantic-ui-react";
+import { Table, StrictTableProps } from "semantic-ui-react";
 import api from "../api/api";
 
 let get = function(obj, prop) {
@@ -43,7 +43,7 @@ const StringRenderer = ({ value, column: { format } }) => {
   return <div>{val}</div>;
 };
 
-interface GridProps {
+interface GridProps extends StrictTableProps {
   columns: any;
   data: any;
 }
