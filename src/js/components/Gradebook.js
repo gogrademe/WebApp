@@ -7,28 +7,32 @@ import { connect } from "react-redux";
 
 const GradeDisplay = ({}) => <input />;
 const GradeLine = ({}) => <div />;
-let GradeInput = React.createClass({
-  getInitialState() {
-    return {
-      value: this.props.value,
-      initialValue: this.props.value
-    };
-  },
-  changeValue(event) {
+
+class GradeInput extends React.Component {
+  state = {
+    value: this.props.value,
+    initialValue: this.props.value
+  };
+
+  changeValue = (event) => {
     this.setValue(event.currentTarget.value);
-  },
-  getValue() {
+  };
+
+  getValue = () => {
     return this.state.value;
-  },
-  setValue(value) {
+  };
+
+  setValue = (value) => {
     this.setState({ value: value });
-  },
+  };
+
   componentDidUpdate(prevProps) {
     if (this.props.value !== prevProps.value) {
       this.setValue(this.props.value);
     }
-  },
-  handleBlur(e) {
+  }
+
+  handleBlur = (e) => {
     e.preventDefault();
     if (this.state.value !== this.state.initialValue) {
       api.attempt.create({
@@ -37,7 +41,8 @@ let GradeInput = React.createClass({
         score: this.getValue()
       });
     }
-  },
+  };
+
   render() {
     return this.props.column.editMode ? (
       <div className="grade-input" onBlur={this.handleBlur}>
@@ -54,39 +59,40 @@ let GradeInput = React.createClass({
       <div>{this.getValue()}</div>
     );
   }
-});
+}
 
-let GradeAverage = React.createClass({
+class GradeAverage extends React.Component {
   render() {
     const body =
       this.calcGrade() + " | " + this.calcIbGrade(this.calcGrade()) + " | " + this.calcUsLetterGrade(this.calcGrade());
     return <div>{body}</div>;
   }
-});
+}
 
 function loadData(props) {
   props.loadAssignments();
   props.loadGradebook(props.params.resourceID, props.params.termId);
 }
 
-const ClassDetail = React.createClass({
-  contextTypes: {
+class ClassDetail extends React.Component {
+  static contextTypes = {
     router: React.PropTypes.func
-  },
-  propTypes: {
+  };
+
+  static propTypes = {
     assignments: React.PropTypes.object.isRequired,
     attempts: React.PropTypes.array.isRequired
-  },
-  getInitialState() {
-    return {
-      students: [],
-      attempts: [],
-      assignments: [],
-      assignmentGroups: [],
-      editColumn: null
-    };
-  },
-  getStudents() {
+  };
+
+  state = {
+    students: [],
+    attempts: [],
+    assignments: [],
+    assignmentGroups: [],
+    editColumn: null
+  };
+
+  getStudents = () => {
     const params = this.props.match.params;
     api.enrollment
       .find({
@@ -94,8 +100,9 @@ const ClassDetail = React.createClass({
         termId: params.termId
       })
       .then(xs => this.setState({ students: xs }));
-  },
-  getAssignments() {
+  };
+
+  getAssignments = () => {
     const params = this.props.match.params;
     api.assignment
       .find({
@@ -103,8 +110,9 @@ const ClassDetail = React.createClass({
         termId: params.termId
       })
       .then(xs => this.setState({ assignments: xs }));
-  },
-  getAssignmentGroups() {
+  };
+
+  getAssignmentGroups = () => {
     const params = this.props.match.params;
     api.group
       .find({
@@ -112,8 +120,9 @@ const ClassDetail = React.createClass({
         termId: params.termId
       })
       .then(xs => this.setState({ assignmentGroups: xs }));
-  },
-  buildCols() {
+  };
+
+  buildCols = () => {
     let cols = [
       {
         key: "student.person.displayName",
@@ -139,7 +148,8 @@ const ClassDetail = React.createClass({
     });
 
     return cols;
-  },
+  };
+
   render() {
     return (
       <div>
@@ -147,4 +157,4 @@ const ClassDetail = React.createClass({
       </div>
     );
   }
-});
+}

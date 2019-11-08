@@ -126,13 +126,6 @@ class Col extends React.Component {
 
 // <Header {... this.props} />
 
-// let TableHeader = React.createClass({
-//   render() {
-//     <th>
-//
-//     </th>
-//   }
-// });
 class CrudActions extends React.Component {
   handleDelete = e => {
     e.preventDefault();

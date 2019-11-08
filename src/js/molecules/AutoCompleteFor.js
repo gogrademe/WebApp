@@ -3,22 +3,22 @@ import { Dropdown, Form } from "semantic-ui-react";
 
 import api from "../api/api";
 
-var ProfileTypes = React.createClass({
-  getInitialState() {
-    return {
-      types: [
-        { text: "Student", value: "student" },
-        { text: "Teacher", value: "teacher" },
-        { text: "Parent", value: "parent" },
-        { text: "Other", value: "other" },
-        { text: "Admin", value: "admin" }
-      ]
-    };
-  },
-  changeValue(newVal) {
+class ProfileTypes extends React.Component {
+  state = {
+    types: [
+      { text: "Student", value: "student" },
+      { text: "Teacher", value: "teacher" },
+      { text: "Parent", value: "parent" },
+      { text: "Other", value: "other" },
+      { text: "Admin", value: "admin" }
+    ]
+  };
+
+  changeValue = (newVal) => {
     this.setValue(newVal.map(v => v.value));
-  },
-  getVal() {
+  };
+
+  getVal = () => {
     var val = this.getValue();
 
     if (val === "") {
@@ -26,7 +26,8 @@ var ProfileTypes = React.createClass({
     } else {
       return val;
     }
-  },
+  };
+
   render() {
     return (
       <div className="field">
@@ -43,7 +44,7 @@ var ProfileTypes = React.createClass({
       </div>
     );
   }
-});
+}
 
 function thenPromise(promise, callback) {
   if (!promise || typeof promise.then !== "function") return;

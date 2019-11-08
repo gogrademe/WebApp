@@ -6,26 +6,29 @@ import api from "../api/api";
 import ModalForm from "../components/ModalForm";
 
 import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from "semantic-ui-react";
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     personId: React.PropTypes.number.isRequired
-  },
-  getInitialState() {
-    return {
-      person: {}
-    };
-  },
-  onSubmit(model) {
+  };
+
+  state = {
+    person: {}
+  };
+
+  onSubmit = (model) => {
     return api.user.create(model);
-  },
-  fetchPerson() {
+  };
+
+  fetchPerson = () => {
     api.person.get(this.props.personId).then(person => {
       this.setState({ person: person });
     });
-  },
+  };
+
   componentWillMount() {
     this.fetchPerson();
-  },
+  }
+
   render() {
     const { firstName, lastName, email } = this.state.person;
     return (
@@ -40,4 +43,4 @@ export default React.createClass({
       </ModalForm>
     );
   }
-});
+}

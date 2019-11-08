@@ -1,14 +1,12 @@
-import React from "react";
-import createReactClass from 'create-react-class';
+import * as React from "react";
+
 import api from "../api/api";
 import Header from "../components/PageHeader";
 
 import { Grid } from "../components/NewTable";
 
-export default createReactClass({
-  displayName: 'UserList',
-
-  tableColumns: [
+export default class UserList extends React.Component<any, any> {
+  tableColumns = [
     {
       key: "email",
       display: "Email"
@@ -17,13 +15,13 @@ export default createReactClass({
       key: "disabled",
       display: "Disabled"
     }
-  ],
+  ];
 
   getInitialState() {
     return {
       data: []
     };
-  },
+  }
 
   fetch() {
     api.account.find().then(xs => {
@@ -31,11 +29,11 @@ export default createReactClass({
         data: xs
       });
     });
-  },
+  }
 
   componentWillMount() {
     this.fetch();
-  },
+  }
 
   render() {
     return (
@@ -46,5 +44,5 @@ export default createReactClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}
