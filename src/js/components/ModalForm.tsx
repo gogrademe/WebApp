@@ -24,7 +24,8 @@ export default class ModalForm extends React.Component<ModalFormProps, any> {
       <Modal {...{ open, onClose }}>
         <Modal.Header>{title}</Modal.Header>
         <Modal.Content>
-          <Form ref="form" id="modal-form" onSubmit={handleSubmit(this.handleSubmit)}>
+          {/* <Form ref="form" id="modal-form" onSubmit={handleSubmit(this.handleSubmit)}> */}
+          <Form ref="form" id="modal-form" onSubmit={this.handleSubmit}>
             {children}
           </Form>
         </Modal.Content>

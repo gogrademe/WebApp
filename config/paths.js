@@ -1,5 +1,5 @@
-var path = require('path');
-var fs = require('fs');
+var path = require("path");
+var fs = require("fs");
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637
@@ -19,22 +19,22 @@ function resolveApp(relativePath) {
 // It will then be used by Webpack configs.
 // Jest doesn’t need this because it already handles `NODE_PATH` out of the box.
 
-var nodePaths = (process.env.NODE_PATH || '')
-  .split(process.platform === 'win32' ? ';' : ':')
+var nodePaths = (process.env.NODE_PATH || "")
+  .split(process.platform === "win32" ? ";" : ":")
   .filter(Boolean)
   .map(resolveApp);
 
 // config after eject: we're in ./config/
 module.exports = {
-  appBuild: resolveApp('build'),
-  appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveApp('src/js/index.tsx'),
-  appPackageJson: resolveApp('package.json'),
-  appSrc: resolveApp('src'),
-  testsSetup: resolveApp('src/setupTests.js'),
-  appNodeModules: resolveApp('node_modules'),
-  ownNodeModules: resolveApp('node_modules'),
+  appBuild: resolveApp("build"),
+  appPublic: resolveApp("public"),
+  appHtml: resolveApp("public/index.html"),
+  appIndexJs: resolveApp("src/js/index.tsx"),
+  appPackageJson: resolveApp("package.json"),
+  appSrc: resolveApp("src"),
+  testsSetup: resolveApp("src/setupTests.js"),
+  appNodeModules: resolveApp("node_modules"),
+  ownNodeModules: resolveApp("node_modules"),
   nodePaths: nodePaths
 };
 
@@ -42,35 +42,3 @@ module.exports = {
 function resolveOwn(relativePath) {
   return path.resolve(__dirname, relativePath);
 }
-
-// // config before eject: we're in ./node_modules/react-scripts/config/
-// module.exports = {
-//   appBuild: resolveApp('build'),
-//   appPublic: resolveApp('public'),
-//   appHtml: resolveApp('public/index.html'),
-//   appIndexJs: resolveApp('src/js/index.js'),
-//   appPackageJson: resolveApp('package.json'),
-//   appSrc: resolveApp('src'),
-//   testsSetup: resolveApp('src/setupTests.js'),
-//   appNodeModules: resolveApp('node_modules'),
-//   // this is empty with npm3 but node resolution searches higher anyway:
-//   ownNodeModules: resolveOwn('../node_modules'),
-//   nodePaths: nodePaths
-// };
-// // @remove-on-eject-end
-//
-// // config before publish: we're in ./packages/react-scripts/config/
-// if (__dirname.indexOf(path.join('packages', 'react-scripts', 'config')) !== -1) {
-//   module.exports = {
-//     appBuild: resolveOwn('../../../build'),
-//     appPublic: resolveOwn('../template/public'),
-//     appHtml: resolveOwn('../template/public/index.html'),
-//     appIndexJs: resolveOwn('../template/src/js/index.js'),
-//     appPackageJson: resolveOwn('../package.json'),
-//     appSrc: resolveOwn('../template/src'),
-//     testsSetup: resolveOwn('../template/src/setupTests.js'),
-//     appNodeModules: resolveOwn('../node_modules'),
-//     ownNodeModules: resolveOwn('../node_modules'),
-//     nodePaths: nodePaths
-//   };
-// }

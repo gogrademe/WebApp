@@ -1,24 +1,25 @@
-import React from "react";
+import React, { PropTypes } from "react";
 import { Button } from "semantic-ui-react";
 import ModalTypes from "../constants/ModalTypes";
 import { inject } from "mobx-react";
 
-var ModalButton = inject("modalStore")(
-  React.createClass({
-    propTypes: {
-      modal: React.PropTypes.string.isRequired
-    },
-    handleOnClick() {
-      var { modalStore, modal, values } = this.props;
+// var ModalButton = inject("modalStore")(
 
-      modalStore.showModal(modal, values);
-    },
-    render() {
-      var { label, children } = this.props;
-      return <Button onClick={this.handleOnClick}>{label || children}</Button>;
-    }
-  })
-);
+@inject("modalStore")
+class ModalButton extends React.Component {
+  // propTypes: {
+  //   modal: React.PropTypes.string.isRequired
+  // },
+  handleOnClick() {
+    var { modalStore, modal, values } = this.props;
+
+    modalStore.showModal(modal, values);
+  }
+  render() {
+    var { label, children } = this.props;
+    return <Button onClick={this.handleOnClick}>{label || children}</Button>;
+  }
+}
 
 export const TermBtn = props => <ModalButton modal={ModalTypes.TERM} {...props} />;
 export const AssignmentGroupBtn = props => <ModalButton modal={ModalTypes.ASSIGNMENT_TYPE} {...props} />;

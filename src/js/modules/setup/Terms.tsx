@@ -4,33 +4,34 @@ import api from "../../api/api";
 import { Grid } from "../../components/NewTable";
 
 import { TermBtn } from "../../molecules/ModalButtons";
+import { reaction } from "mobx";
 
-var Terms = React.createClass({
+class Terms extends React.Component<any, any> {
   tableColumns: [
     {
-      key: "name",
-      display: "Name"
+      key: "name";
+      display: "Name";
     },
     {
-      key: "schoolYear",
-      display: "School Year"
+      key: "schoolYear";
+      display: "School Year";
     }
-  ],
+  ];
   getInitialState() {
     return {
       data: []
     };
-  },
+  }
   fetch() {
     api.term.find().then(xs => {
       this.setState({
         data: xs
       });
     });
-  },
+  }
   componentWillMount() {
     this.fetch();
-  },
+  }
   render() {
     return (
       <div>
@@ -40,7 +41,7 @@ var Terms = React.createClass({
     );
   }
   // }
-});
+}
 export default Terms;
 // export default connect(props => ({
 //   termsFetch: '/term'

@@ -1,36 +1,30 @@
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-var getClientEnvironment = require('./env');
-var path = require('path');
-var paths = require('./paths');
+var webpack = require("webpack");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
+var CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
+var InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
+var getClientEnvironment = require("./env");
+var path = require("path");
+var paths = require("./paths");
 
-var publicPath = '/';
+var publicPath = "/";
 
-var publicUrl = '';
+var publicUrl = "";
 // Get environment variables to inject into our app.
 var env = getClientEnvironment(publicUrl);
 
-
 module.exports = {
-  devtool: 'eval',
+  devtool: "eval",
   entry: [
     // 'webpack-hot-middleware/client',
-    require.resolve('react-dev-utils/webpackHotDevClient'),
+    require.resolve("react-dev-utils/webpackHotDevClient"),
     paths.appIndexJs
   ],
 
   resolve: {
-    // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+    extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
   },
-  // output: {
-  //   path: path.join(__dirname, 'dist'),
-  //   filename: 'bundle.js',
-  //   publicPath: '/static/'
-  // },
+
   output: {
     // Next line is not used in dev but WebpackDevServer crashes without it:
     path: paths.appBuild,
@@ -39,7 +33,7 @@ module.exports = {
     // This does not produce a real file. It's just the virtual path that is
     // served by WebpackDevServer in development. This is the JS bundle
     // containing code from all our entry points, and the Webpack runtime.
-    filename: 'static/js/bundle.js',
+    filename: "static/js/bundle.js",
     // This is the URL that app is served from. We use "/" in development.
     publicPath: publicPath
   },
@@ -53,7 +47,7 @@ module.exports = {
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
-      template: paths.appHtml,
+      template: paths.appHtml
     }),
     new webpack.DefinePlugin(env),
     new webpack.HotModuleReplacementPlugin(),
@@ -63,34 +57,34 @@ module.exports = {
     loaders: [
       {
         test: /\.(tsx|ts)?$/,
-        loader: 'ts-loader',
+        loader: "ts-loader"
       },
       {
         test: /\.less?$/,
-        loader: 'style!css!less'
+        loader: "style!css!less"
       },
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-        loader: 'file',
+        loader: "file",
         query: {
-          name: 'static/media/[name].[hash:8].[ext]'
+          name: "static/media/[name].[hash:8].[ext]"
         }
       },
       {
         test: /\.(js)?$/,
-        loaders: ['babel'],
+        loaders: ["babel"],
         include: paths.appSrc,
         exclude: /node_modules/
       }
     ],
     preLoaders: [
-    // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      { test: /\.js$/, loader: 'source-map-loader' }
+      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      { test: /\.js$/, loader: "source-map-loader" }
     ]
   },
   node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
+    fs: "empty",
+    net: "empty",
+    tls: "empty"
   }
 };

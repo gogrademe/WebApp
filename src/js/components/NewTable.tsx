@@ -32,17 +32,16 @@ let formatVal = function(val, format) {
   }
 };
 
-let StringRenderer = React.createClass({
-  getInitialState() {
-    return {
-      editing: false
-    };
-  },
-  render() {
-    const val = formatVal(this.props.value, this.props.column.format);
-    return <div>{val}</div>;
-  }
-});
+const StringRenderer = ({ value, column: { format } }) => {
+  // const [editing, setEditing] = React.useState(false);
+  // getInitialState() {
+  //   return {
+  //     editing: false
+  //   };
+  // }
+  const val = formatVal(value, format);
+  return <div>{val}</div>;
+};
 
 interface GridProps {
   columns: any;

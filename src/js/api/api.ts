@@ -168,7 +168,7 @@ export interface types {
   account: resource;
   level: resource;
 
-  auth?: resource;
+  auth?: any;
   session?: resource;
 }
 

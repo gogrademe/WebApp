@@ -1,8 +1,8 @@
-import Reflux from 'reflux';
+// import Reflux from 'reflux';
 
-var ModalActions = Reflux.createActions([
-    'showModal',
-    'hideModal'
-]);
+// var ModalActions = Reflux.createActions([
+//     'showModal',
+//     'hideModal'
+// ]);
 
-module.exports = ModalActions;
+// module.exports = ModalActions;

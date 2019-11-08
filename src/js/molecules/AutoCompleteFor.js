@@ -124,11 +124,12 @@ const loadStudents = () => api.person.find().then(data => data.map(s => ({ value
 const loadAssignmentGroups = (courseId, termId) =>
   api.group.find({ courseId, termId }).then(data => data.map(s => ({ value: s.groupId, text: s.name })));
 
+export const AssignmentGroup = ({ courseId, termId, ...rest }) => (
+  <DropdownAsync {...rest} loadOptions={() => loadAssignmentGroups(courseId, termId)} />
+);
+
 module.exports = {
   ProfileTypes: ProfileTypes,
-  AssignmentGroup: ({ courseId, termId, ...rest }) => (
-    <DropdownAsync {...rest} loadOptions={() => loadAssignmentGroups(courseId, termId)} />
-  ),
   DropdownAsync: DropdownAsync,
   GradeLevel: props => <DropdownAsync {...props} loadOptions={loadGradeLevels} />,
   Term: props => <DropdownAsync {...props} loadOptions={loadTerms} />,

@@ -1,25 +1,21 @@
-import * as React from 'react';
-import { Container, Segment } from 'semantic-ui-react'
-import * as DocumentTitle from 'react-document-title';
+import * as React from "react";
+import { Container, Segment } from "semantic-ui-react";
 
-import { observer } from 'mobx-react';
+import { observer } from "mobx-react";
 
-import AppNav from '../components/AppNav';
+import AppNav from "../components/AppNav";
 
-import auth from '../utils/AuthService';
+import auth from "../utils/AuthService";
 
-import {
-  BrowserRouter as Router,
-  Route
-} from 'react-router-dom'
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import PeopleList from '../modules/people/list';
-import UserList from '../modules/UserList';
-import CourseApp from '../modules/classes';
+import PeopleList from "../modules/people/list";
+import UserList from "../modules/UserList";
+import CourseApp from "../modules/classes";
 
-import CourseList from '../modules/classes/list';
-import DashboardModule from '../modules/DashboardModule';
-import * as Setup from '../modules/setup/Container';
+import CourseList from "../modules/classes/list";
+import DashboardModule from "../modules/DashboardModule";
+import * as Setup from "../modules/setup/Container";
 
 interface AppProps {
   // errorMessage: string;
@@ -32,11 +28,12 @@ interface AppProps {
   // children: any;
 }
 
-@observer class App extends React.Component<AppProps,undefined> {
-  static contextTypes = {
-    // router: React.PropTypes.object.isRequired,
-    store: React.PropTypes.object.isRequired
-  }
+@observer
+class App extends React.Component<AppProps, undefined> {
+  // static contextTypes = {
+  //   // router: React.PropTypes.object.isRequired,
+  //   store: React.PropTypes.object.isRequired
+  // }
 
   // handleDismissClick = (e) => {
   //   this.props.resetErrorMessage();
@@ -46,9 +43,8 @@ interface AppProps {
   componentDidMount() {
     if (!auth.isLoggedIn) {
       // this.props.replace('/',{from: this.props.location})
-      auth.login()
+      auth.login();
     }
-
   }
   // componentWillReceiveProps(nextProps) {
   //   const {profile,isAuthenticated, authLoading} = this.props;
@@ -83,7 +79,7 @@ interface AppProps {
     // const {push} = this.context.router;
     // push('/');
     // auth.logout();
-  }
+  };
 
   render() {
     // const {profile} = this.props;
@@ -95,20 +91,19 @@ interface AppProps {
     return (
       <Router>
         <div>
-        {/*<DocumentTitle title='GoGradeMe'> */}
-            {auth.isLoggedIn&&
-              <AppNav fullName={name} handleLogoutClick={auth.logout} />}
-            <Container className="main">
-              <Segment attached>
-                <Route path="/" component={DashboardModule} exact/>
-                <Route path="/people" component={PeopleList}/>
-                <Route path="/users" component={UserList}/>
-                <Route path="/course" component={CourseList} exact/>
-                <Route path="/course/:termId/:resourceID" component={CourseApp}/>
-                <Route path="/setup" component={Setup.Container}/>
-              </Segment>
-            </Container>
-        {/*</DocumentTitle>*/}
+          {/*<DocumentTitle title='GoGradeMe'> */}
+          {auth.isLoggedIn && <AppNav fullName={name} handleLogoutClick={auth.logout} />}
+          <Container className="main">
+            <Segment attached>
+              <Route path="/" component={DashboardModule} exact />
+              <Route path="/people" component={PeopleList} />
+              <Route path="/users" component={UserList} />
+              <Route path="/course" component={CourseList} exact />
+              <Route path="/course/:termId/:resourceID" component={CourseApp} />
+              <Route path="/setup" component={Setup.Container} />
+            </Segment>
+          </Container>
+          {/*</DocumentTitle>*/}
         </div>
       </Router>
     );
