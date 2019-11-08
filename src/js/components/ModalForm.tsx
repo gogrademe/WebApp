@@ -1,8 +1,5 @@
 import * as React from "react";
-import { Button, Header, Icon, Image, Modal, Form } from "semantic-ui-react";
-import parseAPIErrors from "../utils/parseAPIErrors";
-
-import { Field, reduxForm } from "redux-form";
+import { Button, Icon, Modal, Form } from "semantic-ui-react";
 
 interface ModalFormProps {
   title?: string;
@@ -22,17 +19,7 @@ export default class ModalForm extends React.Component<ModalFormProps, any> {
     onSubmitAsync(fields);
   };
   render() {
-    const {
-      title,
-      children,
-      requestClose,
-      handleSubmit,
-      pristine,
-      submitting,
-      open,
-      onClose,
-      defaultValues
-    } = this.props;
+    const { title, children, requestClose, handleSubmit, pristine, submitting, open, onClose } = this.props;
     return (
       <Modal {...{ open, onClose }}>
         <Modal.Header>{title}</Modal.Header>
