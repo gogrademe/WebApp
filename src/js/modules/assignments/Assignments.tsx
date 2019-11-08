@@ -1,13 +1,7 @@
-import PropTypes from "prop-types";
 import * as React from "react";
 import { Grid, CrudActions } from "../../components/NewTable";
 import { AssignmentBtn } from "../../molecules/ModalButtons";
-// import AssignmentBtn from '../../molecules/Moda';
-import { Button } from "semantic-ui-react";
-import api from "../../api/api";
 
-import { loadAssignments } from "../../redux/modules/assignment";
-import { connect } from "react-redux";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
@@ -69,7 +63,6 @@ const ASSIGNMENTS = gql`
       dueDate
       courseId
       termId
-      # term
       group {
         name
         weight
@@ -78,42 +71,6 @@ const ASSIGNMENTS = gql`
     }
   }
 `;
-
-// class ClassAssignments extends React.Component {
-//   state = {
-//     assignments: []
-//   };
-
-//   componentDidMount() {
-//     this.props.loadAssignments();
-//   api.assignment.events.addListener("change", this.getAssignments);
-//   api.group.events.addListener("change", this.getAssignments);
-// }
-
-// componentWillUnmount() {
-//   api.assignment.events.removeListener("change", this.getAssignments);
-//   api.group.events.removeListener("change", this.getAssignments);
-// }
-
-// componentWillMount() {
-//   this.getAssignments();
-// }
-
-// getAssignments = () => {
-//   const { termId, resourceID } = this.props.match.params;
-//   api.assignment
-//     .find({
-//       courseId: resourceID,
-//       termId: termId
-//     })
-//     .then(data => {
-//       this.setState({
-//         assignments: data
-//       });
-//     });
-// };
-
-// render() {
 
 export default function ClassAssignments({ match }) {
   const { termId, resourceID } = match.params;
@@ -134,11 +91,3 @@ export default function ClassAssignments({ match }) {
     </div>
   );
 }
-// }
-
-// export default connect(
-//   state => ({
-//     assignments: Object.values(state.entities.assignments)
-//   }),
-//   { loadAssignments }
-// )(ClassAssignments);
