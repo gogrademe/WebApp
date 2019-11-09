@@ -43,6 +43,7 @@ export class AssignmentGroup extends React.Component<AssignmentGroupProps, any> 
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state);
   return {
     initialValues: {
       ...ownProps.initialValues,

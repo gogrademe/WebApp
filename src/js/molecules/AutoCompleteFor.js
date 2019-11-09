@@ -4,6 +4,9 @@ import { Dropdown, Form } from "semantic-ui-react";
 
 import api from "../api/api";
 
+import { gql } from "apollo-boost";
+import { useQuery } from "@apollo/react-hooks";
+
 class ProfileTypes extends React.Component {
   state = {
     types: [
@@ -124,12 +127,52 @@ const loadGradeLevels = () =>
 const loadTerms = () => api.term.find().then(data => data.map(term => ({ value: term.termId, text: term.name })));
 const loadStudents = () => api.person.find().then(data => data.map(s => ({ value: s.personId, text: s.displayName })));
 const loadAssignmentGroups = (courseId, termId) =>
-  api.group.find({ courseId, termId }).then(data => data.map(s => ({ value: s.groupId, text: s.name })));
+  api.group
+    .find({ courseId: courseId, termId: termId })
+    .then(data => data.map(s => ({ value: s.groupId, text: s.name })));
+
+const ASSIGNMENT_GROUPS = gql`
+  query AssignmentGroups($courseId: ID!, $termId: ID!) {
+    assignmentGroups(courseId: $courseId, termId: $termId) {
+      groupId
+      name
+    }
+  }
+`;
+
+// export default function ClassAssignments({ match }) {
+//   const { termId, resourceID } = match.params;
+// const GqlSelect = () => {
+//   return (
+//     <Form.Select
+//       name={name}
+//       options={options}
+//       disabled={isLoading}
+//       loading={isLoading}
+//       onBlur={(event, data) => input.onBlur && input.onBlur(data.value)}
+//       onFocus={(event, data) => input.onFocus && input.onFocus(data.value)}
+//       onChange={(event, data) => input.onChange(data.value)}
+//       defaultValue={input.value}
+//       {...rest}
+//     />
+//   );
+// };
+// export const AssignmentGroup = ({ courseId, termId, ...rest }) => {
+//   console.log(courseId, termId, rest);
+//   const {
+//     loading,
+//     error,
+//     data: { assignmentGroups = [] }
+//   } = useQuery(ASSIGNMENT_GROUPS, {
+//     variables: { courseId, termId }
+//   });
+
+//   return <Form.Select {...rest} lazyLoad disabled={loading} loading={loading} options={assignmentGroups} />;
+// };
 
 export const AssignmentGroup = ({ courseId, termId, ...rest }) => (
   <DropdownAsync {...rest} loadOptions={() => loadAssignmentGroups(courseId, termId)} />
 );
-
 export const GradeLevel = props => <DropdownAsync {...props} loadOptions={loadGradeLevels} />;
 export const Term = props => <DropdownAsync {...props} loadOptions={loadTerms} />;
 export const Students = props => <DropdownAsync {...props} loadOptions={loadStudents} />;

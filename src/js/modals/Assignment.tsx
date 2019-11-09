@@ -25,7 +25,7 @@ interface AssignmentModalProps {
 export class AssignmentModal extends React.Component<AssignmentModalProps, any> {
   handleSubmit = data => {
     const { courseId, termId } = this.props;
-    data = { ...data, termId, courseId, maxScore: Number(data.maxScore) };
+    data = { ...data, termId: Number(termId), courseId: Number(courseId), maxScore: Number(data.maxScore) };
 
     api.assignment.create(data);
   };

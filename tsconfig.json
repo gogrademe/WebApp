@@ -10,7 +10,8 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["dom", "es6", "dom.iterable", "scripthost", "esnext.asynciterable"],
     "typeRoots": ["./types", "./node_modules/@types"]
-  }
+  },
+  "exclude": ["node_modules", "src/semantic"]
 
   // "include": ["src/**/*.ts", "src/**/*.tsx"],
   // "exclude": ["node_modules", "src/semantic"]

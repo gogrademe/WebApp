@@ -56,7 +56,7 @@ var assignmentCols = [
 ];
 
 const ASSIGNMENTS = gql`
-  query Assignments($courseId: Int!, $termId: Int!) {
+  query Assignments($courseId: ID!, $termId: ID!) {
     assignments(courseId: $courseId, termId: $termId) {
       assignmentId
       name

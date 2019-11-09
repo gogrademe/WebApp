@@ -31,7 +31,6 @@ class CourseModal extends React.Component {
   }
 }
 const mapStateToProps = (state, ownProps) => {
-  // const {resourceID} = ownProps.match.params;
   return {
     terms: Object.values(state.entities.terms),
     initialValues: {

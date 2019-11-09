@@ -1,17 +1,6 @@
-import {
-  createModelSchema,
-  primitive,
-  reference,
-  list,
-  object,
-  identifier,
-  serialize,
-  deserialize,
-  getDefaultModelSchema,
-  serializable
-} from "serializr";
+import { deserialize, serializable } from "serializr";
 
-import { observable, computed, autorunAsync, action, autorun } from "mobx";
+import { observable, action } from "mobx";
 
 export class Person {
   @serializable @observable personId: number;

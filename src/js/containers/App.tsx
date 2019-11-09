@@ -30,16 +30,6 @@ interface AppProps {
 
 @observer
 class App extends React.Component<AppProps, undefined> {
-  // static contextTypes = {
-  //   // router: React.PropTypes.object.isRequired,
-  //   store: React.PropTypes.object.isRequired
-  // }
-
-  // handleDismissClick = (e) => {
-  //   this.props.resetErrorMessage();
-  //   e.preventDefault();
-  // }
-
   componentDidMount() {
     if (!auth.isLoggedIn) {
       // this.props.replace('/',{from: this.props.location})
@@ -73,13 +63,6 @@ class App extends React.Component<AppProps, undefined> {
   //     </p>
   //   )
   // }
-
-  handleLogoutClick = () => {
-    // const {route: auth} = this.props;
-    // const {push} = this.context.router;
-    // push('/');
-    // auth.logout();
-  };
 
   render() {
     // const {profile} = this.props;
