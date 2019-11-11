@@ -1,22 +1,21 @@
-import logo from '../../../assets/logo-only.svg'
+import logo from "../../../assets/logo-only.svg";
 
-import merge from 'lodash/merge'
-import Auth0Lock from 'auth0-lock'
-import * as api from '../api'
+import Auth0Lock from "auth0-lock";
+import * as api from "../api";
 
-export const SHOW_LOCK = 'auth/SHOW_LOCK'
-export const LOCK_SUCCESS = 'auth/LOCK_SUCCESS'
-export const LOCK_ERROR = 'auth/LOCK_ERROR'
+export const SHOW_LOCK = "auth/SHOW_LOCK";
+export const LOCK_SUCCESS = "auth/LOCK_SUCCESS";
+export const LOCK_ERROR = "auth/LOCK_ERROR";
 
-const LOAD = 'auth/LOAD';
-const LOAD_SUCCESS = 'auth/LOAD_SUCCESS';
-const LOAD_FAIL = 'auth/LOAD_FAIL';
-const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
+const LOAD = "auth/LOAD";
+const LOAD_SUCCESS = "auth/LOAD_SUCCESS";
+const LOAD_FAIL = "auth/LOAD_FAIL";
+const LOGOUT_SUCCESS = "auth/LOGOUT_SUCCESS";
 
 const initialState = {
-  token: localStorage.getItem('id_token'),
-  isAuthenticated: localStorage.getItem('id_token') ? true : false,
-  profile: JSON.parse(localStorage.getItem('profile'))
+  token: localStorage.getItem("id_token"),
+  isAuthenticated: localStorage.getItem("id_token") ? true : false,
+  profile: JSON.parse(localStorage.getItem("profile"))
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -65,13 +64,10 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-
-
-
 function showLock() {
   return {
     type: SHOW_LOCK
-  }
+  };
 }
 
 function lockSuccess(profile, token) {
@@ -79,40 +75,41 @@ function lockSuccess(profile, token) {
     type: LOCK_SUCCESS,
     profile,
     token
-  }
+  };
 }
 
 function lockError(err) {
   return {
     type: LOCK_ERROR,
     err
-  }
+  };
 }
 
 function logoutSuccess() {
   return {
     type: LOGOUT_SUCCESS
-  }
+  };
 }
 
 export function load() {
-  const token = localStorage.getItem('id_token');
+  const token = localStorage.getItem("id_token");
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: () => api.tokenInfo(token).catch(err => {
-      localStorage.removeItem('id_token');
-      localStorage.removeItem('profile');
-      return Promise.reject(err);
-    })
+    promise: () =>
+      api.tokenInfo(token).catch(err => {
+        localStorage.removeItem("id_token");
+        localStorage.removeItem("profile");
+        return Promise.reject(err);
+      })
   };
 }
 
 export function logout() {
   return dispatch => {
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('profile');
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("profile");
     dispatch(logoutSuccess());
-  }
+  };
 }
 
 export function lock(container) {
@@ -120,21 +117,21 @@ export function lock(container) {
     container: container,
     theme: {
       logo: logo,
-      primaryColor: '#2185D0'
+      primaryColor: "#2185D0"
     },
     languageDictionary: {
-       title: 'GoGradeMe'
-     }
-  }
-  const locker = new Auth0Lock('KKoWyimC679JIx36NlF5mGBkydZquya8', 'gogrademe.auth0.com', cfg);
+      title: "GoGradeMe"
+    }
+  };
+  const locker = new Auth0Lock("KKoWyimC679JIx36NlF5mGBkydZquya8", "gogrademe.auth0.com", cfg);
 
   return dispatch => {
-    locker.on('authenticated', res => {
-      console.log(res)
-      localStorage.setItem('id_token', res.idToken)
-      dispatch(lockSuccess({}, res.idToken))
-    })
-    locker.show()
+    locker.on("authenticated", res => {
+      console.log(res);
+      localStorage.setItem("id_token", res.idToken);
+      dispatch(lockSuccess({}, res.idToken));
+    });
+    locker.show();
     // locker.show((err, profile, id_token) => {
     //   if(err) {
     //     dispatch(lockError(err))
@@ -145,5 +142,5 @@ export function lock(container) {
     //   localStorage.setItem('id_token', id_token)
     //   dispatch(lockSuccess(profile, id_token))
     // })
-  }
+  };
 }

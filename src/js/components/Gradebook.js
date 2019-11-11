@@ -27,7 +27,7 @@ class GradeInput extends React.Component {
     this.setState({ value: value });
   };
 
-  componentDidUpdate(prevProps) {
+  UNSAFE_componentDidUpdate(prevProps) {
     if (this.props.value !== prevProps.value) {
       this.setValue(this.props.value);
     }

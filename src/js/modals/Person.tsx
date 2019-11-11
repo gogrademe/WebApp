@@ -25,7 +25,7 @@ class PersonModal extends React.Component<PersonModalProps, undefined> {
     this.props.personStore.create(model);
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.person = this.props.personStore.people.find(p => p.personId === this.props.personId) || new Person();
   }
 

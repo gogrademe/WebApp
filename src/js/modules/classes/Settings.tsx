@@ -7,6 +7,7 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
 import * as cx from "classnames";
+import { AssignmentGroups, AssignmentGroupsVariables } from "./types/AssignmentGroups";
 
 const AssignmentEdit = props => (
   <div className="btn-group">
@@ -43,7 +44,9 @@ const ASSIGNMENT_GROUPS = gql`
 
 export default function Settings({ match }) {
   const { termId, resourceID } = match.params;
-  const { loading, error, data } = useQuery(ASSIGNMENT_GROUPS, { variables: { courseId: resourceID, termId: termId } });
+  const { loading, error, data } = useQuery<AssignmentGroups, AssignmentGroupsVariables>(ASSIGNMENT_GROUPS, {
+    variables: { courseId: resourceID, termId: termId }
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React from "react";
 import { Grid } from "../../components/NewTable";
 import api from "../../api/api";
@@ -12,7 +12,7 @@ class GradeInput extends React.Component {
     initialValue: this.props.value
   };
 
-  changeValue = (event) => {
+  changeValue = event => {
     this.setValue(event.currentTarget.value);
   };
 
@@ -21,17 +21,17 @@ class GradeInput extends React.Component {
     return this.state.value;
   };
 
-  setValue = (value) => {
+  setValue = value => {
     this.setState({ value: value });
   };
 
-  componentDidUpdate(prevProps) {
+  UNSAFE_componentDidUpdate(prevProps) {
     if (this.props.value !== prevProps.value) {
       this.setValue(this.props.value);
     }
   }
 
-  handleBlur = (e) => {
+  handleBlur = e => {
     e.preventDefault();
     // const val = e.currentTarget.value;
 
@@ -64,7 +64,7 @@ class GradeInput extends React.Component {
 }
 
 class GradeAverage extends React.Component {
-  calcIbGrade = (x) => {
+  calcIbGrade = x => {
     switch (false) {
       case !(x > 94):
         return 7;
@@ -85,7 +85,7 @@ class GradeAverage extends React.Component {
     }
   };
 
-  calcUsLetterGrade = (x) => {
+  calcUsLetterGrade = x => {
     switch (false) {
       case !(x > 96):
         return "A+";
@@ -283,7 +283,7 @@ class ClassDetail extends React.Component {
     return results;
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     loadData(this.props);
     this.getAssignments();
     this.getStudents();

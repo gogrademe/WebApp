@@ -4,7 +4,6 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 var CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 var InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
 var getClientEnvironment = require("./env");
-var path = require("path");
 var paths = require("./paths");
 
 var publicPath = "/";

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React from "react";
 import { Grid } from "../../components/NewTable";
 
@@ -8,7 +8,7 @@ import { Segment } from "semantic-ui-react";
 import api from "../../api/api";
 
 class StudentActions extends React.Component {
-  unEnroll = (e) => {
+  unEnroll = e => {
     e.preventDefault();
     api.enrollment.del(this.props.row.enrollmentId);
   };
@@ -69,7 +69,7 @@ class CourseStudents extends React.Component {
       .then(xs => this.setState({ students: xs }));
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     api.enrollment.events.addListener("change", this.getEnrollments);
     this.getEnrollments();
 

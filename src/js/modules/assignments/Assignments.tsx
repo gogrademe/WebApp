@@ -4,6 +4,7 @@ import { AssignmentBtn } from "../../molecules/ModalButtons";
 
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
+import { Assignments, AssignmentsVariables } from "./types/Assignments";
 
 class AssignmentEdit extends React.Component<any, undefined> {
   render() {
@@ -74,7 +75,9 @@ const ASSIGNMENTS = gql`
 
 export default function ClassAssignments({ match }) {
   const { termId, resourceID } = match.params;
-  const { loading, error, data } = useQuery(ASSIGNMENTS, { variables: { courseId: resourceID, termId: termId } });
+  const { loading, error, data } = useQuery<Assignments, AssignmentsVariables>(ASSIGNMENTS, {
+    variables: { courseId: resourceID, termId: termId }
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;

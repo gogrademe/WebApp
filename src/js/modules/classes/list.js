@@ -38,7 +38,7 @@ const TermSelect = ({ currentTerm, terms = [] }) => (
 );
 
 class CourseList extends React.Component {
-  componentDidMount() {
+  UNSAFE_componentDidMount() {
     const { loadCourses, loadTerms } = this.props;
     loadCourses();
     loadTerms();

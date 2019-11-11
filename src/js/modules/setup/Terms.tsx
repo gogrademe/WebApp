@@ -29,7 +29,7 @@ class Terms extends React.Component<any, any> {
       });
     });
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.fetch();
   }
   render() {

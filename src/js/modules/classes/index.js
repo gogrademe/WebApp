@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import { fetchCourse } from "../../redux/modules/course";
 
 class View extends React.Component {
-  componentDidMount() {
+  UNSAFE_componentDidMount() {
     const { dispatch, match } = this.props;
     dispatch(fetchCourse(match.params.resourceID));
   }

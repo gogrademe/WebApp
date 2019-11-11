@@ -30,7 +30,7 @@ interface AppProps {
 
 @observer
 class App extends React.Component<AppProps, undefined> {
-  componentDidMount() {
+  UNSAFE_componentDidMount() {
     if (!auth.isLoggedIn) {
       // this.props.replace('/',{from: this.props.location})
       auth.login();

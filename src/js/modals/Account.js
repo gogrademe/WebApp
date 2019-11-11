@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React from "react";
 
 import api from "../api/api";
@@ -16,7 +16,7 @@ export default class extends React.Component {
     person: {}
   };
 
-  onSubmit = (model) => {
+  onSubmit = model => {
     return api.user.create(model);
   };
 
@@ -26,7 +26,7 @@ export default class extends React.Component {
     });
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.fetchPerson();
   }
 
