@@ -7,17 +7,6 @@ export class Person {
   @serializable @observable firstName: string;
   @serializable @observable middleName: string;
   @serializable @observable lastName: string;
-
-  // constructor() {
-  // this._saveHandle = autorunAsync(() => {
-  // 	window.localStorage.setItem(STORAGE_PREFIX + this.personId, JSON.stringify(serialize(this)));
-  // }, 1000);
-  // }
-
-  // @serializable @computed get displayName() {
-  // 	const cfl = capitalizeFirstLetter;
-  // 	return `${cfl(this.firstName)} ${cfl(this.lastName)}`;
-  // }
 }
 
 export class PersonStore {
@@ -26,7 +15,8 @@ export class PersonStore {
   api;
   constructor(api) {
     this.api = api;
-    this.loadPeople();
+    console.warn("PersonStore constructor disabled");
+    // this.loadPeople();
   }
 
   @action create(person: Person) {
@@ -39,7 +29,6 @@ export class PersonStore {
     this.api.person.del(id).then(
       action(() => {
         this.people.splice(this.people.findIndex((x: Person) => x.personId === id), 1);
-        // this.people.remove(person);
       })
     );
   }
