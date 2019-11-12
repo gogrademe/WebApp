@@ -1,7 +1,7 @@
 import { normalize } from 'normalizr';
 import { camelizeKeys } from 'humps';
 import '../const/schema';
-import * as fetch from 'isomorphic-fetch';
+import fetch from 'isomorphic-fetch';
 
 import {API_ROOT, CALL_API} from '../const';
 
