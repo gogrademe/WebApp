@@ -1,5 +1,3 @@
-// require('file?name=favicon.ico!../assets/favicon.ico');
-
 import "../less/main.less";
 
 import "babel-polyfill";
@@ -9,6 +7,7 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 
 import { ApolloProvider } from "@apollo/react-hooks";
+import { Auth0Provider } from "./hooks/auth0";
 import ApolloClient from "apollo-boost";
 import { client } from "./redux/api";
 
@@ -37,17 +36,31 @@ const apolloClient = new ApolloClient({
   uri: `${api.baseUrl}/query`
 });
 
+const onRedirectCallback = appState => {
+  history.pushState(
+    appState && appState.targetUrl ? appState.targetUrl : window.location.pathname,
+    window.document.title
+  );
+};
+
 render(
-  <ApolloProvider client={apolloClient}>
-    <Provider store={store} key="provider">
-      <MobxProvider modalStore={stores.modalStore} personStore={personStore}>
-        <div>
-          <App />
-          <DevTools />
-          <ModalContainer />
-        </div>
-      </MobxProvider>
-    </Provider>
-  </ApolloProvider>,
+  <Auth0Provider
+    domain={process.env.REACT_APP_AUTH0_DOMAIN}
+    client_id={process.env.REACT_APP_AUTH0_CLIENT_ID}
+    redirect_uri={window.location.origin}
+    onRedirectCallback={onRedirectCallback}
+  >
+    <ApolloProvider client={apolloClient}>
+      <Provider store={store} key="provider">
+        <MobxProvider modalStore={stores.modalStore} personStore={personStore}>
+          <div>
+            <App />
+            <DevTools />
+            <ModalContainer />
+          </div>
+        </MobxProvider>
+      </Provider>
+    </ApolloProvider>
+  </Auth0Provider>,
   mountNode
 );

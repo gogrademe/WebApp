@@ -1,6 +1,6 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-import { Combobox as Select } from "react-widgets";
+import * as _ from "lodash";
 import ModalForm from "../components/ModalForm";
 import { Term, GradeLevel } from "../molecules/AutoCompleteFor";
 import { connect } from "react-redux";

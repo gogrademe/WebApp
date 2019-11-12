@@ -3,7 +3,7 @@ dist
 build
 stage
 src/bower
-
+.cache
 .env*
 .DS_Store
 npm-debug.log

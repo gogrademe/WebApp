@@ -1,7 +1,4 @@
-/// <reference path="../../../node_modules/@types/node/index.d.ts" />
-
 import * as request from "superagent";
-import * as Promise from "bluebird";
 import { EventEmitter } from "eventemitter3";
 
 let toString$ = {}.toString;
@@ -20,7 +17,7 @@ let promisifyReq = function(req) {
           if (res.status === 401) {
             types.session.del();
           }
-          return reject(res) || error;
+          return reject(res);
         } else {
           return resolve(res.body);
         }
@@ -287,7 +284,6 @@ types.session = {
   }
 };
 types.auth = auth;
-// module.exports = types;
 
 export default types;
 
@@ -324,4 +320,3 @@ function fn$(key, thing: resource) {
 }
 
 export var baseUrl: string = null;
-// module.exports.baseUrl = null;
