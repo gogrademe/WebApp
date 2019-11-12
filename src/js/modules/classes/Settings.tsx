@@ -6,7 +6,7 @@ import { AssignmentGroupBtn } from "../../molecules/ModalButtons";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
-import * as cx from "classnames";
+import cx from "classnames";
 import { AssignmentGroups, AssignmentGroupsVariables } from "./types/AssignmentGroups";
 
 const AssignmentEdit = props => (

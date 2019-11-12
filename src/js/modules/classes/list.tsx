@@ -13,6 +13,8 @@ import { CourseBtn } from "../../molecules/ModalButtons";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
+import { Courses } from "./types/Courses";
+
 const CourseLink = ({ column, row, value }) => (
   <div>
     <Link to={`/course/${column.currentTerm}/${row.courseId}/grades`}>{value}</Link>
@@ -64,7 +66,7 @@ const cols = currentTerm => {
 };
 
 export default function Courses() {
-  const { loading, error, data } = useQuery(QUERIES);
+  const { loading, error, data } = useQuery<Courses, null>(QUERIES);
   const [currentTerm, setCurrentTerm] = useState(0);
 
   if (loading) return <p>Loading...</p>;
