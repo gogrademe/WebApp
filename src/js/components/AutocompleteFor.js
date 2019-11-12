@@ -13,7 +13,7 @@
         types: null
       };
     },
-    UNSAFE_componentWillMount() {
+    componentWillMount() {
       var this$ = this;
       return api.group.find().then(function(it) {
         return this$.setState({
@@ -53,7 +53,7 @@
         terms: null
       };
     },
-    UNSAFE_componentWillMount() {
+    componentWillMount() {
       var this$ = this;
       return api.term.find().then(function(it) {
         return this$.setState({

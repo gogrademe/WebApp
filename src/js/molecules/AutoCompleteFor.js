@@ -73,7 +73,7 @@ class DropdownAsync extends React.Component {
     options: []
   };
 
-  UNSAFE_componentDidMount() {
+  componentDidMount() {
     this.loadOptions("");
   }
 

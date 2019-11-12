@@ -13,7 +13,7 @@ PersonDetail = React.createClass({
       person: {}
     };
   },
-  UNSAFE_componentWillMount() {
+  componentWillMount() {
     var this$ = this;
     return api.person.get(this.props.match.params.id).then(function(it) {
       return this$.setState({
