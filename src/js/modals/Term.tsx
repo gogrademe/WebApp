@@ -2,13 +2,11 @@ import * as React from "react";
 
 import api from "../api/api";
 
-//Molecules
 import ModalForm from "../components/ModalForm";
 
 import { Field, reduxForm } from "redux-form";
-// import connect from '../api-connector';
 
-import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from "semantic-ui-react";
+import { Form } from "semantic-ui-react";
 
 class TermModal extends React.Component<any, any> {
   onSubmit = model => {
