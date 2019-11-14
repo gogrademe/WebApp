@@ -94,6 +94,6 @@
     "redux-thunk": "^2.1.0",
     "semantic-ui-react": "^0.88.1",
     "serializr": "^1.1.7",
-    "superagent": "^0.21.0"
+    "superagent": "^5.0.2"
   }
 }
