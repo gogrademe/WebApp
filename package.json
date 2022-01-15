@@ -48,7 +48,7 @@
     "react-dev-utils": "^0.2.1",
     "recursive-readdir": "^2.1.0",
     "rimraf": "^2.5.4",
-    "shelljs": "^0.5.3",
+    "shelljs": "^0.8.5",
     "strip-ansi": "^3.0.1",
     "typescript": "^3.7.2",
     "url-join": "^1.1.0"
